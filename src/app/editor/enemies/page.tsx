@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import AppearanceFields from "@/components/editor/AppearanceFields";
+import TraitFields from "@/components/editor/TraitFields";
 import {
   CheckField,
   EditorLayout,
@@ -21,6 +22,7 @@ function blank(): EnemyDef {
     moveSpeed: 1.2,
     isBoss: false,
     goldReward: 5,
+    traits: [],
     appearance: { color: "#84cc16", shape: "circle", icon: "👹" },
     description: "",
   };
@@ -78,6 +80,11 @@ export default function EnemiesEditor() {
             <NumberField label="처치 골드" value={draft.goldReward} onChange={(v) => set("goldReward", v)} />
           </div>
           <CheckField label="보스 여부 (보스 웨이브에 단독 등장, 체력 대폭 증가)" value={draft.isBoss} onChange={(v) => set("isBoss", v)} />
+          <TraitFields
+            value={draft.traits ?? []}
+            onChange={(v) => set("traits", v)}
+            enemies={items.filter((e) => e.id !== draft.id)}
+          />
           <AppearanceFields value={draft.appearance} onChange={(v) => set("appearance", v)} />
           <TextField label="설명" value={draft.description ?? ""} onChange={(v) => set("description", v)} />
           <div className="flex gap-2">

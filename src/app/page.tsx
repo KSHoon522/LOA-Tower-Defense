@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { DIFFICULTY } from "@/game/constants";
-import type { Difficulty, GameData } from "@/game/types";
+import type { Difficulty, GameData, SaveSlot } from "@/game/types";
 import { fetchGameData } from "@/lib/api";
+import { clearSave, loadSave } from "@/lib/save";
 
 export default function HomePage() {
   const router = useRouter();
@@ -14,8 +15,10 @@ export default function HomePage() {
   const [stageId, setStageId] = useState("");
   const [jobId, setJobId] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
+  const [save, setSave] = useState<SaveSlot | null>(null);
 
   useEffect(() => {
+    setSave(loadSave());
     fetchGameData()
       .then((d) => {
         setData(d);
@@ -48,6 +51,39 @@ export default function HomePage() {
           타워를 뽑고, 합성하고, 시너지를 맞춰 적의 침공을 막아내세요!
         </p>
       </div>
+
+      {save && (
+        <section className="panel flex items-center gap-3 border-green-700 bg-green-950/30">
+          <div className="flex-1 text-sm">
+            <div className="font-bold text-green-300">💾 저장된 게임이 있습니다</div>
+            <div className="text-xs text-slate-400">
+              {data.chapters.find((c) => c.id === save.chapterId)?.name ?? save.chapterId} ·{" "}
+              {data.chapters
+                .find((c) => c.id === save.chapterId)
+                ?.stages.find((s) => s.id === save.stageId)?.name ?? save.stageId}{" "}
+              · 웨이브 {save.snapshot.wave} · {DIFFICULTY[save.difficulty].label} ·{" "}
+              {new Date(save.savedAt).toLocaleString()}
+            </div>
+          </div>
+          <button
+            className="btn btn-primary"
+            onClick={() => router.push("/game?resume=1")}
+          >
+            이어하기
+          </button>
+          <button
+            className="btn"
+            onClick={() => {
+              if (confirm("저장된 게임을 삭제할까요?")) {
+                clearSave();
+                setSave(null);
+              }
+            }}
+          >
+            삭제
+          </button>
+        </section>
+      )}
 
       <section className="panel space-y-2">
         <h2 className="font-bold text-slate-200">1. 챕터 선택</h2>

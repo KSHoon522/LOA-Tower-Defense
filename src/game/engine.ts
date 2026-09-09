@@ -1,8 +1,12 @@
 import { nanoid } from "nanoid";
 import {
   BENCH_SIZE,
+  BOSS_GOLD_MULT,
+  BOSS_HP_MULT,
   DIFFICULTY,
   GRADE_ORDER,
+  INTEREST_CAP,
+  INTEREST_PCT,
   PROJECTILE_SPEED,
   SELL_BASE_GOLD,
   SELL_REFUND_PCT,
@@ -17,6 +21,7 @@ import {
 import { mitigate, primaryDamageType, rollCrit } from "./combat";
 import { gachaCost, jobPassiveValue, rollGacha } from "./gacha";
 import { canFuse, fuse } from "./fusion";
+import { Rng } from "./rng";
 import { computeSynergies, synergyBonus } from "./synergy";
 import type {
   ActiveSynergy,
@@ -24,10 +29,12 @@ import type {
   Difficulty,
   EffectFx,
   EnemyDef,
+  EnemyTrait,
   EnemyUnit,
   FloatingText,
   GachaDef,
   GamePhase,
+  GameSnapshot,
   GlobalBuff,
   JobActiveSkill,
   JobBuffStat,
@@ -40,8 +47,10 @@ import type {
   SkillDef,
   StageDef,
   SynergyDef,
+  TargetMode,
   TowerDef,
   TowerUnit,
+  WaveDef,
 } from "./types";
 
 export interface EngineOptions {
@@ -54,6 +63,8 @@ export interface EngineOptions {
   difficulty: Difficulty;
   /** 스테이지 (챕터/스테이지 시스템). 없으면 기본 웨이브 구성 */
   stage?: StageDef | null;
+  /** RNG 시드 (없으면 랜덤). 같은 시드 = 같은 결과 */
+  seed?: number;
 }
 
 interface SpawnEntry {
@@ -73,6 +84,7 @@ export interface GameLogEntry {
  * 로타디 게임 엔진 (순수 로직, DOM/Canvas 비의존)
  * - tick(dt)로 진행, UI는 상태를 읽기만 함
  * - React 동기화: version 카운터 (중요 상태 변경 시 증가)
+ * - 시드 RNG + serialize/restore 로 결정론적 재현/저장 가능
  */
 export class GameEngine {
   readonly map: MapDef;
@@ -84,6 +96,8 @@ export class GameEngine {
   readonly difficulty: Difficulty;
   readonly stage: StageDef | null;
   readonly towerPool: TowerDef[];
+  readonly seed: number;
+  readonly rng: Rng;
 
   // ---- 플레이어 상태 ----
   gold = 0;
@@ -130,6 +144,8 @@ export class GameEngine {
     this.difficulty = opts.difficulty;
     this.stage = opts.stage ?? null;
     this.towerPool = opts.towers;
+    this.seed = opts.seed ?? Rng.randomSeed();
+    this.rng = new Rng(this.seed);
 
     const diff = DIFFICULTY[opts.difficulty];
     this.gold = diff.startGold;
@@ -146,7 +162,76 @@ export class GameEngine {
     this.bump();
   }
 
+  // ============================================================
+  // 저장 / 복원
+  // ============================================================
+
+  /** 현재 상태를 순수 데이터로 직렬화 (이펙트/텍스트는 제외) */
+  serialize(): GameSnapshot {
+    return {
+      version: 1,
+      seed: this.seed,
+      rngState: this.rng.getState(),
+      time: this.time,
+      gold: this.gold,
+      lives: this.lives,
+      wave: this.wave,
+      phase: this.phase,
+      bench: structuredClone(this.bench),
+      placed: structuredClone(this.placed),
+      enemies: structuredClone(this.enemies),
+      projectiles: structuredClone(this.projectiles),
+      spawnQueue: this.spawnQueue.map((s) => ({
+        at: s.at,
+        defId: s.def.id,
+        hpMult: s.hpMult,
+        goldMult: s.goldMult,
+        pathId: s.pathId,
+      })),
+      waveStartTime: this.waveStartTime,
+      waveSpawnDone: this.waveSpawnDone,
+      spawnCounter: this.spawnCounter,
+      jobSkillReadyAt: Array.from(this.jobSkillReadyAt.entries()),
+      jobSkillUsesLeft: this.jobSkillUsesLeft,
+      globalBuffs: structuredClone(this.globalBuffs),
+      logs: structuredClone(this.logs),
+    };
+  }
+
+  /** 스냅샷으로부터 엔진 복원 */
+  static restore(opts: EngineOptions, snap: GameSnapshot): GameEngine {
+    const eng = new GameEngine({ ...opts, seed: snap.seed });
+    eng.rng.setState(snap.rngState);
+    eng.time = snap.time;
+    eng.gold = snap.gold;
+    eng.lives = snap.lives;
+    eng.wave = snap.wave;
+    eng.phase = snap.phase;
+    eng.bench = structuredClone(snap.bench);
+    eng.placed = structuredClone(snap.placed);
+    eng.enemies = structuredClone(snap.enemies);
+    eng.projectiles = structuredClone(snap.projectiles);
+    eng.spawnQueue = snap.spawnQueue
+      .map((s) => {
+        const def = eng.enemyDefs.get(s.defId);
+        return def ? { at: s.at, def, hpMult: s.hpMult, goldMult: s.goldMult, pathId: s.pathId } : null;
+      })
+      .filter((s): s is SpawnEntry => !!s);
+    eng.waveStartTime = snap.waveStartTime;
+    eng.waveSpawnDone = snap.waveSpawnDone;
+    eng.spawnCounter = snap.spawnCounter;
+    eng.jobSkillReadyAt = new Map(snap.jobSkillReadyAt);
+    eng.jobSkillUsesLeft = snap.jobSkillUsesLeft;
+    eng.globalBuffs = structuredClone(snap.globalBuffs);
+    eng.logs = structuredClone(snap.logs);
+    eng.log("💾 저장된 게임을 불러왔습니다.", "#4ade80");
+    eng.recomputeSynergies();
+    eng.bump();
+    return eng;
+  }
+
   get totalWaves(): number {
+    if (this.stage?.waveDefs && this.stage.waveDefs.length > 0) return this.stage.waveDefs.length;
     return this.stage?.waves ?? TOTAL_WAVES;
   }
 
@@ -237,6 +322,33 @@ export class GameEngine {
       this.synergyDefs,
       this.job
     );
+  }
+
+  // ============================================================
+  // 적 특성 유틸
+  // ============================================================
+
+  private traitsOf(e: EnemyUnit): EnemyTrait[] {
+    return this.enemyDefs.get(e.defId)?.traits ?? [];
+  }
+
+  private hasTrait(e: EnemyUnit, type: EnemyTrait["type"]): boolean {
+    return this.traitsOf(e).some((t) => t.type === type);
+  }
+
+  /** 오라 등으로 보정된 실효 방어력 */
+  private effectiveEnemyDefense(e: EnemyUnit, type: DamageType): number {
+    let def = type === "physical" ? e.defense : e.magicDefense;
+    for (const other of this.enemies) {
+      if (other.dead || other.reached) continue;
+      for (const tr of this.traitsOf(other)) {
+        if (tr.type !== "aura_defense") continue;
+        if (Math.hypot(other.pos.x - e.pos.x, other.pos.y - e.pos.y) <= tr.radius) {
+          def += type === "physical" ? tr.defense : tr.magicDefense;
+        }
+      }
+    }
+    return def;
   }
 
   // ============================================================
@@ -338,7 +450,7 @@ export class GameEngine {
     const cost = gachaCost(gacha, this.job);
     if (this.gold < cost) return null;
 
-    const def = rollGacha(this.towerPool, gacha, region);
+    const def = rollGacha(this.rng, this.towerPool, gacha, region);
     if (!def) {
       this.log("해당 조건의 캐릭터가 없습니다.", "#f87171");
       this.bump();
@@ -364,7 +476,9 @@ export class GameEngine {
       totalDamage: 0,
       buffs: [],
       attackAnim: 0,
+      skillAnimUntil: 0,
       aimAngle: 0,
+      targetMode: "first",
     };
   }
 
@@ -372,6 +486,14 @@ export class GameEngine {
     return (
       this.bench.find((t) => t.uid === uid) ?? this.placed.find((t) => t.uid === uid)
     );
+  }
+
+  setTargetMode(uid: string, mode: TargetMode): boolean {
+    const unit = this.findUnit(uid);
+    if (!unit) return false;
+    unit.targetMode = mode;
+    this.bump();
+    return true;
   }
 
   /** 특정 유닛과 합성 가능한 다른 유닛 uid 목록 (선택 기반 합성 UI용) */
@@ -403,7 +525,7 @@ export class GameEngine {
     const da = this.towerDefs.get(a.defId)!;
     const db = this.towerDefs.get(b.defId)!;
 
-    const outcome = fuse(da, db, this.towerPool, this.job);
+    const outcome = fuse(this.rng, da, db, this.towerPool, this.job);
     if (!outcome) return null;
 
     this.removeUnit(uidA);
@@ -486,7 +608,7 @@ export class GameEngine {
   }
 
   // ============================================================
-  // 웨이브 (스테이지 구성 반영)
+  // 웨이브 (자동 생성 / 수동 waveDefs)
   // ============================================================
 
   canStartWave(): boolean {
@@ -505,9 +627,27 @@ export class GameEngine {
     this.bump();
   }
 
+  private waveDefFor(wave: number): WaveDef | null {
+    return this.stage?.waveDefs?.[wave - 1] ?? null;
+  }
+
   isBossWave(wave: number): boolean {
-    // 마지막 웨이브 또는 5의 배수 웨이브는 보스
+    const wd = this.waveDefFor(wave);
+    if (wd) return !!wd.bossId;
+    // 자동 생성: 5의 배수 또는 마지막 웨이브
     return wave % WAVES_PER_BOSS === 0 || wave === this.totalWaves;
+  }
+
+  /** 다음 웨이브 미리보기 (UI용): 등장 적 종류별 수 */
+  wavePreview(wave: number): { def: EnemyDef; count: number }[] {
+    const entries = this.buildWave(wave, true);
+    const counts = new Map<string, { def: EnemyDef; count: number }>();
+    for (const e of entries) {
+      const cur = counts.get(e.def.id) ?? { def: e.def, count: 0 };
+      cur.count++;
+      counts.set(e.def.id, cur);
+    }
+    return Array.from(counts.values());
   }
 
   /** 스테이지에 지정된 적 풀 (없으면 전체) */
@@ -529,6 +669,89 @@ export class GameEngine {
     return all;
   }
 
+  /** 자동 생성 모드의 보스 선택 */
+  private autoBossFor(wave: number): EnemyDef | null {
+    const bosses = this.stageBossPool();
+    if (bosses.length === 0) return null;
+    return bosses[Math.floor(wave / WAVES_PER_BOSS) % bosses.length];
+  }
+
+  private waveMultipliers(wave: number): { hpMult: number; goldMult: number } {
+    const diff = DIFFICULTY[this.difficulty];
+    const wd = this.waveDefFor(wave);
+    return {
+      hpMult:
+        Math.pow(WAVE_HP_GROWTH, wave - 1) *
+        diff.enemyHpMult *
+        (this.stage?.hpMult ?? 1) *
+        (wd?.hpMult ?? 1),
+      goldMult:
+        Math.pow(WAVE_GOLD_GROWTH, wave - 1) * (this.stage?.goldMult ?? 1) * (wd?.goldMult ?? 1),
+    };
+  }
+
+  /**
+   * 웨이브 스폰 목록 생성
+   * @param preview true면 spawnCounter를 변경하지 않음 (미리보기용)
+   */
+  private buildWave(wave: number, preview = false): SpawnEntry[] {
+    const { hpMult, goldMult } = this.waveMultipliers(wave);
+    const pathCount = Math.max(1, this.map.paths.length);
+    let counter = this.spawnCounter;
+    const nextPath = () => counter++ % pathCount;
+
+    const entries: SpawnEntry[] = [];
+    const wd = this.waveDefFor(wave);
+
+    if (wd) {
+      // ---- 수동 웨이브 ----
+      let cursor = 0;
+      for (const g of wd.groups) {
+        const def = this.enemyDefs.get(g.enemyId);
+        if (!def) continue;
+        cursor += g.delay ?? 0;
+        for (let i = 0; i < g.count; i++) {
+          entries.push({ at: cursor + i * g.interval, def, hpMult, goldMult, pathId: nextPath() });
+        }
+        cursor += Math.max(0, g.count - 1) * g.interval + g.interval;
+      }
+      if (wd.bossId) {
+        const boss = this.enemyDefs.get(wd.bossId);
+        if (boss) {
+          entries.push({
+            at: cursor + 0.5,
+            def: boss,
+            hpMult: hpMult * BOSS_HP_MULT,
+            goldMult: goldMult * BOSS_GOLD_MULT,
+            pathId: nextPath(),
+          });
+        }
+      }
+    } else {
+      // ---- 자동 생성 ----
+      const normals = this.stageNormalPool();
+      const boss = this.isBossWave(wave) ? this.autoBossFor(wave) : null;
+      if (boss) {
+        entries.push({
+          at: 0.5,
+          def: boss,
+          hpMult: hpMult * BOSS_HP_MULT,
+          goldMult: goldMult * BOSS_GOLD_MULT,
+          pathId: nextPath(),
+        });
+      } else if (normals.length > 0) {
+        for (let i = 0; i < WAVE_ENEMY_COUNT; i++) {
+          const def = normals[(wave + i) % normals.length];
+          entries.push({ at: i * SPAWN_INTERVAL, def, hpMult, goldMult, pathId: nextPath() });
+        }
+      }
+    }
+
+    entries.sort((a, b) => a.at - b.at);
+    if (!preview) this.spawnCounter = counter;
+    return entries;
+  }
+
   /**
    * 가장 가까운 보스 정보 (UI 표시용)
    * - 현재 보스가 살아있으면 그 보스 (실시간 체력 포함)
@@ -545,85 +768,59 @@ export class GameEngine {
       const def = this.enemyDefs.get(alive.defId);
       if (def) return { wave: this.wave, def, maxHp: alive.maxHp, alive };
     }
-    const bosses = this.stageBossPool();
-    if (bosses.length === 0) return null;
     for (let w = this.wave + 1; w <= this.totalWaves; w++) {
       if (!this.isBossWave(w)) continue;
-      const def = bosses[Math.floor(w / WAVES_PER_BOSS) % bosses.length];
-      const diff = DIFFICULTY[this.difficulty];
-      const hpMult =
-        Math.pow(WAVE_HP_GROWTH, w - 1) *
-        diff.enemyHpMult *
-        (this.stage?.hpMult ?? 1) *
-        6; // 보스 체력 배수 (buildWave와 동일)
-      return { wave: w, def, maxHp: Math.round(def.hp * hpMult), alive: null };
+      const wd = this.waveDefFor(w);
+      const def = wd?.bossId ? this.enemyDefs.get(wd.bossId) ?? null : this.autoBossFor(w);
+      if (!def) continue;
+      const { hpMult } = this.waveMultipliers(w);
+      return { wave: w, def, maxHp: Math.round(def.hp * hpMult * BOSS_HP_MULT), alive: null };
     }
     return null;
   }
 
-  private buildWave(wave: number): SpawnEntry[] {
-    const diff = DIFFICULTY[this.difficulty];
-    const stageHp = this.stage?.hpMult ?? 1;
-    const stageGold = this.stage?.goldMult ?? 1;
-    const hpMult = Math.pow(WAVE_HP_GROWTH, wave - 1) * diff.enemyHpMult * stageHp;
-    const goldMult = Math.pow(WAVE_GOLD_GROWTH, wave - 1) * stageGold;
-
-    const normals = this.stageNormalPool();
-    const bosses = this.stageBossPool();
-    const pathCount = Math.max(1, this.map.paths.length);
-
-    const entries: SpawnEntry[] = [];
-    if (this.isBossWave(wave) && bosses.length > 0) {
-      const boss = bosses[Math.floor(wave / WAVES_PER_BOSS) % bosses.length];
-      entries.push({
-        at: 0.5,
-        def: boss,
-        hpMult: hpMult * 6,
-        goldMult: goldMult * 5,
-        pathId: this.spawnCounter++ % pathCount,
-      });
-    } else if (normals.length > 0) {
-      for (let i = 0; i < WAVE_ENEMY_COUNT; i++) {
-        const def = normals[(wave + i) % normals.length];
-        entries.push({
-          at: i * SPAWN_INTERVAL,
-          def,
-          hpMult,
-          goldMult,
-          pathId: this.spawnCounter++ % pathCount,
-        });
-      }
-    }
-    return entries;
-  }
-
   private spawnEnemy(entry: SpawnEntry) {
-    const diff = DIFFICULTY[this.difficulty];
     const path = this.map.paths[entry.pathId] ?? this.map.paths[0];
     const start = path?.[0];
     if (!start) return;
-    const hp = Math.round(entry.def.hp * entry.hpMult);
-    const unit: EnemyUnit = {
+    this.enemies.push(
+      this.createEnemyUnit(entry.def, entry.hpMult, entry.goldMult, entry.pathId, { x: start.x, y: start.y }, 1)
+    );
+  }
+
+  private createEnemyUnit(
+    def: EnemyDef,
+    hpMult: number,
+    goldMult: number,
+    pathId: number,
+    pos: Point,
+    pathIndex: number
+  ): EnemyUnit {
+    const diff = DIFFICULTY[this.difficulty];
+    const hp = Math.max(1, Math.round(def.hp * hpMult));
+    return {
       uid: nanoid(8),
-      defId: entry.def.id,
+      defId: def.id,
       hp,
       maxHp: hp,
-      defense: Math.round(entry.def.defense * diff.enemyDefMult),
-      magicDefense: Math.round(entry.def.magicDefense * diff.enemyDefMult),
-      moveSpeed: entry.def.moveSpeed,
-      isBoss: entry.def.isBoss,
-      goldReward: Math.max(1, Math.round(entry.def.goldReward * entry.goldMult)),
-      pos: { x: start.x, y: start.y },
-      pathId: entry.pathId,
-      pathIndex: 1,
+      defense: Math.round(def.defense * diff.enemyDefMult),
+      magicDefense: Math.round(def.magicDefense * diff.enemyDefMult),
+      moveSpeed: def.moveSpeed,
+      isBoss: def.isBoss,
+      goldReward: Math.max(1, Math.round(def.goldReward * goldMult)),
+      pos: { ...pos },
+      pathId,
+      pathIndex,
+      hpMult,
+      goldMult,
       slowPct: 0,
       slowUntil: 0,
       stunUntil: 0,
       hitFlashUntil: 0,
+      facing: 1,
       dead: false,
       reached: false,
     };
-    this.enemies.push(unit);
   }
 
   // ============================================================
@@ -654,8 +851,12 @@ export class GameEngine {
 
     // 웨이브 종료 판정
     if (this.phase === "wave" && this.waveSpawnDone && this.enemies.length === 0) {
-      this.gold += WAVE_CLEAR_GOLD;
-      this.log(`웨이브 ${this.wave} 클리어! +${WAVE_CLEAR_GOLD}G`, "#4ade80");
+      const interest = Math.min(INTEREST_CAP, Math.floor((this.gold * INTEREST_PCT) / 100));
+      this.gold += WAVE_CLEAR_GOLD + interest;
+      this.log(
+        `웨이브 ${this.wave} 클리어! +${WAVE_CLEAR_GOLD}G${interest > 0 ? ` (이자 +${interest}G)` : ""}`,
+        "#4ade80"
+      );
       if (this.wave >= this.totalWaves) {
         this.phase = "victory";
         this.log("🎉 모든 웨이브 방어 성공! 승리!", "#fbbf24");
@@ -669,6 +870,14 @@ export class GameEngine {
   private updateEnemies(dt: number) {
     for (const e of this.enemies) {
       if (e.dead || e.reached) continue;
+
+      // 재생 특성
+      for (const tr of this.traitsOf(e)) {
+        if (tr.type === "regen" && e.hp < e.maxHp) {
+          e.hp = Math.min(e.maxHp, e.hp + (e.maxHp * tr.pctPerSec * dt) / 100);
+        }
+      }
+
       if (e.stunUntil > this.time) continue;
 
       const path = this.map.paths[e.pathId] ?? this.map.paths[0] ?? [];
@@ -682,6 +891,7 @@ export class GameEngine {
         const dx = target.x - e.pos.x;
         const dy = target.y - e.pos.y;
         const dist = Math.hypot(dx, dy);
+        if (Math.abs(dx) > 0.01) e.facing = dx > 0 ? 1 : -1;
         if (dist <= remaining) {
           e.pos = { x: target.x, y: target.y };
           e.pathIndex++;
@@ -730,7 +940,7 @@ export class GameEngine {
       if (this.time < t.nextAttackAt) continue;
 
       const range = this.effectiveRange(t, def);
-      const target = this.pickTarget(t.tile, range);
+      const target = this.pickTarget(t.tile, range, t.targetMode);
       if (!target) continue;
 
       // 스킬 사용 (마나 가득)
@@ -748,17 +958,37 @@ export class GameEngine {
     }
   }
 
-  /** 타겟: 사거리 내에서 도착지에 가장 가까운 적 */
-  private pickTarget(from: Point, range: number): EnemyUnit | null {
+  /** 타겟 선택: 모드별 (은신 적은 revealRange 이내에서만 타겟 가능) */
+  private pickTarget(from: Point, range: number, mode: TargetMode): EnemyUnit | null {
     let best: EnemyUnit | null = null;
-    let bestProgress = -1;
+    let bestScore = -Infinity;
     for (const e of this.enemies) {
       if (e.dead || e.reached) continue;
       const d = Math.hypot(e.pos.x - from.x, e.pos.y - from.y);
       if (d > range) continue;
+
+      // 은신
+      const stealth = this.traitsOf(e).find((tr) => tr.type === "stealth");
+      if (stealth && stealth.type === "stealth" && d > stealth.revealRange) continue;
+
       const progress = e.pathIndex * 1000 - this.distToNextWaypoint(e);
-      if (progress > bestProgress) {
-        bestProgress = progress;
+      let score: number;
+      switch (mode) {
+        case "last":
+          score = -progress;
+          break;
+        case "strongest":
+          score = e.hp;
+          break;
+        case "boss":
+          score = (e.isBoss ? 1e9 : 0) + progress;
+          break;
+        case "first":
+        default:
+          score = progress;
+      }
+      if (score > bestScore) {
+        bestScore = score;
         best = e;
       }
     }
@@ -788,6 +1018,7 @@ export class GameEngine {
         : this.effectiveMagicAtk(t, def));
 
     const { damage, crit } = rollCrit(
+      this.rng,
       baseDamage,
       this.effectiveCritChance(def),
       this.effectiveCritDamage(def)
@@ -809,8 +1040,9 @@ export class GameEngine {
 
   private updateProjectiles(dt: number) {
     const next: Projectile[] = [];
+    const byUid = new Map(this.enemies.map((e) => [e.uid, e]));
     for (const p of this.projectiles) {
-      const target = this.enemies.find((e) => e.uid === p.targetUid);
+      const target = byUid.get(p.targetUid);
       if (!target || target.dead || target.reached) continue; // 대상 소멸 → 투사체 제거
 
       const dx = target.pos.x - p.pos.x;
@@ -847,7 +1079,8 @@ export class GameEngine {
     crit: boolean,
     sourceUid: string
   ) {
-    const defense = type === "physical" ? target.defense : target.magicDefense;
+    if (target.dead) return;
+    const defense = this.effectiveEnemyDefense(target, type);
     const final = Math.max(1, Math.round(mitigate(rawDamage, defense, type)));
     target.hp -= final;
     target.hitFlashUntil = this.time + 0.12;
@@ -873,6 +1106,24 @@ export class GameEngine {
       if (src) src.kills++;
       this.addFx("death", target.pos, "#fca5a5", 0.6, 0.6);
       if (target.isBoss) this.log(`보스 처치! +${reward}G`, "#fbbf24");
+
+      // 분열 특성: 사망 위치에 자식 스폰
+      for (const tr of this.traitsOf(target)) {
+        if (tr.type !== "split") continue;
+        const childDef = this.enemyDefs.get(tr.enemyId);
+        if (!childDef) continue;
+        for (let i = 0; i < tr.count; i++) {
+          const child = this.createEnemyUnit(
+            childDef,
+            target.hpMult,
+            target.goldMult,
+            target.pathId,
+            { x: target.pos.x + (i - (tr.count - 1) / 2) * 0.25, y: target.pos.y },
+            target.pathIndex
+          );
+          this.enemies.push(child);
+        }
+      }
       this.bump();
     }
   }
@@ -888,6 +1139,7 @@ export class GameEngine {
       type === "physical" ? this.effectiveAtk(t, def) : this.effectiveMagicAtk(t, def);
     const power = base * (skill.power / 100);
 
+    t.skillAnimUntil = this.time + 0.6;
     this.addFx("skill_text", { x: t.tile!.x, y: t.tile!.y - 0.5 }, "#fbbf24", 1.0, 0, skill.name);
 
     switch (skill.type) {
@@ -900,6 +1152,7 @@ export class GameEngine {
         this.addFx("aoe", target.pos, "#fb923c", 0.5, radius);
         for (const e of this.nearbyEnemies(target.pos, radius)) {
           const { damage, crit } = rollCrit(
+            this.rng,
             power,
             this.effectiveCritChance(def),
             this.effectiveCritDamage(def)
@@ -915,6 +1168,7 @@ export class GameEngine {
         this.addFx("slow", target.pos, "#38bdf8", dur, radius);
         for (const e of this.nearbyEnemies(target.pos, radius)) {
           this.dealDamage(e, power, type, false, t.uid);
+          if (this.hasTrait(e, "slow_immune")) continue;
           e.slowPct = Math.max(e.slowPct, slowPct);
           e.slowUntil = Math.max(e.slowUntil, this.time + dur);
         }
@@ -923,8 +1177,10 @@ export class GameEngine {
       case "stun": {
         const dur = skill.duration ?? 1;
         this.dealDamage(target, power, type, false, t.uid);
-        target.stunUntil = Math.max(target.stunUntil, this.time + dur);
-        this.addFx("stun", target.pos, "#fde047", dur, 0.5);
+        if (!this.hasTrait(target, "stun_immune")) {
+          target.stunUntil = Math.max(target.stunUntil, this.time + dur);
+          this.addFx("stun", target.pos, "#fde047", dur, 0.5);
+        }
         break;
       }
       case "chain": {
@@ -961,6 +1217,23 @@ export class GameEngine {
         !e.reached &&
         Math.hypot(e.pos.x - center.x, e.pos.y - center.y) <= radius
     );
+  }
+
+  // ============================================================
+  // 통계
+  // ============================================================
+
+  /** 타워별 전투 기여 (딜량 내림차순) */
+  towerStats(): { unit: TowerUnit; def: TowerDef; damage: number; kills: number }[] {
+    return [...this.placed, ...this.bench]
+      .map((unit) => ({
+        unit,
+        def: this.towerDefs.get(unit.defId)!,
+        damage: unit.totalDamage,
+        kills: unit.kills,
+      }))
+      .filter((s) => !!s.def && (s.damage > 0 || s.kills > 0))
+      .sort((a, b) => b.damage - a.damage);
   }
 
   // ============================================================

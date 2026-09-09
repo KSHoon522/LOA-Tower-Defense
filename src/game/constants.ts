@@ -110,6 +110,26 @@ export const WAVE_GOLD_GROWTH = 1.05;
 /** 웨이브 클리어 보너스 골드 */
 export const WAVE_CLEAR_GOLD = 25;
 
+/** 웨이브 클리어 시 보유 골드 이자 (%) 및 상한 */
+export const INTEREST_PCT = 5;
+export const INTEREST_CAP = 30;
+
+/** 보스 웨이브 체력 배수 */
+export const BOSS_HP_MULT = 6;
+/** 보스 골드 배수 */
+export const BOSS_GOLD_MULT = 5;
+
+/** 타워 타겟팅 모드 라벨 */
+export const TARGET_MODE_LABEL: Record<
+  "first" | "last" | "strongest" | "boss",
+  string
+> = {
+  first: "선두 우선",
+  last: "후미 우선",
+  strongest: "최대 체력",
+  boss: "보스 우선",
+};
+
 /** 타워 판매 환급률 (%) - 뽑기 기본 비용 기준 */
 export const SELL_REFUND_PCT = 50;
 

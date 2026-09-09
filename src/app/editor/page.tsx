@@ -8,6 +8,7 @@ const MENUS = [
   { href: "/editor/enemies", icon: "👹", title: "적 캐릭터", desc: "체력, 방어력, 이동속도, 보스 여부 편집" },
   { href: "/editor/synergies", icon: "🔗", title: "시너지", desc: "지역 시너지 단계별 효과 편집 (효과는 아군 전체 적용)" },
   { href: "/editor/gachas", icon: "🎲", title: "뽑기", desc: "뽑기 종류, 비용, 등급별 확률, 지역 조건 편집" },
+  { href: "/editor/simulator", icon: "🧪", title: "밸런스 시뮬레이터", desc: "자동 플레이 AI로 N회 실행 — 클리어율, 도달 웨이브, 캐릭터 기여도" },
 ];
 
 export default function EditorHome() {

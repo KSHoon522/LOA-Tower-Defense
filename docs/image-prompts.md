@@ -92,17 +92,35 @@ walking pose, side view
 
 ---
 
-## 3. 공격 모션 (스프라이트 시트) 프롬프트 템플릿
+## 3. 스프라이트 시트 (애니메이션) 프롬프트 템플릿
+
+게임은 **가로 프레임 나열 + 줄(row)별 애니메이션** 형식의 시트를 지원합니다.
+에디터의 "스프라이트 시트 사용"에서 프레임 크기와 줄/프레임 수/fps를 지정하면 됩니다.
+
+권장 규격: 프레임 64×64 또는 128×128, 캐릭터가 **오른쪽**을 바라보게 (왼쪽은 게임이 자동 반전),
+배경 투명 PNG.
+
+| 줄(row) | 애니메이션 | 권장 프레임 | 용도 |
+|---------|-----------|------------|------|
+| 0 | idle (대기) | 4 | 필수. 아군/적 공통 |
+| 1 | attack (공격) | 4 | 아군 타워 |
+| 2 | skill (스킬) | 6 | 아군 타워 |
+| 3 | walk (이동) | 6 | 적 캐릭터 |
 
 ```
 [공통 스타일] +
-{캐릭터 설명}, sprite sheet, 4 frames of attack animation in a horizontal row,
-frame 1 wind-up, frame 2 strike, frame 3 follow-through, frame 4 return to idle,
-consistent character size across frames
+{캐릭터 설명}, pixel-perfect sprite sheet for a 2D game,
+4 rows of animation on a transparent background, each row is one animation,
+row 1: 4 frames idle breathing loop,
+row 2: 4 frames attack (wind-up, strike, follow-through, recover),
+row 3: 6 frames skill cast with glowing energy,
+row 4: 6 frames walk cycle,
+every frame exactly 64x64 pixels in a uniform grid, character always facing right,
+consistent size and position across all frames, no labels, no grid lines
 ```
 
-> 참고: 현재 엔진은 단일 이미지를 사용하며 공격 모션은 코드(반동+플래시)로 처리합니다.
-> 스프라이트 시트 지원이 필요해지면 `render.ts`의 `drawShape`를 프레임 분할 방식으로 확장하면 됩니다.
+> 생성 AI가 정확한 격자를 지키지 못하는 경우가 많으니, 생성 후 이미지 편집 도구로 프레임 경계를
+> 정렬하는 것을 권장합니다. 줄 수가 달라도 에디터에서 row 번호를 맞추면 됩니다.
 
 ---
 

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { DIFFICULTY, GRADE_COLOR, GRADE_LABEL } from "@/game/constants";
+import { DIFFICULTY, GRADE_COLOR, GRADE_LABEL, TARGET_MODE_LABEL } from "@/game/constants";
 import { GameEngine } from "@/game/engine";
 import { gachaCost } from "@/game/gacha";
 import { createViewState, drawGame, type ViewState } from "@/game/render";
@@ -12,11 +12,22 @@ import type {
   EnemyUnit,
   GameData,
   Point,
+  TargetMode,
   TowerDef,
   TowerUnit,
 } from "@/game/types";
 import { fetchGameData } from "@/lib/api";
+import { clearSave, loadSave, writeSave } from "@/lib/save";
 import UnitCard from "./UnitCard";
+
+const TRAIT_LABEL: Record<string, string> = {
+  regen: "재생",
+  stealth: "은신",
+  split: "분열",
+  aura_defense: "방어 오라",
+  slow_immune: "둔화 면역",
+  stun_immune: "기절 면역",
+};
 
 export const SYNERGY_EFFECT_LABEL: Record<string, string> = {
   atk_pct: "공격력 %",
@@ -49,10 +60,12 @@ const PASSIVE_LABEL: Record<string, string> = {
  */
 export default function GameClient() {
   const params = useSearchParams();
-  const chapterId = params.get("chapter") ?? "";
-  const stageId = params.get("stage") ?? "";
-  const diff = (params.get("diff") ?? "easy") as Difficulty;
-  const jobId = params.get("job") ?? "";
+  const resume = params.get("resume") === "1";
+  const saved = useMemo(() => (resume ? loadSave() : null), [resume]);
+  const chapterId = saved?.chapterId ?? params.get("chapter") ?? "";
+  const stageId = saved?.stageId ?? params.get("stage") ?? "";
+  const diff = (saved?.difficulty ?? params.get("diff") ?? "easy") as Difficulty;
+  const jobId = saved?.jobId ?? params.get("job") ?? "";
 
   const [data, setData] = useState<GameData | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -111,7 +124,7 @@ export default function GameClient() {
       return;
     }
     const job = data.jobs.find((j) => j.id === jobId) ?? null;
-    engineRef.current = new GameEngine({
+    const opts = {
       map,
       towers: data.towers,
       enemies: data.enemies,
@@ -120,11 +133,66 @@ export default function GameClient() {
       job,
       difficulty: diff,
       stage,
-    });
+    };
+    // 이어하기: 저장 스냅샷 복원, 아니면 새 게임 (이전 세이브는 덮어씀)
+    if (saved) {
+      try {
+        engineRef.current = GameEngine.restore(opts, saved.snapshot);
+      } catch {
+        engineRef.current = new GameEngine(opts);
+      }
+    } else {
+      engineRef.current = new GameEngine(opts);
+    }
     setUiTick((v) => v + 1);
-  }, [data, chapterId, stageId, jobId, diff]);
+  }, [data, chapterId, stageId, jobId, diff, saved]);
 
   const engine = engineRef.current;
+
+  // ---- 자동 저장 ----
+  // 1) 웨이브 단위: 웨이브 클리어로 준비 단계에 들어올 때 1회 저장
+  // 2) 안전망: 탭 닫기/숨김 시 현재 상태 저장 (전투 중이어도 그대로 복원 가능)
+  // 승리/패배 시 세이브 삭제
+  const saveNow = useCallback(() => {
+    const eng = engineRef.current;
+    if (!eng) return;
+    if (eng.phase === "victory" || eng.phase === "defeat") {
+      clearSave();
+      return;
+    }
+    writeSave({
+      chapterId,
+      stageId,
+      jobId,
+      difficulty: diff,
+      savedAt: Date.now(),
+      snapshot: eng.serialize(),
+    });
+  }, [chapterId, stageId, jobId, diff]);
+
+  const lastSavedWaveRef = useRef(-1);
+  useEffect(() => {
+    const eng = engineRef.current;
+    if (!eng) return;
+    if (eng.phase === "prep" && eng.wave !== lastSavedWaveRef.current) {
+      lastSavedWaveRef.current = eng.wave;
+      saveNow();
+    } else if (eng.phase === "victory" || eng.phase === "defeat") {
+      clearSave();
+    }
+  }, [engine?.phase, engine?.wave, saveNow, engine]);
+
+  useEffect(() => {
+    const onHide = () => {
+      if (document.visibilityState === "hidden") saveNow();
+    };
+    window.addEventListener("beforeunload", saveNow);
+    document.addEventListener("visibilitychange", onHide);
+    return () => {
+      window.removeEventListener("beforeunload", saveNow);
+      document.removeEventListener("visibilitychange", onHide);
+    };
+  }, [saveNow]);
 
   // 화면 크기에 맞춰 타일 크기 계산
   useEffect(() => {
@@ -469,6 +537,11 @@ export default function GameClient() {
   const passiveSkills = engine.job?.skills.filter((s) => s.kind === "passive") ?? [];
   const lastLog = engine.logs[engine.logs.length - 1];
   const bossInfo = engine.bossPreview();
+  const nextWavePreview =
+    engine.phase === "prep" && engine.wave < engine.totalWaves
+      ? engine.wavePreview(engine.wave + 1)
+      : [];
+  const towerStats = engine.phase === "victory" || engine.phase === "defeat" ? engine.towerStats() : [];
 
   // 바로 뽑기 = 가장 최근에 사용한 뽑기 (없으면 첫 번째 뽑기)
   const quickGachaDef =
@@ -559,6 +632,22 @@ export default function GameClient() {
           <span>👟 이속 {e.moveSpeed}</span>
           <span>💰 {e.goldReward}G</span>
         </div>
+        {def.traits && def.traits.length > 0 && (
+          <div className="mt-1 flex flex-wrap gap-1">
+            {def.traits.map((tr, i) => (
+              <span
+                key={i}
+                className="rounded bg-purple-500/20 px-1.5 py-0.5 text-[10px] text-purple-300"
+                title={JSON.stringify(tr)}
+              >
+                {TRAIT_LABEL[tr.type] ?? tr.type}
+                {tr.type === "regen" && ` ${tr.pctPerSec}%/s`}
+                {tr.type === "stealth" && ` (${tr.revealRange}칸)`}
+                {tr.type === "split" && ` ×${tr.count}`}
+              </span>
+            ))}
+          </div>
+        )}
         {def.description && (
           <div className="mt-1.5 text-[10px] text-slate-400">{def.description}</div>
         )}
@@ -567,7 +656,23 @@ export default function GameClient() {
   };
 
   const unitActionButtons = selectedUnit && selectedDef && (
-    <div className="mt-2 flex gap-1.5">
+    <div className="mt-2 flex flex-wrap gap-1.5">
+      {selectedIsPlaced && !fusionTargetUid && (
+        <label className="flex w-full items-center gap-1 text-[10px] text-slate-400">
+          🎯 타겟
+          <select
+            className="input flex-1 py-0.5 text-[10px]"
+            value={selectedUnit.targetMode}
+            onChange={(e) => engine.setTargetMode(selectedUnit.uid, e.target.value as TargetMode)}
+          >
+            {(Object.keys(TARGET_MODE_LABEL) as TargetMode[]).map((m) => (
+              <option key={m} value={m}>
+                {TARGET_MODE_LABEL[m]}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
       {fusionTargetUid && fusionTargetDef ? (
         <>
           <button className="btn btn-primary flex-1 py-1 text-[11px]" onClick={doFuse}>
@@ -984,6 +1089,33 @@ export default function GameClient() {
               </div>
             )}
 
+            {/* 다음 웨이브 구성 미리보기 */}
+            {nextWavePreview.length > 0 && (
+              <div className="mt-2 rounded border border-slate-800 bg-slate-900 p-1.5">
+                <div className="text-[10px] font-bold text-slate-400">
+                  🌊 다음 웨이브 {engine.wave + 1} 구성
+                </div>
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {nextWavePreview.map(({ def, count }) => (
+                    <span
+                      key={def.id}
+                      className={`rounded px-1.5 py-0.5 text-[10px] ${
+                        def.isBoss ? "bg-red-500/20 text-red-300" : "bg-slate-800 text-slate-300"
+                      }`}
+                      title={def.traits?.map((t) => TRAIT_LABEL[t.type] ?? t.type).join(", ")}
+                    >
+                      {def.appearance.icon} {def.name} ×{count}
+                      {def.traits && def.traits.length > 0 && (
+                        <span className="ml-0.5 text-purple-300">
+                          [{def.traits.map((t) => TRAIT_LABEL[t.type] ?? t.type).join("/")}]
+                        </span>
+                      )}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {engine.job && (
               <>
                 <div className="mt-2 border-t border-slate-800 pt-2 text-xs font-bold text-slate-200">
@@ -1162,8 +1294,48 @@ export default function GameClient() {
                 {engine.phase === "victory" ? "🎉 승리!" : "💀 게임 오버"}
               </div>
               <div className="text-sm text-slate-400">
-                웨이브 {engine.wave}/{engine.totalWaves} · {engine.stage?.name}
+                웨이브 {engine.wave}/{engine.totalWaves} · {engine.stage?.name} · 시드{" "}
+                {engine.seed}
               </div>
+              {towerStats.length > 0 && (
+                <div className="w-[min(92%,420px)] rounded-xl border border-slate-700 bg-slate-900/80 p-3 text-xs">
+                  <div className="mb-1.5 font-bold text-slate-200">🏆 전투 기여도</div>
+                  {towerStats.slice(0, 6).map((s, i) => {
+                    const total = towerStats.reduce((sum, x) => sum + x.damage, 0) || 1;
+                    return (
+                      <div key={s.unit.uid} className="mb-1">
+                        <div className="flex items-center gap-1.5">
+                          <span className={i === 0 ? "font-bold text-amber-400" : "text-slate-400"}>
+                            {i === 0 ? "MVP" : `#${i + 1}`}
+                          </span>
+                          <span
+                            className="rounded px-1 text-[9px] font-bold text-slate-950"
+                            style={{ backgroundColor: GRADE_COLOR[s.def.grade] }}
+                          >
+                            {GRADE_LABEL[s.def.grade]}
+                          </span>
+                          <span>
+                            {s.def.appearance.icon} {s.def.name}
+                          </span>
+                          <span className="ml-auto text-slate-300">
+                            {s.damage.toLocaleString()} ({Math.round((s.damage / total) * 100)}%) · ☠{" "}
+                            {s.kills}
+                          </span>
+                        </div>
+                        <div className="mt-0.5 h-1 w-full rounded bg-slate-800">
+                          <div
+                            className="h-1 rounded"
+                            style={{
+                              width: `${(s.damage / total) * 100}%`,
+                              backgroundColor: GRADE_COLOR[s.def.grade],
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
               <Link href="/" className="btn btn-primary px-8 py-3 text-lg font-bold">
                 돌아가기
               </Link>

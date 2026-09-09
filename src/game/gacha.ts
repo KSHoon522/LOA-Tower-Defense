@@ -1,6 +1,6 @@
 import { GRADE_ORDER } from "./constants";
 import type { GachaDef, Grade, JobDef, Region, TowerDef } from "./types";
-import { randomPick, weightedPick } from "./rng";
+import type { Rng } from "./rng";
 
 /** 직업 패시브 스킬 값 합산 */
 export function jobPassiveValue(job: JobDef | null, type: string): number {
@@ -23,6 +23,7 @@ export function gachaCost(gacha: GachaDef, job: JobDef | null): number {
  * 3) 해당 등급 캐릭터 중 랜덤
  */
 export function rollGacha(
+  rng: Rng,
   pool: TowerDef[],
   gacha: GachaDef,
   selectedRegion?: Region
@@ -42,8 +43,8 @@ export function rollGacha(
   );
   if (candidates.length === 0) return null;
 
-  const grade = weightedPick(
+  const grade = rng.weighted(
     candidates.map((g) => ({ item: g, weight: gacha.rates[g] ?? 0 }))
   );
-  return randomPick(filtered.filter((t) => t.grade === grade));
+  return rng.pick(filtered.filter((t) => t.grade === grade));
 }

@@ -1,6 +1,6 @@
 import { BASE_CRIT_CHANCE, BASE_CRIT_DAMAGE, DEFENSE_K } from "./constants";
 import type { DamageType } from "./types";
-import { chance } from "./rng";
+import type { Rng } from "./rng";
 
 /**
  * 방어력/마법방어력 기반 피해 계산
@@ -19,12 +19,13 @@ export interface CritResult {
 
 /** 치명타 판정 적용 */
 export function rollCrit(
+  rng: Rng,
   baseDamage: number,
   bonusCritChance: number,
   bonusCritDamage: number
 ): CritResult {
   const critChance = BASE_CRIT_CHANCE + bonusCritChance;
-  if (chance(critChance)) {
+  if (rng.chance(critChance)) {
     const mult = (BASE_CRIT_DAMAGE + bonusCritDamage) / 100;
     return { damage: baseDamage * mult, crit: true };
   }

@@ -9,6 +9,7 @@ import {
   TextField,
   useCrud,
 } from "@/components/editor/crud";
+import WaveDefsEditor from "@/components/editor/WaveDefsEditor";
 import { DEFAULT_REGIONS } from "@/game/constants";
 import type { ChapterDef, EnemyDef, MapDef, StageDef, SynergyDef } from "@/game/types";
 
@@ -104,6 +105,23 @@ function StageRow({
             { value: "", label: "(전체 보스 풀)" },
             ...bosses.map((b) => ({ value: b.id, label: b.name })),
           ]}
+        />
+      </div>
+
+      <div className="mt-2">
+        <div className="mb-1 text-[10px] font-bold text-slate-400">
+          웨이브 구성 {stage.waveDefs ? `(수동 ${stage.waveDefs.length}웨이브)` : "(자동 생성)"}
+        </div>
+        <WaveDefsEditor
+          stage={stage}
+          enemies={enemies}
+          onChange={(waveDefs) =>
+            onChange({
+              ...stage,
+              waveDefs,
+              waves: waveDefs ? waveDefs.length : stage.waves,
+            })
+          }
         />
       </div>
 

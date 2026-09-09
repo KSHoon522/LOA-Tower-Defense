@@ -40,24 +40,86 @@ function px(v: number, ts: number): number {
   return (v + 0.5) * ts;
 }
 
+export type AnimName = "idle" | "attack" | "skill" | "walk" | "death";
+
+/** 애니메이션 상태: 어떤 동작을 몇 초째 재생 중인지 + 바라보는 방향 */
+export interface AnimState {
+  name: AnimName;
+  t: number;
+  facing: number; // 1 = 오른쪽, -1 = 왼쪽
+}
+
+function getImage(view: ViewState, src: string): HTMLImageElement | null {
+  let img = view.imageCache.get(src);
+  if (!img) {
+    img = new Image();
+    img.src = src;
+    view.imageCache.set(src, img);
+  }
+  return img.complete && img.naturalWidth > 0 ? img : null;
+}
+
+/**
+ * 스프라이트 시트 프레임 그리기
+ * - 시트 형식: 가로로 프레임 나열, 줄(row)마다 다른 애니메이션
+ * - 요청한 애니메이션이 없으면 idle로 대체, 방향에 따라 좌우 반전
+ */
+function drawSprite(
+  ctx: CanvasRenderingContext2D,
+  app: Appearance,
+  cx: number,
+  cy: number,
+  r: number,
+  view: ViewState,
+  anim: AnimState
+): boolean {
+  const sheet = app.sprite;
+  if (!sheet) return false;
+  const img = getImage(view, sheet.src);
+  if (!img) return false;
+
+  const def = sheet.animations[anim.name] ?? sheet.animations.idle;
+  const frame = Math.max(0, Math.floor(anim.t * def.fps)) % Math.max(1, def.frames);
+  const sx = frame * sheet.frameWidth;
+  const sy = def.row * sheet.frameHeight;
+
+  const size = r * 2.5 * (sheet.scale ?? 1);
+  const aspect = sheet.frameHeight / sheet.frameWidth;
+  const w = size;
+  const h = size * aspect;
+
+  const baseFacing = sheet.facing === "left" ? -1 : 1;
+  const flip = (app.flipToFace ?? true) && anim.facing * baseFacing < 0;
+
+  ctx.save();
+  ctx.translate(cx, cy);
+  if (flip) ctx.scale(-1, 1);
+  ctx.drawImage(img, sx, sy, sheet.frameWidth, sheet.frameHeight, -w / 2, -h / 2, w, h);
+  ctx.restore();
+  return true;
+}
+
 function drawShape(
   ctx: CanvasRenderingContext2D,
   app: Appearance,
   cx: number,
   cy: number,
   r: number,
-  view: ViewState
+  view: ViewState,
+  anim: AnimState = { name: "idle", t: 0, facing: 1 }
 ) {
-  // 이미지가 있으면 이미지 우선 (추후 카툰 그래픽 교체 지점)
+  // 우선순위: 스프라이트 시트 > 단일 이미지 > 도형 placeholder
+  if (drawSprite(ctx, app, cx, cy, r, view, anim)) return;
+
   if (app.image) {
-    let img = view.imageCache.get(app.image);
-    if (!img) {
-      img = new Image();
-      img.src = app.image;
-      view.imageCache.set(app.image, img);
-    }
-    if (img.complete && img.naturalWidth > 0) {
-      ctx.drawImage(img, cx - r, cy - r, r * 2, r * 2);
+    const img = getImage(view, app.image);
+    if (img) {
+      const flip = (app.flipToFace ?? true) && anim.facing < 0;
+      ctx.save();
+      ctx.translate(cx, cy);
+      if (flip) ctx.scale(-1, 1);
+      ctx.drawImage(img, -r, -r, r * 2, r * 2);
+      ctx.restore();
       return;
     }
   }
@@ -260,7 +322,17 @@ export function drawGame(
     ctx.lineWidth = t.attackAnim > 0.5 ? 3.5 : 2;
     ctx.stroke();
 
-    drawShape(ctx, def.appearance, ax, ay, ts * 0.32, view);
+    // 애니메이션 상태: 스킬 > 공격 > 대기
+    let anim: AnimState;
+    const facing = Math.cos(t.aimAngle) < 0 ? -1 : 1;
+    if (t.skillAnimUntil > engine.time) {
+      anim = { name: "skill", t: 0.6 - (t.skillAnimUntil - engine.time), facing };
+    } else if (t.attackAnim > 0) {
+      anim = { name: "attack", t: (1 - t.attackAnim) * 0.25, facing };
+    } else {
+      anim = { name: "idle", t: engine.time, facing };
+    }
+    drawShape(ctx, def.appearance, ax, ay, ts * 0.32, view, anim);
     ctx.globalAlpha = 1;
 
     if (isDragging) continue;
@@ -298,7 +370,35 @@ export function drawGame(
       ctx.fill();
     }
 
-    drawShape(ctx, def.appearance, cx, cy, r, view);
+    // 은신 적은 반투명
+    const stealth = def.traits?.some((tr) => tr.type === "stealth");
+    if (stealth) ctx.globalAlpha = 0.55;
+    drawShape(ctx, def.appearance, cx, cy, r, view, {
+      name: "walk",
+      t: engine.time,
+      facing: e.facing,
+    });
+    ctx.globalAlpha = 1;
+
+    // 특성 아이콘
+    if (def.traits && def.traits.length > 0) {
+      ctx.font = `${ts * 0.22}px sans-serif`;
+      ctx.textAlign = "center";
+      const icons = def.traits
+        .map((tr) =>
+          tr.type === "regen"
+            ? "💚"
+            : tr.type === "stealth"
+              ? "👤"
+              : tr.type === "split"
+                ? "🔀"
+                : tr.type === "aura_defense"
+                  ? "🛡"
+                  : "⛔"
+        )
+        .join("");
+      ctx.fillText(icons, cx, cy + r + ts * 0.18);
+    }
 
     // 상태이상 표시
     if (e.stunUntil > engine.time) {

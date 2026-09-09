@@ -19,12 +19,44 @@ export type DamageType = "physical" | "magical";
 
 export type Difficulty = "easy" | "hard" | "nightmare";
 
-/** 외형 placeholder. image가 지정되면 image 우선 렌더링 */
+/** 스프라이트 시트 애니메이션 1개: 시트의 row번째 줄에서 frames개 프레임 */
+export interface SpriteAnim {
+  row: number;
+  frames: number;
+  fps: number;
+}
+
+/**
+ * 스프라이트 시트 정의
+ * - 가로로 프레임이 나열되고, 줄(row)마다 애니메이션이 다른 형식
+ * - idle은 필수, 나머지는 없으면 idle로 대체
+ */
+export interface SpriteSheet {
+  src: string; // /characters/xxx.png
+  frameWidth: number;
+  frameHeight: number;
+  animations: {
+    idle: SpriteAnim;
+    attack?: SpriteAnim;
+    skill?: SpriteAnim;
+    walk?: SpriteAnim;
+    death?: SpriteAnim;
+  };
+  /** 렌더 배율 (1 = 타일 크기의 약 80%) */
+  scale?: number;
+  /** 시트의 기본 바라보는 방향 (반전 계산용) */
+  facing?: "left" | "right";
+}
+
+/** 외형. 우선순위: sprite > image > 도형 placeholder */
 export interface Appearance {
   color: string; // 주 색상 (hex)
   shape: "circle" | "square" | "triangle" | "diamond" | "star";
   icon: string; // 이모지 placeholder
-  image?: string; // /characters/xxx.png (추후 카툰 그래픽 교체용)
+  image?: string; // 단일 정지 이미지 /characters/xxx.png
+  sprite?: SpriteSheet; // 애니메이션 스프라이트 시트
+  /** 조준/이동 방향에 따라 좌우 반전 (기본 true) */
+  flipToFace?: boolean;
 }
 
 // ------------------------------------------------------------
@@ -84,6 +116,17 @@ export interface TowerDef {
 // 적 캐릭터
 // ------------------------------------------------------------
 
+/** 적 특성 */
+export type EnemyTrait =
+  | { type: "regen"; pctPerSec: number } // 초당 최대체력 % 회복
+  | { type: "stealth"; revealRange: number } // 이 거리 이내 타워만 타겟 가능
+  | { type: "split"; enemyId: string; count: number } // 사망 시 분열
+  | { type: "aura_defense"; radius: number; defense: number; magicDefense: number } // 주변 적 방어 증가
+  | { type: "slow_immune" }
+  | { type: "stun_immune" };
+
+export type EnemyTraitType = EnemyTrait["type"];
+
 export interface EnemyDef {
   id: string;
   name: string;
@@ -93,6 +136,7 @@ export interface EnemyDef {
   moveSpeed: number; // 초당 이동 타일 수
   isBoss: boolean;
   goldReward: number; // 처치 골드
+  traits?: EnemyTrait[];
   appearance: Appearance;
   description?: string;
 }
@@ -253,18 +297,44 @@ export interface MapDef {
 // 레벨 디자인: 챕터 / 스테이지
 // ------------------------------------------------------------
 
+/** 수동 웨이브 구성의 스폰 그룹 */
+export interface WaveGroup {
+  enemyId: string;
+  count: number;
+  /** 스폰 간격(초) */
+  interval: number;
+  /** 이 그룹 시작 전 대기(초) */
+  delay?: number;
+}
+
+/** 수동 웨이브 1개 정의 */
+export interface WaveDef {
+  groups: WaveGroup[];
+  /** 지정 시 이 웨이브는 보스 웨이브 (보스 1기 추가 스폰) */
+  bossId?: string;
+  /** 이 웨이브 전용 배수 (스테이지 배수에 곱해짐) */
+  hpMult?: number;
+  goldMult?: number;
+  description?: string;
+}
+
 export interface StageDef {
   id: string;
   name: string;
-  /** 총 웨이브 수 */
+  /** 총 웨이브 수 (자동 생성 모드에서 사용; 수동 웨이브가 있으면 그 개수) */
   waves: number;
-  /** 등장하는 일반 적 id 목록 */
+  /** 자동 생성 모드: 등장하는 일반 적 id 목록 */
   enemyIds: string[];
-  /** 보스 웨이브에 등장할 보스 적 id (없으면 전체 보스 풀에서) */
+  /** 자동 생성 모드: 보스 웨이브 보스 id (없으면 전체 보스 풀에서) */
   bossId?: string;
   /** 스테이지 체력/골드 배수 */
   hpMult: number;
   goldMult: number;
+  /**
+   * 수동 웨이브 구성 (있으면 자동 생성 대신 사용).
+   * 웨이브 n = waveDefs[n-1]
+   */
+  waveDefs?: WaveDef[];
   description?: string;
 }
 
@@ -315,11 +385,16 @@ export interface EnemyUnit {
   pathId: number;
   /** 다음 웨이포인트 인덱스 */
   pathIndex: number;
+  /** 스폰 시 적용된 배수 (분열 자식 생성용) */
+  hpMult: number;
+  goldMult: number;
   slowPct: number;
   slowUntil: number;
   stunUntil: number;
   /** 피격 플래시 연출용 타임스탬프 */
   hitFlashUntil: number;
+  /** 마지막 이동 x 방향 (-1/1, 스프라이트 반전용) */
+  facing: number;
   dead: boolean;
   reached: boolean;
 }
@@ -329,6 +404,9 @@ export interface TowerBuff {
   pct: number;
   until: number;
 }
+
+/** 타워 타겟팅 모드 */
+export type TargetMode = "first" | "last" | "strongest" | "boss";
 
 export interface TowerUnit {
   uid: string;
@@ -343,8 +421,56 @@ export interface TowerUnit {
   buffs: TowerBuff[];
   /** 공격 모션 연출 (0~1, 감쇠) */
   attackAnim: number;
+  /** 스킬 모션 연출 종료 시각 */
+  skillAnimUntil: number;
   /** 마지막 공격 대상 방향 (rad) */
   aimAngle: number;
+  targetMode: TargetMode;
+}
+
+// ------------------------------------------------------------
+// 저장 스냅샷 (직렬화 가능한 순수 데이터)
+// ------------------------------------------------------------
+
+export interface SpawnEntrySnapshot {
+  at: number;
+  defId: string;
+  hpMult: number;
+  goldMult: number;
+  pathId: number;
+}
+
+export interface GameSnapshot {
+  version: 1;
+  seed: number;
+  rngState: number;
+  time: number;
+  gold: number;
+  lives: number;
+  wave: number;
+  phase: GamePhase;
+  bench: TowerUnit[];
+  placed: TowerUnit[];
+  enemies: EnemyUnit[];
+  projectiles: Projectile[];
+  spawnQueue: SpawnEntrySnapshot[];
+  waveStartTime: number;
+  waveSpawnDone: boolean;
+  spawnCounter: number;
+  jobSkillReadyAt: [number, number][];
+  jobSkillUsesLeft: number;
+  globalBuffs: GlobalBuff[];
+  logs: { text: string; color?: string }[];
+}
+
+/** localStorage에 저장되는 세이브 슬롯 */
+export interface SaveSlot {
+  chapterId: string;
+  stageId: string;
+  jobId: string;
+  difficulty: Difficulty;
+  savedAt: number;
+  snapshot: GameSnapshot;
 }
 
 /** 직업 액티브 스킬로 걸린 아군 전체 버프 */

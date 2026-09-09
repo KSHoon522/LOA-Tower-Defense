@@ -1,0 +1,71 @@
+[
+  {
+    "id": "syn-shushire",
+    "region": "슈샤이어",
+    "name": "설원의 냉기",
+    "color": "#38bdf8",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "magic_atk_pct", "value": 15 }] },
+      { "count": 4, "effects": [{ "type": "magic_atk_pct", "value": 35 }, { "type": "mana_regen_pct", "value": 25 }] },
+      { "count": 6, "effects": [{ "type": "magic_atk_pct", "value": 70 }, { "type": "mana_regen_pct", "value": 50 }] }
+    ],
+    "description": "슈샤이어 캐릭터의 마법 공격력과 마나 회복이 증가합니다."
+  },
+  {
+    "id": "syn-anikka",
+    "region": "애니츠",
+    "name": "무도가의 기백",
+    "color": "#fb7185",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_speed_pct", "value": 12 }] },
+      { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 28 }, { "type": "atk_pct", "value": 15 }] },
+      { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 55 }, { "type": "atk_pct", "value": 30 }] }
+    ],
+    "description": "애니츠 캐릭터의 공격속도가 크게 증가합니다."
+  },
+  {
+    "id": "syn-arthetine",
+    "region": "아르데타인",
+    "name": "정밀 사격",
+    "color": "#fbbf24",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "crit_chance", "value": 10 }] },
+      { "count": 4, "effects": [{ "type": "crit_chance", "value": 20 }, { "type": "crit_damage_pct", "value": 40 }] },
+      { "count": 6, "effects": [{ "type": "crit_chance", "value": 35 }, { "type": "crit_damage_pct", "value": 90 }] }
+    ],
+    "description": "아르데타인 캐릭터의 치명타 확률과 피해가 증가합니다."
+  },
+  {
+    "id": "syn-vern",
+    "region": "베른",
+    "name": "왕국의 위엄",
+    "color": "#a78bfa",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 12 }, { "type": "magic_atk_pct", "value": 12 }] },
+      { "count": 4, "effects": [{ "type": "atk_pct", "value": 28 }, { "type": "magic_atk_pct", "value": 28 }] }
+    ],
+    "description": "베른 캐릭터의 물리/마법 공격력이 함께 증가합니다."
+  },
+  {
+    "id": "syn-rohendel",
+    "region": "로헨델",
+    "name": "정령의 가호",
+    "color": "#34d399",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 30 }] },
+      { "count": 4, "effects": [{ "type": "mana_regen_pct", "value": 70 }, { "type": "range_add", "value": 1 }] }
+    ],
+    "description": "로헨델 캐릭터의 마나 회복이 증가하고 사거리가 늘어납니다."
+  },
+  {
+    "id": "syn-punika",
+    "region": "파푸니카",
+    "name": "남쪽 섬의 축복",
+    "color": "#f97316",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 1 }] },
+      { "count": 4, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "atk_speed_pct", "value": 15 }] }
+    ],
+    "description": "적 처치 시 추가 골드를 획득합니다."
+  }
+]

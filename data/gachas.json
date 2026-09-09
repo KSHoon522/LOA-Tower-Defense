@@ -1,0 +1,61 @@
+[
+  {
+    "id": "gacha-normal",
+    "name": "일반 랜덤 뽑기",
+    "cost": 20,
+    "rates": {
+      "common": 40,
+      "uncommon": 29.5,
+      "rare": 18,
+      "hero": 9,
+      "legendary": 3,
+      "esther": 0.5
+    },
+    "regionMode": "any",
+    "description": "모든 등급이 나올 수 있는 기본 뽑기. 에스더는 0.5%로 매우 낮음."
+  },
+  {
+    "id": "gacha-rare-plus",
+    "name": "희귀 이상 뽑기",
+    "cost": 60,
+    "rates": {
+      "rare": 60,
+      "hero": 30,
+      "legendary": 9.7,
+      "esther": 0.3
+    },
+    "regionMode": "any",
+    "description": "희귀 등급 이상만 등장하는 고급 뽑기."
+  },
+  {
+    "id": "gacha-region",
+    "name": "지역 지정 뽑기",
+    "cost": 45,
+    "rates": {
+      "common": 40,
+      "uncommon": 29.5,
+      "rare": 18,
+      "hero": 9,
+      "legendary": 3,
+      "esther": 0.5
+    },
+    "regionMode": "select",
+    "description": "원하는 지역의 캐릭터만 등장. 시너지 맞추기에 유용."
+  },
+  {
+    "id": "gacha-esder",
+    "name": "에스더 뽑기",
+    "cost": 10,
+    "rates": {
+      "common": 0,
+      "uncommon": 0,
+      "rare": 0,
+      "hero": 0,
+      "legendary": 0,
+      "esther": 100
+    },
+    "regionMode": "any",
+    "fixedRegion": "",
+    "description": ""
+  }
+]

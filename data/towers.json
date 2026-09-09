@@ -1,0 +1,532 @@
+[
+  {
+    "id": "tw-recruit",
+    "name": "베른 견습 기사",
+    "grade": "common",
+    "atk": 16,
+    "magicAtk": 0,
+    "attackSpeed": 1,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 3,
+    "manaOnHit": 6,
+    "skill": {
+      "name": "찌르기",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 220,
+      "description": "단일 대상에게 공격력 220% 피해"
+    },
+    "appearance": {
+      "color": "#a78bfa",
+      "shape": "square",
+      "icon": "🗡️"
+    },
+    "description": "베른 왕국의 견습 기사.",
+    "regions": [
+      "베른"
+    ]
+  },
+  {
+    "id": "tw-iceapprentice",
+    "name": "설원 견습 마법사",
+    "grade": "common",
+    "atk": 0,
+    "magicAtk": 18,
+    "attackSpeed": 0.8,
+    "range": 2.6,
+    "maxMana": 50,
+    "manaRegen": 4,
+    "manaOnHit": 5,
+    "skill": {
+      "name": "서리 조각",
+      "type": "slow",
+      "damageType": "magical",
+      "power": 120,
+      "radius": 1.2,
+      "duration": 1.5,
+      "slowPct": 25,
+      "description": "범위 내 적에게 피해 + 25% 둔화"
+    },
+    "appearance": {
+      "color": "#38bdf8",
+      "shape": "circle",
+      "icon": "❄️"
+    },
+    "description": "슈샤이어의 견습 마법사.",
+    "regions": [
+      "슈샤이어"
+    ]
+  },
+  {
+    "id": "tw-brawler",
+    "name": "애니츠 수련생",
+    "grade": "common",
+    "atk": 13,
+    "magicAtk": 0,
+    "attackSpeed": 1.5,
+    "range": 1.8,
+    "maxMana": 45,
+    "manaRegen": 3,
+    "manaOnHit": 5,
+    "skill": {
+      "name": "연권",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 60,
+      "description": "3초간 공격속도 +60%"
+    },
+    "appearance": {
+      "color": "#fb7185",
+      "shape": "triangle",
+      "icon": "👊"
+    },
+    "description": "애니츠 무술 도장의 수련생.",
+    "regions": [
+      "애니츠"
+    ]
+  },
+  {
+    "id": "tw-slinger",
+    "name": "파푸니카 투석꾼",
+    "grade": "common",
+    "atk": 15,
+    "magicAtk": 0,
+    "attackSpeed": 1.1,
+    "range": 2.4,
+    "maxMana": 55,
+    "manaRegen": 3,
+    "manaOnHit": 6,
+    "skill": {
+      "name": "큰 돌 던지기",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 250,
+      "description": "단일 대상에게 공격력 250% 피해"
+    },
+    "appearance": {
+      "color": "#f97316",
+      "shape": "circle",
+      "icon": "🪨"
+    },
+    "description": "남쪽 섬의 투석꾼.",
+    "regions": [
+      "파푸니카"
+    ]
+  },
+  {
+    "id": "tw-gunner",
+    "name": "아르데타인 소총병",
+    "grade": "uncommon",
+    "atk": 26,
+    "magicAtk": 0,
+    "attackSpeed": 1.3,
+    "range": 3,
+    "maxMana": 70,
+    "manaRegen": 3,
+    "manaOnHit": 7,
+    "skill": {
+      "name": "관통탄",
+      "type": "chain",
+      "damageType": "physical",
+      "power": 160,
+      "bonusTargets": 2,
+      "description": "주변 적 2기까지 추가 사격 (각 160%)"
+    },
+    "appearance": {
+      "color": "#fbbf24",
+      "shape": "square",
+      "icon": "🔫"
+    },
+    "description": "아르데타인의 정예 소총병.",
+    "regions": [
+      "아르데타인"
+    ]
+  },
+  {
+    "id": "tw-sylph",
+    "name": "로헨델 실프",
+    "grade": "uncommon",
+    "atk": 0,
+    "magicAtk": 30,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 5,
+    "skill": {
+      "name": "바람 칼날",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 150,
+      "radius": 1.5,
+      "description": "대상 주변 1.5칸에 마법 피해 150%"
+    },
+    "appearance": {
+      "color": "#34d399",
+      "shape": "star",
+      "icon": "🍃"
+    },
+    "description": "정령의 숲에서 온 실프.",
+    "regions": [
+      "로헨델"
+    ]
+  },
+  {
+    "id": "tw-monk",
+    "name": "애니츠 승려",
+    "grade": "uncommon",
+    "atk": 24,
+    "magicAtk": 8,
+    "attackSpeed": 1.6,
+    "range": 2,
+    "maxMana": 65,
+    "manaRegen": 4,
+    "manaOnHit": 6,
+    "skill": {
+      "name": "장타",
+      "type": "stun",
+      "damageType": "physical",
+      "power": 200,
+      "duration": 1.2,
+      "description": "대상 기절 1.2초 + 200% 피해"
+    },
+    "appearance": {
+      "color": "#fb7185",
+      "shape": "diamond",
+      "icon": "🥋"
+    },
+    "description": "내공을 수련한 승려.",
+    "regions": [
+      "애니츠"
+    ]
+  },
+  {
+    "id": "tw-icearcher",
+    "name": "설원 궁수",
+    "grade": "uncommon",
+    "atk": 22,
+    "magicAtk": 14,
+    "attackSpeed": 1.2,
+    "range": 3.2,
+    "maxMana": 70,
+    "manaRegen": 3,
+    "manaOnHit": 7,
+    "skill": {
+      "name": "빙결 화살",
+      "type": "slow",
+      "damageType": "magical",
+      "power": 180,
+      "radius": 1.4,
+      "duration": 2,
+      "slowPct": 35,
+      "description": "범위 피해 + 35% 둔화 2초"
+    },
+    "appearance": {
+      "color": "#38bdf8",
+      "shape": "triangle",
+      "icon": "🏹"
+    },
+    "description": "얼음 화살을 다루는 궁수.",
+    "regions": [
+      "슈샤이어"
+    ]
+  },
+  {
+    "id": "tw-knightcaptain",
+    "name": "베른 기사단장",
+    "grade": "rare",
+    "atk": 52,
+    "magicAtk": 0,
+    "attackSpeed": 1.1,
+    "range": 2.4,
+    "maxMana": 80,
+    "manaRegen": 4,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "대검 강타",
+      "type": "aoe",
+      "damageType": "physical",
+      "power": 240,
+      "radius": 1.6,
+      "description": "대상 주변에 물리 피해 240%"
+    },
+    "appearance": {
+      "color": "#a78bfa",
+      "shape": "diamond",
+      "icon": "🛡️"
+    },
+    "description": "베른 기사단을 이끄는 단장.",
+    "regions": [
+      "베른"
+    ]
+  },
+  {
+    "id": "tw-frostmage",
+    "name": "빙결 마도사",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 58,
+    "attackSpeed": 0.85,
+    "range": 3,
+    "maxMana": 75,
+    "manaRegen": 6,
+    "manaOnHit": 6,
+    "skill": {
+      "name": "블리자드",
+      "type": "slow",
+      "damageType": "magical",
+      "power": 220,
+      "radius": 2,
+      "duration": 2.5,
+      "slowPct": 45,
+      "description": "넓은 범위 피해 + 45% 둔화"
+    },
+    "appearance": {
+      "color": "#38bdf8",
+      "shape": "star",
+      "icon": "🧊"
+    },
+    "description": "설원의 빙결 마도사.",
+    "regions": [
+      "슈샤이어"
+    ]
+  },
+  {
+    "id": "tw-sniper",
+    "name": "아르데타인 저격수",
+    "grade": "rare",
+    "atk": 60,
+    "magicAtk": 0,
+    "attackSpeed": 0.7,
+    "range": 4.2,
+    "maxMana": 90,
+    "manaRegen": 3,
+    "manaOnHit": 12,
+    "skill": {
+      "name": "헤드샷",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 450,
+      "description": "단일 대상에게 450% 초강력 사격"
+    },
+    "appearance": {
+      "color": "#fbbf24",
+      "shape": "triangle",
+      "icon": "🎯"
+    },
+    "description": "긴 사거리의 저격수.",
+    "regions": [
+      "아르데타인"
+    ]
+  },
+  {
+    "id": "tw-elementalist",
+    "name": "로헨델 정령술사",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 50,
+    "attackSpeed": 1.1,
+    "range": 2.8,
+    "maxMana": 60,
+    "manaRegen": 7,
+    "manaOnHit": 5,
+    "skill": {
+      "name": "정령 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 200,
+      "radius": 1.8,
+      "description": "정령 폭발로 범위 마법 피해"
+    },
+    "appearance": {
+      "color": "#34d399",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "정령과 계약한 술사.",
+    "regions": [
+      "로헨델"
+    ]
+  },
+  {
+    "id": "tw-battlemaster",
+    "name": "애니츠 격투 사범",
+    "grade": "hero",
+    "atk": 95,
+    "magicAtk": 0,
+    "attackSpeed": 1.8,
+    "range": 2.2,
+    "maxMana": 85,
+    "manaRegen": 5,
+    "manaOnHit": 7,
+    "skill": {
+      "name": "오의 난무",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 4,
+      "buffPct": 100,
+      "description": "4초간 공격속도 +100%"
+    },
+    "appearance": {
+      "color": "#fb7185",
+      "shape": "star",
+      "icon": "🐉"
+    },
+    "description": "애니츠 최고의 격투 사범.",
+    "regions": [
+      "애니츠"
+    ]
+  },
+  {
+    "id": "tw-archmage",
+    "name": "베른 대마법사",
+    "grade": "hero",
+    "atk": 0,
+    "magicAtk": 105,
+    "attackSpeed": 0.9,
+    "range": 3.4,
+    "maxMana": 90,
+    "manaRegen": 6,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "메테오",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 320,
+      "radius": 2.2,
+      "description": "거대한 운석 낙하, 광역 320% 피해"
+    },
+    "appearance": {
+      "color": "#a78bfa",
+      "shape": "star",
+      "icon": "☄️"
+    },
+    "description": "베른 마법학회의 대마법사.",
+    "regions": [
+      "베른"
+    ]
+  },
+  {
+    "id": "tw-mechgunner",
+    "name": "아르데타인 메카닉",
+    "grade": "hero",
+    "atk": 88,
+    "magicAtk": 30,
+    "attackSpeed": 1.4,
+    "range": 3.2,
+    "maxMana": 80,
+    "manaRegen": 4,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "레이저 연쇄",
+      "type": "chain",
+      "damageType": "magical",
+      "power": 220,
+      "bonusTargets": 3,
+      "description": "레이저가 최대 4기 연쇄 타격"
+    },
+    "appearance": {
+      "color": "#fbbf24",
+      "shape": "square",
+      "icon": "🤖"
+    },
+    "description": "최신 병기로 무장한 메카닉.",
+    "regions": [
+      "아르데타인"
+    ]
+  },
+  {
+    "id": "tw-frostqueen",
+    "name": "설원의 여제",
+    "grade": "legendary",
+    "atk": 0,
+    "magicAtk": 190,
+    "attackSpeed": 1,
+    "range": 3.6,
+    "maxMana": 100,
+    "manaRegen": 7,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "절대 영도",
+      "type": "slow",
+      "damageType": "magical",
+      "power": 380,
+      "radius": 2.6,
+      "duration": 3,
+      "slowPct": 60,
+      "description": "광역 380% 피해 + 60% 둔화 3초"
+    },
+    "appearance": {
+      "color": "#38bdf8",
+      "shape": "star",
+      "icon": "👑"
+    },
+    "description": "설원을 지배하는 얼음의 여제.",
+    "regions": [
+      "슈샤이어"
+    ]
+  },
+  {
+    "id": "tw-sunwarrior",
+    "name": "파푸니카 태양전사",
+    "grade": "legendary",
+    "atk": 175,
+    "magicAtk": 60,
+    "attackSpeed": 1.5,
+    "range": 2.6,
+    "maxMana": 95,
+    "manaRegen": 6,
+    "manaOnHit": 9,
+    "skill": {
+      "name": "태양 작열",
+      "type": "aoe",
+      "damageType": "physical",
+      "power": 350,
+      "radius": 2,
+      "description": "작열하는 광역 350% 피해"
+    },
+    "appearance": {
+      "color": "#f97316",
+      "shape": "diamond",
+      "icon": "☀️"
+    },
+    "description": "태양의 힘을 받은 전사.",
+    "regions": [
+      "파푸니카"
+    ]
+  },
+  {
+    "id": "tw-esther-luteran",
+    "name": "에스더 루테란",
+    "grade": "esther",
+    "atk": 320,
+    "magicAtk": 320,
+    "attackSpeed": 1.6,
+    "range": 4,
+    "maxMana": 110,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "성검 해방",
+      "type": "aoe",
+      "damageType": "physical",
+      "power": 500,
+      "radius": 3,
+      "description": "성검의 힘으로 초광역 500% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "star",
+      "icon": "⚜️"
+    },
+    "description": "전설 속의 에스더. 뽑기로만 매우 낮은 확률로 등장한다.",
+    "regions": [
+      "베른",
+      "슈샤이어"
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "en-goblin",
+    "name": "고블린 잡병",
+    "hp": 55, "defense": 5, "magicDefense": 0, "moveSpeed": 1.6,
+    "isBoss": false, "goldReward": 4,
+    "appearance": { "color": "#84cc16", "shape": "circle", "icon": "👺" },
+    "description": "가장 흔한 잡몹. 빠르지만 약하다."
+  },
+  {
+    "id": "en-armored-orc",
+    "name": "중갑 오크",
+    "hp": 110, "defense": 45, "magicDefense": 10, "moveSpeed": 1.0,
+    "isBoss": false, "goldReward": 6,
+    "appearance": { "color": "#78716c", "shape": "square", "icon": "🛡️" },
+    "description": "물리 방어가 높다. 마법 공격이 효과적."
+  },
+  {
+    "id": "en-spirit",
+    "name": "원한의 정령",
+    "hp": 90, "defense": 5, "magicDefense": 50, "moveSpeed": 1.3,
+    "isBoss": false, "goldReward": 6,
+    "appearance": { "color": "#a5b4fc", "shape": "star", "icon": "👻" },
+    "description": "마법 저항이 높다. 물리 공격이 효과적."
+  },
+  {
+    "id": "en-wolfrider",
+    "name": "늑대 기수",
+    "hp": 75, "defense": 15, "magicDefense": 15, "moveSpeed": 2.2,
+    "isBoss": false, "goldReward": 5,
+    "appearance": { "color": "#f59e0b", "shape": "triangle", "icon": "🐺" },
+    "description": "매우 빠른 기동형 적. 둔화가 효과적."
+  },
+  {
+    "id": "en-boss-golem",
+    "name": "고대 수호 골렘",
+    "hp": 900, "defense": 60, "magicDefense": 40, "moveSpeed": 0.55,
+    "isBoss": true, "goldReward": 40,
+    "appearance": { "color": "#57534e", "shape": "square", "icon": "🗿" },
+    "description": "느리지만 압도적인 체력의 보스."
+  },
+  {
+    "id": "en-boss-demon",
+    "name": "군단장 하수인",
+    "hp": 700, "defense": 30, "magicDefense": 70, "moveSpeed": 0.8,
+    "isBoss": true, "goldReward": 50,
+    "appearance": { "color": "#dc2626", "shape": "diamond", "icon": "😈" },
+    "description": "마법 저항이 높은 악마형 보스."
+  }
+]

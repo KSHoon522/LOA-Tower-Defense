@@ -521,12 +521,26 @@
     "appearance": {
       "color": "#22d3ee",
       "shape": "star",
-      "icon": "⚜️"
+      "icon": "⚜️",
+      "sprite": {
+        "src": "/characters/Gemini_Generated_Image_u6yrwou6yrwou6yr.png",
+        "frameWidth": 64,
+        "frameHeight": 64,
+        "scale": 1,
+        "facing": "right",
+        "animations": {
+          "idle": {
+            "row": 0,
+            "frames": 4,
+            "fps": 6
+          }
+        }
+      }
     },
     "description": "전설 속의 에스더. 뽑기로만 매우 낮은 확률로 등장한다.",
     "regions": [
-      "베른",
-      "슈샤이어"
-    ]
+      "베른"
+    ],
+    "artRef": "young golden-haired knight king in polished silver plate armor with a white cape, wielding a broken longsword that projects a golden energy blade, eagle crest, radiant royal aura"
   }
 ]

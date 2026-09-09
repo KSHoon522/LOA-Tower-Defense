@@ -110,6 +110,8 @@ export interface TowerDef {
   skill: SkillDef;
   appearance: Appearance;
   description?: string;
+  /** 이미지 생성용 캐릭터 외형 디스크립터 (docs/character-references.md 참고) */
+  artRef?: string;
 }
 
 // ------------------------------------------------------------
@@ -139,6 +141,8 @@ export interface EnemyDef {
   traits?: EnemyTrait[];
   appearance: Appearance;
   description?: string;
+  /** 이미지 생성용 캐릭터 외형 디스크립터 */
+  artRef?: string;
 }
 
 // ------------------------------------------------------------

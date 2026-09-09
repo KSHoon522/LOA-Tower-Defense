@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import AppearanceFields from "@/components/editor/AppearanceFields";
+import ArtRefField from "@/components/editor/ArtRefField";
 import TraitFields from "@/components/editor/TraitFields";
 import {
   CheckField,
@@ -84,6 +85,12 @@ export default function EnemiesEditor() {
             value={draft.traits ?? []}
             onChange={(v) => set("traits", v)}
             enemies={items.filter((e) => e.id !== draft.id)}
+          />
+          <ArtRefField
+            name={draft.name}
+            value={draft.artRef ?? ""}
+            onChange={(v) => set("artRef", v || undefined)}
+            defaultKind={draft.isBoss ? "boss" : "enemy"}
           />
           <AppearanceFields value={draft.appearance} onChange={(v) => set("appearance", v)} />
           <TextField label="설명" value={draft.description ?? ""} onChange={(v) => set("description", v)} />

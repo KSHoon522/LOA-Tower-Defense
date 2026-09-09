@@ -62,7 +62,8 @@ src/
     api.ts / dataStore.ts    # 클라이언트 fetch / 서버 파일 저장
     save.ts                  # localStorage 세이브 슬롯
 docs/
-  image-prompts.md           # 카봇풍 캐릭터/스프라이트/이펙트 생성 프롬프트
+  image-prompts.md           # 카봇풍 × 실제 로아 캐릭터 프롬프트 조립 규칙, 스프라이트 규격
+  character-references.md    # 지역별/에스더/군단장 캐릭터 외형 디스크립터 (artRef에 붙여넣기)
 public/characters/           # 업로드된 캐릭터 이미지·스프라이트 시트
 ```
 
@@ -112,7 +113,9 @@ public/characters/           # 업로드된 캐릭터 이미지·스프라이트
 - `/editor`에서 수정하면 즉시 `data/*.json`에 반영되고 다음 게임부터 적용
 - 캐릭터 외형 우선순위: 스프라이트 시트 > 단일 이미지 > 도형 placeholder
 - 에디터의 외형 섹션에서 이미지를 업로드하고 스프라이트 시트(프레임 크기, 줄별 애니메이션/fps)를 지정
-- 생성 프롬프트 및 시트 규격은 `docs/image-prompts.md` 참고
+- 캐릭터마다 **이미지 생성 참고 설명(artRef)** 을 저장하면 에디터의 "📋 프롬프트 생성" 버튼이
+  공통 스타일 + 캐릭터 외형 + 등급/역할 키워드를 조합한 완성 프롬프트를 만들어 줌
+- 실제 로스트아크 캐릭터 외형 디스크립터는 `docs/character-references.md`, 조립 규칙은 `docs/image-prompts.md`
 
 ## 테스트 / 밸런싱
 

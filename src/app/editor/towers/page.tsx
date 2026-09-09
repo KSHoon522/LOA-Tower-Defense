@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import AppearanceFields from "@/components/editor/AppearanceFields";
+import ArtRefField from "@/components/editor/ArtRefField";
 import SkillFields from "@/components/editor/SkillFields";
 import {
   ChipsField,
@@ -119,6 +120,13 @@ export default function TowersEditor() {
             <NumberField label="타격 시 마나" value={draft.manaOnHit} onChange={(v) => set("manaOnHit", v)} />
           </div>
           <SkillFields value={draft.skill} onChange={(v) => set("skill", v)} />
+          <ArtRefField
+            name={draft.name}
+            value={draft.artRef ?? ""}
+            onChange={(v) => set("artRef", v || undefined)}
+            grade={draft.grade}
+            defaultKind="portrait"
+          />
           <AppearanceFields value={draft.appearance} onChange={(v) => set("appearance", v)} />
           <TextField label="설명" value={draft.description ?? ""} onChange={(v) => set("description", v)} />
           <div className="flex items-center gap-2">

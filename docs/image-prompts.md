@@ -122,8 +122,26 @@ every frame exactly 64x64 pixels in a uniform grid, character always facing righ
 consistent size and position across all frames, no labels, no grid lines
 ```
 
-> 생성 AI가 격자를 정확히 지키지 못하는 경우가 많으니, 생성 후 이미지 편집 도구로 프레임 경계를 정렬하세요.
 > 단일 이미지로 먼저 캐릭터 디자인을 확정한 뒤, 그 이미지를 참조로 시트를 생성하면 일관성이 좋습니다.
+
+### 생성된 시트 정리 (`scripts/fix_sprite_sheet.py`)
+
+생성 AI는 보통 ① "투명 배경"을 회색 체커보드 **그림**으로 그려 넣고(실제로는 불투명), ② 격자를 지키지 않아
+줄마다 프레임 수·간격이 제각각입니다. 이 스크립트가 둘 다 정리하고 에디터에 넣을 설정을 출력합니다.
+
+```bash
+pip install pillow numpy   # 최초 1회
+python3 scripts/fix_sprite_sheet.py 원본.png public/characters/캐릭터-sheet.png \
+  --rows 5,5,6,6 --anims idle,attack,skill,walk --fps 6,20,10,8
+```
+
+- `--rows`: 위에서부터 줄마다 실제로 그려진 프레임 수 (이미지를 보고 세어서 입력)
+- 체커보드 제거: 테두리와 이어진 회색 영역을 지우고, 발광 이펙트는 반투명으로 복원 (외곽선 안쪽 그림은 보존)
+- 재배치: 머리 위치를 기준으로 모든 프레임을 같은 크기 칸에 정렬
+- 출력 JSON의 `sprite`를 캐릭터 외형의 스프라이트 시트 설정에 그대로 입력 (`scale`은 몸 폭이 타일의 약 75%가 되는 값)
+- fps 권장: 공격은 모션이 0.25초라 `프레임 수 ÷ 0.25`, 스킬은 0.6초라 `프레임 수 ÷ 0.6`
+
+적용 예: 에스더 루테란 (`public/characters/luteran-sheet.png`)
 
 ---
 

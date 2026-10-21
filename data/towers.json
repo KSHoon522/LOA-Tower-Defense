@@ -523,16 +523,31 @@
       "shape": "star",
       "icon": "⚜️",
       "sprite": {
-        "src": "/characters/Gemini_Generated_Image_u6yrwou6yrwou6yr.png",
-        "frameWidth": 64,
-        "frameHeight": 64,
-        "scale": 1,
+        "src": "/characters/luteran-sheet.png",
+        "frameWidth": 331,
+        "frameHeight": 220,
+        "scale": 2.02,
         "facing": "right",
         "animations": {
           "idle": {
             "row": 0,
-            "frames": 4,
+            "frames": 5,
             "fps": 6
+          },
+          "attack": {
+            "row": 1,
+            "frames": 5,
+            "fps": 20
+          },
+          "skill": {
+            "row": 2,
+            "frames": 6,
+            "fps": 10
+          },
+          "walk": {
+            "row": 3,
+            "frames": 6,
+            "fps": 8
           }
         }
       }

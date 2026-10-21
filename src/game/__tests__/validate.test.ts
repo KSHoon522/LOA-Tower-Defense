@@ -71,6 +71,24 @@ describe("데이터 검증", () => {
     expect(issues.some((i) => i.level === "warning" && i.path === "cost")).toBe(true);
   });
 
+  it("직업 뽑기 할인으로 판매 이득이 생기면 뽑기와 직업 양쪽에서 경고한다", () => {
+    const g = { id: "g", name: "g", cost: 20, rates: { common: 100 }, regionMode: "any" as const };
+    // 할인 없이: 비용 20G > 일반 판매가 → 안전
+    expect(gachaRefundExpectation(g.rates)).toBeLessThan(g.cost);
+    const d = clone();
+    d.gachas = [g];
+    const cheap = {
+      ...d.jobs[0],
+      id: "job-cheap",
+      skills: [{ kind: "passive" as const, name: "흥정", type: "gacha_discount_pct" as const, value: 90 }],
+    };
+    d.jobs.push(cheap);
+    const gachaIssues = validateItem("gachas", g, d);
+    expect(gachaIssues.some((i) => i.path === "cost" && i.message.includes(cheap.name))).toBe(true);
+    const jobIssues = validateItem("jobs", cheap, d);
+    expect(jobIssues.some((i) => i.level === "warning" && i.path === "skills[0]")).toBe(true);
+  });
+
   it("고정 지역 뽑기에 지역이 없으면 오류", () => {
     const g = { id: "g", name: "g", cost: 100, rates: { common: 1 }, regionMode: "fixed" as const, fixedRegion: "" };
     expect(hasErrors(validateItem("gachas", g, data))).toBe(true);

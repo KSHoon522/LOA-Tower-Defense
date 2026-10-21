@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { ENTITY_KINDS, GRADE_ORDER } from "./constants";
-import { sellRefund } from "./gacha";
+import { gachaCost, sellRefund } from "./gacha";
 import type { EntityKind, GameData, Grade } from "./types";
 
 /**
@@ -328,6 +328,19 @@ export function gachaRefundExpectation(rates: Partial<Record<Grade, number>>): n
   );
 }
 
+/**
+ * 뽑자마자 팔아도 이득인지 (골드 무한 증식) — 직업 할인까지 반영한 실제 비용 기준
+ * @returns 이득이면 { refund, cost }, 아니면 null
+ */
+export function gachaSellExploit(
+  g: GameData["gachas"][number],
+  job: GameData["jobs"][number] | null
+): { refund: number; cost: number } | null {
+  const refund = gachaRefundExpectation(g.rates);
+  const cost = gachaCost(g, job);
+  return refund > cost ? { refund, cost } : null;
+}
+
 /** 빈 문자열은 "미지정"으로 취급 */
 function present(v: string | undefined | null): v is string {
   return typeof v === "string" && v.trim() !== "";
@@ -482,6 +495,20 @@ function checkJob(j: GameData["jobs"][number], bundle: GameData, push: Push) {
   if (present(j.synergyRegion) && !synergyRegions(bundle).has(j.synergyRegion)) {
     push("warning", "synergyRegion", `'${j.synergyRegion}' 지역의 시너지 정의가 없습니다`);
   }
+  // 뽑기 할인으로 인해 할인 없이는 안전한 뽑기가 판매 이득으로 바뀌는 경우
+  const skillIdx = j.skills.findIndex((s) => s.kind === "passive" && s.type === "gacha_discount_pct");
+  if (skillIdx < 0) return;
+  for (const g of bundle.gachas) {
+    if (gachaSellExploit(g, null)) continue; // 할인과 무관한 문제는 뽑기 쪽에서 경고
+    const ex = gachaSellExploit(g, j);
+    if (ex) {
+      push(
+        "warning",
+        `skills[${skillIdx}]`,
+        `할인 적용 시 '${g.name}' 비용 ${ex.cost}G < 판매 환급 기대값 ${ex.refund.toFixed(1)}G — 이 직업으로 뽑기→판매 반복 시 골드 무한 증식`
+      );
+    }
+  }
 }
 
 function checkGacha(g: GameData["gachas"][number], bundle: GameData, push: Push) {
@@ -495,13 +522,19 @@ function checkGacha(g: GameData["gachas"][number], bundle: GameData, push: Push)
     }
   }
   if (total > 0) {
-    // 뽑자마자 팔아도 이득이면 골드 무한 증식 (직업 할인 적용 시 더 커짐)
-    const refund = gachaRefundExpectation(g.rates);
-    if (refund > g.cost) {
+    // 뽑자마자 팔아도 이득이면 골드 무한 증식 — 할인 없는 비용, 그다음 직업 할인 비용 순으로 검사
+    const base = gachaSellExploit(g, null);
+    const byJob = base
+      ? null
+      : bundle.jobs
+          .map((j) => ({ job: j, ex: gachaSellExploit(g, j) }))
+          .find((x) => x.ex !== null);
+    const ex = base ?? byJob?.ex;
+    if (ex) {
       push(
         "warning",
         "cost",
-        `판매 환급 기대값 ${refund.toFixed(1)}G가 비용 ${g.cost}G보다 큽니다 — 뽑기→판매 반복으로 골드가 무한히 늘어납니다`
+        `판매 환급 기대값 ${ex.refund.toFixed(1)}G가 비용 ${ex.cost}G${byJob ? ` (직업 '${byJob.job.name}' 할인 적용)` : ""}보다 큽니다 — 뽑기→판매 반복으로 골드가 무한히 늘어납니다`
       );
     }
     const pool = g.regionMode === "fixed" && present(g.fixedRegion)

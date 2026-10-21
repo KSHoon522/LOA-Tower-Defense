@@ -41,7 +41,7 @@ function blank(): MapDef {
 }
 
 export default function MapsEditor() {
-  const { items, save, remove, error, busy } = useCrud<MapDef>("maps");
+  const { items, save, remove, error, issues, clearIssues, busy } = useCrud<MapDef>("maps");
   const [draft, setDraft] = useState<MapDef>(blank());
   const [isNew, setIsNew] = useState(true);
   const [tool, setTool] = useState<Tool>("path");
@@ -219,6 +219,8 @@ export default function MapsEditor() {
     <EditorLayout
       title="🗺️ 맵 에디터"
       error={error}
+      issues={issues}
+      onDismiss={clearIssues}
       list={
         <div className="space-y-1">
           <button

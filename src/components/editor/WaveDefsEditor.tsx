@@ -1,7 +1,7 @@
 "use client";
 
 import { SPAWN_INTERVAL, WAVES_PER_BOSS, WAVE_ENEMY_COUNT } from "@/game/constants";
-import type { EnemyDef, StageDef, WaveDef, WaveGroup } from "@/game/types";
+import type { EnemyDef, MissionDef, StageDef, WaveDef, WaveGroup } from "@/game/types";
 import { NumberField, SelectField, TextField } from "./crud";
 
 /** 자동 생성 규칙과 동일한 구성으로 수동 웨이브 초안 생성 */
@@ -78,10 +78,12 @@ function GroupRow({
 export default function WaveDefsEditor({
   stage,
   enemies,
+  missions = [],
   onChange,
 }: {
   stage: StageDef;
   enemies: EnemyDef[];
+  missions?: MissionDef[];
   onChange: (waveDefs: WaveDef[] | undefined) => void;
 }) {
   const normals = enemies.filter((e) => !e.isBoss);
@@ -151,6 +153,17 @@ export default function WaveDefsEditor({
             </div>
             <div className="w-20">
               <NumberField label="골드 ×" value={w.goldMult ?? 1} onChange={(v) => updateWave(i, { ...w, goldMult: v })} step={0.1} />
+            </div>
+            <div className="w-40">
+              <SelectField
+                label="미션"
+                value={w.missionId ?? ""}
+                onChange={(v) => updateWave(i, { ...w, missionId: v || undefined })}
+                options={[
+                  { value: "", label: "(자동 배정)" },
+                  ...missions.map((m) => ({ value: m.id, label: `🎯 ${m.name} +${m.rewardGold}G` })),
+                ]}
+              />
             </div>
             <div className="min-w-40 flex-1">
               <TextField label="메모" value={w.description ?? ""} onChange={(v) => updateWave(i, { ...w, description: v })} />

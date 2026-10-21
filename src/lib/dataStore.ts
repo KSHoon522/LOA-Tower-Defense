@@ -1,18 +1,12 @@
 import { promises as fs } from "fs";
 import path from "path";
-import type { EntityKind } from "@/game/types";
+import { ENTITY_KINDS } from "@/game/constants";
+import type { EntityKind, GameData } from "@/game/types";
+import { validateItem, type ValidationIssue } from "@/game/validate";
+
+export { ENTITY_KINDS };
 
 const DATA_DIR = path.join(process.cwd(), "data");
-
-export const ENTITY_KINDS: EntityKind[] = [
-  "maps",
-  "jobs",
-  "towers",
-  "enemies",
-  "synergies",
-  "gachas",
-  "chapters",
-];
 
 export function isEntityKind(v: string): v is EntityKind {
   return (ENTITY_KINDS as string[]).includes(v);
@@ -35,6 +29,26 @@ export async function readAll<T = unknown>(kind: EntityKind): Promise<T[]> {
 export async function writeAll(kind: EntityKind, items: unknown[]): Promise<void> {
   await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.writeFile(fileFor(kind), JSON.stringify(items, null, 2), "utf-8");
+}
+
+/** 전체 데이터 묶음 (참조 무결성 검사 / 내보내기용) */
+export async function readBundle(): Promise<GameData> {
+  const entries = await Promise.all(
+    ENTITY_KINDS.map(async (kind) => [kind, await readAll(kind)] as const)
+  );
+  return Object.fromEntries(entries) as unknown as GameData;
+}
+
+/** 저장하려는 항목을 현재 데이터에 반영한 상태로 검증 (참조 무결성 포함) */
+export async function validateAgainstStore(
+  kind: EntityKind,
+  item: unknown
+): Promise<ValidationIssue[]> {
+  const bundle = await readBundle();
+  const id = (item as { id?: string } | null)?.id;
+  const others = (bundle[kind] as { id: string }[]).filter((i) => i.id !== id);
+  const candidate = { ...bundle, [kind]: [...others, item] } as GameData;
+  return validateItem(kind, item, candidate);
 }
 
 interface HasId {

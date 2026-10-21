@@ -233,7 +233,7 @@ function SkillRow({
 }
 
 export default function JobsEditor() {
-  const { items, save, remove, error, busy } = useCrud<JobDef>("jobs");
+  const { items, save, remove, error, issues, clearIssues, busy } = useCrud<JobDef>("jobs");
   const { items: synergies } = useCrud<SynergyDef>("synergies");
   const [draft, setDraft] = useState<JobDef>(blank());
   const [isNew, setIsNew] = useState(true);
@@ -251,6 +251,8 @@ export default function JobsEditor() {
     <EditorLayout
       title="🧙 플레이어 직업 에디터"
       error={error}
+      issues={issues}
+      onDismiss={clearIssues}
       list={
         <div className="space-y-1">
           <button

@@ -57,6 +57,7 @@ export default function SimulatorPage() {
         enemies: data.enemies,
         synergies: data.synergies,
         gachas: data.gachas,
+        missions: data.missions,
         job: data.jobs.find((j) => j.id === jobId) ?? null,
         difficulty,
         stage,

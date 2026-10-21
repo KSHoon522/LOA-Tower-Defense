@@ -11,7 +11,7 @@ import {
 } from "@/components/editor/crud";
 import WaveDefsEditor from "@/components/editor/WaveDefsEditor";
 import { DEFAULT_REGIONS } from "@/game/constants";
-import type { ChapterDef, EnemyDef, MapDef, StageDef, SynergyDef } from "@/game/types";
+import type { ChapterDef, EnemyDef, MapDef, MissionDef, StageDef, SynergyDef } from "@/game/types";
 
 function blankStage(n: number): StageDef {
   return {
@@ -40,11 +40,13 @@ function blank(): ChapterDef {
 function StageRow({
   stage,
   enemies,
+  missions,
   onChange,
   onRemove,
 }: {
   stage: StageDef;
   enemies: EnemyDef[];
+  missions: MissionDef[];
   onChange: (s: StageDef) => void;
   onRemove: () => void;
 }) {
@@ -115,6 +117,7 @@ function StageRow({
         <WaveDefsEditor
           stage={stage}
           enemies={enemies}
+          missions={missions}
           onChange={(waveDefs) =>
             onChange({
               ...stage,
@@ -142,10 +145,11 @@ function StageRow({
 }
 
 export default function ChaptersEditor() {
-  const { items, save, remove, error, busy } = useCrud<ChapterDef>("chapters");
+  const { items, save, remove, error, issues, clearIssues, busy } = useCrud<ChapterDef>("chapters");
   const { items: maps } = useCrud<MapDef>("maps");
   const { items: enemies } = useCrud<EnemyDef>("enemies");
   const { items: synergies } = useCrud<SynergyDef>("synergies");
+  const { items: missions } = useCrud<MissionDef>("missions");
   const [draft, setDraft] = useState<ChapterDef>(blank());
   const [isNew, setIsNew] = useState(true);
 
@@ -164,6 +168,8 @@ export default function ChaptersEditor() {
     <EditorLayout
       title="📖 챕터 / 스테이지 에디터"
       error={error}
+      issues={issues}
+      onDismiss={clearIssues}
       list={
         <div className="space-y-1">
           <button
@@ -224,6 +230,7 @@ export default function ChaptersEditor() {
                 key={i}
                 stage={stage}
                 enemies={enemies}
+                missions={missions}
                 onChange={(ns) =>
                   set(
                     "stages",

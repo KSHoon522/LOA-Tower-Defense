@@ -4,12 +4,13 @@ import {
   BOSS_GOLD_MULT,
   BOSS_HP_MULT,
   DIFFICULTY,
-  GRADE_ORDER,
+  EARLY_CALL_BASE_GOLD,
+  EARLY_CALL_BOSS_WEIGHT,
+  EARLY_CALL_GOLD_PER_ENEMY,
+  EARLY_CALL_MAX_GOLD,
   INTEREST_CAP,
   INTEREST_PCT,
   PROJECTILE_SPEED,
-  SELL_BASE_GOLD,
-  SELL_REFUND_PCT,
   SPAWN_INTERVAL,
   TOTAL_WAVES,
   WAVES_PER_BOSS,
@@ -19,9 +20,9 @@ import {
   WAVE_HP_GROWTH,
 } from "./constants";
 import { mitigate, primaryDamageType, rollCrit } from "./combat";
-import { gachaCost, jobPassiveValue, rollGacha } from "./gacha";
+import { gachaCost, jobPassiveValue, rollGacha, sellRefund } from "./gacha";
 import { canFuse, fuse } from "./fusion";
-import { Rng } from "./rng";
+import { Rng, hashInts } from "./rng";
 import { computeSynergies, synergyBonus } from "./synergy";
 import type {
   ActiveSynergy,
@@ -33,6 +34,7 @@ import type {
   EnemyUnit,
   FloatingText,
   GachaDef,
+  GameEventType,
   GamePhase,
   GameSnapshot,
   GlobalBuff,
@@ -41,6 +43,8 @@ import type {
   JobDef,
   JobPassiveType,
   MapDef,
+  MissionDef,
+  MissionState,
   Point,
   Projectile,
   Region,
@@ -65,6 +69,8 @@ export interface EngineOptions {
   stage?: StageDef | null;
   /** RNG 시드 (없으면 랜덤). 같은 시드 = 같은 결과 */
   seed?: number;
+  /** 웨이브 미션 풀 (없으면 미션 없음) */
+  missions?: MissionDef[];
 }
 
 interface SpawnEntry {
@@ -92,6 +98,7 @@ export class GameEngine {
   readonly enemyDefs: Map<string, EnemyDef>;
   readonly synergyDefs: SynergyDef[];
   readonly gachaDefs: GachaDef[];
+  readonly missionDefs: MissionDef[];
   readonly job: JobDef | null;
   readonly difficulty: Difficulty;
   readonly stage: StageDef | null;
@@ -114,6 +121,12 @@ export class GameEngine {
   jobSkillUsesLeft = 0;
   globalBuffs: GlobalBuff[] = [];
 
+  // ---- 웨이브 미션 / 조기 호출 ----
+  /** 진행 중인 미션 (웨이브 시작 시 부여, 적 전멸 시 판정) */
+  mission: MissionState | null = null;
+  /** 조기 호출로 이어 붙인 웨이브 수 (클리어 보상 정산용) */
+  chainedWaves = 0;
+
   // ---- 전투 상태 ----
   enemies: EnemyUnit[] = [];
   projectiles: Projectile[] = [];
@@ -129,6 +142,9 @@ export class GameEngine {
   /** React 리렌더 트리거용 */
   version = 0;
 
+  /** UI 연출(사운드 등)용 이벤트 버퍼 — UI가 drainEvents()로 소비 */
+  private events: GameEventType[] = [];
+
   private spawnQueue: SpawnEntry[] = [];
   private waveStartTime = 0;
   private waveSpawnDone = false;
@@ -140,6 +156,7 @@ export class GameEngine {
     this.enemyDefs = new Map(opts.enemies.map((e) => [e.id, e]));
     this.synergyDefs = opts.synergies;
     this.gachaDefs = opts.gachas;
+    this.missionDefs = opts.missions ?? [];
     this.job = opts.job;
     this.difficulty = opts.difficulty;
     this.stage = opts.stage ?? null;
@@ -195,6 +212,8 @@ export class GameEngine {
       jobSkillUsesLeft: this.jobSkillUsesLeft,
       globalBuffs: structuredClone(this.globalBuffs),
       logs: structuredClone(this.logs),
+      chainedWaves: this.chainedWaves,
+      mission: this.mission ? structuredClone(this.mission) : null,
     };
   }
 
@@ -224,6 +243,8 @@ export class GameEngine {
     eng.jobSkillUsesLeft = snap.jobSkillUsesLeft;
     eng.globalBuffs = structuredClone(snap.globalBuffs);
     eng.logs = structuredClone(snap.logs);
+    eng.chainedWaves = snap.chainedWaves ?? 0;
+    eng.mission = snap.mission ? structuredClone(snap.mission) : null;
     eng.log("💾 저장된 게임을 불러왔습니다.", "#4ade80");
     eng.recomputeSynergies();
     eng.bump();
@@ -242,6 +263,19 @@ export class GameEngine {
   private log(text: string, color?: string) {
     this.logs.push({ text, color });
     if (this.logs.length > 60) this.logs.shift();
+  }
+
+  private emit(type: GameEventType) {
+    this.events.push(type);
+    // 아무도 소비하지 않는 경우(시뮬레이터 등) 무한히 쌓이지 않게
+    if (this.events.length > 200) this.events.splice(0, this.events.length - 200);
+  }
+
+  /** 쌓인 이벤트를 꺼내고 비움 (UI 프레임마다 호출) */
+  drainEvents(): GameEventType[] {
+    const out = this.events;
+    this.events = [];
+    return out;
   }
 
   // ============================================================
@@ -415,6 +449,10 @@ export class GameEngine {
 
     this.jobSkillReadyAt.set(index, this.time + skill.cooldown);
     this.jobSkillUsesLeft--;
+    this.emit("job_skill");
+    if (this.currentMissionDef()?.condition.type === "no_job_skill") {
+      this.failMission("직업 스킬 사용");
+    }
     if (this.jobSkillUsesLeft === 0) {
       this.log("⚠ 직업 스킬 사용 횟수를 모두 사용했습니다.", "#fbbf24");
     }
@@ -461,6 +499,7 @@ export class GameEngine {
     this.bench.push(this.createTowerUnit(def.id));
     this.log(`[뽑기] ${def.name} 획득!`, def.grade === "esther" ? "#22d3ee" : undefined);
     if (def.grade === "esther") this.log("★★★ 에스더 등급! ★★★", "#22d3ee");
+    this.emit(def.grade === "esther" ? "gacha_esther" : "gacha");
     this.bump();
     return def;
   }
@@ -537,6 +576,7 @@ export class GameEngine {
     } else {
       this.log(`[합성] ${outcome.def.name} 획득!`);
     }
+    this.emit(outcome.jackpot ? "fusion_jackpot" : "fusion");
     this.recomputeSynergies();
     this.bump();
     return outcome.def;
@@ -561,6 +601,7 @@ export class GameEngine {
     unit.tile = { x, y };
     this.placed.push(unit);
     this.recomputeSynergies();
+    this.emit("place");
     this.bump();
     return true;
   }
@@ -572,6 +613,7 @@ export class GameEngine {
     if (unit.tile.x === x && unit.tile.y === y) return false;
     if (!this.isTileBuildable(x, y)) return false;
     unit.tile = { x, y };
+    this.emit("place");
     this.bump();
     return true;
   }
@@ -595,13 +637,11 @@ export class GameEngine {
     if (!unit) return false;
     const def = this.towerDefs.get(unit.defId);
     if (!def) return false;
-    const gradeIdx = GRADE_ORDER.indexOf(def.grade);
-    const refund = Math.round(
-      (SELL_BASE_GOLD * Math.pow(2, gradeIdx) * SELL_REFUND_PCT) / 100
-    );
+    const refund = sellRefund(def.grade);
     this.removeUnit(uid);
     this.gold += refund;
     this.log(`[판매] ${def.name} → ${refund}G`);
+    this.emit("sell");
     this.recomputeSynergies();
     this.bump();
     return true;
@@ -615,8 +655,40 @@ export class GameEngine {
     return this.phase === "prep" && this.wave < this.totalWaves;
   }
 
+  /** 조기 호출 가능: 현재 웨이브 스폰이 끝났고 아직 적이 남아 있을 때 */
+  canCallWaveEarly(): boolean {
+    return (
+      this.phase === "wave" &&
+      this.waveSpawnDone &&
+      this.wave < this.totalWaves &&
+      this.enemies.some((e) => !e.dead && !e.reached)
+    );
+  }
+
+  /** 지금 조기 호출하면 받는 보너스 골드 (남은 적이 많을수록 큼) */
+  earlyCallBonus(): number {
+    const weight = this.enemies
+      .filter((e) => !e.dead && !e.reached)
+      .reduce((s, e) => s + (e.isBoss ? EARLY_CALL_BOSS_WEIGHT : 1), 0);
+    return Math.min(EARLY_CALL_MAX_GOLD, EARLY_CALL_BASE_GOLD + weight * EARLY_CALL_GOLD_PER_ENEMY);
+  }
+
+  /**
+   * 다음 웨이브 시작.
+   * - 준비 단계: 일반 시작 + 미션 부여
+   * - 전투 중(조기 호출): 보너스 골드, 웨이브가 이어 붙고 미션은 새로 부여하지 않음
+   *   (클리어 보상은 이어 붙인 웨이브 수만큼 적 전멸 시 한 번에 정산)
+   */
   startWave() {
-    if (!this.canStartWave()) return;
+    const early = this.canCallWaveEarly();
+    if (!this.canStartWave() && !early) return;
+    if (early) {
+      const bonus = this.earlyCallBonus();
+      this.gold += bonus;
+      this.chainedWaves++;
+      this.log(`⏩ 웨이브 ${this.wave + 1} 조기 호출! +${bonus}G`, "#38bdf8");
+      this.emit("early_call");
+    }
     this.wave++;
     this.phase = "wave";
     this.waveStartTime = this.time;
@@ -624,7 +696,87 @@ export class GameEngine {
     this.spawnQueue = this.buildWave(this.wave);
     this.log(`━━ 웨이브 ${this.wave} 시작! ━━`, this.isBossWave(this.wave) ? "#f87171" : undefined);
     if (this.isBossWave(this.wave)) this.log("⚠ 보스 웨이브!", "#f87171");
+    if (!early) {
+      const def = this.missionFor(this.wave);
+      this.mission = def
+        ? { missionId: def.id, wave: this.wave, startTime: this.time, status: "active" }
+        : null;
+      if (def) this.log(`🎯 미션: ${def.name} — 성공 시 +${def.rewardGold}G`, "#a78bfa");
+    }
+    this.emit("wave_start");
     this.bump();
+  }
+
+  // ============================================================
+  // 웨이브 미션
+  // ============================================================
+
+  /**
+   * 웨이브에 배정될 미션 (미리보기/시작 공용).
+   * 수동 웨이브의 missionId가 우선, 없으면 조건에 맞는 미션 중 시드+웨이브로 결정
+   * — RNG 상태를 소비하지 않으므로 뽑기/치명타 결과에 영향 없음
+   */
+  missionFor(wave: number): MissionDef | null {
+    const fixedId = this.waveDefFor(wave)?.missionId;
+    if (fixedId) return this.missionDefs.find((m) => m.id === fixedId) ?? null;
+    const boss = this.isBossWave(wave);
+    const pool = this.missionDefs.filter(
+      (m) =>
+        (m.minWave ?? 1) <= wave &&
+        (m.waveFilter === "any" || (m.waveFilter === "boss") === boss) &&
+        (m.condition.type !== "boss_within" || boss)
+    );
+    if (pool.length === 0) return null;
+    return pool[hashInts(this.seed, wave) % pool.length];
+  }
+
+  currentMissionDef(): MissionDef | null {
+    if (!this.mission) return null;
+    return this.missionDefs.find((m) => m.id === this.mission!.missionId) ?? null;
+  }
+
+  private failMission(reason: string) {
+    const m = this.mission;
+    if (!m || m.status !== "active") return;
+    m.status = "failed";
+    this.log(`✖ 미션 실패: ${this.currentMissionDef()?.name ?? m.missionId} (${reason})`, "#f87171");
+    this.emit("mission_fail");
+    this.bump();
+  }
+
+  /** 전투 중 실시간 판정 (시간 초과 / 배치 수 초과) */
+  private updateMission() {
+    const m = this.mission;
+    const def = this.currentMissionDef();
+    if (!m || !def || m.status !== "active") return;
+    const elapsed = this.time - m.startTime;
+    const c = def.condition;
+    if (c.type === "clear_within" && elapsed > c.seconds) this.failMission("시간 초과");
+    else if (c.type === "boss_within" && m.bossKilledAt === undefined && elapsed > c.seconds) {
+      this.failMission("시간 초과");
+    } else if (c.type === "max_placed" && this.placed.length > c.count) {
+      this.failMission(`배치 ${this.placed.length}명 > ${c.count}명`);
+    }
+  }
+
+  /** 적 전멸 시 최종 판정 → 성공하면 보상 */
+  private resolveMission() {
+    const m = this.mission;
+    const def = this.currentMissionDef();
+    if (m && def && m.status === "active") {
+      const c = def.condition;
+      const bossMissed =
+        c.type === "boss_within" &&
+        (m.bossKilledAt === undefined || m.bossKilledAt - m.startTime > c.seconds);
+      if (bossMissed) {
+        this.failMission("보스를 처치하지 못함");
+      } else {
+        this.gold += def.rewardGold;
+        this.log(`🎯 미션 성공: ${def.name}! +${def.rewardGold}G`, "#a78bfa");
+        this.emit("mission_success");
+      }
+    }
+    this.mission = null;
   }
 
   private waveDefFor(wave: number): WaveDef | null {
@@ -786,6 +938,7 @@ export class GameEngine {
     this.enemies.push(
       this.createEnemyUnit(entry.def, entry.hpMult, entry.goldMult, entry.pathId, { x: start.x, y: start.y }, 1)
     );
+    if (entry.def.isBoss) this.emit("boss_spawn");
   }
 
   private createEnemyUnit(
@@ -849,19 +1002,28 @@ export class GameEngine {
     // 만료된 전역 버프 정리
     this.globalBuffs = this.globalBuffs.filter((b) => b.until > this.time);
 
-    // 웨이브 종료 판정
+    if (this.phase === "wave") this.updateMission();
+
+    // 웨이브 종료 판정 (조기 호출로 이어 붙인 웨이브는 함께 정산)
     if (this.phase === "wave" && this.waveSpawnDone && this.enemies.length === 0) {
+      this.resolveMission();
+      const cleared = 1 + this.chainedWaves;
+      this.chainedWaves = 0;
+      const clearGold = WAVE_CLEAR_GOLD * cleared;
       const interest = Math.min(INTEREST_CAP, Math.floor((this.gold * INTEREST_PCT) / 100));
-      this.gold += WAVE_CLEAR_GOLD + interest;
+      this.gold += clearGold + interest;
+      const label = cleared > 1 ? `${this.wave - cleared + 1}~${this.wave}` : `${this.wave}`;
       this.log(
-        `웨이브 ${this.wave} 클리어! +${WAVE_CLEAR_GOLD}G${interest > 0 ? ` (이자 +${interest}G)` : ""}`,
+        `웨이브 ${label} 클리어! +${clearGold}G${interest > 0 ? ` (이자 +${interest}G)` : ""}`,
         "#4ade80"
       );
       if (this.wave >= this.totalWaves) {
         this.phase = "victory";
         this.log("🎉 모든 웨이브 방어 성공! 승리!", "#fbbf24");
+        this.emit("victory");
       } else {
         this.phase = "prep";
+        this.emit("wave_clear");
       }
       this.bump();
     }
@@ -911,9 +1073,12 @@ export class GameEngine {
         this.lives--;
         this.log(`적이 도착지에 도달! 목숨 -1 (남은 목숨 ${Math.max(0, this.lives)})`, "#f87171");
         this.addFx("death", e.pos, "#f87171", 0.5, 0.8);
-        if (this.lives <= 0) {
+        this.emit("leak");
+        if (this.currentMissionDef()?.condition.type === "no_leak") this.failMission("목숨 손실");
+        if (this.lives <= 0 && this.phase !== "defeat") {
           this.phase = "defeat";
           this.log("💀 게임 오버...", "#f87171");
+          this.emit("defeat");
         }
         this.bump();
       }
@@ -1036,6 +1201,7 @@ export class GameEngine {
       sourceUid: t.uid,
       fromSkill,
     });
+    if (!fromSkill) this.emit("shot");
   }
 
   private updateProjectiles(dt: number) {
@@ -1063,6 +1229,7 @@ export class GameEngine {
   private onProjectileHit(p: Projectile, target: EnemyUnit) {
     this.dealDamage(target, p.damage, p.damageType, p.crit, p.sourceUid);
     this.addFx(p.crit ? "crit" : "hit", target.pos, p.color, p.crit ? 0.4 : 0.25, p.crit ? 0.5 : 0.3);
+    this.emit(p.crit ? "crit" : "hit");
 
     // 적 타격 시 마나 획득
     const src = this.placed.find((t) => t.uid === p.sourceUid);
@@ -1105,7 +1272,15 @@ export class GameEngine {
       this.gold += reward;
       if (src) src.kills++;
       this.addFx("death", target.pos, "#fca5a5", 0.6, 0.6);
-      if (target.isBoss) this.log(`보스 처치! +${reward}G`, "#fbbf24");
+      if (target.isBoss) {
+        this.log(`보스 처치! +${reward}G`, "#fbbf24");
+        this.emit("boss_kill");
+        if (this.mission && this.mission.bossKilledAt === undefined) {
+          this.mission.bossKilledAt = this.time;
+        }
+      } else {
+        this.emit("kill");
+      }
 
       // 분열 특성: 사망 위치에 자식 스폰
       for (const tr of this.traitsOf(target)) {
@@ -1141,6 +1316,7 @@ export class GameEngine {
 
     t.skillAnimUntil = this.time + 0.6;
     this.addFx("skill_text", { x: t.tile!.x, y: t.tile!.y - 0.5 }, "#fbbf24", 1.0, 0, skill.name);
+    this.emit("skill");
 
     switch (skill.type) {
       case "nuke": {

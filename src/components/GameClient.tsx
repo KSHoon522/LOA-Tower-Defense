@@ -3,9 +3,16 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { DIFFICULTY, GRADE_COLOR, GRADE_LABEL, TARGET_MODE_LABEL } from "@/game/constants";
+import {
+  BENCH_SIZE,
+  DIFFICULTY,
+  GRADE_COLOR,
+  GRADE_LABEL,
+  TARGET_MODE_LABEL,
+  describeMissionCondition,
+} from "@/game/constants";
 import { GameEngine } from "@/game/engine";
-import { gachaCost } from "@/game/gacha";
+import { gachaCost, sellRefund } from "@/game/gacha";
 import { createViewState, drawGame, type ViewState } from "@/game/render";
 import type {
   Difficulty,
@@ -18,6 +25,7 @@ import type {
 } from "@/game/types";
 import { fetchGameData } from "@/lib/api";
 import { clearSave, loadSave, writeSave } from "@/lib/save";
+import { getSound } from "@/lib/sound";
 import UnitCard from "./UnitCard";
 
 const TRAIT_LABEL: Record<string, string> = {
@@ -80,6 +88,8 @@ export default function GameClient() {
     startY: number;
     uid: string | null;
     moved: boolean;
+    /** 롱프레스로 메뉴를 연 경우 — 손을 떼도 탭으로 처리하지 않음 */
+    longPressed?: boolean;
   } | null>(null);
 
   const [, setUiTick] = useState(0);
@@ -99,9 +109,17 @@ export default function GameClient() {
   const [benchGhost, setBenchGhost] = useState<{ x: number; y: number; defId: string } | null>(null);
   const benchDragUidRef = useRef<string | null>(null);
   const suppressBenchClickRef = useRef<string | null>(null);
+  /** 유닛 빠른 메뉴 (터치 롱프레스 / 마우스 우클릭) */
+  const [unitMenu, setUnitMenu] = useState<{ uid: string; x: number; y: number } | null>(null);
+  const longPressTimerRef = useRef<number | null>(null);
+  /** 메뉴 배경에서 시작한 탭인지 (메뉴를 연 롱프레스의 뒤따르는 click으로 바로 닫히지 않게) */
+  const menuBackdropDownRef = useRef(false);
+  /** 효과음 볼륨 (SSR 불일치 방지: 마운트 후 로드) */
+  const [volume, setVolume] = useState<number | null>(null);
 
   useEffect(() => {
     setDpr(Math.min(2, window.devicePixelRatio || 1));
+    setVolume(getSound()?.volume ?? 0);
     fetchGameData().then(setData).catch((e) => setError(e.message));
   }, []);
 
@@ -130,6 +148,7 @@ export default function GameClient() {
       enemies: data.enemies,
       synergies: data.synergies,
       gachas: data.gachas,
+      missions: data.missions,
       job,
       difficulty: diff,
       stage,
@@ -237,6 +256,7 @@ export default function GameClient() {
       const dt = (now - last) / 1000;
       last = now;
       eng.tick(dt);
+      getSound()?.playAll(eng.drainEvents());
 
       const view = viewRef.current;
       view.tileSize = tileSize;
@@ -332,7 +352,24 @@ export default function GameClient() {
   };
 
   // ---- 포인터 이벤트 (마우스 + 터치 공용) ----
+  const clearLongPress = () => {
+    if (longPressTimerRef.current !== null) {
+      window.clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  };
+
+  /** 유닛 빠른 메뉴 열기 (선택 상태로 만들어 사거리/합성 후보도 함께 표시) */
+  const openUnitMenu = (uid: string, x: number, y: number) => {
+    setSelectedUid(uid);
+    clearFusion();
+    menuBackdropDownRef.current = false;
+    setUnitMenu({ uid, x, y });
+  };
+
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    // 우클릭 등 보조 버튼은 탭/드래그로 처리하지 않음 (우클릭 = 빠른 메뉴)
+    if (e.pointerType === "mouse" && e.button !== 0) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     const { tile } = posFromEvent(e);
     let uid: string | null = null;
@@ -343,6 +380,30 @@ export default function GameClient() {
       uid = tower?.uid ?? null;
     }
     pointerRef.current = { startX: e.clientX, startY: e.clientY, uid, moved: false };
+
+    // 터치 롱프레스 → 빠른 메뉴 (마우스는 우클릭으로)
+    clearLongPress();
+    if (uid && e.pointerType !== "mouse") {
+      const { clientX, clientY } = e;
+      longPressTimerRef.current = window.setTimeout(() => {
+        longPressTimerRef.current = null;
+        const p = pointerRef.current;
+        if (!p || p.moved || p.uid !== uid) return;
+        p.longPressed = true;
+        navigator.vibrate?.(15);
+        openUnitMenu(uid!, clientX, clientY);
+      }, 450);
+    }
+  };
+
+  const handleContextMenu = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    if (!engine || aimSkillIndex !== null) return;
+    const { tile } = posFromEvent(e);
+    const tower = engine.placed.find(
+      (t) => t.tile && t.tile.x === tile.x && t.tile.y === tile.y
+    );
+    if (tower) openUnitMenu(tower.uid, e.clientX, e.clientY);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -353,7 +414,8 @@ export default function GameClient() {
     const p = pointerRef.current;
     if (!p) return;
     const dist = Math.hypot(e.clientX - p.startX, e.clientY - p.startY);
-    if (p.uid && (p.moved || dist > 10)) {
+    if (p.uid && !p.longPressed && (p.moved || dist > 10)) {
+      clearLongPress();
       p.moved = true;
       viewRef.current.dragUid = p.uid;
       viewRef.current.dragPos = float;
@@ -363,9 +425,10 @@ export default function GameClient() {
   const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
     const p = pointerRef.current;
     pointerRef.current = null;
+    clearLongPress();
     viewRef.current.dragUid = null;
     viewRef.current.dragPos = null;
-    if (!engine || !p) return;
+    if (!engine || !p || p.longPressed) return;
 
     const { tile, float } = posFromEvent(e);
     if (p.moved && p.uid) {
@@ -378,6 +441,7 @@ export default function GameClient() {
   };
 
   const handlePointerCancel = () => {
+    clearLongPress();
     pointerRef.current = null;
     viewRef.current.dragUid = null;
     viewRef.current.dragPos = null;
@@ -414,15 +478,32 @@ export default function GameClient() {
 
   // ---- 대기석 카드 드래그 → 맵에 최초 배치 ----
   const handleBenchDragStart = (uid: string, e: React.PointerEvent) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
     if (!engine || !engine.bench.some((b) => b.uid === uid)) return;
     const defId = engine.bench.find((b) => b.uid === uid)!.defId;
     const startX = e.clientX;
     const startY = e.clientY;
     let active = false;
+    let longPressed = false;
+
+    // 터치 롱프레스 → 빠른 메뉴 (드래그가 시작되면 취소)
+    clearLongPress();
+    if (e.pointerType !== "mouse") {
+      longPressTimerRef.current = window.setTimeout(() => {
+        longPressTimerRef.current = null;
+        if (active) return;
+        longPressed = true;
+        suppressBenchClickRef.current = uid;
+        navigator.vibrate?.(15);
+        openUnitMenu(uid, startX, startY);
+      }, 450);
+    }
 
     const onMove = (ev: PointerEvent) => {
+      if (longPressed) return;
       if (!active && Math.hypot(ev.clientX - startX, ev.clientY - startY) > 8) {
         active = true;
+        clearLongPress();
         benchDragUidRef.current = uid;
       }
       if (!active) return;
@@ -445,8 +526,16 @@ export default function GameClient() {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
+      clearLongPress();
       benchDragUidRef.current = null;
       setBenchGhost(null);
+      if (longPressed) {
+        // 롱프레스 뒤 click이 안 오는 브라우저도 있으므로 억제 플래그를 잠시 후 해제
+        window.setTimeout(() => {
+          if (suppressBenchClickRef.current === uid) suppressBenchClickRef.current = null;
+        }, 400);
+        return;
+      }
       if (!active) return; // 드래그가 아니었으면 클릭으로 처리
       suppressBenchClickRef.current = uid;
       const canvas = canvasRef.current;
@@ -500,6 +589,16 @@ export default function GameClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedUid]);
 
+  // 빠른 메뉴: Esc로 닫기
+  useEffect(() => {
+    if (!unitMenu) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setUnitMenu(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [unitMenu]);
+
   /** 뽑기 실행 + 최근 뽑기 기록 */
   const doGacha = (gachaId: string, region?: string) => {
     if (!engine) return;
@@ -542,6 +641,60 @@ export default function GameClient() {
       ? engine.wavePreview(engine.wave + 1)
       : [];
   const towerStats = engine.phase === "victory" || engine.phase === "defeat" ? engine.towerStats() : [];
+
+  // 미션: 전투 중이면 진행 중 미션, 준비 단계면 다음 웨이브에 배정될 미션
+  const missionInfo = (() => {
+    if (engine.phase === "wave" && engine.mission) {
+      const def = engine.currentMissionDef();
+      if (!def) return null;
+      const m = engine.mission;
+      const c = def.condition;
+      let progress = "";
+      if (m.status === "active") {
+        if (c.type === "clear_within" || (c.type === "boss_within" && m.bossKilledAt === undefined)) {
+          progress = `남은 ${Math.max(0, Math.ceil(c.seconds - (engine.time - m.startTime)))}초`;
+        } else if (c.type === "boss_within") {
+          progress = "보스 처치 완료 — 전멸 시 성공";
+        } else if (c.type === "max_placed") {
+          progress = `배치 ${engine.placed.length}/${c.count}`;
+        }
+      }
+      return { def, upcoming: false, failed: m.status === "failed", progress };
+    }
+    if (engine.phase === "prep" && engine.wave < engine.totalWaves) {
+      const def = engine.missionFor(engine.wave + 1);
+      if (!def) return null;
+      const c = def.condition;
+      const progress = c.type === "max_placed" ? `현재 배치 ${engine.placed.length}/${c.count}` : "";
+      return { def, upcoming: true, failed: false, progress };
+    }
+    return null;
+  })();
+
+  const canCallEarly = engine.canCallWaveEarly();
+
+  const waveButton = canCallEarly ? (
+    <button
+      className="whitespace-nowrap rounded-lg border-2 border-sky-400 bg-sky-500/90 px-4 py-1.5 text-sm font-extrabold text-slate-950 shadow-lg transition-transform active:scale-95"
+      title="남은 적이 많을수록 보너스가 큽니다. 클리어 보상은 적 전멸 시 합산(이자는 1회), 조기 호출한 웨이브에는 미션이 붙지 않습니다."
+      onClick={() => engine.startWave()}
+    >
+      ⏩ 웨이브 {engine.wave + 1} 조기 호출{" "}
+      <span className="text-xs font-bold">+{engine.earlyCallBonus()}G</span>
+    </button>
+  ) : (
+    <button
+      className="whitespace-nowrap rounded-lg border-2 border-amber-500 bg-amber-500/90 px-5 py-1.5 text-sm font-extrabold text-slate-950 shadow-lg transition-transform active:scale-95 disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500"
+      disabled={!engine.canStartWave()}
+      onClick={() => engine.startWave()}
+    >
+      {engine.phase === "wave"
+        ? `웨이브 ${engine.wave} 진행 중`
+        : engine.isBossWave(engine.wave + 1)
+          ? `⚠ 보스 웨이브 ${engine.wave + 1} 시작`
+          : `▶ 웨이브 ${engine.wave + 1} 시작`}
+    </button>
+  );
 
   // 바로 뽑기 = 가장 최근에 사용한 뽑기 (없으면 첫 번째 뽑기)
   const quickGachaDef =
@@ -959,6 +1112,10 @@ export default function GameClient() {
             className="shrink-0 touch-none"
             onPointerDown={(e) => handleBenchDragStart(unit.uid, e)}
             onClick={(e) => handleBenchClick(unit.uid, e)}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              openUnitMenu(unit.uid, e.clientX, e.clientY);
+            }}
           >
             <UnitCard
               def={def}
@@ -973,15 +1130,18 @@ export default function GameClient() {
   );
 
   return (
-    <div className="fixed inset-0 z-50 flex select-none flex-col overflow-hidden bg-slate-950">
+    <div
+      className="fixed inset-0 z-50 flex select-none flex-col overflow-hidden bg-slate-950"
+      onPointerDownCapture={() => getSound()?.unlock()}
+    >
       {/* ===== 상단 HUD ===== */}
       <div className="relative z-30 flex h-12 shrink-0 items-center gap-2 border-b border-slate-800/60 bg-slate-950/90 px-2 text-sm backdrop-blur">
         <Link href="/" className="btn px-2 py-1 text-xs">
           ←
         </Link>
-        <span className="font-bold text-amber-400">💰{engine.gold}</span>
-        <span className="font-bold text-red-400">❤️{engine.lives}</span>
-        <span className="text-slate-300">
+        <span className="whitespace-nowrap font-bold text-amber-400">💰{engine.gold}</span>
+        <span className="whitespace-nowrap font-bold text-red-400">❤️{engine.lives}</span>
+        <span className="whitespace-nowrap text-slate-300">
           🌊{engine.wave}/{engine.totalWaves}
         </span>
         <span className="hidden text-xs text-slate-500 md:inline">
@@ -989,22 +1149,24 @@ export default function GameClient() {
           {engine.job ? ` · ${engine.job.name}` : ""}
         </span>
 
-        {/* 중앙: 웨이브 시작 버튼 */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <button
-            className="rounded-lg border-2 border-amber-500 bg-amber-500/90 px-5 py-1.5 text-sm font-extrabold text-slate-950 shadow-lg transition-transform active:scale-95 disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500"
-            disabled={!engine.canStartWave()}
-            onClick={() => engine.startWave()}
-          >
-            {engine.phase === "wave"
-              ? `웨이브 ${engine.wave} 진행 중`
-              : engine.isBossWave(engine.wave + 1)
-                ? `⚠ 보스 웨이브 ${engine.wave + 1} 시작`
-                : `▶ 웨이브 ${engine.wave + 1} 시작`}
-          </button>
+        {/* 중앙: 웨이브 시작 / 조기 호출 버튼 (모바일은 HUD 아래 줄) */}
+        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
+          {waveButton}
         </div>
 
         <span className="ml-auto flex items-center gap-1.5">
+          <button
+            className="btn px-2 py-1 text-xs"
+            title="효과음 (끄기 / 작게 / 크게)"
+            onClick={() => {
+              const snd = getSound();
+              if (!snd) return;
+              snd.unlock();
+              setVolume(snd.cycleVolume());
+            }}
+          >
+            {volume === null || volume === 0 ? "🔇" : volume < 1 ? "🔉" : "🔊"}
+          </button>
           <button
             className="btn px-2 py-1 text-xs"
             onClick={() => {
@@ -1030,6 +1192,11 @@ export default function GameClient() {
             📜
           </button>
         </span>
+      </div>
+
+      {/* ===== 모바일: 웨이브 버튼 줄 (좁은 HUD에서 겹치지 않게) ===== */}
+      <div className="relative z-30 flex shrink-0 justify-center border-b border-slate-800/60 bg-slate-950/90 py-1.5 md:hidden">
+        {waveButton}
       </div>
 
       {/* ===== 본문: 좌 패널 | 캔버스 | 우 패널 ===== */}
@@ -1113,6 +1280,33 @@ export default function GameClient() {
                     </span>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* 웨이브 미션 */}
+            {missionInfo && (
+              <div
+                className={`mt-2 rounded border p-1.5 ${
+                  missionInfo.failed
+                    ? "border-red-900/60 bg-red-950/20 opacity-80"
+                    : "border-violet-800/60 bg-violet-950/20"
+                }`}
+              >
+                <div className="flex items-center justify-between text-[10px] font-bold text-violet-300">
+                  <span>
+                    🎯 {missionInfo.upcoming ? `웨이브 ${engine.wave + 1} 미션` : "진행 중 미션"}
+                  </span>
+                  <span className={missionInfo.failed ? "text-red-400" : "text-amber-400"}>
+                    {missionInfo.failed ? "✖ 실패" : `+${missionInfo.def.rewardGold}G`}
+                  </span>
+                </div>
+                <div className="mt-0.5 text-xs font-bold text-slate-200">{missionInfo.def.name}</div>
+                <div className="text-[10px] text-slate-400">
+                  {missionInfo.def.description || describeMissionCondition(missionInfo.def.condition)}
+                </div>
+                {missionInfo.progress && (
+                  <div className="mt-0.5 text-[10px] font-bold text-violet-200">{missionInfo.progress}</div>
+                )}
               </div>
             )}
 
@@ -1215,6 +1409,7 @@ export default function GameClient() {
               onPointerUp={handlePointerUp}
               onPointerCancel={handlePointerCancel}
               onPointerLeave={handlePointerCancel}
+              onContextMenu={handleContextMenu}
             />
           </div>
 
@@ -1236,6 +1431,27 @@ export default function GameClient() {
               </button>
             ))}
           </div>
+
+          {/* 모바일: 우상단 미션 */}
+          {missionInfo && (
+            <div
+              className={`absolute right-1.5 top-10 z-20 max-w-[45%] rounded-lg border px-2 py-1 text-[10px] backdrop-blur lg:hidden ${
+                missionInfo.failed
+                  ? "border-red-900/70 bg-red-950/60 text-red-300"
+                  : "border-violet-700/70 bg-slate-950/80 text-violet-200"
+              }`}
+            >
+              <div className="truncate font-bold">
+                🎯 {missionInfo.def.name}{" "}
+                <span className={missionInfo.failed ? "" : "text-amber-400"}>
+                  {missionInfo.failed ? "✖ 실패" : `+${missionInfo.def.rewardGold}G`}
+                </span>
+              </div>
+              <div className="truncate text-slate-400">
+                {missionInfo.progress || describeMissionCondition(missionInfo.def.condition)}
+              </div>
+            </div>
+          )}
 
           {/* 모바일: 우하단 원형 직업 스킬 */}
           {activeSkills.length > 0 && (
@@ -1556,6 +1772,110 @@ export default function GameClient() {
           </div>
         </div>
       )}
+
+      {/* ===== 유닛 빠른 메뉴 (터치 롱프레스 / 마우스 우클릭) ===== */}
+      {unitMenu &&
+        (() => {
+          const unit = engine.findUnit(unitMenu.uid);
+          const def = unit ? engine.towerDefs.get(unit.defId) : undefined;
+          if (!unit || !def) return null;
+          const placed = !!unit.tile;
+          const candidates = engine.fusionCandidates(unit.uid).length;
+          const close = () => setUnitMenu(null);
+          const act = (ok: boolean) => {
+            if (ok) {
+              setSelectedUid(null);
+              clearFusion();
+            }
+            close();
+          };
+          return (
+            <>
+              <div
+                className="fixed inset-0 z-[66]"
+                onPointerDown={() => (menuBackdropDownRef.current = true)}
+                onClick={() => {
+                  if (menuBackdropDownRef.current) close();
+                  menuBackdropDownRef.current = false;
+                }}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  close();
+                }}
+              />
+              <div
+                className="fixed z-[67] w-56 rounded-xl border border-slate-600 bg-slate-950/95 p-2 text-xs shadow-2xl backdrop-blur"
+                style={{
+                  left: Math.max(8, Math.min(unitMenu.x - 112, window.innerWidth - 232)),
+                  top: Math.max(56, Math.min(unitMenu.y + 12, window.innerHeight - 290)),
+                }}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span
+                    className="rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-950"
+                    style={{ backgroundColor: GRADE_COLOR[def.grade] }}
+                  >
+                    {GRADE_LABEL[def.grade]}
+                  </span>
+                  <span className="truncate font-bold">
+                    {def.appearance.icon} {def.name}
+                  </span>
+                  <button className="ml-auto px-1 text-slate-500" onClick={close}>
+                    ✕
+                  </button>
+                </div>
+                <div className="mt-0.5 text-[10px] text-slate-400">
+                  [{def.regions.join(", ")}] · {placed ? "배치됨" : "대기석"}
+                </div>
+
+                {placed && (
+                  <>
+                    <div className="mt-2 text-[10px] font-bold text-slate-400">🎯 타겟팅</div>
+                    <div className="mt-1 grid grid-cols-2 gap-1">
+                      {(Object.keys(TARGET_MODE_LABEL) as TargetMode[]).map((m) => (
+                        <button
+                          key={m}
+                          className={`btn px-1 py-1.5 text-[11px] ${
+                            unit.targetMode === m ? "border-amber-500 bg-amber-500/20 text-amber-300" : ""
+                          }`}
+                          onClick={() => engine.setTargetMode(unit.uid, m)}
+                        >
+                          {TARGET_MODE_LABEL[m]}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                <div className="mt-2 grid grid-cols-2 gap-1">
+                  {placed && (
+                    <button
+                      className="btn py-2 text-[11px]"
+                      disabled={engine.bench.length >= BENCH_SIZE}
+                      onClick={() => act(engine.unplaceTower(unit.uid))}
+                    >
+                      ↩ 회수
+                    </button>
+                  )}
+                  <button
+                    className={`btn btn-danger py-2 text-[11px] ${placed ? "" : "col-span-2"}`}
+                    onClick={() => act(engine.sellTower(unit.uid))}
+                  >
+                    💰 판매 +{sellRefund(def.grade)}G
+                  </button>
+                  {candidates > 0 && (
+                    <button
+                      className="btn col-span-2 py-2 text-[11px] text-amber-300"
+                      onClick={close}
+                    >
+                      ⚗️ 합성 대상 고르기 ({candidates}) — 점선 유닛을 탭
+                    </button>
+                  )}
+                </div>
+              </div>
+            </>
+          );
+        })()}
 
       {/* ===== 대기석 드래그 고스트 ===== */}
       {benchGhost && (

@@ -1,4 +1,4 @@
-import type { Difficulty, Grade } from "./types";
+import type { Difficulty, EntityKind, Grade, MissionCondition, MissionConditionType } from "./types";
 
 // ------------------------------------------------------------
 // 등급
@@ -114,6 +114,15 @@ export const WAVE_CLEAR_GOLD = 25;
 export const INTEREST_PCT = 5;
 export const INTEREST_CAP = 30;
 
+/**
+ * 웨이브 조기 호출 보너스: 현재 웨이브 스폰이 끝난 뒤 남은 적이 있을 때 다음 웨이브를 부르면
+ * 기본 + 남은 적 수(보스는 가중치) × 계수, 상한 적용
+ */
+export const EARLY_CALL_BASE_GOLD = 5;
+export const EARLY_CALL_GOLD_PER_ENEMY = 2;
+export const EARLY_CALL_BOSS_WEIGHT = 5;
+export const EARLY_CALL_MAX_GOLD = 30;
+
 /** 보스 웨이브 체력 배수 */
 export const BOSS_HP_MULT = 6;
 /** 보스 골드 배수 */
@@ -129,6 +138,29 @@ export const TARGET_MODE_LABEL: Record<
   strongest: "최대 체력",
   boss: "보스 우선",
 };
+
+/** 미션 조건 라벨 (UI/에디터) */
+export const MISSION_CONDITION_LABEL: Record<MissionConditionType, string> = {
+  no_leak: "목숨 손실 없이 클리어",
+  clear_within: "N초 이내 클리어",
+  no_job_skill: "직업 스킬 없이 클리어",
+  max_placed: "배치 타워 N개 이하로 클리어",
+  boss_within: "N초 이내 보스 처치",
+};
+
+/** 미션 조건 한 줄 설명 (에디터 목록 / 게임 화면 공용) */
+export function describeMissionCondition(c: MissionCondition): string {
+  switch (c.type) {
+    case "clear_within":
+      return `${c.seconds}초 이내 클리어`;
+    case "max_placed":
+      return `배치 타워 ${c.count}개 이하로 클리어`;
+    case "boss_within":
+      return `${c.seconds}초 이내 보스 처치`;
+    default:
+      return MISSION_CONDITION_LABEL[c.type];
+  }
+}
 
 /** 타워 판매 환급률 (%) - 뽑기 기본 비용 기준 */
 export const SELL_REFUND_PCT = 50;
@@ -148,3 +180,29 @@ export const DEFAULT_REGIONS: string[] = [
   "로헨델",
   "파푸니카",
 ];
+
+// ------------------------------------------------------------
+// 데이터 (CRUD 대상 엔티티 = data/<kind>.json)
+// ------------------------------------------------------------
+
+export const ENTITY_KINDS: EntityKind[] = [
+  "maps",
+  "jobs",
+  "towers",
+  "enemies",
+  "synergies",
+  "gachas",
+  "chapters",
+  "missions",
+];
+
+export const ENTITY_LABEL: Record<EntityKind, string> = {
+  maps: "맵",
+  jobs: "직업",
+  towers: "캐릭터",
+  enemies: "적",
+  synergies: "시너지",
+  gachas: "뽑기",
+  chapters: "챕터",
+  missions: "미션",
+};

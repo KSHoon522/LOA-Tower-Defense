@@ -30,7 +30,7 @@ function blank(): EnemyDef {
 }
 
 export default function EnemiesEditor() {
-  const { items, save, remove, error, busy } = useCrud<EnemyDef>("enemies");
+  const { items, save, remove, error, issues, clearIssues, busy } = useCrud<EnemyDef>("enemies");
   const [draft, setDraft] = useState<EnemyDef>(blank());
   const [isNew, setIsNew] = useState(true);
 
@@ -41,6 +41,8 @@ export default function EnemiesEditor() {
     <EditorLayout
       title="👹 적 캐릭터 에디터"
       error={error}
+      issues={issues}
+      onDismiss={clearIssues}
       list={
         <div className="space-y-1">
           <button

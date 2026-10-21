@@ -57,3 +57,14 @@ export class Rng {
     return items[items.length - 1].item;
   }
 }
+
+/**
+ * 두 정수를 섞은 결정론적 해시 (uint32)
+ * - RNG 상태를 소비하지 않고 시드 기반 값을 뽑을 때 사용 (예: 웨이브별 미션 배정)
+ */
+export function hashInts(a: number, b: number): number {
+  let h = (a ^ Math.imul((b + 0x9e3779b9) | 0, 0x85ebca6b)) >>> 0;
+  h = Math.imul(h ^ (h >>> 16), 0x7feb352d) >>> 0;
+  h = Math.imul(h ^ (h >>> 15), 0x846ca68b) >>> 0;
+  return (h ^ (h >>> 16)) >>> 0;
+}

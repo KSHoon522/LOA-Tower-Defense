@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { EntityKind } from "@/game/types";
-import { createEntity, deleteEntity, fetchAll, updateEntity } from "@/lib/api";
+import type { ValidationIssue } from "@/game/validate";
+import { ApiError, createEntity, deleteEntity, fetchAll, updateEntity } from "@/lib/api";
 
 // ============================================================
 // 공용 CRUD 훅
@@ -11,6 +12,8 @@ import { createEntity, deleteEntity, fetchAll, updateEntity } from "@/lib/api";
 export function useCrud<T extends { id: string }>(kind: EntityKind) {
   const [items, setItems] = useState<T[]>([]);
   const [error, setError] = useState<string | null>(null);
+  /** 마지막 저장/삭제의 검증 결과 (실패 시 오류, 성공 시 경고) */
+  const [issues, setIssues] = useState<ValidationIssue[]>([]);
   const [busy, setBusy] = useState(false);
 
   const reload = useCallback(async () => {
@@ -30,13 +33,16 @@ export function useCrud<T extends { id: string }>(kind: EntityKind) {
     async (item: T, isNew: boolean) => {
       setBusy(true);
       try {
-        if (isNew) await createEntity(kind, item);
-        else await updateEntity(kind, item.id, item);
+        const res = isNew
+          ? await createEntity(kind, item)
+          : await updateEntity(kind, item.id, item);
         await reload();
         setError(null);
+        setIssues(res.warnings ?? []);
         return true;
       } catch (e) {
         setError(e instanceof Error ? e.message : "저장 실패");
+        setIssues(e instanceof ApiError ? e.issues : []);
         return false;
       } finally {
         setBusy(false);
@@ -53,9 +59,11 @@ export function useCrud<T extends { id: string }>(kind: EntityKind) {
         await deleteEntity(kind, id);
         await reload();
         setError(null);
+        setIssues([]);
         return true;
       } catch (e) {
         setError(e instanceof Error ? e.message : "삭제 실패");
+        setIssues(e instanceof ApiError ? e.issues : []);
         return false;
       } finally {
         setBusy(false);
@@ -64,7 +72,12 @@ export function useCrud<T extends { id: string }>(kind: EntityKind) {
     [kind, reload]
   );
 
-  return { items, reload, save, remove, error, busy };
+  const clearIssues = useCallback(() => {
+    setIssues([]);
+    setError(null);
+  }, []);
+
+  return { items, reload, save, remove, error, issues, clearIssues, busy };
 }
 
 // ============================================================
@@ -228,21 +241,69 @@ export function ChipsField({
 // 목록 + 편집 레이아웃
 // ============================================================
 
+/** 검증 결과 목록 (오류 = 빨강, 경고 = 주황) */
+export function IssueList({
+  issues,
+  showItem,
+}: {
+  issues: ValidationIssue[];
+  /** 항목 id까지 표시 (여러 항목을 한 번에 보여줄 때) */
+  showItem?: boolean;
+}) {
+  if (issues.length === 0) return null;
+  return (
+    <ul className="space-y-0.5 text-xs">
+      {issues.map((iss, i) => (
+        <li key={i} className={iss.level === "error" ? "text-red-400" : "text-amber-300"}>
+          {iss.level === "error" ? "⛔" : "⚠"}{" "}
+          {showItem && iss.id && <b className="mr-1">{iss.id}</b>}
+          {iss.path && <code className="mr-1 rounded bg-slate-800 px-1 text-[10px]">{iss.path}</code>}
+          {iss.message}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function EditorLayout({
   title,
   list,
   form,
   error,
+  issues = [],
+  onDismiss,
 }: {
   title: string;
   list: React.ReactNode;
   form: React.ReactNode;
   error?: string | null;
+  /** 저장/삭제 검증 결과 — 실패 시 오류 상세, 성공 시 경고 */
+  issues?: ValidationIssue[];
+  onDismiss?: () => void;
 }) {
+  const dismiss = onDismiss && (
+    <button className="float-right px-1 text-slate-500 hover:text-slate-300" onClick={onDismiss}>
+      ✕
+    </button>
+  );
+  const warningsOnly = !error && issues.length > 0;
   return (
     <div className="space-y-3">
       <h1 className="text-xl font-bold text-amber-400">{title}</h1>
-      {error && <div className="panel border-red-800 text-sm text-red-400">{error}</div>}
+      {error && (
+        <div className="panel space-y-1.5 border-red-800 text-sm text-red-400">
+          {dismiss}
+          <div>{error}</div>
+          <IssueList issues={issues} showItem={issues.some((i) => i.kind !== issues[0].kind)} />
+        </div>
+      )}
+      {warningsOnly && (
+        <div className="panel space-y-1.5 border-amber-800/70">
+          {dismiss}
+          <div className="text-sm text-amber-300">저장했습니다. 확인이 필요한 경고:</div>
+          <IssueList issues={issues} />
+        </div>
+      )}
       <div className="flex flex-col gap-3 lg:flex-row">
         <div className="panel w-full lg:w-72 lg:shrink-0">{list}</div>
         <div className="panel min-w-0 flex-1">{form}</div>

@@ -251,6 +251,34 @@ export interface JobDef {
 }
 
 // ------------------------------------------------------------
+// 웨이브 미션 - CRUD 가능, 웨이브 시작 시 1개 부여 / 적 전멸 시 판정
+// ------------------------------------------------------------
+
+export type MissionCondition =
+  | { type: "no_leak" } // 목숨 손실 없이 클리어
+  | { type: "clear_within"; seconds: number } // 웨이브 시작 후 N초 이내 클리어
+  | { type: "no_job_skill" } // 직업 액티브 스킬 사용 없이 클리어
+  | { type: "max_placed"; count: number } // 배치 타워 N개 이하로 클리어
+  | { type: "boss_within"; seconds: number }; // 웨이브 시작 후 N초 이내 보스 처치 (보스 웨이브 전용)
+
+export type MissionConditionType = MissionCondition["type"];
+
+/** 미션 등장 웨이브: any=모든 웨이브, normal=일반 웨이브만, boss=보스 웨이브만 */
+export type MissionWaveFilter = "any" | "normal" | "boss";
+
+export interface MissionDef {
+  id: string;
+  name: string;
+  condition: MissionCondition;
+  /** 성공 보상 골드 */
+  rewardGold: number;
+  waveFilter: MissionWaveFilter;
+  /** 이 웨이브 이상부터 등장 */
+  minWave?: number;
+  description?: string;
+}
+
+// ------------------------------------------------------------
 // 뽑기 (가챠) - 종류/확률 CRUD 가능
 // ------------------------------------------------------------
 
@@ -319,6 +347,8 @@ export interface WaveDef {
   /** 이 웨이브 전용 배수 (스테이지 배수에 곱해짐) */
   hpMult?: number;
   goldMult?: number;
+  /** 지정 시 이 웨이브의 미션 고정 (없으면 미션 풀에서 자동 배정) */
+  missionId?: string;
   description?: string;
 }
 
@@ -365,6 +395,7 @@ export interface GameData {
   synergies: SynergyDef[];
   gachas: GachaDef[];
   chapters: ChapterDef[];
+  missions: MissionDef[];
 }
 
 export type EntityKind = keyof GameData;
@@ -465,6 +496,21 @@ export interface GameSnapshot {
   jobSkillUsesLeft: number;
   globalBuffs: GlobalBuff[];
   logs: { text: string; color?: string }[];
+  /** 조기 호출로 이어 붙인 웨이브 수 (이전 버전 세이브에는 없음) */
+  chainedWaves?: number;
+  /** 진행 중인 웨이브 미션 (이전 버전 세이브에는 없음) */
+  mission?: MissionState | null;
+}
+
+/** 진행 중인 웨이브 미션 상태 */
+export interface MissionState {
+  missionId: string;
+  /** 미션이 부여된 웨이브 */
+  wave: number;
+  startTime: number;
+  status: "active" | "failed";
+  /** boss_within: 보스 처치 시각 */
+  bossKilledAt?: number;
 }
 
 /** localStorage에 저장되는 세이브 슬롯 */
@@ -531,3 +577,30 @@ export interface ActiveSynergy {
   tiers: SynergyTier[];
   description?: string;
 }
+
+/**
+ * 엔진 이벤트 — 사운드 등 UI 연출용 (엔진은 기록만, UI가 drainEvents()로 소비)
+ */
+export type GameEventType =
+  | "shot"
+  | "hit"
+  | "crit"
+  | "skill"
+  | "kill"
+  | "boss_spawn"
+  | "boss_kill"
+  | "leak"
+  | "wave_start"
+  | "early_call"
+  | "wave_clear"
+  | "gacha"
+  | "gacha_esther"
+  | "fusion"
+  | "fusion_jackpot"
+  | "place"
+  | "sell"
+  | "job_skill"
+  | "mission_success"
+  | "mission_fail"
+  | "victory"
+  | "defeat";

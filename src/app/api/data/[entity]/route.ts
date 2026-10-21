@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createItem, isEntityKind, readAll } from "@/lib/dataStore";
+import { createItem, isEntityKind, readAll, validateAgainstStore } from "@/lib/dataStore";
+import { hasErrors, summarizeIssues } from "@/game/validate";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,7 @@ export async function GET(
   return NextResponse.json(items);
 }
 
+/** 생성: 스키마/참조 검증 → 오류 있으면 400 + issues, 성공 시 경고(warnings)와 함께 반환 */
 export async function POST(
   req: NextRequest,
   { params }: { params: { entity: string } }
@@ -23,8 +25,12 @@ export async function POST(
   }
   try {
     const body = await req.json();
+    const issues = await validateAgainstStore(params.entity, body);
+    if (hasErrors(issues)) {
+      return NextResponse.json({ error: summarizeIssues(issues), issues }, { status: 400 });
+    }
     const created = await createItem(params.entity, body);
-    return NextResponse.json(created, { status: 201 });
+    return NextResponse.json({ item: created, warnings: issues }, { status: 201 });
   } catch (e) {
     return NextResponse.json(
       { error: e instanceof Error ? e.message : "생성 실패" },

@@ -40,6 +40,27 @@ function px(v: number, ts: number): number {
   return (v + 0.5) * ts;
 }
 
+/** 사거리 원 */
+function drawRange(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  radius: number,
+  fill: string,
+  stroke: string,
+  dashed = false
+) {
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.fillStyle = fill;
+  ctx.fill();
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = 1.5;
+  if (dashed) ctx.setLineDash([6, 4]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
 export type AnimName = "idle" | "attack" | "skill" | "walk" | "death";
 
 /** 애니메이션 상태: 어떤 동작을 몇 초째 재생 중인지 + 바라보는 방향 */
@@ -275,6 +296,22 @@ export function drawGame(
       ctx.lineWidth = 2;
       ctx.stroke();
     }
+
+    // 배치/이동 중: 놓을 자리 기준 사거리 미리보기
+    const previewUid = view.dragUid ?? view.placingUid;
+    const previewUnit = previewUid ? engine.findUnit(previewUid) : undefined;
+    const previewDef = previewUnit ? engine.towerDefs.get(previewUnit.defId) : undefined;
+    if (previewUnit && previewDef && engine.isTileBuildable(x, y)) {
+      drawRange(
+        ctx,
+        px(x, ts),
+        px(y, ts),
+        engine.effectiveRange(previewUnit, previewDef) * ts,
+        "rgba(74, 222, 128, 0.08)",
+        "rgba(74, 222, 128, 0.6)",
+        true
+      );
+    }
   }
 
   // ---- 타워 ----
@@ -286,15 +323,16 @@ export function drawGame(
     const cx = px(t.tile.x, ts);
     const cy = px(t.tile.y, ts);
 
-    // 선택 시 사거리 표시
+    // 사거리 표시: 선택 시 강조, 마우스를 올리기만 해도 옅게
+    const hovered =
+      !view.dragUid &&
+      !view.placingUid &&
+      view.hoverTile?.x === t.tile.x &&
+      view.hoverTile?.y === t.tile.y;
     if (view.selectedUid === t.uid && !isDragging) {
-      ctx.beginPath();
-      ctx.arc(cx, cy, engine.effectiveRange(t, def) * ts, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(251, 191, 36, 0.08)";
-      ctx.fill();
-      ctx.strokeStyle = "rgba(251, 191, 36, 0.5)";
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      drawRange(ctx, cx, cy, engine.effectiveRange(t, def) * ts, "rgba(251, 191, 36, 0.08)", "rgba(251, 191, 36, 0.5)");
+    } else if (hovered) {
+      drawRange(ctx, cx, cy, engine.effectiveRange(t, def) * ts, "rgba(56, 189, 248, 0.07)", "rgba(56, 189, 248, 0.45)");
     }
 
     // 합성 후보/대상 하이라이트 (점선 링)

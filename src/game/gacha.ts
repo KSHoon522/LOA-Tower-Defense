@@ -1,4 +1,4 @@
-import { GRADE_ORDER } from "./constants";
+import { GRADE_ORDER, SELL_BASE_GOLD, SELL_REFUND_PCT } from "./constants";
 import type { GachaDef, Grade, JobDef, Region, TowerDef } from "./types";
 import type { Rng } from "./rng";
 
@@ -8,6 +8,13 @@ export function jobPassiveValue(job: JobDef | null, type: string): number {
   return job.skills
     .filter((s) => s.kind === "passive" && s.type === type)
     .reduce((sum, s) => sum + (s.kind === "passive" ? s.value : 0), 0);
+}
+
+/** 판매 환급액: 기준 골드 × 등급 배수(2^등급) × 환급률 */
+export function sellRefund(grade: Grade): number {
+  return Math.round(
+    (SELL_BASE_GOLD * Math.pow(2, GRADE_ORDER.indexOf(grade)) * SELL_REFUND_PCT) / 100
+  );
 }
 
 /** 직업 할인 반영 뽑기 비용 */

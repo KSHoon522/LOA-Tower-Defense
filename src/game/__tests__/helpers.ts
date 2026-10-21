@@ -1,10 +1,20 @@
 import { readFileSync } from "fs";
 import path from "path";
 import type { EngineOptions } from "../engine";
-import type { ChapterDef, EnemyDef, GachaDef, JobDef, MapDef, SynergyDef, TowerDef } from "../types";
+import type {
+  ChapterDef,
+  EnemyDef,
+  GachaDef,
+  GameData,
+  JobDef,
+  MapDef,
+  MissionDef,
+  SynergyDef,
+  TowerDef,
+} from "../types";
 
 /** data/*.json 로드 (테스트는 프로젝트 루트에서 실행됨) */
-export function loadData() {
+export function loadData(): GameData {
   const read = <T>(name: string): T =>
     JSON.parse(readFileSync(path.join(process.cwd(), "data", `${name}.json`), "utf-8")) as T;
   return {
@@ -15,6 +25,7 @@ export function loadData() {
     synergies: read<SynergyDef[]>("synergies"),
     gachas: read<GachaDef[]>("gachas"),
     chapters: read<ChapterDef[]>("chapters"),
+    missions: read<MissionDef[]>("missions"),
   };
 }
 
@@ -29,6 +40,7 @@ export function baseOptions(overrides: Partial<EngineOptions> = {}): EngineOptio
     enemies: d.enemies,
     synergies: d.synergies,
     gachas: d.gachas,
+    missions: d.missions,
     job: null,
     difficulty: "easy",
     stage: chapter.stages[0],

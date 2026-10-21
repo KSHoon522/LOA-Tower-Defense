@@ -30,7 +30,7 @@ const REGION_MODES = [
 ];
 
 export default function GachasEditor() {
-  const { items, save, remove, error, busy } = useCrud<GachaDef>("gachas");
+  const { items, save, remove, error, issues, clearIssues, busy } = useCrud<GachaDef>("gachas");
   const [draft, setDraft] = useState<GachaDef>(blank());
   const [isNew, setIsNew] = useState(true);
 
@@ -46,6 +46,8 @@ export default function GachasEditor() {
     <EditorLayout
       title="🎲 뽑기 에디터"
       error={error}
+      issues={issues}
+      onDismiss={clearIssues}
       list={
         <div className="space-y-1">
           <button

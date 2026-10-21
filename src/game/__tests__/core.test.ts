@@ -141,9 +141,12 @@ describe("synergy", () => {
   });
 
   it("다중 시너지 캐릭터는 모든 지역에 카운트된다", () => {
-    const esther = data.towers.find((t) => t.regions.length > 1)!;
-    const res = computeSynergies([unit(esther.id, 0)], towerDefs, data.synergies, null);
-    for (const r of esther.regions) {
+    // 시드 데이터 편집과 무관하게: 시너지가 정의된 두 지역을 가진 캐릭터를 직접 만든다
+    const regions = data.synergies.slice(0, 2).map((s) => s.region);
+    const multi: TowerDef = { ...data.towers[0], id: "tw-test-multi", regions };
+    const defs = new Map(towerDefs).set(multi.id, multi);
+    const res = computeSynergies([unit(multi.id, 0)], defs, data.synergies, null);
+    for (const r of regions) {
       expect(res.find((s) => s.region === r)?.count).toBe(1);
     }
   });

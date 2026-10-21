@@ -112,7 +112,7 @@ function TierRow({
 }
 
 export default function SynergiesEditor() {
-  const { items, save, remove, error, busy } = useCrud<SynergyDef>("synergies");
+  const { items, save, remove, error, issues, clearIssues, busy } = useCrud<SynergyDef>("synergies");
   const [draft, setDraft] = useState<SynergyDef>(blank());
   const [isNew, setIsNew] = useState(true);
 
@@ -123,6 +123,8 @@ export default function SynergiesEditor() {
     <EditorLayout
       title="🔗 시너지 에디터"
       error={error}
+      issues={issues}
+      onDismiss={clearIssues}
       list={
         <div className="space-y-1">
           <button

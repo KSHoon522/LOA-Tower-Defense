@@ -41,7 +41,7 @@ function blank(): TowerDef {
 }
 
 export default function TowersEditor() {
-  const { items, save, remove, error, busy } = useCrud<TowerDef>("towers");
+  const { items, save, remove, error, issues, clearIssues, busy } = useCrud<TowerDef>("towers");
   const { items: synergies } = useCrud<SynergyDef>("synergies");
   const [draft, setDraft] = useState<TowerDef>(blank());
   const [isNew, setIsNew] = useState(true);
@@ -60,6 +60,8 @@ export default function TowersEditor() {
     <EditorLayout
       title="🏹 아군 캐릭터(타워) 에디터"
       error={error}
+      issues={issues}
+      onDismiss={clearIssues}
       list={
         <div className="space-y-1">
           <button

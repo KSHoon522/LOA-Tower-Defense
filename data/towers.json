@@ -25,7 +25,8 @@
     "description": "베른 왕국의 견습 기사.",
     "regions": [
       "베른"
-    ]
+    ],
+    "artRef": "young squire knight with short chestnut hair under an oversized open-faced helmet with a single green plume, green-and-white padded tabard over light chainmail with a small sun emblem, short arming sword held in a forward thrusting stance, round wooden buckler"
   },
   {
     "id": "tw-iceapprentice",
@@ -56,7 +57,8 @@
     "description": "슈샤이어의 견습 마법사.",
     "regions": [
       "슈샤이어"
-    ]
+    ],
+    "artRef": "apprentice frost mage with messy pale-blue hair, thick fur-trimmed grey-blue hooded cloak and mittens, short crooked wooden staff topped with a small ice crystal, rosy cheeks and visible frosty breath, tiny frost shards swirling around the staff"
   },
   {
     "id": "tw-brawler",
@@ -86,7 +88,8 @@
     "description": "애니츠 무술 도장의 수련생.",
     "regions": [
       "애니츠"
-    ]
+    ],
+    "artRef": "young martial arts trainee with a shaved head and a red cloth headband, plain white sleeveless training gi with a red sash, oversized bandaged fists raised in a rapid-punch stance, motion lines around the fists"
   },
   {
     "id": "tw-slinger",
@@ -114,7 +117,8 @@
     "description": "남쪽 섬의 투석꾼.",
     "regions": [
       "파푸니카"
-    ]
+    ],
+    "artRef": "tropical island stone slinger with spiky dark hair tied with a red hibiscus flower, tan skin with simple white tribal paint, leaf-and-grass skirt and shell necklace, braided rope sling whirling overhead holding a big round boulder"
   },
   {
     "id": "tw-gunner",
@@ -143,7 +147,8 @@
     "description": "아르데타인의 정예 소총병.",
     "regions": [
       "아르데타인"
-    ]
+    ],
+    "artRef": "desert rifleman with short blond hair under a peaked cap with brass goggles, tan military greatcoat with brass buttons and shoulder boards, long bolt-action rifle with a brass scope, ammunition bandolier across the chest"
   },
   {
     "id": "tw-sylph",
@@ -172,7 +177,8 @@
     "description": "정령의 숲에서 온 실프.",
     "regions": [
       "로헨델"
-    ]
+    ],
+    "artRef": "small airy wind sylph girl with long flowing mint-green hair that fades into wisps of wind, pointed ears, translucent leaf-petal dress in teal and silver, floating barefoot above the ground, crescent wind blades and swirling leaves around her"
   },
   {
     "id": "tw-monk",
@@ -201,7 +207,8 @@
     "description": "내공을 수련한 승려.",
     "regions": [
       "애니츠"
-    ]
+    ],
+    "artRef": "calm warrior monk with a shaved head and a red forehead dot, saffron-orange and red robe with one shoulder bare, large wooden prayer beads around the neck, open-palm strike pose releasing a golden palm-shaped shockwave"
   },
   {
     "id": "tw-icearcher",
@@ -232,7 +239,8 @@
     "description": "얼음 화살을 다루는 궁수.",
     "regions": [
       "슈샤이어"
-    ]
+    ],
+    "artRef": "snowfield huntress archer with a long silver-white braid, white wolf-fur hood and grey-blue leather hunting coat, recurve bow carved from pale blue ice, quiver of frost-tipped arrows, nocked arrow with a glowing icy arrowhead"
   },
   {
     "id": "tw-knightcaptain",
@@ -261,7 +269,8 @@
     "description": "베른 기사단을 이끄는 단장.",
     "regions": [
       "베른"
-    ]
+    ],
+    "artRef": "stern knight captain with short dark hair and a scar on the jaw, polished silver plate armor with a green surcoat and golden sun emblem, long green cape, oversized two-handed greatsword raised for an overhead slam"
   },
   {
     "id": "tw-frostmage",
@@ -292,7 +301,8 @@
     "description": "설원의 빙결 마도사.",
     "regions": [
       "슈샤이어"
-    ]
+    ],
+    "artRef": "stern frost sorcerer with long icy-white hair and a frost-rimed beard, layered white and pale-blue robe with fur collar and silver runes, tall staff crowned with a jagged ice crystal, swirling blizzard vortex above the staff"
   },
   {
     "id": "tw-sniper",
@@ -320,7 +330,8 @@
     "description": "긴 사거리의 저격수.",
     "regions": [
       "아르데타인"
-    ]
+    ],
+    "artRef": "cool-headed desert sniper with a short dark ponytail and a red scarf over the lower face, long khaki duster coat with brass-buckled harness, steampunk sniper rifle taller than the character with a big brass scope, red glowing targeting lens over one eye"
   },
   {
     "id": "tw-elementalist",
@@ -349,7 +360,8 @@
     "description": "정령과 계약한 술사.",
     "regions": [
       "로헨델"
-    ]
+    ],
+    "artRef": "elf elementalist with long silver hair and pointed ears, teal and silver layered mage robe with leaf embroidery, slender crystal wand, four tiny elemental spirits (flame, water drop, wind swirl, stone) orbiting around her"
   },
   {
     "id": "tw-battlemaster",
@@ -379,7 +391,8 @@
     "description": "애니츠 최고의 격투 사범.",
     "regions": [
       "애니츠"
-    ]
+    ],
+    "artRef": "veteran martial arts master with long black hair in a high topknot and a thin mustache, crimson and gold dragon-embroidered kung fu robe with flowing sleeves, jade bracers, dynamic flying-kick pose, coiling golden dragon-shaped aura around his fists"
   },
   {
     "id": "tw-archmage",
@@ -408,7 +421,8 @@
     "description": "베른 마법학회의 대마법사.",
     "regions": [
       "베른"
-    ]
+    ],
+    "artRef": "grand archmage with a long white beard and a tall pointed hat, deep violet and gold royal robe with star embroidery, ornate golden staff with a floating orb, small flaming meteor hovering above his raised hand"
   },
   {
     "id": "tw-mechgunner",
@@ -437,7 +451,8 @@
     "description": "최신 병기로 무장한 메카닉.",
     "regions": [
       "아르데타인"
-    ]
+    ],
+    "artRef": "goggled mechanic girl with short orange hair, oil-stained tan jumpsuit with rolled sleeves and a brass tool belt, oversized mechanical gauntlet cannon on one arm with a glowing neon-blue laser core, small hovering drone companion"
   },
   {
     "id": "tw-frostqueen",
@@ -468,7 +483,8 @@
     "description": "설원을 지배하는 얼음의 여제.",
     "regions": [
       "슈샤이어"
-    ]
+    ],
+    "artRef": "ice empress with very long flowing white-blue hair, towering crown of jagged ice crystals, elegant white silk gown with translucent ice armor plates and a white fur mantle, scepter topped with a frozen star, cold blue eyes, falling snowflakes and frost mist"
   },
   {
     "id": "tw-sunwarrior",
@@ -497,7 +513,8 @@
     "description": "태양의 힘을 받은 전사.",
     "regions": [
       "파푸니카"
-    ]
+    ],
+    "artRef": "muscular tropical island sun warrior with tan skin and wild orange hair, glowing golden tribal tattoos, feathered headdress shaped like a sunburst, flower lei and woven war skirt, obsidian-edged war club blazing with sunfire, sun disc halo behind his back"
   },
   {
     "id": "tw-esther-luteran",

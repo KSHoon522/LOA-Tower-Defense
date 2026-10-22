@@ -1,77 +1,173 @@
 [
   {
-    "id": "en-goblin",
-    "name": "고블린 잡병",
-    "hp": 55,
-    "defense": 5,
-    "magicDefense": 0,
-    "moveSpeed": 1.6,
+    "id": "en-c3200031",
+    "name": "하백",
+    "hp": 90,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
     "isBoss": false,
-    "goldReward": 4,
+    "goldReward": 6,
     "appearance": {
-      "color": "#84cc16",
-      "shape": "circle",
-      "icon": "👺"
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
     },
-    "description": "가장 흔한 잡몹. 빠르지만 약하다.",
+    "description": "창천비무제의 창천제일검이자, 환술을 익힌 도사. 에스더의 제자로 웨이와 함께 수학했다고 한다.",
     "traits": [],
-    "artRef": "scrawny green goblin grunt with big pointed ears and a toothy grin, ragged brown loincloth and a dented pot helmet, rusty short dagger, hunched forward in a quick scurrying run"
+    "artRef": "elderly sage swordsman with grey topknot, gold mask over the eyes, white fur collar, crimson robe with gold patterns and gold sash, belt of hanging scroll tassels, glowing paper talisman held up in one hand, silver demon-face orb on a gold rope"
   },
   {
-    "id": "en-armored-orc",
-    "name": "중갑 오크",
-    "hp": 110,
-    "defense": 45,
+    "id": "en-c3200035",
+    "name": "카인",
+    "hp": 90,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 6,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "아르데타인 공화국 세 명의 지도자 중 한 명. 악마에 맞서 아크라시아를 지키기 위해, 케나인들을 진화의 길로 이끌려 한다.",
+    "traits": [],
+    "artRef": "young man with messy black hair, dark mechanical armor with spiky segmented black shoulder pieces, cream and gold tabard over a long dark coat, large mechanical clawed gauntlets, curved black blade-like protrusions rising behind his shoulders"
+  },
+  {
+    "id": "en-c3200055",
+    "name": "카이슈르",
+    "hp": 126,
+    "defense": 30,
     "magicDefense": 10,
     "moveSpeed": 1,
     "isBoss": false,
     "goldReward": 6,
     "appearance": {
-      "color": "#78716c",
+      "color": "#b91c1c",
       "shape": "square",
-      "icon": "🛡️"
+      "icon": "👹"
     },
-    "description": "물리 방어가 높다. 마법 공격이 효과적.",
-    "traits": [
-      {
-        "type": "aura_defense",
-        "radius": 1.5,
-        "defense": 15,
-        "magicDefense": 0
-      }
-    ],
-    "artRef": "hulking grey-green orc in heavy riveted iron plate armor with a horned helmet, huge iron tower shield, glowing blue protective aura rings radiating around him"
+    "description": "마검 벨크루제에 이끌려 욘에 들어온 어둠군단의 악마. 포악하고 공격적인 성격.",
+    "traits": [],
+    "artRef": "hulking demon brute with grey-green skin, long white hair and glowing red eyes, olive-green and bronze organic armor with curling horn tendrils rising from the shoulders, chains and red horned demon-face belt ornament, red cape"
   },
   {
-    "id": "en-spirit",
-    "name": "원한의 정령",
+    "id": "en-c3200059",
+    "name": "칼트말루스",
     "hp": 90,
-    "defense": 5,
-    "magicDefense": 50,
+    "defense": 8,
+    "magicDefense": 45,
     "moveSpeed": 1.3,
     "isBoss": false,
     "goldReward": 6,
     "appearance": {
-      "color": "#a5b4fc",
+      "color": "#7c3aed",
       "shape": "star",
-      "icon": "👻"
+      "icon": "😈"
     },
-    "description": "마법 저항이 높다. 물리 공격이 효과적.",
-    "traits": [
-      {
-        "type": "stealth",
-        "revealRange": 1.8
-      }
-    ],
-    "artRef": "translucent pale-indigo vengeful ghost with hollow glowing eyes and a wailing mouth, wispy tattered tail instead of legs, broken chains trailing from its wrists, shimmering half-invisible edges"
+    "description": "어둠군단의 고위 악마. 카멘의 명령에 따라 어둠군단을 지휘한다.",
+    "traits": [],
+    "artRef": "demon knight lord with flaming skull head and long curved horns, black spiked plate armor with red cloth accents, jagged black blade, riding a black armored beast steed, surrounded by fire"
   },
   {
-    "id": "en-wolfrider",
-    "name": "늑대 기수",
-    "hp": 75,
-    "defense": 15,
-    "magicDefense": 15,
-    "moveSpeed": 2.2,
+    "id": "en-c3200060",
+    "name": "혼돈의 사이카",
+    "hp": 72,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 6,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "카멘의 어둠에 의해 타락해버린 사이카.",
+    "traits": [],
+    "artRef": "muscular demonic man with lavender-grey skin and long white hair, black spiked horned crown shading his eyes, bare torso with glowing red chest gem, black spiky shoulder armor, massive black clawed gauntlets with red glowing lines, hanging chains"
+  },
+  {
+    "id": "en-c3200097",
+    "name": "도굴단장 우고",
+    "hp": 65,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 1.5,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#84cc16",
+      "shape": "circle",
+      "icon": "👺"
+    },
+    "description": "독발톱 도굴단의 단장. 진귀한 맹수들을 불러들이는 재주가 있고, 카마인과 은밀한 뒷거래를 하고 있다.",
+    "traits": [],
+    "artRef": "grinning hooded grave robber chief, pale wrinkled face with white glowing eyes, rust-brown hood and scarf, patched brown leather armor with crossed straps and iron ring, animal pelt over one shoulder, arrow quiver on back, long-handled spiked black iron mace"
+  },
+  {
+    "id": "en-c3200099",
+    "name": "역병 인도자",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "아르테미스로 숨어 들어온 질병군단의 악마. 아길로스의 머리에서 역병을 만들어 퍼뜨리고 있다.",
+    "traits": [],
+    "artRef": "gaunt plague demon, pale grey mottled skin with toxic green blotches, featureless masked face with glowing orange eyes, two long curling antennae, segmented dark chitin armor, curved scythe blade on one arm, glowing green plague orb in hand, dark spear"
+  },
+  {
+    "id": "en-c3200100",
+    "name": "하르잘",
+    "hp": 91,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "생물체들을 접합하여 만들어낸 생체 병기. 거구의 몸에는 끔찍한 감염체들이 득실거리고 있다.",
+    "traits": [],
+    "artRef": "hulking fleshy bio-weapon monster, grey-green slimy hide, split head maw ringed with curved silver claw-fangs dripping green ooze, tube-like pustule vents along its shoulder, wooden stakes jutting from its back, thick tentacle-like arms"
+  },
+  {
+    "id": "en-c3200103",
+    "name": "칼라도세",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "카마인의 수하. 사피라 동굴에서 위험한 실험을 진행하고 있다.",
+    "traits": [],
+    "artRef": "gaunt undead sorcerer, dark navy hood over a skull-like face with glowing green eyes, crown of iron spikes rising behind his head, dark spiked armor with chains wrapped on arms, bare ribbed torso, feathered shoulder mantle, tattered blue loincloth"
+  },
+  {
+    "id": "en-c3200105",
+    "name": "릭투스",
+    "hp": 52,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
     "isBoss": false,
     "goldReward": 5,
     "appearance": {
@@ -79,98 +175,2398 @@
       "shape": "triangle",
       "icon": "🐺"
     },
-    "description": "매우 빠른 기동형 적. 둔화가 효과적.",
+    "description": "재빠르고 사나운 늑대의 형상을 한 악마. 마수군단장 발탄의 오른팔 역할을 하고 있다.",
     "traits": [],
-    "artRef": "small goblin raider riding a lean amber-furred war wolf at full gallop, leather saddle with a red war banner on a pole, curved scimitar raised"
+    "artRef": "snarling wolf demon, blue-grey fur with white chest, pointed ears, scarred glowing red eye, bared fangs, black leather harness straps with steel buckles and belts, jagged curved steel claw blades on its forearm, red blood spatter"
   },
   {
-    "id": "en-boss-golem",
-    "name": "고대 수호 골렘",
-    "hp": 900,
-    "defense": 60,
-    "magicDefense": 40,
-    "moveSpeed": 0.55,
-    "isBoss": true,
-    "goldReward": 40,
+    "id": "en-c3200112",
+    "name": "사교도 대제사장",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
     "appearance": {
-      "color": "#57534e",
-      "shape": "square",
-      "icon": "🗿"
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
     },
-    "description": "느리지만 압도적인 체력의 보스.",
+    "description": "루테란 동부에 퍼진 광기의 사교를 모시는 대제사장. 광기의 악마를 숭배하며 광기군단장을 동부에 불러내고자 한다.",
+    "traits": [],
+    "artRef": "tall cult high priest, flowing white robe with wide bell sleeves, black and teal front panel with silver thorny trim, tall pointed black-teal mitre with curved silver horns, white faceless mask with a single red eye, grey clawed hands"
+  },
+  {
+    "id": "en-c3200117",
+    "name": "히바이크",
+    "hp": 91,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "붉은고래 해적단 부선장. 포악하고 다혈질인 성격이다. 루테란 항구에서 검은이빨을 죽이고 명성을 얻으려 한다.",
+    "traits": [],
+    "artRef": "burly bearded pirate first mate, thick brown beard, scarred glowing red eye, dark red tricorn hat, horned steel skull pauldrons, gold coin necklace with skull medallion, cream shirt with brown leather belts, huge curved cleaver blade on his shoulder"
+  },
+  {
+    "id": "en-c3200118",
+    "name": "녹스",
+    "hp": 84,
+    "defense": 40,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "거대한 대포를 짊어지고 있는 붉은고래 해적단의 해적. 크라잉스톰에서 약탈한 전리품들을 지키고 있다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 1.5,
+        "defense": 12,
+        "magicDefense": 0
+      }
+    ],
+    "artRef": "stout pirate gunner, red scarred face with grey beard and eyepatch bandana, teal tricorn hat with gold trim and skull emblem, gold coin chain necklace with skull medallion, cream shirt, leather belts, steel pauldron, giant black iron cannon on his shoulder"
+  },
+  {
+    "id": "en-c3200119",
+    "name": "세티노",
+    "hp": 52,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "비열하고 겁 많은 붉은안개 해적단의 부선장. 성격 때문에 겁쟁이라고 불린다.",
+    "traits": [],
+    "artRef": "pale slender pirate first mate, sickly pale face, red headband, dark green barnacle-encrusted tricorn hat with coral growths, barnacles on his cheek, open dark green vest over bare chest with fish-scale skin, torn barnacle-crusted sleeve"
+  },
+  {
+    "id": "en-c3200121",
+    "name": "하이비 집행관",
+    "hp": 52,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "달콤한 숲에서 서식하는 하이비들의 집행관. 하이비 둥지를 침입하는 적을 매섭게 공격한다.",
+    "traits": [],
+    "artRef": "bee-like female executioner, red and black horned helmet with gold face mask, pale grey skin, translucent insect wings, black fur collar mantle, gold shoulder brooches with red gems, yellow-black striped cape, black spiked bodysuit with mesh stockings, ornate black-gold spear"
+  },
+  {
+    "id": "en-c3200129",
+    "name": "미령",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "창천비무제의 창천칠검으로 임명된 무인을 죽이고, 그 자리를 차지한 요괴. 인간이 되기 위해 주민들을 살해하고 간을 탐식한다.",
+    "traits": [],
+    "artRef": "nine-tailed fox demon woman with long wavy red hair, black horned crown headpiece, pale white skin, dark red bodysuit leotard, white fur collar and pale bead necklace, purple stripe markings on legs, many huge fluffy cream fox tails with fiery orange tips"
+  },
+  {
+    "id": "en-c3200132",
+    "name": "절망의 레키엘",
+    "hp": 52,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "욕망군단장 비아키스의 수하로 춤을 추는 듯한 공격을 펼친다. 자신이 아름답다는 사실을 굳게 믿으며, 한 줌의 의심도 하지 않는다.",
+    "traits": [],
+    "artRef": "grotesquely obese demon with pale grayish-white skin, white face with red lips and wide grin, red-and-black spiked crest on head, black feathered fur mantle, curved golden horn spikes on shoulders, black leather strap harness with gold spiked fittings and magenta trim, purple aura"
+  },
+  {
+    "id": "en-c3200133",
+    "name": "역병군단 바르토",
+    "hp": 91,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "질병군단장 일리아칸을 받드는 악마. 일리아칸의 육체를 재생시키기 위해 아크를 쫓고 있다.",
+    "traits": [],
+    "artRef": "four-armed hulking plague demon with mottled gray-violet stitched skin, purple hood with grinning skull face, dark spiked bracers and studded belt, tattered loincloth with gold and purple gem pendants, curved axe and blade in lower hands, upper hands raising a glowing yellow tentacled plague orb"
+  },
+  {
+    "id": "en-c3200138",
+    "name": "에스",
+    "hp": 52,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "기술관 카인의 친위대 중 한 명. 신체 강화 연구를 시도한 실험체다. 몸의 대부분을 기계로 교체했으며, 쌍둥이인 제이를 가장 아낀다.",
+    "traits": [],
+    "artRef": "young cyborg man with messy short pale mint-teal hair and gray-blue eyes, bronze round ear device, white high-collared long coat with lime-green lining, black bodysuit, bronze-gold mechanical shoulder armor, large bronze mechanical prosthetic arms"
+  },
+  {
+    "id": "en-c3200139",
+    "name": "제이",
+    "hp": 52,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "기술관 카인의 친위대 중 한 명. 아이히만과 함께 연구했던 과학자. 몸의 대부분을 기계로 교체했으며, 쌍둥이인 에스를 가장 아낀다.",
+    "traits": [],
+    "artRef": "young cyborg man with messy short pastel pink hair and gray eyes, bronze round ear device, black high-collared bodysuit coat, bronze-gold mechanical shoulder armor, large bronze mechanical prosthetic arms, trailing red and black cable tendrils behind"
+  },
+  {
+    "id": "en-c3200140",
+    "name": "안톤",
+    "hp": 84,
+    "defense": 40,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "기술관 카인의 친위대 중 한 명. 우직하고 보수적인 케나인이다. 카인의 사상에 깊이 감화되어, 에어가이츠를 발동시키려 한다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 1.5,
+        "defense": 12,
+        "magicDefense": 0
+      }
+    ],
+    "artRef": "stern muscular warrior with swept white hair and tan skin, dark steel cybernetic armor with glowing cyan circuit lines and circular cyan core on chest, bare muscular right arm, green cloth strips hanging down the front, heavy bronze mechanical gauntlets, giant dark mechanical weapon"
+  },
+  {
+    "id": "en-c3200143",
+    "name": "루아브",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "질병군단의 악마로, 슈샤이어의 노예들을 일리아칸에게 바치는 역할을 맡고 있다.",
+    "traits": [],
+    "artRef": "bloated pale gray demon with an enormous gaping maw full of curved fangs and tusks on its body, tiny head with dark spiked iron helmet and collar, heavy chains wrapped across its torso, huge curved black spiked scythe blade arching overhead"
+  },
+  {
+    "id": "en-c3200149",
+    "name": "고르곤",
+    "hp": 91,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "사령술로 인해 만들어진 마수. 사령술의 실험체로 끊임없이 먹어 치울 생명을 갈구한다.",
     "traits": [
       {
         "type": "regen",
-        "pctPerSec": 0.4
+        "pctPerSec": 1
+      }
+    ],
+    "artRef": "necromantic dragon-like beast with dark charcoal scales, long horned head with swept-back spikes, glowing red-orange eyes, jagged black spines along its back, molten red glowing cracks on chest and belly, drifting red ember sparks"
+  },
+  {
+    "id": "en-c3200162",
+    "name": "몽환의 퀸",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "몽환의 궁전에서 아브렐슈드가 만들어낸 피조물. 체스의 퀸 같은 형상을 하고 있다.",
+    "traits": [],
+    "artRef": "dark chess-queen demon woman with smooth charcoal-gray skin, horned crown wreathed in purple flames, black armor with gold filigree trim, huge ornate shoulder pieces holding glowing purple orbs, gold-trimmed loin plate, hanging purple crystal shards, violet aura"
+  },
+  {
+    "id": "en-c3200163",
+    "name": "몽환의 킹",
+    "hp": 84,
+    "defense": 40,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "몽환의 궁전에서 아브렐슈드가 만들어낸 피조물. 체스의 킹 같은 형상을 하고 있다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 1.5,
+        "defense": 12,
+        "magicDefense": 0
+      },
+      {
+        "type": "split",
+        "enemyId": "en-c3200245",
+        "count": 2
+      }
+    ],
+    "artRef": "massive dark chess-king knight in black plate armor with gold trim, horned helmet topped with gold cross crown, curved glowing purple horns, huge glowing purple eye on shoulder plate, chainmail skirt, spiked gauntlets with purple glow, purple flames"
+  },
+  {
+    "id": "en-c3200166",
+    "name": "나잔",
+    "hp": 91,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "마검 벨크루제에 이끌려 욘에 들어온 질병군단의 악마. 탐욕스럽고 잔혹하다.",
+    "traits": [],
+    "artRef": "gaunt hunched plague demon with pale gray-white skin covered in dark spots, beastly fanged head with long tongue, curved black horns with acid-green tips, black spiked carapace armor on shoulders studded with red and green glowing pustules, tattered olive-green cloak, long clawed limbs"
+  },
+  {
+    "id": "en-c3200167",
+    "name": "키즈라",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "마검 벨크루제에 이끌려 욘에 들어온 욕망군단의 악마. 농염하고 뇌쇄적이다.",
+    "traits": [],
+    "artRef": "seductive demon woman with pale skin and red lips, large ornate maroon-and-gold horned mask headdress covering upper face rising into curved bat-like spikes, high crimson spiked collar, plunging dark purple-black bodysuit with pink-gold trim, long black claws, crimson wing"
+  },
+  {
+    "id": "en-c3200172",
+    "name": "변절자 제페토",
+    "hp": 52,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "어둠에 의해 타락해버린 아베스타 단원.",
+    "traits": [],
+    "artRef": "corrupted man with spiky silver-white hair, ashen gray skin and sinister grin with glowing eyes, bare muscular chest with red crystal heart on sternum, red crystal veins on arms, open black vest with dark blue lining, black jagged thorn shoulder armor, broken chains hanging behind"
+  },
+  {
+    "id": "en-c3200173",
+    "name": "아드모스",
+    "hp": 91,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "어둠군단의 악마.",
+    "traits": [],
+    "artRef": "hulking bone-armored demon with a gaping fanged skull face and wide curved horns, ribbed dark gray and bronze exoskeletal plate armor, round web-patterned bone shield on one shoulder, jagged serrated blade arm, spiny skeletal wings rising behind"
+  },
+  {
+    "id": "en-c3200184",
+    "name": "다단",
+    "hp": 70,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "도적단의 우두머리. 소금 생산지를 점령한 뒤, 소금을 매매하며 도적단을 유지하고 있다. 자신의 뜻에 반기를 들면 모조리 처단한다.",
+    "traits": [],
+    "artRef": "bandit chieftain in a white grimacing mask with glowing orange eyes, dark red cloth headwrap and tan scarf, heavy spiked iron pauldrons, brown leather jerkin with skull-emblem buckle, red waist sash, dark gauntlets, two crossed weapon handles on his back"
+  },
+  {
+    "id": "en-c3200185",
+    "name": "자이언트 웜",
+    "hp": 70,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "척박한 땅에서 사는 고대 생물. 땅을 헤집고 다니면서 영양분을 흡수한다. 주로 음침한 지하에서 서식하며 땅굴을 파는 것이 특징이다.",
+    "traits": [],
+    "artRef": "giant burrowing worm with a thick gray-brown segmented body, gaping round maw split into four flaring bony jaw flaps tipped with black hooks, fleshy pink tooth-lined throat, long spiny bristles along its sides, red ember sparks"
+  },
+  {
+    "id": "en-c3200188",
+    "name": "카도건",
+    "hp": 65,
+    "defense": 40,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "슈헤리트군의 부대장으로, 슈헤리트의 명령이라면 어떠한 일도 마다하지 않는 기사.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 1.5,
+        "defense": 12,
+        "magicDefense": 0
+      }
+    ],
+    "artRef": "stern knight officer with short brown hair and stubble, chainmail coif hood, polished silver pauldrons with gold trim, dark green mantle with heavy gold chain, white and crimson tabard bearing a gold cross emblem, chainmail sleeves, ornate gold-studded belt"
+  },
+  {
+    "id": "en-c3200191",
+    "name": "베르하트",
+    "hp": 50,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 1.5,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#84cc16",
+      "shape": "circle",
+      "icon": "👺"
+    },
+    "description": "섭정 슈헤리트의 아들. 왕의 자리에 오른 실리안에게 복수할 기회를 엿보고 있다.",
+    "traits": [],
+    "artRef": "young noble knight with short tousled ash-brown hair, black ornate plate armor with spiked pauldrons over crimson cloth, gold chain and gold sigil on the chest, red tabard with black pattern, large dark greatsword slung across his back"
+  },
+  {
+    "id": "en-c3200192",
+    "name": "푸름 전사 브리뉴",
+    "hp": 70,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "광기의 힘에 잠식당한 푸름. 푸름 최고의 전사라고 불렸다.",
+    "traits": [],
+    "artRef": "hulking corrupted forest beast with mauve-purple fur and grinning fangs, glowing cyan eyes, massive branching wooden antlers bound with iron bands set with glowing cyan rune stones, curved dark horn spikes on shoulders and arms, cyan crystal growths, swirling leaves"
+  },
+  {
+    "id": "en-c3200195",
+    "name": "집행관 솔라스",
+    "hp": 50,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "세이크리아의 냉정한 집행관. 죄 없는 사람들을 사교도로 판단하여 처단함으로써 되돌릴 수 없는 일을 저지르고 만다.",
+    "traits": [],
+    "artRef": "stern middle-aged executioner priest with long straight dark brown hair, thin mustache and goatee, crimson high-collared robe with white and gold-trimmed lapels, large black and gold cross emblem on the chest, crackling violet lightning"
+  },
+  {
+    "id": "en-c3200204",
+    "name": "삭월",
+    "hp": 50,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "구미호 미령의 수하로, 영혼을 모아 혼령구슬을 만들고 있는 요괴. 두 마리의 뱀을 자유로이 다룬다.",
+    "traits": [],
+    "artRef": "pale yokai woman with long white hair and red eyes, tall black and gold shrine-roof headdress hung with white paper streamers, black and crimson layered robe with white sash and gold bells, red glowing lantern on a chain, two giant serpents, one blue and one red"
+  },
+  {
+    "id": "en-c3200207",
+    "name": "세비엘",
+    "hp": 50,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "기술관 카인의 친위대 중 한 명. 카인을 철저히 신봉하며, 급진적인 사상을 지니고 있다. 화학과 총기 사용에 능하다.",
+    "traits": [],
+    "artRef": "pale young man with long straight blond hair and a round amber monocle, long black military greatcoat with black feather-fringed epaulettes, buttoned black waistcoat with crossed straps and red sash, silver demon-skull badge on the chest, black gloves"
+  },
+  {
+    "id": "en-c3200211",
+    "name": "나크슌",
+    "hp": 50,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "질병군단의 수하가 되어 악마의 힘을 받아들인 사제. 시리우스의 사제였지만, 신에 대해 반감을 가져 악마에게로 향했다.",
+    "traits": [],
+    "artRef": "corrupted demon priest with a pale skull face, gaunt grayish elongated body and long spindly arms, oval dark blue hood framed by spiked bone ridges, two huge curved bone horns arching overhead, bone-bead necklace strands, ragged spiked dark vestments, violet glow"
+  },
+  {
+    "id": "en-c3200213",
+    "name": "도륙자 아르르",
+    "hp": 70,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "질병군단의 악마. 어눌해 보이는 목소리와 다르게, 인간을 도륙해 요리하는 것을 즐긴다.",
+    "traits": [],
+    "artRef": "obese pale lavender-skinned demon butcher with small horns, yellow eyes and a snarling underbite, tall white chef hat, blood-stained white apron hung on thick rope straps, belt strung with small skulls, raised bloody meat cleaver, bony spikes on shoulders"
+  },
+  {
+    "id": "en-c3200214",
+    "name": "나베갈",
+    "hp": 45,
+    "defense": 5,
+    "magicDefense": 50,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#a5b4fc",
+      "shape": "star",
+      "icon": "👻"
+    },
+    "description": "백 년 전, 지그문트와의 싸움에서 사망했던 기사단원. 지그문트의 사령술에 의해 망령이 되어 페스나르 고원을 어지럽히고 있다.",
+    "traits": [
+      {
+        "type": "stealth",
+        "revealRange": 2
+      }
+    ],
+    "artRef": "spectral undead knight in jagged blue-black armor, spiked crown-like helm with glowing red eye slits, long curved blade-like spikes jutting from shoulders and back, clawed gauntlets, tattered dark armor plates, drifting dark mist"
+  },
+  {
+    "id": "en-c3200219",
+    "name": "몽환의 나이트",
+    "hp": 40,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "몽환의 궁전에서 아브렐슈드가 만들어낸 피조물. 체스의 나이트 같은 형상을 하고 있다.",
+    "traits": [],
+    "artRef": "centaur-like demon knight with dark gray skin, black helm-mask with gold trim and two tall curved black horns, spiked black and bronze armor with a gold-ringed chest medallion, one hand glowing violet and gripping purple flame, armored horned horse head below with glowing violet eye"
+  },
+  {
+    "id": "en-c3200220",
+    "name": "몽환의 룩",
+    "hp": 65,
+    "defense": 40,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "몽환의 궁전에서 아브렐슈드가 만들어낸 피조물. 체스의 룩 같은 형상을 하고 있다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 1.5,
+        "defense": 12,
+        "magicDefense": 0
+      }
+    ],
+    "artRef": "towering stone golem shaped like a castle tower, crenellated battlement head with glowing violet eye slit, stacked dark gray brick-block torso, massive boulder fists and legs, glowing magenta-violet cracks and runes across the stone"
+  },
+  {
+    "id": "en-c3200221",
+    "name": "몽환의 비숍",
+    "hp": 50,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "몽환의 궁전에서 아브렐슈드가 만들어낸 피조물. 체스의 비숍 같은 형상을 하고 있다.",
+    "traits": [],
+    "artRef": "slender woman with dusky violet-gray skin and dark purple hair, horned black headdress with gold trim and purple crystal spikes, skintight black bodysuit with gold piping and plunging neckline, layered black armored shoulder and sleeve with violet crystal points"
+  },
+  {
+    "id": "en-c3200236",
+    "name": "크란테루스",
+    "hp": 56,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 3,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "광기군단에 속해 있는 거대한 악마. 온몸에는 광기군단에 의해 세뇌 당하고 고문당한 흔적이 가득하다.",
+    "traits": [],
+    "artRef": "giant hulking demon with a horned spiked helm-face glowing red-orange, scarred gray hide strapped in jagged black and bronze spiked armor, massive spiked gauntlet-shield glowing with molten orange cracks, spiked iron flail ball, swirling embers and smoke"
+  },
+  {
+    "id": "en-c3200237",
+    "name": "멜피셔스",
+    "hp": 32,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 3,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "광기군단에 의해 불러내진 중급 악마. 광기군단은 보레아 영지를 공격할 때, 멜피셔스를 이용해 공중을 점거했다.",
+    "traits": [],
+    "artRef": "black-scaled dragon demon with a long ribbed serpentine neck, horned spiky crest, glowing orange eyes, fanged jaws, glossy dark armor-like scales edged in dull red, jagged dorsal spines, taloned claws, drifting embers"
+  },
+  {
+    "id": "en-c3200245",
+    "name": "몽환의 폰",
+    "hp": 40,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 1.5,
+    "isBoss": false,
+    "goldReward": 3,
+    "appearance": {
+      "color": "#84cc16",
+      "shape": "circle",
+      "icon": "👺"
+    },
+    "description": "몽환의 궁전에서 아브렐슈드가 만들어낸 피조물. 체스의 폰 같은 형상을 하고 있다.",
+    "traits": [],
+    "artRef": "demonic foot soldier with a tall pointed conical black helm, curling dark horns with violet sheen, fanged gaping mouth, black plate armor, large round dark shield ringed with jagged tooth-like spikes, short violet-glowing mace, violet energy glow"
+  },
+  {
+    "id": "en-c3200308",
+    "name": "세토",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "음흉하고 기괴한 광기군단의 악마. 파푸니카에 숨겨진 보물을 노린다",
+    "traits": [],
+    "artRef": "grotesque jester demon with a black bob haircut and pale clown face with a gaping red grin, small gold crown with red gems, huge white ruffled collar, blue and yellow harlequin diamond doublet, magenta and gold striped pants, eye-shaped gold belt buckle, white gloves"
+  },
+  {
+    "id": "en-c3200309",
+    "name": "키케라",
+    "hp": 91,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "포악하고 잔인한 광기군단의 악마. 명령을 받아 파푸니카를 침공했다",
+    "traits": [],
+    "artRef": "brutish muscular demon with ruddy brown skin, head bound by iron rings and chains with a fanged mouth, heavy spiked chain-wrapped shoulder armor, many chains crossing the torso, large curved crescent blade raised overhead, black and white diamond-checked loincloth"
+  },
+  {
+    "id": "en-c3200310",
+    "name": "스텔라",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "음산하고 요염한 광기군단의 악마. 상대를 교란시키는 능력이 있다",
+    "traits": [],
+    "artRef": "seductive female demon with a pale white mask-like face streaked black and a red-lipped grin, spiky black and gold horned crown, black and red bodysuit laced with gold spikes and plunging neckline, bony spiked shoulder pieces, red and white checkered drape, silver clawed gauntlet"
+  },
+  {
+    "id": "en-c3200402",
+    "name": "루기네",
+    "hp": 84,
+    "defense": 40,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "베른 남부의 검은 기사단 단장. 언제나 무장을 하고 있으며 불길한 기운을 풍긴다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 1.5,
+        "defense": 12,
+        "magicDefense": 0
+      }
+    ],
+    "artRef": "towering black knight commander with a brown-bearded face under a black visor helm crowned with spiky antler-like horns, sleek glossy black full plate armor with violet glowing inlays and thorn-like ridges, long black cape, magenta dark aura"
+  },
+  {
+    "id": "en-c3200408",
+    "name": "킬리언",
+    "hp": 70,
+    "defense": 30,
+    "magicDefense": 10,
+    "moveSpeed": 1,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "검은 기사단 소속의 기사. 단장 루기네의 부관으로, 거대한 대낫을 주무기로 사용한다.",
+    "traits": [],
+    "artRef": "dark knight in jagged black full plate armor with spiny bladed edges, pointed helm with glowing violet visor slits, curved horn-like spikes on the shoulders, clawed black gauntlets with blade fins, violet-eyed demon face plate on the waist, violet flame aura"
+  },
+  {
+    "id": "en-c3200002",
+    "name": "발탄",
+    "hp": 1100,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "페트라니아의 마수들을 이끄는 마수군단장. 언제나 악마들의 최전선에서 거침없는 돌격으로 적을 분쇄한다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "colossal demon beast warlord with red hide and large curved black horns, glowing red eyes, dark spiked mane, ornate gold armor with roaring beast-head pauldrons, skull and chain ornaments hanging across the chest, long dark-hafted great axe"
+  },
+  {
+    "id": "en-c3200006",
+    "name": "데런 아만",
+    "hp": 1100,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "숨기고 있던 데런의 힘을 개방한 아만의 모습. 신성력이 아닌, 내면에 깃든 악마의 힘을 사용한다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "pale demonic young man with long silver-white hair and dark facial markings, black high-collared coat, spiky black-and-gold armor on shoulders and arms, bare chest with glowing red gem and dark vein marks, clawed gauntlets, long grey cape, red dark energy wisps"
+  },
+  {
+    "id": "en-c3200007",
+    "name": "쿠크세이튼",
+    "hp": 1100,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "광기군단을 통솔하는 광기군단장. 장난스럽고 가벼워 보이지만, 그 안에 깃든 광기의 힘으로 다른 이들을 미치게 만든다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "demonic jester with pale grinning clown face, huge curled black ram horns, red ruffled bow collar, black and gold spiked body, giant spiked wheel frame rising behind it, small red-and-white harlequin jester puppet perched on top"
+  },
+  {
+    "id": "en-c3200009",
+    "name": "비아키스",
+    "hp": 1100,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "욕망군단을 통솔하는 욕망군단장. 달콤한 말로 상대의 욕망을 조종한다. 카제로스를 위해 그를 받아들일 그릇을 찾고 있다.",
+    "traits": [
+      {
+        "type": "slow_immune"
       },
       {
         "type": "stun_immune"
       }
     ],
-    "artRef": "colossal ancient stone guardian golem built from mossy carved granite blocks, glowing green runes, glowing core in its chest, cracks sealing themselves with green light, massive slab fists"
+    "artRef": "seductive female demon with pale lavender skin and long dark red hair, tall gold spiked horned crown, gold scaled bodice, black and gold armor with crimson high collar and coat, clawed gauntlets, huge dark bat wings, purple aura"
   },
   {
-    "id": "en-boss-demon",
-    "name": "군단장 하수인",
-    "hp": 700,
-    "defense": 30,
+    "id": "en-c3200010",
+    "name": "일리아칸",
+    "hp": 1100,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "질병군단을 통솔하는 질병군단장. 질병과 부패의 권능을 지니고 있다. 육신에 대한 갈망으로 살아있는 생물들을 흡수한다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      },
+      {
+        "type": "regen",
+        "pctPerSec": 0.5
+      }
+    ],
+    "artRef": "towering plague demon with gaunt pale fanged face and stringy white hair, curved grey horns under a gold-veined crown, dark teal and black ribbed organic armor, writhing tentacle growths, single huge glowing red eye on its swollen shoulder, orange corruption glow"
+  },
+  {
+    "id": "en-c3200011",
+    "name": "카마인",
+    "hp": 1100,
+    "defense": 25,
     "magicDefense": 70,
-    "moveSpeed": 0.8,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "무엇을 생각하는지 알 수 없는 음험한 악마. 다른 악마의 힘을 흡수할 수 있는 신비한 능력을 지니고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "pale blue-skinned demon man with spiky swept-back black hair streaked red, pointed ears, teal high-collared black coat with red lining, ornate spiked silver armor on shoulder and arm, chains around the neck, spiked silver scepter with a dangling bell"
+  },
+  {
+    "id": "en-c3200012",
+    "name": "카멘",
+    "hp": 1100,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "어둠군단을 통솔하는 어둠군단장. 카제로스의 군단장들 중 가장 정체를 알 수 없는 존재로, 군단장들 모두를 압도하는 힘을 지니고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "hulking demon dark knight with long white hair, spiked horned helm with glowing blue eyes, jagged black plate armor studded with glowing blue gems, jagged black polearm blade, blazing blue dark flame aura"
+  },
+  {
+    "id": "en-c3200013",
+    "name": "아브렐슈드",
+    "hp": 1100,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "몽환군단을 통솔하는 몽환군단장. 군단장들 중 가장 냉철하고 계획적이다. 적을 현혹시키고, 환영을 보게 만드는 힘을 지니고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "androgynous demon with pale lavender skin and long wavy silver-white hair, large swept horns shaped like grey feathered wings, silver circlet with jewel, black high-collared robes, glowing purple energy orb between clawed hands, floating gold crescent-topped staves"
+  },
+  {
+    "id": "en-c3200017",
+    "name": "가디언 루",
+    "hp": 1100,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "빛에도 어둠에도 속하지 않은 중립 가디언. 선지자의 눈으로 아크라시아를 지켜보고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "colossal spectral deer-like guardian with enormous branching dark antlers, elongated pale skull-like face with feathery white crest, ghostly cyan-white body trailing long ribbon-like tendrils, misty glowing aura"
+  },
+  {
+    "id": "en-c3200023",
+    "name": "타나토스",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
     "isBoss": true,
     "goldReward": 50,
     "appearance": {
-      "color": "#dc2626",
-      "shape": "diamond",
+      "color": "#7c3aed",
+      "shape": "star",
       "icon": "😈"
     },
-    "description": "마법 저항이 높은 악마형 보스.",
+    "description": "어둠의 주술로 만들어진 암흑의 존재. 고대 왕의 육신에 깃들어 있다. 모라이 유적 깊숙한 곳에 잠들어 있다.",
+    "traits": [],
+    "artRef": "massive shadow demon with grey stone-scaled head and huge ridged curved horns, glowing orange eyes, body of swirling black smoke tendrils, glowing red core in its chest, blue mist"
+  },
+  {
+    "id": "en-c3200024",
+    "name": "천둥날개",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "온몸에 천둥을 두른 마수. 멀리서도 그 울음소리로 존재를 알 수 있다고 한다.",
     "traits": [
       {
         "type": "slow_immune"
       }
     ],
-    "artRef": "horned crimson demon lieutenant in jagged black armor plates and a tattered dark cape, glowing yellow eyes, flaming black greatsword, violet anti-magic ward shimmering around him"
+    "artRef": "winged storm beast with shaggy white fur mane, huge curved black horns with glowing cyan segments, gold armor plates on its body, grey membranous wings, cyan glowing fangs, black-striped limbs, cyan lightning sparks"
   },
   {
-    "id": "en-slime-small",
-    "name": "소형 슬라임",
-    "hp": 30,
-    "defense": 0,
-    "magicDefense": 0,
-    "moveSpeed": 1.9,
-    "isBoss": false,
-    "goldReward": 1,
-    "traits": [],
+    "id": "en-c3200025",
+    "name": "슈헤리트",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
     "appearance": {
-      "color": "#22c55e",
-      "shape": "circle",
-      "icon": "🟢"
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
     },
-    "description": "슬라임이 분열해 생긴 작은 조각.",
-    "artRef": "tiny bouncy green slime blob with big shiny eyes and a happy smile, glossy translucent jelly body"
+    "description": "루테란의 섭정. 왕이 되고자 하는 야심으로 인해 선왕을 독살하고, 악마와 손을 잡았다.",
+    "traits": [],
+    "artRef": "middle-aged nobleman regent with swept-back auburn hair and beard, heavy black plate armor with ornate gold embossing and a large gold pauldron, dark red scarf and cape, long silver greatsword with gold hilt"
   },
   {
-    "id": "en-slime",
-    "name": "거대 슬라임",
-    "hp": 80,
-    "defense": 5,
-    "magicDefense": 20,
-    "moveSpeed": 1.1,
-    "isBoss": false,
-    "goldReward": 4,
+    "id": "en-c3200028",
+    "name": "자간",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "루테란 왕의 무덤에 숨어든 악마. 루테란 왕의 아크를 찾기 위해 다가온 자들을 막아서며, 지옥의 불길을 내뿜는다.",
+    "traits": [],
+    "artRef": "winged fire demon with spiky black horned head, molten glowing orange cracks in its chest and jaws, huge clawed forelimbs, dark leathery wings, fiery breath glow and embers"
+  },
+  {
+    "id": "en-c3200032",
+    "name": "반다",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "삶과 죽음의 경계를 지배하는 지옥귀. 에스더 시엔과 연가문, 적가문의 수장이 나서서 겨우 그 육신을 봉인할 수 있었다.",
+    "traits": [],
+    "artRef": "pale grey muscular ghost demon with elongated horned head and black curved crest ornaments, glowing blue gem framed in black on its chest, ornate gold belt with round boss, black loincloth, floating black and white rune circles, white spirit flames"
+  },
+  {
+    "id": "en-c3200037",
+    "name": "진화의 군주 카인",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "창조의 태양으로 인해 탄생한 카인의 최종 진화체. 기계 날개를 단 신의 형상을 하고 있다. 카인은 이 힘으로, 악마를 막아내고자 했다.",
+    "traits": [],
+    "artRef": "hooded god-like figure with shadowed face, bare muscular torso, silver-white and black mechanical armor with exposed gears, huge mechanical wings of blade segments, glowing red core lights and red energy beams, tattered dark cloth lower body"
+  },
+  {
+    "id": "en-c3200041",
+    "name": "지그문트",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "백 년 전, 베른을 지배하려 한 사령술사. 기사단과의 싸움에서 사망했지만, 원인 모를 이유로 다시 부활해 베른을 파멸시키려 한다.",
+    "traits": [],
+    "artRef": "undead necromancer lord in towering spiky silver-white bone armor, tall horned spiked crown over skeletal face, long black robe and cape, glowing red crack down the torso, clawed gauntlet holding a black orb with red rim, red smoke wisps"
+  },
+  {
+    "id": "en-c3200042",
+    "name": "나크라세나",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "거대한 몸집, 단단하고 강력한 집게와 거대 가시를 지닌 사막의 별 나크라세나는 보는 사람들을 압도할 만한 위용을 자랑한다.",
     "traits": [
       {
-        "type": "split",
-        "enemyId": "en-slime-small",
-        "count": 2
+        "type": "stun_immune"
       }
     ],
+    "artRef": "giant armored desert scorpion with black and gold carapace, segmented gold-edged tail curling overhead with glowing blue stinger, huge ornate ridged gold pincers, glowing blue gem eyes"
+  },
+  {
+    "id": "en-c3200043",
+    "name": "레바노스",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
     "appearance": {
-      "color": "#16a34a",
-      "shape": "circle",
-      "icon": "🟩"
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
     },
-    "description": "죽으면 소형 슬라임 2마리로 분열한다.",
-    "artRef": "big wobbly translucent green slime with a goofy grin, two small slime blobs visible floating inside its jelly body, bubbling surface"
+    "description": "고대의 존재인 레바노스는 각종 속성을 모두 다룰 수 있는 신비한 힘을 지니고 있다.",
+    "traits": [],
+    "artRef": "ancient tree-like golem guardian with ornate carved bronze-gold armored bark body, crown of glowing jade-green crystal foliage, swirling engraved patterns, clawed hands and curved tusks, radiant green core glow"
+  },
+  {
+    "id": "en-c3200044",
+    "name": "베르투스",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "혹한의 지배자라 불리는 괴수 베르투스는 곁에 가까이 있는 것만으로도 매서운 추위가 온 몸을 파고 든다고 한다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "frost dragon beast with blue-grey crystalline scales, tall ice crest on its head, jagged spikes along its spine, open fanged maw, crackling pale blue lightning and ice shards"
+  },
+  {
+    "id": "en-c3200045",
+    "name": "크로마니움",
+    "hp": 850,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "단단한 등껍질을 가진 가디언 크로마니움은, 포효와 함께 적에게로 어마어마한 폭격을 퍼붓는다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "huge black armored turtle-dragon with ridged dark shell, forward-curving horn on its snout, cluster of glowing red eyes, red glowing open maw, bone-white whisker tendrils hanging from its jaw, molten lava embers"
+  },
+  {
+    "id": "en-c3200046",
+    "name": "헬가이아",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "헬가이아는 불꽃의 깃털을 가진 거대한 가디언으로, 불 속에서 끝없이 되살아난다는 신비한 전설을 지니고 있다.",
+    "traits": [
+      {
+        "type": "regen",
+        "pctPerSec": 0.5
+      }
+    ],
+    "artRef": "giant fire phoenix-dragon with crimson red feathers, ornate golden crest on its head, long curved neck, flaming wings with burning feather tips, golden eyes, black talons"
+  },
+  {
+    "id": "en-c3200047",
+    "name": "빙결의 레기오로스",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "빙결의 레기오로스는 거대한 몸집으로부터 냉기를 발생시켜, 적들을 꽁꽁 묶은 뒤 파괴시킨다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "massive hunched ice beast with grey-black hide, huge curved black tentacle-like horns lined with glowing pale blue orbs, shaggy white beard mane, glowing purple eyes, white-striped clawed limbs, frost wind"
+  },
+  {
+    "id": "en-c3200048",
+    "name": "어둠의 레기오로스",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "어둠의 레기오로스는 거대한 몸집으로부터 어둠을 끌어내어 적의 눈을 멀게 한 뒤 공격하는 것이 특징이다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "hulking shadow beast with dark grey hide cracked by glowing violet veins, armored helmet-like head crest with glowing cyan eye, shaggy grey mane, long forked tongue, spiky back plates, curved black claws"
+  },
+  {
+    "id": "en-c3200049",
+    "name": "에페르니아",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "불꽃의 고대 정령. 포악하고 공격적이다.",
+    "traits": [],
+    "artRef": "towering fire elemental demon with body of molten lava rock and glowing orange cracks, curved obsidian horn-like armor plates on its shoulders, flaming horned head, roaring flames all around"
+  },
+  {
+    "id": "en-c3200054",
+    "name": "벨크루제",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "오만의 방주에서 만들어진 마검, 숙주를 찾아 흡수해 완전한 진화를 이루려 한다.",
+    "traits": [],
+    "artRef": "demonic living greatsword with jagged black serrated blade shaped like a spine, horned crossguard, single glowing red eye gem at its center, red glowing veins, red mist aura"
+  },
+  {
+    "id": "en-c3200064",
+    "name": "루메루스",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "짙은 안개 속에서 머무는 가디언 루메루스는, 자신의 앞에 나타난 모험가들을 광휘의 빛으로 시험한다.",
+    "traits": [],
+    "artRef": "lion-like guardian beast with shaggy silver-grey fur mane, fanged roaring face, golden horns on its head, curved gold bands wrapping its body, swirling white mist streaks"
+  },
+  {
+    "id": "en-c3200065",
+    "name": "우르닐",
+    "hp": 850,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "단단한 갑옷을 두른 우르닐은, 분노에 찬 앞발로 눈 앞의 적을 유린한다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "giant armored lion-like beast, shaggy dark crimson fur mane, ornate steel helmet encasing its head with glowing red eyes and bared fangs, heavy steel plate gauntlets on huge front paws, long curved blades rising from its back, smoldering embers in its fur"
+  },
+  {
+    "id": "en-c3200067",
+    "name": "칼벤투스",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "암흑을 부리는 칼벤투스의 매서운 광풍은, 자신을 제외한 모든 존재를 부정하며 일대를 뒤덮는다.",
+    "traits": [],
+    "artRef": "huge dark winged demon beast, silver crescent-horned helmet mask with glowing blue eyes, black hide with engraved swirl markings, purple-sheened steel clawed forearm, spiked bat-like wings, swirling blue shadow wind around its claws"
+  },
+  {
+    "id": "en-c3200068",
+    "name": "용암 크로마니움",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "용암 크로마니움의 등에는 뜨거운 용암이 흐르는 균열이 존재한다. 그 틈에서 연신 연기와 불길이 새어 나오고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "colossal lava dragon beast, black volcanic rock scales and jagged plates, glowing molten lava cracks along its back, single curved red-tipped horn on its snout, tendril-like barbels hanging from its jaw, flames and smoke pouring from its body"
+  },
+  {
+    "id": "en-c3200069",
+    "name": "중갑 나크라세나",
+    "hp": 850,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "중갑 나크라세나는 꼬리를 철퇴 형태로 변형시켜 공격에 사용한다. 순식간에 주변 모든 것을 파괴할 정도의 위력을 갖추고 있다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "huge heavily armored scorpion beast, dark teal steel plate shell, silver ridged head crest glowing blue, fanged jaws, segmented armored legs, long segmented tail ending in a crackling lightning orb mace, blue electric arcs around it"
+  },
+  {
+    "id": "en-c3200070",
+    "name": "홍염의 요호",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "홍염의 요호가 뿜어내는 불길의 숨결은, 상대와 함께 주변을 모조리 화염으로 불살라 버린다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "giant nine-tailed fox beast, long flowing crimson fur, many huge fluffy red tails fanned out, ornate gold crown headpiece with hanging gold chains, glowing amber eyes, gold armored greaves on its forelegs, drifting fire embers"
+  },
+  {
+    "id": "en-c3200071",
+    "name": "혹한의 헬가이아",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "이글거리는 냉염으로 뒤덮여 있는 혹한의 헬가이아는, 강력한 얼음과 냉기 브레스를 사용하여 생명이 있는 모든 것을 얼려버린다.",
+    "traits": [
+      {
+        "type": "regen",
+        "pctPerSec": 0.5
+      }
+    ],
+    "artRef": "giant horned ice bird beast, dark navy-blue feathered body with scaled neck, long curved black horns sweeping back, hooked beak with a glowing white eye, large black taloned claws, swirling frost and ice shards"
+  },
+  {
+    "id": "en-c3200072",
+    "name": "타이탈로스",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "흉포하고 거대한 사암의 발톱, 타이탈로스는 사막의 모래와 함께 나타나 상대의 전의를 상실하게 만든다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "giant lion beast with thick shaggy white-grey mane, long swept-back black horns, ornate bronze armor plates on shoulders and forelegs, black thorn-like spikes curling off the armor, round bronze shoulder emblem, swirling desert sand"
+  },
+  {
+    "id": "en-c3200073",
+    "name": "흑야의 요호",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "별빛을 두른 꼬리로부터 흘러 나오는 신비한 빛에 현혹된다면, 그 안에 숨어 있는 냉혹한 발톱에 공격 당할 것이다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "giant night fox beast, long flowing dark navy-blue fur with glowing cyan swirl patterns, howling fanged jaws, glowing blue eyes, gold crescent ornament with chain at its neck, sweeping star-lit tails, floating blue spirit flames"
+  },
+  {
+    "id": "en-c3200074",
+    "name": "벨가누스",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "빛과 어둠의 힘을 다루는 벨가누스는, 끓어오르는 분노를 표출하며 적을 심판한다.",
+    "traits": [],
+    "artRef": "winged lion-wolf beast with pale blue-white fur, roaring fanged maw, crest of blue feathers on its head, huge navy feathered wings with white crescent markings, ornate bronze chest armor, swirling teal light and shadow mist"
+  },
+  {
+    "id": "en-c3200075",
+    "name": "칼엘리고스",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "칼엘리고스는 푸른 뇌전을 다루는 고대의 존재로, 뇌전의 힘을 몸에 깃들여 모든 생물을 압도한다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "giant black dragon, dark scaled hide with silver-white armored plates, long blade-shaped silver head crest with glowing cyan lines, fanged jaws, glowing cyan rune patterns on its chest, huge dark wings, crackling blue lightning"
+  },
+  {
+    "id": "en-c3200076",
+    "name": "아카테스",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "전쟁이 끝난 후 구름 너머에 땅에 고요히 잠들어 있었던 아카테스는, 아크라시아에 울려 퍼지는 차원의 진동을 느끼고 다시 깨어났다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "giant winged lion, pale blue-white fur, huge grey-blue feathered wings, roaring fanged mouth, ornate gold crown with green gem on its brow, tall gold blade-like frames rising from its shoulders, gold claw guards, drifting white feathers"
+  },
+  {
+    "id": "en-c3200077",
+    "name": "이그렉시온",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "파멸의 포식자 이그렉시온은, 적으로 인식된 모든 것을 파멸시키기 위해 움직이고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "colossal horned demon beast, black jagged rocky hide, huge curved black horns with fiery orange tips, gaping fanged maw, glowing violet-white eye on its forehead, molten orange glow on its chest, massive spiked arms and claws, embers"
+  },
+  {
+    "id": "en-c3200078",
+    "name": "미스틱",
+    "hp": 850,
+    "defense": 20,
+    "magicDefense": 60,
+    "moveSpeed": 0.75,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#a5b4fc",
+      "shape": "star",
+      "icon": "👻"
+    },
+    "description": "에버그레이스의 전령이자 아크 운반자라 불리었던 가디언 미스틱은, 스며든 혼돈으로 인해 증오가 담긴 안개를 드리우기 시작했다.",
+    "traits": [
+      {
+        "type": "stealth",
+        "revealRange": 2.5
+      }
+    ],
+    "artRef": "huge grey-black dragon guardian, long flowing spine-like mane, violet-tinted fin crest, glowing purple eyes, dark feathered wings raised high, scaled armored forelegs, two floating black thorned crystal lanterns glowing violet"
+  },
+  {
+    "id": "en-c3200079",
+    "name": "카이슈테르",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "혼돈의 가디언들을 지휘했던 업화의 궤멸자 카이슈테르는, 폭주하는 화염과 함께 아크라시아의 창공을 찢고 그 모습을 드러냈다.",
+    "traits": [],
+    "artRef": "colossal black volcanic dragon, rocky hide split by glowing orange lava cracks, spiked horned head, dark crimson bat-like wings, jagged spines on its shoulders, embers and smoke rising around it"
+  },
+  {
+    "id": "en-c3200080",
+    "name": "엘버하스틱",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "엘버하스틱은 번뇌의 창을 그러쥔 채 아크라시아에 모습을 드러냈다. 운명의 선택을 확인하고, 심판자로서 위협들을 벌하기 위해.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "towering grey-skinned humanoid judge, smooth faceless bronze mask, ornate gold halo headdress with radiating curved spokes, gold filigree harness over bare muscular torso, tattered red cloth skirt, red banners with gold runes, ornate gold spear with glowing orb head"
+  },
+  {
+    "id": "en-c3200081",
+    "name": "아르카디아",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "낙원의 문을 지키는 중립 가디언. 전쟁이 끝난 뒤, 바다에 거대한 성역을 만들어 빛이 향하는 최후의 진실을 지키고 있었다.",
+    "traits": [],
+    "artRef": "giant sea titan with pale blue skin, long dark wavy hair and full beard, bare muscular torso with glowing blue rune lines, ornate bronze spiked shell shoulder guards and bracers, starry cosmic lower body, long ornate bronze staff, giant water wave arching behind his head"
+  },
+  {
+    "id": "en-c3200096",
+    "name": "루드릭",
+    "hp": 700,
+    "defense": 20,
+    "magicDefense": 60,
+    "moveSpeed": 0.75,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#a5b4fc",
+      "shape": "star",
+      "icon": "👻"
+    },
+    "description": "사교에 심취한 사제가 악마의 힘에 의해 변이를 일으킨 모습. 죽은 뒤에는 살아있는 모든 것에 원한을 갖고, 그들을 죽이기 위해 공격한다.",
+    "traits": [
+      {
+        "type": "stealth",
+        "revealRange": 2.5
+      }
+    ],
+    "artRef": "undead corrupted priest, rotting skull face with glowing red eye and long grey beard, glowing orange iron cage lantern atop his head, tattered hole-ridden crimson-brown robes, cluster of skulls at his chest, tall wooden staff wrapped in iron chains"
+  },
+  {
+    "id": "en-c3200098",
+    "name": "불칸",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "흉포하게 모든 것을 먹어 치우던 불칸은, 신에 의해 봉인된 고대의 영수다. 봉인이 균열을 일으킨 뒤, 불칸은 다시 아크라시아로 돌아왔다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "colossal ancient stone beast, pale carved bone-like armor plates on head and shoulders, curled segmented ram horn, glowing green eyes, dark grey scaly muscular body, jagged bone spikes along its back, green energy breath"
+  },
+  {
+    "id": "en-c3200101",
+    "name": "소금거인",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "소금으로 이루어진 거인. 소금을 노리는 자가 있으면 무조건 도둑으로 간주해 육중한 주먹을 휘두른다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "hulking salt giant, pale grey-white rough body, small head sunk between massive shoulders with jutting underbite fangs and yellow eyes, white salt crystal clusters on shoulders, crystal shards embedded in its skin, huge heavy fists"
+  },
+  {
+    "id": "en-c3200107",
+    "name": "로블롬",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "악마의 기운에 의해 변이된 식물이 자라난 모습. 주변에 있는 모든 생물을 집어삼키는 특성을 지니고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "giant mutated plant beast, olive-green and gold armored carapace with spiky crown ridge, layered leaf-like plates, glowing green bulbs and eyes, long segmented trunk-like proboscis, curved horn tusks"
+  },
+  {
+    "id": "en-c3200110",
+    "name": "윌리윌리",
+    "hp": 700,
+    "defense": 20,
+    "magicDefense": 60,
+    "moveSpeed": 0.75,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#a5b4fc",
+      "shape": "star",
+      "icon": "👻"
+    },
+    "description": "해무리 언덕의 호박에, 사악한 원념들이 흘러 들어 만들어진 악의의 결정체. 희생당한 영혼들의 원한을 지니고 있다.",
+    "traits": [
+      {
+        "type": "stealth",
+        "revealRange": 2.5
+      }
+    ],
+    "artRef": "pumpkin-headed skeleton scarecrow, carved grinning jack-o'-lantern head with iron nails driven in and curled vine stem, bony skeletal body, straw tufts and tattered beige rags, red sash with small hanging skulls, wooden scythe staff, green ghostly mist"
+  },
+  {
+    "id": "en-c3200123",
+    "name": "붉은 남작 에디",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "비열하고 음험한 붉은안개 해적단의 선장. 어인으로 변하는 저주를 받은 뒤, 저주를 풀기 위해 토토이크의 아크를 노린다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "cursed fish-man pirate captain with pale blue-green scaly skin and white beard, brown tricorn hat with teal feather and gold skull emblem, long red coat with gold trim, gold lion-head shoulder pauldron, leather bandoliers, red-and-white striped trousers, curved cutlass, huge teal crystalline finned mutated right arm"
+  },
+  {
+    "id": "en-c3200124",
+    "name": "수호자 티르",
+    "hp": 700,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "토토이크의 마음을 지키는 수호자. 거대한 바위의 형상을 한 채, 자격 없는 자를 분쇄한다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "colossal rock golem guardian built from jagged dark gray stone slabs, carved stone face with glowing cyan eyes, glowing cyan runes etched on head and chest, rune-carved stone bands on arms, teal glowing core crystal in chest, drifting teal spirit mist"
+  },
+  {
+    "id": "en-c3200125",
+    "name": "거신 카스피엘",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "오랜 시간 전부터 토토이크의 숲을 지켜왔던 신성한 존재. 혼란에 빠진 토토이크를 지키기 위해, 적들이 다가오면 가차 없이 공격한다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "colossal forest stone golem made of cracked gray boulders, tangled brown tree roots and moss wrapping its body, carved stone face with glowing green eyes and mouth, rune-carved stone bracer, luminous yellow-green orb core on chest, green spirit wisps"
+  },
+  {
+    "id": "en-c3200134",
+    "name": "도철",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "애니츠를 혼란에 몰아넣었던 불사의 요괴. 일찍이 에스더 시엔은 죽지 않는 도철을 자신의 왼팔에 봉인하여, 그 힘을 이용해 세상을 지켰다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "giant demonic lion-like beast with blue-green skin, massive flowing white mane, red eyes, roaring fanged jaws with tusks, gold ornamental armor bands with teal trim on head and limbs, curved dark claws, swirling purple and pink smoke"
+  },
+  {
+    "id": "en-c3200135",
+    "name": "혼재의 추오",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "고대로부터 애니츠의 평화를 수호하고 재앙을 막아왔던 영물. 하지만 악의 기운을 막던 도중 마기에 물들어, 포악해져 버리고 말았다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "corrupted lion-like guardian spirit beast with dark gray-violet fur, fluffy pale lavender mane, single white horn, snarling white fanged face with purple markings, curling glowing purple tendril horns, black claws, four-legged stance, dark purple energy flames"
+  },
+  {
+    "id": "en-c3200137",
+    "name": "시그나투스",
+    "hp": 700,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "아르데타인의 기술력이 집중된 거대 기계병기. 입력된 인공지능에 의해 적을 찾고 있으며, 발견한 적에게 무조건적인 공격을 가한다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "giant war mech with dark gunmetal armor plating, hunched heavy torso with small head and orange sensor, twin box-shaped missile launcher pods on shoulders, yellow-black hazard stripes, red warning panels, massive armored arms with hexagonal vents, blue electric glow"
+  },
+  {
+    "id": "en-c3200141",
+    "name": "바에단",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "슈샤이어의 노예 상인. 거대한 부를 축적한 뒤 붉은장막 투기장을 차지했으며, 악마와 손을 잡아 슈샤이어의 노예들을 팔아 넘기고 있다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "stocky middle-aged slave merchant with short brown hair and graying beard, red cloth tunic and draped scarf, crimson plate armor pauldrons with gold trim, brown leather belt with round bronze buckle and studs, brown gloves, black iron-banded club, sword at hip"
+  },
+  {
+    "id": "en-c3200142",
+    "name": "타르실라",
+    "hp": 700,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "아름답고 매혹적인 서리 거미들의 여왕. 자신의 영역에 대한 집착과 생명체에 대한 탐식이 강하다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "spider queen with pale lavender woman torso, spiky dark blue-black chitin helmet with glowing blue spider eyes over her face, purple lips, black chitin plates on chest and arms, pale ribbed frill fanning behind shoulders, blue-tipped claws pulling silk web threads, dark armored spider legs below"
+  },
+  {
+    "id": "en-c3200145",
+    "name": "마네스",
+    "hp": 700,
+    "defense": 20,
+    "magicDefense": 60,
+    "moveSpeed": 0.75,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#a5b4fc",
+      "shape": "star",
+      "icon": "👻"
+    },
+    "description": "사슬전쟁 당시, 악마와 맞서 싸웠던 전사. 그러나 그 혼은 결국 악마의 기운에 침식되어, 망령이 되어 버렸다.",
+    "traits": [
+      {
+        "type": "stealth",
+        "revealRange": 2.5
+      }
+    ],
+    "artRef": "towering undead armored warrior specter in massive black iron plate armor covered with spikes and rivets, helmet with glowing cyan visor slits, cyan light glowing from armor joints, horned bull skull ornament on belt, dark red loincloth, spectral cyan mist"
+  },
+  {
+    "id": "en-c3200147",
+    "name": "가룸",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "백 년 전, 베른의 기사단을 괴멸시켰던 사령술사 지그문트의 창조물. 다시 부활한 지그문트에 의해 오랜 잠에서 깨어났다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "necromantic undead dragon beast with dark gunmetal-black scales and bony ridged plates, swept-back curved horns, glowing teal eyes, skeletal spiked spine and ribs, large dark wings with teal-tipped talons, crouching four-legged stance, sharp claws"
+  },
+  {
+    "id": "en-c3200150",
+    "name": "프록시마",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "어둠의 기운으로 인해 발생한 식물. 점차 거대해지며 사람을 공격하는 식인식물이 되어 버렸다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "colossal carnivorous plant monster with a massive dark charcoal armored bulb of layered blade-like leaf plates, ridged spine crown, faint gold vein lines, glowing teal-green orb eyes, segmented trunk-like proboscis hanging down the center, thick dark thorny vine tentacles, flying black thorn shards"
+  },
+  {
+    "id": "en-c3200151",
+    "name": "에라스모",
+    "hp": 700,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "해저에 모습을 감추고 있다는 신비한 생물. 특정한 조건에 의해서만 모습을 드러낸다고 한다.",
+    "traits": [],
+    "artRef": "deep-sea dragon-like beast with teal-green scaled body, bulging orange-pink throat sac and mauve ridged belly, fanged jaws, white spiky crest, cyan fin spines along neck and back, long red anglerfish lure antenna ending in a pink bulb, water bubble glow"
+  },
+  {
+    "id": "en-c3200152",
+    "name": "두키킹",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "두키의 왕. 두키들의 섬에 머물고 있으며, 두키들이 모아온 보물을 바라보며 만족해하는 것이 취미다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "plump long-snouted mole-like rodent king with pale lavender-white body, dark furry head, big buck teeth, leather belt and pouch, huge rope-tied treasure sack full of coins on its back, small jeweled crown and scepter atop the sack, sparkling ghostly glow"
+  },
+  {
+    "id": "en-c3200153",
+    "name": "브리아레오스",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "수천년 전, 빙결의 신 시리우스와 거대한 화마군단의 불꽃과 싸웠던 힘의 잔영이 남아 그대로 생명체가 되었다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "hulking hunched elemental giant split down the middle, left half white stone with jagged glowing blue ice crystals, right half black obsidian rock with glowing orange lava cracks and flames, massive long arms and broad muscular body"
+  },
+  {
+    "id": "en-c3200154",
+    "name": "고르카그로스",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "거대한 알을 깨고 나온 괴수. 몸에는 수백 마리의 벌레를 기르고 있어, 이 벌레를 사용해 적을 공격한다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "giant insectoid parasite beast with a huge segmented ribbed carapace of bone-colored spiked plates, glowing green pustule sacs, skeletal ribcage-like underbody, long jagged spindly legs and scythe-like forelimbs, glowing yellow-green toxic spores and swarming bugs"
+  },
+  {
+    "id": "en-c3200155",
+    "name": "수신 아포라스",
+    "hp": 700,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "죽음의 협곡을 지키는 신비한 생명체. 심해의 물을 사용해 적을 공격한다.",
+    "traits": [],
+    "artRef": "armored sea deity with dark teal ram-horned helmet and ridged crest, glowing cyan eyes and forehead gem, dark teal scaled armor with gold segmented plates, gold braided cord over shoulder, large ribbed lavender-gray fin mantle studded with gold scales, teal webbed fin, surging water"
+  },
+  {
+    "id": "en-c3200156",
+    "name": "실험체 타르마쿰",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "아이히만 박사가 비밀리에 힘의 잔영을 통해 만들어 내려던 실험체. 포악하고 공격적이다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "cyborg ape beast with long shaggy white fur, mechanical head plate with cluster of red glowing sensor eyes and black cables, fanged jaw, gray mechanical armored fist, lumpy dark stone-scaled forearm, gatling cannon mounted on back, black missile pod with yellow-black hazard stripes"
+  },
+  {
+    "id": "en-c3200157",
+    "name": "솔 그랑데",
+    "hp": 700,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "알트아이젠에서 발견할 수 있는 거대 기계병기. 무자비한 공격으로 적을 유린한다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "giant bipedal war mech with steel-gray riveted armor and red stripe accents, hunched boxy torso with two round glowing yellow eyes, red glowing slit sensor on top, raised heavy arm with red armor plate, radar dish antenna on shoulder, dark gunmetal limbs"
+  },
+  {
+    "id": "en-c3200174",
+    "name": "아이히만 박사",
+    "hp": 700,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "루비아이에 의해 미쳐버린 과학자. 광기에 차 있다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "elderly mad scientist with wild white hair and a white coat, seated in the open cockpit of a giant dark iron steampunk walker machine, riveted pipes and pistons, mechanical claw arms, large bronze cogwheel on top, glowing cyan lights"
+  },
+  {
+    "id": "en-c3200181",
+    "name": "크누트",
+    "hp": 700,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "오래전 바다의 악몽이라 불렸던 거대한 괴수. 사술사들의 힘에 의해 다시 눈을 떠, 해적 다르키엘의 명령을 따르게 된다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "colossal sea monster with a long dark blue armored serpentine head, jagged black spines and red-tipped fins along its crest, toothy pointed snout, white-flecked blue scales, many thick pale white tentacles lined with suckers, crackling lightning"
+  },
+  {
+    "id": "en-c3200182",
+    "name": "아드린느",
+    "hp": 700,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "사슬전쟁 당시 로헨델의 기사단장. 하지만 아브렐슈드에게 패배한 뒤 악마로 변이했고, 기억을 잃은 채 환영 나비 섬을 떠돌고 있다.",
+    "traits": [],
+    "artRef": "demonized female knight with long straight white hair, pale skin and red eyes, black thorned crown with tall antenna-like horns, red and black butterfly-wing patterned cloak studded with purple gems, revealing black and gold ornate armor, glowing cyan orb on her pauldron, large black thorny wings"
+  },
+  {
+    "id": "en-c3200208",
+    "name": "지휘관 솔",
+    "hp": 600,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 35,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "카인의 명령에 의해 기계군단을 지휘하는 거대 기계병기. 에어가이츠의 발동을 위해 가이스트들을 막으려 한다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "colossal bipedal war machine with boxy dark gunmetal armor plating, narrow glowing red visor slit on the head, twin round glowing yellow optic lenses on the face plate, orange-red trim lines, massive raised mechanical arm with a red panel bearing white numbers, radar dish"
+  },
+  {
+    "id": "en-c3200312",
+    "name": "아르고스",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "오래전 파푸니카를 파괴하기 위해 움직였던 혼돈의 가디언",
+    "traits": [],
+    "artRef": "majestic white-furred stag guardian beast, enormous branching dark crimson-brown antlers with a slender glowing cyan horn rising between them, gold filigree armor on chest and legs set with turquoise gems, pale cyan swirl markings on its fur, faint golden halo"
+  },
+  {
+    "id": "en-c3200400",
+    "name": "데스칼루다",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "죽음을 쫓는 가디언 데스칼루다는 거대한 날개를 펼쳐 날아올라 모든 것을 소멸시킨다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "colossal dark dragon guardian with a hooked beak-like snout and glowing orange eye, jagged black and gunmetal armor plating, ribbed cage-like neck guard, curved horns, coiling serpentine scaled body, swirling toxic green flames and sparks"
+  },
+  {
+    "id": "en-c3200414",
+    "name": "쿤겔라니움",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "빙하의 포식자 쿤겔라니움은 서리바람을 자유자재로 다루며 주변의 모든 것을 무참히 파괴한다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "massive frost dragon beast with dark steel-blue overlapping scales rimed in frost, jagged glowing cyan ice crystal spikes along its back and snout, fanged jaws with a glowing blue eye, swirling snow and icy mist"
+  },
+  {
+    "id": "en-c3200416",
+    "name": "하누마탄",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "애니츠에서 신성시되는 빛의 가디언 하누마탄. 애니츠의 무투가들은 하누마탄의 움직임을 본따 무술로 발전시켰다고 알려져있다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "giant ape guardian beast with dark charcoal hide and a snarling blue face with fangs, spiked golden crown set with green gems, ornate bronze shoulder armor and chain sash, teal tribal markings on the chest, spiked bronze belt plate, long curling tail"
   }
 ]

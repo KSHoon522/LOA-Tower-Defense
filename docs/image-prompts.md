@@ -18,10 +18,11 @@
 
 ## 워크플로우
 
-1. `character-references.md`에서 만들 캐릭터를 고른다 (에스더/지역별 아군, 적, 보스, 군단장).
-2. `⚠ 공식 일러 확인 필요` 표시가 있으면 인벤 카드 DB(https://lostark.inven.co.kr/dataninfo/card/)나
-   인게임 스크린샷을 보고 머리색·복장·무기 색을 PROMPT에 보충한다.
-3. `/editor/towers` 또는 `/editor/enemies`에서 캐릭터를 만들고 **이미지 생성 참고 설명(artRef)** 에 PROMPT를 붙여넣는다.
+1. 카드 인물(아군/적/보스)은 **artRef가 이미 채워져 있다** (카드 일러스트 기준). `/editor/towers` 또는
+   `/editor/enemies`에서 캐릭터를 고른다. 목록은 `card-roster.md`.
+2. 카드에 없는 캐릭터를 새로 만들 때는 `character-references.md`의 PROMPT를 참고하거나,
+   인벤 카드 DB(https://lostark.inven.co.kr/dataninfo/card/)·인게임 스크린샷을 보고 아래 작성 규칙대로 쓴다.
+3. 필요하면 artRef를 다듬는다 (카드 일러스트에 안 보이는 설정상 무기·이펙트를 추가하는 등).
 4. 출력 형식(단일 이미지 / 스프라이트 시트 / 적 / 보스)을 고르고 **📋 프롬프트 생성 → 복사**.
 5. 이미지 생성 AI에 넣어 생성. 레퍼런스 이미지 입력을 지원하는 도구라면 **공식 일러스트를 참조 이미지로 함께 제공**하면 인식률이 크게 오른다.
 6. 결과물을 외형 섹션의 **📤 업로드**로 올리고(→ `public/characters/`), 단일 이미지 또는 스프라이트 시트로 지정한다.

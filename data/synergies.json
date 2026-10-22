@@ -67,5 +67,97 @@
       { "count": 4, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "atk_speed_pct", "value": 15 }] }
     ],
     "description": "적 처치 시 추가 골드를 획득합니다."
+  },
+  {
+    "id": "syn-luterra",
+    "region": "루테란",
+    "name": "기사의 나라",
+    "color": "#cbd5e1",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 10 }] },
+      { "count": 4, "effects": [{ "type": "atk_pct", "value": 22 }, { "type": "crit_chance", "value": 8 }] },
+      { "count": 6, "effects": [{ "type": "atk_pct", "value": 40 }, { "type": "crit_chance", "value": 15 }] }
+    ],
+    "description": "루테란 캐릭터의 물리 공격력과 치명타 확률이 증가합니다."
+  },
+  {
+    "id": "syn-rethramis",
+    "region": "아르테미스",
+    "name": "레온하트의 가호",
+    "color": "#e879f9",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 20 }] },
+      { "count": 4, "effects": [{ "type": "mana_regen_pct", "value": 45 }, { "type": "magic_atk_pct", "value": 15 }] }
+    ],
+    "description": "아르테미스 캐릭터의 마나 회복과 마법 공격력이 증가합니다."
+  },
+  {
+    "id": "syn-yudia",
+    "region": "유디아",
+    "name": "소금사막의 지혜",
+    "color": "#d4a373",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 1 }, { "type": "magic_atk_pct", "value": 10 }] }
+    ],
+    "description": "적 처치 시 추가 골드를 얻고 마법 공격력이 증가합니다."
+  },
+  {
+    "id": "syn-tortoyk",
+    "region": "토토이크",
+    "name": "모코코의 생명력",
+    "color": "#84cc16",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_speed_pct", "value": 10 }] },
+      { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 22 }, { "type": "gold_per_kill", "value": 1 }] },
+      { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 40 }, { "type": "gold_per_kill", "value": 2 }] }
+    ],
+    "description": "토토이크 캐릭터의 공격속도가 증가하고 처치 골드를 더 얻습니다."
+  },
+  {
+    "id": "syn-yorn",
+    "region": "욘",
+    "name": "우마르의 대장간",
+    "color": "#b45309",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 12 }] },
+      { "count": 4, "effects": [{ "type": "atk_pct", "value": 25 }, { "type": "crit_damage_pct", "value": 20 }] },
+      { "count": 6, "effects": [{ "type": "atk_pct", "value": 45 }, { "type": "crit_damage_pct", "value": 50 }] }
+    ],
+    "description": "욘 캐릭터의 물리 공격력과 치명타 피해가 증가합니다."
+  },
+  {
+    "id": "syn-feiton",
+    "region": "페이튼",
+    "name": "아베스타의 그림자",
+    "color": "#94a3b8",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "crit_chance", "value": 8 }] },
+      { "count": 4, "effects": [{ "type": "crit_chance", "value": 16 }, { "type": "crit_damage_pct", "value": 30 }] },
+      { "count": 6, "effects": [{ "type": "crit_chance", "value": 28 }, { "type": "crit_damage_pct", "value": 70 }] }
+    ],
+    "description": "페이튼 캐릭터의 치명타 확률과 피해가 증가합니다."
+  },
+  {
+    "id": "syn-elgacia",
+    "region": "엘가시아",
+    "name": "라제니스의 축복",
+    "color": "#fde68a",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "magic_atk_pct", "value": 10 }] },
+      { "count": 3, "effects": [{ "type": "range_add", "value": 1 }, { "type": "magic_atk_pct", "value": 20 }, { "type": "atk_pct", "value": 20 }] }
+    ],
+    "description": "엘가시아 캐릭터의 사거리와 공격력이 증가합니다."
+  },
+  {
+    "id": "syn-ocean",
+    "region": "대양",
+    "name": "바다의 방랑자",
+    "color": "#2dd4bf",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 1 }] },
+      { "count": 4, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "mana_regen_pct", "value": 20 }] },
+      { "count": 6, "effects": [{ "type": "gold_per_kill", "value": 3 }, { "type": "mana_regen_pct", "value": 40 }, { "type": "atk_speed_pct", "value": 15 }] }
+    ],
+    "description": "적 처치 시 추가 골드를 얻고, 단계가 오르면 마나 회복과 공격속도가 증가합니다."
   }
 ]

@@ -1,0 +1,314 @@
+[
+  {
+    "id": "map-tortoyk",
+    "name": "토토이크 해안 길",
+    "region": "토토이크",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "description": "S자 형태의 기본 맵. 경로 주변 타일에 타워 배치 가능.",
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 10,
+          "y": 1
+        },
+        {
+          "x": 10,
+          "y": 4
+        },
+        {
+          "x": 1,
+          "y": 4
+        },
+        {
+          "x": 1,
+          "y": 7
+        },
+        {
+          "x": 11,
+          "y": 7
+        }
+      ]
+    ]
+  },
+  {
+    "id": "map-leon",
+    "name": "레온하트",
+    "region": "베른",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "path",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "path",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "path",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "description": "",
+    "paths": [
+      [
+        {
+          "x": 6,
+          "y": 0
+        },
+        {
+          "x": 6,
+          "y": 8
+        }
+      ]
+    ]
+  }
+]

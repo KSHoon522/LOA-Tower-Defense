@@ -7,7 +7,7 @@ import {
   validateItem,
 } from "../validate";
 import type { GameData } from "../types";
-import { loadData } from "./helpers";
+import { loadData, loadGameData } from "./helpers";
 
 const data = loadData();
 
@@ -17,7 +17,7 @@ function clone(): GameData {
 
 describe("데이터 검증", () => {
   it("저장소의 data/*.json에는 오류가 없다", () => {
-    const errors = validateBundle(data).filter((i) => i.level === "error");
+    const errors = validateBundle(loadGameData()).filter((i) => i.level === "error");
     expect(errors).toEqual([]);
   });
 

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "mi-no-leak",
+    "name": "철벽 방어",
+    "condition": {
+      "type": "no_leak"
+    },
+    "rewardGold": 15,
+    "waveFilter": "any",
+    "description": "이번 웨이브 동안 목숨을 잃지 않기"
+  },
+  {
+    "id": "mi-speed",
+    "name": "속전속결",
+    "condition": {
+      "type": "clear_within",
+      "seconds": 35
+    },
+    "rewardGold": 20,
+    "waveFilter": "normal",
+    "minWave": 2,
+    "description": "웨이브 시작 후 35초 안에 적을 전멸시키기"
+  },
+  {
+    "id": "mi-no-skill",
+    "name": "직업 스킬 봉인",
+    "condition": {
+      "type": "no_job_skill"
+    },
+    "rewardGold": 10,
+    "waveFilter": "any",
+    "description": "직업 액티브 스킬을 쓰지 않고 클리어"
+  },
+  {
+    "id": "mi-few-towers",
+    "name": "소수 정예",
+    "condition": {
+      "type": "max_placed",
+      "count": 4
+    },
+    "rewardGold": 25,
+    "waveFilter": "normal",
+    "minWave": 3,
+    "description": "배치한 캐릭터 4명 이하로 클리어"
+  },
+  {
+    "id": "mi-boss-hunt",
+    "name": "보스 사냥",
+    "condition": {
+      "type": "boss_within",
+      "seconds": 30
+    },
+    "rewardGold": 40,
+    "waveFilter": "boss",
+    "description": "웨이브 시작 후 30초 안에 보스 처치"
+  }
+]

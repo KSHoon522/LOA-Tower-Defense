@@ -13,10 +13,9 @@ import type {
   TowerDef,
 } from "../types";
 
-/** data/*.json 로드 (테스트는 프로젝트 루트에서 실행됨) */
-export function loadData(): GameData {
+function readBundle(dir: string): GameData {
   const read = <T>(name: string): T =>
-    JSON.parse(readFileSync(path.join(process.cwd(), "data", `${name}.json`), "utf-8")) as T;
+    JSON.parse(readFileSync(path.join(dir, `${name}.json`), "utf-8")) as T;
   return {
     maps: read<MapDef[]>("maps"),
     jobs: read<JobDef[]>("jobs"),
@@ -27,6 +26,19 @@ export function loadData(): GameData {
     chapters: read<ChapterDef[]>("chapters"),
     missions: read<MissionDef[]>("missions"),
   };
+}
+
+/**
+ * 테스트용 고정 데이터 (fixtures/*.json)
+ * 게임 데이터(data/*.json)는 에디터로 계속 바뀌므로, 엔진 규칙 테스트는 고정된 데이터로 돌린다.
+ */
+export function loadData(): GameData {
+  return readBundle(path.join(__dirname, "fixtures"));
+}
+
+/** 실제 게임 데이터 data/*.json (데이터 검증 테스트용, 프로젝트 루트에서 실행됨) */
+export function loadGameData(): GameData {
+  return readBundle(path.join(process.cwd(), "data"));
 }
 
 /** 기본 엔진 옵션 (첫 챕터/스테이지, 시드 고정) */

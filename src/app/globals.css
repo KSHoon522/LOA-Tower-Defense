@@ -2,34 +2,285 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   로타디 디자인 토큰
+   - 바탕: 먹빛 남색 / 강조: 고풍스러운 금색 / 마력: 아크 청록
+   - 모션: 들어올 땐 expo-out, 나갈 땐 빠른 ease-in
+   ============================================================ */
 :root {
   color-scheme: dark;
+  --ink-950: #05070b;
+  --ink-900: #0a0e16;
+  --ink-850: #0e131e;
+  --gold-300: #f3dc9c;
+  --gold-400: #e6c274;
+  --gold-500: #cfa24e;
+  --gold-600: #a67c32;
+  --line: rgba(207, 162, 78, 0.2);
+  --line-strong: rgba(230, 194, 116, 0.5);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
 body {
-  @apply bg-slate-950 text-slate-100;
+  @apply bg-ink-950 font-sans text-parchment-100 antialiased;
+  font-feature-settings: "tnum" 1;
+  /* 한글은 어절 단위로 줄바꿈 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
-.panel {
-  @apply rounded-lg border border-slate-800 bg-slate-900/80 p-3;
+::selection {
+  background: rgba(207, 162, 78, 0.35);
 }
 
-.btn {
-  @apply rounded-md border border-slate-700 bg-slate-800 px-3 py-1.5 text-sm font-medium transition-colors hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40;
+/* 얇은 스크롤바 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(207, 162, 78, 0.25) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(207, 162, 78, 0.25);
+  border-radius: 999px;
 }
 
-.btn-primary {
-  @apply border-amber-600 bg-amber-600 text-slate-950 hover:bg-amber-500;
+:focus-visible {
+  outline: 2px solid rgba(230, 194, 116, 0.8);
+  outline-offset: 2px;
 }
 
-.btn-danger {
-  @apply border-red-800 bg-red-900/60 hover:bg-red-800;
+@layer components {
+  /* ---- 공용 (에디터 포함) ---- */
+  .panel {
+    @apply rounded-xl border border-gold-500/15 bg-ink-850/80 p-3 shadow-[0_12px_32px_-16px_rgba(0,0,0,0.8)];
+  }
+
+  /* 에디터 공용 버튼 (목록의 text-left 등을 그대로 쓰도록 블록형 유지) */
+  .btn {
+    @apply rounded-lg border border-white/10 bg-ink-700/70 px-3 py-1.5 text-sm font-semibold text-parchment-100 transition duration-150 ease-out-expo hover:border-gold-500/40 hover:bg-ink-600/70 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100;
+  }
+
+  .btn-primary {
+    @apply border-gold-300/40 text-ink-950;
+    background: linear-gradient(180deg, #f3dc9c 0%, #cfa24e 48%, #a67c32 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.55),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.22),
+      0 6px 18px -8px rgba(207, 162, 78, 0.7);
+  }
+  .btn-primary:hover:not(:disabled) {
+    @apply border-gold-200/70;
+    filter: brightness(1.08);
+  }
+
+  .btn-danger {
+    @apply border-blood-500/40 bg-blood-600/25 text-blood-400 hover:border-blood-400/70 hover:bg-blood-600/40;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-white/10 bg-ink-950/80 px-2.5 py-1.5 text-sm text-parchment-100 outline-none transition placeholder:text-parchment-500 focus:border-gold-400/70 focus:shadow-[0_0_0_3px_rgba(207,162,78,0.15)];
+  }
+
+  .label {
+    @apply mb-1 block text-xs font-semibold text-parchment-400;
+  }
+
+  /* ---- 게임 UI ---- */
+
+  /* 금테 패널: 네 귀퉁이에 금색 꺾쇠 */
+  .frame {
+    @apply relative rounded-xl border border-gold-500/20;
+    background:
+      linear-gradient(180deg, rgba(23, 30, 46, 0.92) 0%, rgba(10, 14, 22, 0.95) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+      0 14px 34px -16px rgba(0, 0, 0, 0.85);
+  }
+  .frame::before {
+    --c: rgba(230, 194, 116, 0.75);
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      linear-gradient(var(--c), var(--c)) top left / 12px 1.5px no-repeat,
+      linear-gradient(var(--c), var(--c)) top left / 1.5px 12px no-repeat,
+      linear-gradient(var(--c), var(--c)) top right / 12px 1.5px no-repeat,
+      linear-gradient(var(--c), var(--c)) top right / 1.5px 12px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom left / 12px 1.5px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom left / 1.5px 12px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom right / 12px 1.5px no-repeat,
+      linear-gradient(var(--c), var(--c)) bottom right / 1.5px 12px no-repeat;
+  }
+
+  /* 섹션 제목: ◆── TITLE ──◆ */
+  .frame-title {
+    @apply flex items-center gap-2 font-display text-[11px] font-bold uppercase tracking-[0.28em] text-gold-400/90;
+  }
+  .frame-title::before,
+  .frame-title::after {
+    content: "";
+    @apply h-px flex-1;
+    background: linear-gradient(90deg, transparent, rgba(207, 162, 78, 0.45));
+  }
+  .frame-title::after {
+    background: linear-gradient(270deg, transparent, rgba(207, 162, 78, 0.45));
+  }
+
+  /* 금 버튼 (주요 행동) */
+  .btn-gold {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-gold-300/50 font-bold text-ink-950 transition duration-200 ease-out-expo active:translate-y-0 active:scale-[0.97] disabled:cursor-not-allowed disabled:active:scale-100;
+    background: linear-gradient(180deg, #f6e3ad 0%, #d6ab58 46%, #a67c32 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -3px 0 rgba(74, 54, 24, 0.35),
+      0 10px 26px -10px rgba(207, 162, 78, 0.75);
+    text-shadow: 0 1px 0 rgba(255, 245, 220, 0.45);
+  }
+  .btn-gold:hover:not(:disabled) {
+    filter: brightness(1.07);
+    transform: translateY(-1px);
+  }
+  .btn-gold:disabled {
+    background: linear-gradient(180deg, #2a3248 0%, #1b2233 100%);
+    @apply border-white/10 text-parchment-500;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    text-shadow: none;
+  }
+
+  /* 청록 버튼 (아크 / 조기 호출) */
+  .btn-ark {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-ark-300/50 font-bold text-ink-950 transition duration-200 ease-out-expo active:scale-[0.97];
+    background: linear-gradient(180deg, #b6fbf6 0%, #4fd9d1 50%, #239e98 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -3px 0 rgba(0, 0, 0, 0.2),
+      0 10px 26px -10px rgba(47, 201, 194, 0.7);
+  }
+  .btn-ark:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+
+  /* 어두운 유리 버튼 */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-xl border border-gold-500/25 bg-ink-850/80 text-parchment-100 backdrop-blur transition duration-150 ease-out-expo hover:border-gold-400/60 hover:bg-ink-800/90 hover:text-gold-200 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-40 disabled:active:scale-100;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* HUD 자원 표시판 */
+  .plate {
+    @apply inline-flex h-9 items-center gap-1.5 rounded-full border border-gold-500/25 bg-ink-900/85 px-3 backdrop-blur;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 6px 16px -10px rgba(0, 0, 0, 0.9);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-md border border-white/10 bg-ink-800/80 px-1.5 py-0.5 text-[10px] font-semibold text-parchment-300;
+  }
+
+  /* 금색 그라데이션 글자 */
+  .text-gold-grad {
+    background: linear-gradient(180deg, #fff3cf 0%, #f0cf86 40%, #b8883a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-blood-grad {
+    background: linear-gradient(180deg, #ffd8d0 0%, #ff6b6b 45%, #a3141b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-legend-grad {
+    background: linear-gradient(180deg, #fff3d6 0%, #ffb347 45%, #c25e00 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gold-shimmer {
+    background: linear-gradient(
+        100deg,
+        #c69a4a 0%,
+        #f3dc9c 30%,
+        #fffaf0 45%,
+        #f3dc9c 60%,
+        #c69a4a 100%
+      )
+      0 0 / 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* 게임 배경 (비네트 + 노이즈) */
+  .bg-arkesia {
+    background:
+      radial-gradient(120% 70% at 50% -10%, rgba(207, 162, 78, 0.09), transparent 60%),
+      radial-gradient(90% 60% at 50% 115%, rgba(47, 201, 194, 0.06), transparent 60%),
+      radial-gradient(140% 120% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.65) 100%),
+      var(--ink-950);
+  }
+  .bg-noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: var(--noise);
+    opacity: 0.035;
+    mix-blend-mode: overlay;
+  }
+
+  /* 버튼 위를 지나가는 빛 */
+  .sheen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 32%;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    @apply animate-sweep;
+  }
 }
 
-.input {
-  @apply w-full rounded-md border border-slate-700 bg-slate-950 px-2 py-1.5 text-sm outline-none focus:border-amber-500;
+/* 인라인 animation에서 직접 쓰는 키프레임 (Tailwind 유틸리티 없이도 항상 포함) */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
-.label {
-  @apply mb-1 block text-xs font-semibold text-slate-400;
+/* 움직임 줄이기 설정 존중: 필수 아닌 모션은 즉시 상태로 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -251,6 +251,11 @@ export class GameEngine {
     return eng;
   }
 
+  /** 이번 웨이브에서 아직 등장하지 않은 적 수 (HUD 남은 적 표시용) */
+  get pendingSpawns(): number {
+    return this.spawnQueue.length;
+  }
+
   get totalWaves(): number {
     if (this.stage?.waveDefs && this.stage.waveDefs.length > 0) return this.stage.waveDefs.length;
     return this.stage?.waves ?? TOTAL_WAVES;

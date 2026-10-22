@@ -1,74 +1,37 @@
 "use client";
 
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  BENCH_SIZE,
-  DIFFICULTY,
-  GRADE_COLOR,
-  GRADE_LABEL,
-  TARGET_MODE_LABEL,
-  describeMissionCondition,
-} from "@/game/constants";
+import { BENCH_SIZE, GRADE_COLOR, GRADE_LABEL, GRADE_ORDER, TARGET_MODE_LABEL } from "@/game/constants";
 import { GameEngine } from "@/game/engine";
 import { gachaCost, sellRefund } from "@/game/gacha";
-import { createViewState, drawGame, type ViewState } from "@/game/render";
-import type {
-  Difficulty,
-  EnemyUnit,
-  GameData,
-  Point,
-  TargetMode,
-  TowerDef,
-  TowerUnit,
-} from "@/game/types";
+import { createViewState, displaySize, drawGame, screenToMap, type ViewState } from "@/game/render";
+import type { Difficulty, EnemyUnit, GameData, GameEventType, Point, TargetMode, TowerDef } from "@/game/types";
 import { fetchGameData } from "@/lib/api";
 import { clearSave, loadSave, writeSave } from "@/lib/save";
 import { getSound } from "@/lib/sound";
-import UnitCard from "./UnitCard";
-
-const TRAIT_LABEL: Record<string, string> = {
-  regen: "재생",
-  stealth: "은신",
-  split: "분열",
-  aura_defense: "방어 오라",
-  slow_immune: "둔화 면역",
-  stun_immune: "기절 면역",
-};
-
-export const SYNERGY_EFFECT_LABEL: Record<string, string> = {
-  atk_pct: "공격력 %",
-  magic_atk_pct: "마법 공격력 %",
-  atk_speed_pct: "공격속도 %",
-  crit_chance: "치명타 확률 %p",
-  crit_damage_pct: "치명타 피해 %p",
-  mana_regen_pct: "마나 회복 %",
-  range_add: "사거리 +타일",
-  gold_per_kill: "처치당 골드",
-};
-
-const PASSIVE_LABEL: Record<string, string> = {
-  start_gold: "시작 골드",
-  extra_lives: "목숨",
-  gacha_discount_pct: "뽑기 할인 %",
-  crit_chance_all: "치명타 확률 %p",
-  atk_pct_all: "물리 공격력 %",
-  magic_atk_pct_all: "마법 공격력 %",
-  atk_speed_pct_all: "공격속도 %",
-  crit_damage_pct_all: "치명타 피해 %p",
-  mana_regen_pct_all: "마나 회복 %",
-  gold_per_kill: "처치당 골드",
-  fusion_jackpot_pct: "합성 대성공 %p",
-};
+import GradeSlot from "./ui/GradeSlot";
+import Icon, { JOB_GROUP_ICON, type IconName } from "./ui/Icon";
+import { Modal } from "./ui/Overlay";
+import Sigil from "./ui/Sigil";
+import { prefersReducedMotion, useChangePulse, useTweenedNumber } from "./ui/motion";
+import BenchSlots from "./game/BenchSlots";
+import { BannerLayer, ToastStack, type BannerData, type ToastData } from "./game/Banners";
+import { FusionPopover, PauseMenu, ResultOverlay, UnitQuickMenu } from "./game/Overlays";
+import ShopPanel from "./game/ShopPanel";
+import SkillButton from "./game/SkillButton";
+import { SynergyChips, SynergyDetailList, SynergyRows } from "./game/SynergyPanel";
+import { EnemyDetail, TowerDetail } from "./game/UnitDetail";
+import { BossCard, MissionCard, NextWave, type MissionInfo } from "./game/WaveIntel";
 
 /**
  * 게임 전투 화면
- * - 데스크톱(lg+): 좌우 사이드 패널로 여백 활용 (스케치 레이아웃)
- * - 모바일(<lg): 풀스크린 오버레이 + 바텀시트
- * - 마우스/터치 공용 포인터 이벤트
+ * - 데스크톱(lg+): 좌측 직업·시너지 / 가운데 전장 / 우측 정보·웨이브, 하단 도크(스킬·대기석·소환·웨이브)
+ * - 모바일(<lg): 전장 위 칩·스킬 버튼 + 하단 도크(대기석·소환·웨이브)
+ * - 마우스/터치 공용 포인터 이벤트, 엔진 이벤트 → 배너/토스트/사운드
  */
 export default function GameClient() {
+  const router = useRouter();
   const params = useSearchParams();
   const resume = params.get("resume") === "1";
   const saved = useMemo(() => (resume ? loadSave() : null), [resume]);
@@ -80,11 +43,11 @@ export default function GameClient() {
   const [data, setData] = useState<GameData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const engineRef = useRef<GameEngine | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const areaRef = useRef<HTMLDivElement | null>(null);
   const viewRef = useRef<ViewState>(createViewState(48));
   const hoverFloatRef = useRef<Point | null>(null);
-  const shopBtnRef = useRef<HTMLButtonElement | null>(null);
   const pointerRef = useRef<{
     startX: number;
     startY: number;
@@ -96,14 +59,17 @@ export default function GameClient() {
 
   const [, setUiTick] = useState(0);
   const [tileSize, setTileSize] = useState(48);
+  /** 세로로 긴 화면에서는 맵을 90° 돌려 타일을 크게 */
+  const [rotated, setRotated] = useState(false);
   const [dpr, setDpr] = useState(1);
   const [selectedUid, setSelectedUid] = useState<string | null>(null);
   const [fusionTargetUid, setFusionTargetUid] = useState<string | null>(null);
   const [aimSkillIndex, setAimSkillIndex] = useState<number | null>(null);
   const [gachaRegionSel, setGachaRegionSel] = useState<string>("");
-  const [sheet, setSheet] = useState<"none" | "gacha" | "synergy" | "log">("none");
+  const [sheet, setSheet] = useState<"none" | "synergy" | "log">("none");
   const [shopOpen, setShopOpen] = useState(false);
-  /** 가장 최근에 사용한 뽑기 (바로 뽑기 버튼에 표시) */
+  const [pauseOpen, setPauseOpen] = useState(false);
+  /** 가장 최근에 사용한 뽑기 (소환 버튼이 반복) */
   const [lastGacha, setLastGacha] = useState<{ id: string; region?: string } | null>(null);
   /** 합성 popover 위치 (합성 대상 지정한 지점 근처에 표시) */
   const [fusionPopoverPos, setFusionPopoverPos] = useState<{ x: number; y: number } | null>(null);
@@ -118,10 +84,16 @@ export default function GameClient() {
   const menuBackdropDownRef = useRef(false);
   /** 효과음 볼륨 (SSR 불일치 방지: 마운트 후 로드) */
   const [volume, setVolume] = useState<number | null>(null);
+  /** 화면 연출 */
+  const [banner, setBanner] = useState<(BannerData & { shownAt: number }) | null>(null);
+  const [toasts, setToasts] = useState<ToastData[]>([]);
+  const [leakKey, setLeakKey] = useState(0);
+  const fxIdRef = useRef(0);
 
   useEffect(() => {
     setDpr(Math.min(2, window.devicePixelRatio || 1));
     setVolume(getSound()?.volume ?? 0);
+    viewRef.current.reducedMotion = prefersReducedMotion();
     fetchGameData().then(setData).catch((e) => setError(e.message));
   }, []);
 
@@ -164,6 +136,9 @@ export default function GameClient() {
       }
     } else {
       engineRef.current = new GameEngine(opts);
+    }
+    if (process.env.NODE_ENV !== "production") {
+      (window as unknown as { __rotadi?: GameEngine }).__rotadi = engineRef.current;
     }
     setUiTick((v) => v + 1);
   }, [data, chapterId, stageId, jobId, diff, saved]);
@@ -215,19 +190,23 @@ export default function GameClient() {
     };
   }, [saveNow]);
 
-  // 화면 크기에 맞춰 타일 크기 계산
+  // 화면 크기에 맞춰 타일 크기 계산 (전장 테두리 여백 포함)
   useEffect(() => {
     const el = areaRef.current;
     const eng = engineRef.current;
     if (!el || !eng) return;
     const compute = () => {
       const rect = el.getBoundingClientRect();
-      const pad = 8;
-      const ts = Math.max(
-        16,
-        Math.min((rect.width - pad) / eng.map.cols, (rect.height - pad) / eng.map.rows)
-      );
-      setTileSize(ts);
+      const pad = rect.width >= 640 ? 44 : 24;
+      const w = rect.width - pad;
+      const h = rect.height - pad;
+      const normal = Math.min(w / eng.map.cols, h / eng.map.rows);
+      const turned = Math.min(w / eng.map.rows, h / eng.map.cols);
+      // 돌렸을 때 타일이 확실히 커질 때만 회전 (데스크톱 가로 화면은 그대로)
+      const rot = turned > normal * 1.15;
+      viewRef.current.rotated = rot;
+      setRotated(rot);
+      setTileSize(Math.floor(Math.max(16, rot ? turned : normal)));
     };
     compute();
     const ro = new ResizeObserver(compute);
@@ -241,6 +220,87 @@ export default function GameClient() {
     void engine.version;
     return new Set(engine.fusionCandidates(selectedUid));
   }, [engine, selectedUid, engine?.version]);
+
+  // ---- 연출: 배너 / 토스트 ----
+  const showBanner = useCallback((b: Omit<BannerData, "id">) => {
+    const id = ++fxIdRef.current;
+    setBanner({ ...b, id, shownAt: performance.now() });
+    window.setTimeout(() => setBanner((cur) => (cur?.id === id ? null : cur)), 2000);
+  }, []);
+
+  const toast = useCallback((text: string, icon?: IconName, color?: string) => {
+    const id = ++fxIdRef.current;
+    setToasts((ts) => [...ts.slice(-2), { id, text, icon, color }]);
+    window.setTimeout(() => setToasts((ts) => ts.filter((t) => t.id !== id)), 2600);
+  }, []);
+
+  /** 엔진 이벤트 → 화면 연출 (사운드는 루프에서 따로 재생) */
+  const handleEvents = useCallback(
+    (evs: GameEventType[], eng: GameEngine) => {
+      const lastLog = (re: RegExp) => [...eng.logs].reverse().find((l) => re.test(l.text))?.text;
+      for (const ev of evs) {
+        switch (ev) {
+          case "wave_start": {
+            const boss = eng.isBossWave(eng.wave);
+            showBanner({
+              kind: boss ? "boss" : "wave",
+              kicker: boss ? "Boss Wave" : eng.stage?.name ?? "Wave",
+              title: `WAVE ${eng.wave}`,
+              sub: boss ? "보스가 다가옵니다" : eng.wave === eng.totalWaves ? "마지막 웨이브" : undefined,
+            });
+            break;
+          }
+          case "boss_spawn": {
+            const b = [...eng.enemies].reverse().find((e) => e.isBoss);
+            const name = b ? eng.enemyDefs.get(b.defId)?.name : undefined;
+            viewRef.current.shakeUntil = performance.now() + 420;
+            // 웨이브 시작 배너가 막 떠 있으면 다시 띄우지 않고 보스 이름만 채움
+            setBanner((cur) => {
+              if (cur && cur.kind === "boss" && performance.now() - cur.shownAt < 1500) {
+                return { ...cur, sub: name ?? cur.sub };
+              }
+              const id = ++fxIdRef.current;
+              window.setTimeout(() => setBanner((c) => (c?.id === id ? null : c)), 2000);
+              return { id, kind: "boss", kicker: "Boss", title: name ?? "BOSS", sub: "보스 출현", shownAt: performance.now() };
+            });
+            break;
+          }
+          case "boss_kill":
+            showBanner({
+              kind: "bossdown",
+              kicker: "Boss Defeated",
+              title: "보스 처치",
+              sub: lastLog(/보스 처치/)?.replace(/^보스 처치!\s*/, ""),
+            });
+            break;
+          case "wave_clear":
+            showBanner({
+              kind: "clear",
+              kicker: `Wave ${eng.wave}`,
+              title: "CLEAR",
+              sub: lastLog(/클리어/)?.replace(/^웨이브 [\d~]+ 클리어!\s*/, ""),
+            });
+            break;
+          case "leak":
+            setLeakKey((k) => k + 1);
+            viewRef.current.shakeUntil = performance.now() + 300;
+            break;
+          case "mission_success":
+            toast(lastLog(/미션 성공/)?.replace(/^🎯\s*/, "") ?? "미션 성공", "target", "#c4a1ff");
+            break;
+          case "mission_fail":
+            toast(lastLog(/미션 실패/)?.replace(/^✖\s*/, "") ?? "미션 실패", "target", "#ff6b6b");
+            break;
+          case "early_call":
+            toast(lastLog(/조기 호출/)?.replace(/^⏩\s*/, "") ?? "조기 호출", "fast", "#5ee8e0");
+            break;
+        }
+      }
+    },
+    [showBanner, toast]
+  );
+  const handleEventsRef = useRef(handleEvents);
+  handleEventsRef.current = handleEvents;
 
   // 게임 루프
   useEffect(() => {
@@ -258,9 +318,15 @@ export default function GameClient() {
       const dt = (now - last) / 1000;
       last = now;
       eng.tick(dt);
-      getSound()?.playAll(eng.drainEvents());
+      const evs = eng.drainEvents();
+      if (evs.length > 0) {
+        getSound()?.playAll(evs);
+        handleEventsRef.current(evs, eng);
+      }
 
       const view = viewRef.current;
+      view.now = now;
+      view.dpr = dpr;
       view.tileSize = tileSize;
       view.selectedUid = selectedUid;
       view.placingUid =
@@ -282,6 +348,25 @@ export default function GameClient() {
         drawGame(ctx, eng, view);
       }
 
+      // 매 프레임: 스킬 쿨다운 그림자, 보스 체력 바 (React 리렌더 없이 부드럽게)
+      const root = rootRef.current;
+      if (root && eng.job) {
+        root.querySelectorAll<HTMLElement>("[data-skill-index]").forEach((el) => {
+          const idx = Number(el.dataset.skillIndex);
+          const skill = eng.job!.skills[idx];
+          if (!skill || skill.kind !== "active") return;
+          const left = eng.jobSkillCooldownLeft(idx);
+          el.style.setProperty("--cd", String(skill.cooldown > 0 ? Math.min(1, left / skill.cooldown) : 0));
+        });
+      }
+      if (root) {
+        const boss = eng.enemies.find((e) => e.isBoss && !e.dead && !e.reached);
+        if (boss) {
+          const w = `${Math.max(0, (boss.hp / boss.maxHp) * 100)}%`;
+          root.querySelectorAll<HTMLElement>("[data-boss-hp]").forEach((el) => (el.style.width = w));
+        }
+      }
+
       // 버전 변경 또는 150ms 주기(쿨다운/마나/hover 정보)로 UI 갱신
       if (eng.version !== lastVersion || now - lastUiRefresh > 150) {
         lastVersion = eng.version;
@@ -293,15 +378,19 @@ export default function GameClient() {
     return () => cancelAnimationFrame(raf);
   }, [selectedUid, fusionTargetUid, fusionCandidates, aimSkillIndex, tileSize, dpr]);
 
+  /** 화면 좌표 → 엔진 좌표 (float: 타일 중심이 정수, tile: 칸 번호) — 회전 반영 */
   const posFromEvent = useCallback(
     (e: { clientX: number; clientY: number }): { tile: Point; float: Point } => {
       const canvas = canvasRef.current;
       const eng = engineRef.current;
-      if (!canvas || !eng) return { tile: { x: -1, y: -1 }, float: { x: 0, y: 0 } };
+      if (!canvas || !eng) return { tile: { x: -1, y: -1 }, float: { x: -9, y: -9 } };
       const rect = canvas.getBoundingClientRect();
-      const fx = ((e.clientX - rect.left) / rect.width) * eng.map.cols;
-      const fy = ((e.clientY - rect.top) / rect.height) * eng.map.rows;
-      return { tile: { x: Math.floor(fx), y: Math.floor(fy) }, float: { x: fx, y: fy } };
+      const rot = viewRef.current.rotated;
+      const dims = displaySize(eng.map, rot);
+      const u = ((e.clientX - rect.left) / rect.width) * dims.cols;
+      const v = ((e.clientY - rect.top) / rect.height) * dims.rows;
+      const float = screenToMap(eng.map, rot, u, v);
+      return { tile: { x: Math.round(float.x), y: Math.round(float.y) }, float };
     },
     []
   );
@@ -465,9 +554,7 @@ export default function GameClient() {
         setFusionTargetUid(uid);
         // 클릭한 카드 위쪽에 popover 표시
         const rect = (e?.currentTarget as HTMLElement)?.getBoundingClientRect();
-        setFusionPopoverPos(
-          rect ? { x: rect.left + rect.width / 2, y: rect.top } : null
-        );
+        setFusionPopoverPos(rect ? { x: rect.left + rect.width / 2, y: rect.top } : null);
       }
     } else if (uid === selectedUid) {
       setSelectedUid(null);
@@ -511,16 +598,11 @@ export default function GameClient() {
       if (!active) return;
       setBenchGhost({ x: ev.clientX, y: ev.clientY, defId });
       // 캔버스 위 타일 하이라이트
-      const canvas = canvasRef.current;
       const eng = engineRef.current;
-      if (canvas && eng) {
-        const rect = canvas.getBoundingClientRect();
-        const fx = ((ev.clientX - rect.left) / rect.width) * eng.map.cols;
-        const fy = ((ev.clientY - rect.top) / rect.height) * eng.map.rows;
+      if (eng) {
+        const { tile } = posFromEvent(ev);
         viewRef.current.hoverTile =
-          fx >= 0 && fy >= 0 && fx < eng.map.cols && fy < eng.map.rows
-            ? { x: Math.floor(fx), y: Math.floor(fy) }
-            : null;
+          tile.x >= 0 && tile.y >= 0 && tile.x < eng.map.cols && tile.y < eng.map.rows ? tile : null;
       }
     };
 
@@ -540,12 +622,9 @@ export default function GameClient() {
       }
       if (!active) return; // 드래그가 아니었으면 클릭으로 처리
       suppressBenchClickRef.current = uid;
-      const canvas = canvasRef.current;
       const eng = engineRef.current;
-      if (!canvas || !eng) return;
-      const rect = canvas.getBoundingClientRect();
-      const x = Math.floor(((ev.clientX - rect.left) / rect.width) * eng.map.cols);
-      const y = Math.floor(((ev.clientY - rect.top) / rect.height) * eng.map.rows);
+      if (!eng) return;
+      const { x, y } = posFromEvent(ev).tile;
       if (eng.isTileBuildable(x, y)) {
         eng.placeTower(uid, x, y);
         if (selectedUid === uid) setSelectedUid(null);
@@ -560,27 +639,108 @@ export default function GameClient() {
 
   const doFuse = () => {
     if (!engine || !selectedUid || !fusionTargetUid) return;
-    if (engine.fuseUnits(selectedUid, fusionTargetUid)) {
-      setSelectedUid(null);
-      clearFusion();
+    const before = engine.towerDefs.get(engine.findUnit(selectedUid)?.defId ?? "");
+    const result = engine.fuseUnits(selectedUid, fusionTargetUid);
+    if (!result) return;
+    setSelectedUid(null);
+    clearFusion();
+    const jumps = before ? GRADE_ORDER.indexOf(result.grade) - GRADE_ORDER.indexOf(before.grade) : 1;
+    if (jumps >= 2) {
+      showBanner({ kind: "jackpot", kicker: "Fusion Jackpot", title: "대성공!", sub: `${GRADE_LABEL[result.grade]} ${result.name}`, unit: result });
+    } else if (result.grade === "legendary") {
+      showBanner({ kind: "legend", kicker: "Legendary", title: result.name, sub: "전설 캐릭터 합성", unit: result });
+    } else {
+      toast(`합성 — ${GRADE_LABEL[result.grade]} ${result.name}`, "sparkles", GRADE_COLOR[result.grade]);
     }
   };
 
-  // ---- 키보드 단축키: W = 회수, F = 판매 ----
+  /** 뽑기 실행 + 결과 연출 */
+  const doGacha = (gachaId: string, region?: string) => {
+    if (!engine) return;
+    const result = engine.buyGacha(gachaId, region);
+    if (!result) {
+      const reason = engine.bench.length >= BENCH_SIZE ? "대기석이 가득 찼습니다" : engine.logs[engine.logs.length - 1]?.text;
+      toast(reason ?? "소환할 수 없습니다", "info", "#ff6b6b");
+      return;
+    }
+    setLastGacha({ id: gachaId, region });
+    if (result.grade === "legendary") {
+      showBanner({ kind: "legend", kicker: "Legendary", title: result.name, sub: result.regions.join(" · "), unit: result });
+    } else {
+      toast(`${GRADE_LABEL[result.grade]} ${result.name}`, "gem", GRADE_COLOR[result.grade]);
+    }
+  };
+
+  const sellUnit = (uid: string) => {
+    if (!engine) return false;
+    const def = engine.towerDefs.get(engine.findUnit(uid)?.defId ?? "");
+    const ok = engine.sellTower(uid);
+    if (ok && def) toast(`${def.name} 판매 +${sellRefund(def.grade)}G`, "coin", "#e6c274");
+    return ok;
+  };
+
+  const castSkill = (index: number) => {
+    if (!engine?.job) return;
+    const skill = engine.job.skills[index];
+    if (skill?.kind !== "active") return;
+    if (skill.effect.type === "damage_area") {
+      setAimSkillIndex(aimSkillIndex === index ? null : index);
+    } else if (engine.castJobSkill(index)) {
+      toast(`${skill.name}!`, "sparkles", "#5ee8e0");
+    }
+  };
+
+  const togglePause = useCallback((open?: boolean) => {
+    const eng = engineRef.current;
+    if (!eng || eng.phase === "victory" || eng.phase === "defeat") return;
+    const next = open ?? !eng.paused;
+    eng.paused = next;
+    setPauseOpen(next);
+    setUiTick((v) => v + 1);
+  }, []);
+
+  const exitToLobby = () => {
+    saveNow();
+    router.push("/");
+  };
+
+  const retry = () => {
+    const url = `/game?chapter=${encodeURIComponent(chapterId)}&stage=${encodeURIComponent(stageId)}&job=${encodeURIComponent(jobId)}&diff=${diff}`;
+    window.location.assign(url);
+  };
+
+  // ---- 키보드: W 회수 / F 판매 / Space 웨이브 / Esc 메뉴 ----
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const eng = engineRef.current;
-      if (!eng || !selectedUid) return;
+      if (!eng) return;
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
       const key = e.key.toLowerCase();
+      if (key === "escape") {
+        if (unitMenu) setUnitMenu(null);
+        else if (shopOpen) setShopOpen(false);
+        else if (sheet !== "none") setSheet("none");
+        else if (aimSkillIndex !== null) setAimSkillIndex(null);
+        else togglePause();
+        return;
+      }
+      if (eng.paused) return;
+      if (key === " " || e.code === "Space") {
+        if (eng.canStartWave() || eng.canCallWaveEarly()) {
+          e.preventDefault();
+          eng.startWave();
+        }
+        return;
+      }
+      if (!selectedUid) return;
       if (key === "w") {
         if (eng.unplaceTower(selectedUid)) {
           setSelectedUid(null);
           clearFusion();
         }
       } else if (key === "f") {
-        if (eng.sellTower(selectedUid)) {
+        if (sellUnit(selectedUid)) {
           setSelectedUid(null);
           clearFusion();
         }
@@ -589,42 +749,43 @@ export default function GameClient() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedUid]);
+  }, [selectedUid, unitMenu, shopOpen, sheet, aimSkillIndex, togglePause]);
 
-  // 빠른 메뉴: Esc로 닫기
-  useEffect(() => {
-    if (!unitMenu) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setUnitMenu(null);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [unitMenu]);
-
-  /** 뽑기 실행 + 최근 뽑기 기록 */
-  const doGacha = (gachaId: string, region?: string) => {
-    if (!engine) return;
-    const result = engine.buyGacha(gachaId, region);
-    if (result) setLastGacha({ id: gachaId, region });
-  };
-
-  const regions = useMemo(() => {
+  const regionColor = useMemo(
+    () => new Map((data?.synergies ?? []).map((s) => [s.region, s.color ?? "#cfa24e"])),
+    [data]
+  );
+  const shopRegions = useMemo(() => {
     if (!data) return [];
     const set = new Set<string>();
     data.synergies.forEach((s) => set.add(s.region));
     data.towers.forEach((t) => t.regions.forEach((r) => set.add(r)));
-    return Array.from(set);
-  }, [data]);
+    return Array.from(set).map((name) => ({ name, color: regionColor.get(name) ?? "#cfa24e" }));
+  }, [data, regionColor]);
+
+  const gold = useTweenedNumber(engine?.gold ?? 0, 380);
+  const livesPulse = useChangePulse(engine?.lives ?? 0);
 
   if (error) {
     return (
-      <div className="panel text-red-400">
-        {error} — <Link href="/" className="underline">홈으로</Link>
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-arkesia p-4">
+        <div className="frame max-w-sm p-6 text-center">
+          <Icon name="info" className="mx-auto text-3xl text-blood-400" />
+          <p className="mt-2 text-parchment-100">{error}</p>
+          <button className="btn-gold mt-4 h-10 px-5 text-sm" onClick={() => router.push("/")}>
+            <Icon name="home" /> 로비로
+          </button>
+        </div>
       </div>
     );
   }
   if (!data || !engine) {
-    return <div className="panel animate-pulse">게임 준비 중...</div>;
+    return (
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-arkesia">
+        <Sigil className="h-24 w-24 animate-[spin_6s_linear_infinite] text-gold-400/70" />
+        <p className="font-display text-xs tracking-[0.4em] text-gold-400/80">PREPARING</p>
+      </div>
+    );
   }
 
   // ---- 파생 상태 ----
@@ -636,16 +797,19 @@ export default function GameClient() {
     : null;
   const activeSkills = engine.activeJobSkills();
   const passiveSkills = engine.job?.skills.filter((s) => s.kind === "passive") ?? [];
-  const lastLog = engine.logs[engine.logs.length - 1];
   const bossInfo = engine.bossPreview();
   const nextWavePreview =
     engine.phase === "prep" && engine.wave < engine.totalWaves
       ? engine.wavePreview(engine.wave + 1)
       : [];
-  const towerStats = engine.phase === "victory" || engine.phase === "defeat" ? engine.towerStats() : [];
+  const finished = engine.phase === "victory" || engine.phase === "defeat";
+  const remainingEnemies =
+    engine.phase === "wave"
+      ? engine.enemies.filter((e) => !e.dead && !e.reached).length + engine.pendingSpawns
+      : 0;
 
   // 미션: 전투 중이면 진행 중 미션, 준비 단계면 다음 웨이브에 배정될 미션
-  const missionInfo = (() => {
+  const missionInfo: MissionInfo | null = (() => {
     if (engine.phase === "wave" && engine.mission) {
       const def = engine.currentMissionDef();
       if (!def) return null;
@@ -673,51 +837,25 @@ export default function GameClient() {
     return null;
   })();
 
-  const canCallEarly = engine.canCallWaveEarly();
-
-  const waveButton = canCallEarly ? (
-    <button
-      className="whitespace-nowrap rounded-lg border-2 border-sky-400 bg-sky-500/90 px-4 py-1.5 text-sm font-extrabold text-slate-950 shadow-lg transition-transform active:scale-95"
-      title="남은 적이 많을수록 보너스가 큽니다. 클리어 보상은 적 전멸 시 합산(이자는 1회), 조기 호출한 웨이브에는 미션이 붙지 않습니다."
-      onClick={() => engine.startWave()}
-    >
-      ⏩ 웨이브 {engine.wave + 1} 조기 호출{" "}
-      <span className="text-xs font-bold">+{engine.earlyCallBonus()}G</span>
-    </button>
-  ) : (
-    <button
-      className="whitespace-nowrap rounded-lg border-2 border-amber-500 bg-amber-500/90 px-5 py-1.5 text-sm font-extrabold text-slate-950 shadow-lg transition-transform active:scale-95 disabled:border-slate-700 disabled:bg-slate-800 disabled:text-slate-500"
-      disabled={!engine.canStartWave()}
-      onClick={() => engine.startWave()}
-    >
-      {engine.phase === "wave"
-        ? `웨이브 ${engine.wave} 진행 중`
-        : engine.isBossWave(engine.wave + 1)
-          ? `⚠ 보스 웨이브 ${engine.wave + 1} 시작`
-          : `▶ 웨이브 ${engine.wave + 1} 시작`}
-    </button>
-  );
-
-  // 바로 뽑기 = 가장 최근에 사용한 뽑기 (없으면 첫 번째 뽑기)
+  // 소환 버튼 = 가장 최근에 사용한 뽑기 (없으면 첫 번째 뽑기)
   const quickGachaDef =
     (lastGacha ? engine.findGacha(lastGacha.id) : undefined) ??
     engine.gachaDefs.find((g) => g.regionMode !== "select") ??
     null;
-  const quickGachaRegion =
-    quickGachaDef?.regionMode === "select" ? lastGacha?.region : undefined;
+  const quickGachaRegion = quickGachaDef?.regionMode === "select" ? lastGacha?.region : undefined;
   const quickGachaReady =
     !!quickGachaDef &&
     engine.canAffordGacha(quickGachaDef.id) &&
+    engine.bench.length < BENCH_SIZE &&
     (quickGachaDef.regionMode !== "select" || !!quickGachaRegion);
+  const quickCost = quickGachaDef ? gachaCost(quickGachaDef, engine.job) : 0;
 
   // hover 대상 (타워 or 적) — 정보 패널용
   const hoverTile = viewRef.current.hoverTile;
   const hoverFloat = hoverFloatRef.current;
   const hoverTower =
     hoverTile && viewRef.current.dragUid === null
-      ? engine.placed.find(
-          (t) => t.tile && t.tile.x === hoverTile.x && t.tile.y === hoverTile.y
-        )
+      ? engine.placed.find((t) => t.tile && t.tile.x === hoverTile.x && t.tile.y === hoverTile.y)
       : undefined;
   let hoverEnemy: EnemyUnit | undefined;
   if (hoverFloat && !hoverTower) {
@@ -733,1247 +871,628 @@ export default function GameClient() {
 
   // ---- 재사용 UI 조각 ----
 
-  const towerInfoBody = (unit: TowerUnit, def: TowerDef) => (
-    <>
-      <div className="flex items-center gap-2">
-        <span
-          className="rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-950"
-          style={{ backgroundColor: GRADE_COLOR[def.grade] }}
-        >
-          {GRADE_LABEL[def.grade]}
+  const canCallEarly = engine.canCallWaveEarly();
+  const waveButton = (cls: string) =>
+    canCallEarly ? (
+      <button
+        className={`btn-ark animate-ark-pulse ${cls}`}
+        title="남은 적이 많을수록 보너스가 큽니다. 클리어 보상은 적 전멸 시 합산(이자는 1회), 조기 호출한 웨이브에는 미션이 붙지 않습니다."
+        onClick={() => engine.startWave()}
+      >
+        <Icon name="fast" className="text-lg" />
+        <span className="flex flex-col items-start leading-tight">
+          <span className="text-sm font-black">조기 호출</span>
+          <span className="text-[11px] font-bold opacity-80">웨이브 {engine.wave + 1} · +{engine.earlyCallBonus()}G</span>
         </span>
-        <span className="font-bold">
-          {def.appearance.icon} {def.name}
+      </button>
+    ) : engine.phase === "wave" ? (
+      <button className={`btn-ghost cursor-default ${cls}`} disabled>
+        <Icon name="swords" className="text-lg text-gold-400" />
+        <span className="flex flex-col items-start leading-tight">
+          <span className="text-sm font-bold text-parchment-100">전투 중</span>
+          <span className="text-[11px] text-parchment-400">남은 적 {remainingEnemies}</span>
         </span>
-      </div>
-      <div className="mt-0.5 text-[10px] text-slate-400">[{def.regions.join(", ")}]</div>
-      <div className="mt-1.5 grid grid-cols-2 gap-x-2 gap-y-0.5 text-[11px] text-slate-300">
-        <span>⚔ 공격 {Math.round(engine.effectiveAtk(unit, def))}</span>
-        <span>🔮 마공 {Math.round(engine.effectiveMagicAtk(unit, def))}</span>
-        <span>⏱ {engine.effectiveAttackSpeed(unit, def).toFixed(2)}/s</span>
-        <span>📏 {engine.effectiveRange(unit, def).toFixed(1)}</span>
-        <span>
-          💧 {Math.floor(unit.mana)}/{def.maxMana}
+      </button>
+    ) : (
+      <button
+        className={`btn-gold sheen ${engine.canStartWave() ? "animate-glow-pulse" : ""} ${cls}`}
+        disabled={!engine.canStartWave()}
+        onClick={() => engine.startWave()}
+      >
+        <Icon name={engine.isBossWave(engine.wave + 1) ? "crown" : "play"} className="text-lg" />
+        <span className="flex flex-col items-start leading-tight">
+          <span className="text-sm font-black">{engine.isBossWave(engine.wave + 1) ? "보스 웨이브" : "웨이브 시작"}</span>
+          <span className="text-[11px] font-bold opacity-75">
+            WAVE {engine.wave + 1}
+            <span className="hidden lg:inline"> · Space</span>
+          </span>
         </span>
-        {unit.tile && <span>☠ 처치 {unit.kills}</span>}
-      </div>
-      <div className="mt-1.5 rounded bg-slate-900 px-1.5 py-1 text-[10px] text-amber-300/90">
-        <b>{def.skill.name}</b> — {def.skill.description}
-      </div>
-    </>
+      </button>
+    );
+
+  const summonButton = (cls: string) => (
+    <button
+      className={`btn-gold ${cls}`}
+      disabled={!quickGachaReady}
+      onClick={() => quickGachaDef && doGacha(quickGachaDef.id, quickGachaRegion)}
+      title={
+        quickGachaDef
+          ? `${quickGachaDef.name}${quickGachaRegion ? ` [${quickGachaRegion}]` : ""} 1회 (${quickCost}G)`
+          : ""
+      }
+    >
+      <Icon name="gem" className="text-lg" />
+      <span className="flex flex-col items-start leading-tight">
+        <span className="text-sm font-black">소환</span>
+        <span className="flex items-center gap-0.5 text-[11px] font-bold opacity-80">
+          <Icon name="coin" className="text-[#7a5418]" />
+          {quickCost}
+          {quickGachaRegion && <span className="ml-0.5 max-w-[4rem] truncate">· {quickGachaRegion}</span>}
+        </span>
+      </span>
+    </button>
   );
 
-  const enemyInfoBody = (e: EnemyUnit) => {
-    const def = engine.enemyDefs.get(e.defId);
-    if (!def) return null;
-    return (
-      <>
-        <div className="flex items-center gap-2">
-          {e.isBoss && (
-            <span className="rounded bg-red-500 px-1.5 py-0.5 text-[10px] font-bold text-slate-950">
-              보스
-            </span>
-          )}
-          <span className="font-bold">
-            {def.appearance.icon} {def.name}
-          </span>
-        </div>
-        <div className="mt-1.5 grid grid-cols-2 gap-x-2 gap-y-0.5 text-[11px] text-slate-300">
-          <span className="col-span-2">
-            ❤️ {Math.max(0, Math.round(e.hp))} / {e.maxHp}
-          </span>
-          <span>🛡 방어 {e.defense}</span>
-          <span>✨ 마방 {e.magicDefense}</span>
-          <span>👟 이속 {e.moveSpeed}</span>
-          <span>💰 {e.goldReward}G</span>
-        </div>
-        {def.traits && def.traits.length > 0 && (
-          <div className="mt-1 flex flex-wrap gap-1">
-            {def.traits.map((tr, i) => (
-              <span
-                key={i}
-                className="rounded bg-purple-500/20 px-1.5 py-0.5 text-[10px] text-purple-300"
-                title={JSON.stringify(tr)}
-              >
-                {TRAIT_LABEL[tr.type] ?? tr.type}
-                {tr.type === "regen" && ` ${tr.pctPerSec}%/s`}
-                {tr.type === "stealth" && ` (${tr.revealRange}칸)`}
-                {tr.type === "split" && ` ×${tr.count}`}
-              </span>
-            ))}
-          </div>
-        )}
-        {def.description && (
-          <div className="mt-1.5 text-[10px] text-slate-400">{def.description}</div>
-        )}
-      </>
-    );
-  };
+  const shopButton = (cls: string) => (
+    <button className={`btn-ghost ${cls}`} onClick={() => setShopOpen(true)} title="상점 — 소환 종류 선택">
+      <Icon name="chest" className="text-lg text-gold-400" />
+      <span className="text-[10px] font-bold text-parchment-300">상점</span>
+    </button>
+  );
 
-  const unitActionButtons = selectedUnit && selectedDef && (
-    <div className="mt-2 flex flex-wrap gap-1.5">
+  const unitActions = selectedUnit && selectedDef && (
+    <div className="mt-2.5 space-y-1.5">
       {selectedIsPlaced && !fusionTargetUid && (
-        <label className="flex w-full items-center gap-1 text-[10px] text-slate-400">
-          🎯 타겟
-          <select
-            className="input flex-1 py-0.5 text-[10px]"
-            value={selectedUnit.targetMode}
-            onChange={(e) => engine.setTargetMode(selectedUnit.uid, e.target.value as TargetMode)}
-          >
-            {(Object.keys(TARGET_MODE_LABEL) as TargetMode[]).map((m) => (
-              <option key={m} value={m}>
-                {TARGET_MODE_LABEL[m]}
-              </option>
-            ))}
-          </select>
-        </label>
-      )}
-      {fusionTargetUid && fusionTargetDef ? (
-        <>
-          <button className="btn btn-primary flex-1 py-1 text-[11px]" onClick={doFuse}>
-            ⚗️ {fusionTargetDef.name}와(과) 합성
-          </button>
-          <button className="btn py-1 text-[11px]" onClick={clearFusion}>
-            취소
-          </button>
-        </>
-      ) : (
-        <>
-          {selectedIsPlaced && (
+        <div className="grid grid-cols-4 gap-1">
+          {(Object.keys(TARGET_MODE_LABEL) as TargetMode[]).map((m) => (
             <button
-              className="btn flex-1 py-1 text-[11px]"
-              onClick={() => {
-                if (engine.unplaceTower(selectedUnit.uid)) setSelectedUid(null);
-              }}
+              key={m}
+              className={`truncate rounded-md border px-0.5 py-1 text-[10px] font-bold transition duration-150 ${
+                selectedUnit.targetMode === m
+                  ? "border-gold-400/70 bg-gold-500/15 text-gold-200"
+                  : "border-white/10 text-parchment-400 hover:border-white/25"
+              }`}
+              onClick={() => engine.setTargetMode(selectedUnit.uid, m)}
+              title={`공격 대상: ${TARGET_MODE_LABEL[m]}`}
             >
-              회수 <kbd className="rounded bg-slate-700 px-1 text-[9px]">W</kbd>
+              {TARGET_MODE_LABEL[m].replace(" 우선", "")}
             </button>
-          )}
+          ))}
+        </div>
+      )}
+      {fusionCandidates.size > 0 && !fusionTargetUid && (
+        <div className="flex items-center gap-1 text-[11px] text-gold-300">
+          <Icon name="sparkles" /> 점선 표시된 같은 등급 유닛을 누르면 합성
+        </div>
+      )}
+      <div className="flex gap-1.5">
+        {selectedIsPlaced && (
           <button
-            className="btn btn-danger flex-1 py-1 text-[11px]"
+            className="btn-ghost h-8 flex-1 text-[11px]"
+            disabled={engine.bench.length >= BENCH_SIZE}
             onClick={() => {
-              engine.sellTower(selectedUnit.uid);
+              if (engine.unplaceTower(selectedUnit.uid)) {
+                setSelectedUid(null);
+                clearFusion();
+              }
+            }}
+          >
+            <Icon name="recall" /> 회수 <kbd className="hidden rounded bg-white/10 px-1 text-[9px] lg:inline">W</kbd>
+          </button>
+        )}
+        <button
+          className="btn-ghost h-8 flex-1 border-blood-500/30 text-[11px] text-blood-400 hover:border-blood-400/60 hover:text-blood-400"
+          onClick={() => {
+            if (sellUnit(selectedUnit.uid)) {
               setSelectedUid(null);
               clearFusion();
-            }}
-          >
-            판매 <kbd className="rounded bg-slate-800 px-1 text-[9px]">F</kbd>
-          </button>
-        </>
-      )}
-    </div>
-  );
-
-  const synergyList = (withTooltip: boolean) => (
-    <div className="space-y-1.5">
-      {engine.activeSynergies.length === 0 && (
-        <p className="text-[11px] text-slate-500">타워를 배치하면 시너지가 표시됩니다.</p>
-      )}
-      {engine.activeSynergies.map((syn) => {
-        const item = (
-          <div
-            className={`rounded border px-2 py-1 text-[11px] ${
-              syn.activeTierIndex >= 0
-                ? "border-slate-600 bg-slate-800/70"
-                : "border-slate-800 opacity-60"
-            }`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="font-bold" style={{ color: syn.color }}>
-                {syn.region} · {syn.name}
-              </span>
-              <span className="text-slate-300">
-                {syn.tiers.map((t, i) => (
-                  <span
-                    key={t.count}
-                    className={i === syn.activeTierIndex ? "font-bold text-amber-400" : ""}
-                  >
-                    {i > 0 && "/"}
-                    {t.count}
-                  </span>
-                ))}
-                <span className="ml-1 text-slate-500">({syn.count})</span>
-              </span>
-            </div>
-            {syn.activeTierIndex >= 0 && (
-              <div className="mt-0.5 text-[10px] text-amber-300/90">
-                {syn.tiers[syn.activeTierIndex].effects
-                  .map((e) => `${SYNERGY_EFFECT_LABEL[e.type] ?? e.type} +${e.value}`)
-                  .join(", ")}
-              </div>
-            )}
-          </div>
-        );
-
-        if (!withTooltip) return <div key={syn.synergyId}>{item}</div>;
-
-        return (
-          <HoverTip
-            key={syn.synergyId}
-            tip={
-              <>
-                <div className="font-bold" style={{ color: syn.color }}>
-                  {syn.region} · {syn.name}
-                </div>
-                {syn.description && (
-                  <p className="mt-1 text-[10px] text-slate-400">{syn.description}</p>
-                )}
-                <div className="mt-1.5 space-y-1">
-                  {syn.tiers.map((tier, i) => (
-                    <div
-                      key={tier.count}
-                      className={`rounded px-1.5 py-1 text-[10px] ${
-                        i === syn.activeTierIndex
-                          ? "bg-amber-500/15 text-amber-300"
-                          : "bg-slate-900 text-slate-400"
-                      }`}
-                    >
-                      <b>{tier.count}명</b>:{" "}
-                      {tier.effects
-                        .map((e) => `${SYNERGY_EFFECT_LABEL[e.type] ?? e.type} +${e.value}`)
-                        .join(", ")}
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-1 text-[9px] text-slate-500">효과는 아군 전체 적용</p>
-              </>
             }
-          >
-            {item}
-          </HoverTip>
-        );
-      })}
+          }}
+        >
+          <Icon name="coin" /> 판매 +{sellRefund(selectedDef.grade)}
+          <kbd className="hidden rounded bg-white/10 px-1 text-[9px] lg:inline">F</kbd>
+        </button>
+      </div>
     </div>
   );
 
-  const jobSkillButton = (index: number, round: boolean) => {
-    const skill = engine.job!.skills[index];
-    if (skill.kind !== "active") return null;
-    const cd = engine.jobSkillCooldownLeft(index);
-    const usesLeft = engine.jobSkillUsesLeft;
-    const exhausted = usesLeft <= 0;
-    const needsAim = skill.effect.type === "damage_area";
-    const aiming = aimSkillIndex === index;
-    const onClick = () => {
-      if (needsAim) setAimSkillIndex(aiming ? null : index);
-      else engine.castJobSkill(index);
-    };
-
-    if (round) {
-      // 모바일: 원형 버튼
-      return (
-        <button
-          key={index}
-          disabled={cd > 0 || exhausted}
-          title={`${skill.name}: ${skill.description ?? ""} (남은 사용 ${usesLeft}회)`}
-          onClick={onClick}
-          className={`relative flex h-14 w-14 flex-col items-center justify-center rounded-full border-2 text-[9px] font-bold backdrop-blur transition-transform active:scale-95 ${
-            aiming
-              ? "border-orange-400 bg-orange-500/30 text-orange-200"
-              : cd > 0 || exhausted
-                ? "border-slate-700 bg-slate-900/80 text-slate-500"
-                : "border-amber-500 bg-slate-900/85 text-amber-300"
-          }`}
-        >
-          <span className="text-base leading-none">{engine.job?.appearance?.icon ?? "✨"}</span>
-          <span className="mt-0.5 max-w-full truncate px-1">{skill.name}</span>
-          {/* 남은 사용 횟수 뱃지 */}
-          <span
-            className={`absolute -right-1 -top-1 rounded-full px-1.5 py-0.5 text-[9px] font-bold ${
-              exhausted ? "bg-red-600 text-slate-100" : "bg-amber-500 text-slate-950"
-            }`}
-          >
-            {usesLeft}
-          </span>
-          {cd > 0 && !exhausted && (
-            <span className="absolute inset-0 flex items-center justify-center rounded-full bg-slate-950/60 text-sm font-bold text-slate-200">
-              {Math.ceil(cd)}
-            </span>
-          )}
-          {exhausted && (
-            <span className="absolute inset-0 flex items-center justify-center rounded-full bg-slate-950/70 text-[10px] font-bold text-red-400">
-              소진
-            </span>
-          )}
-        </button>
-      );
-    }
-
-    // 데스크톱: hover 툴팁 있는 버튼
-    return (
-      <HoverTip
-        key={index}
-        tip={
-          <>
-            <div className="font-bold text-amber-300">{skill.name}</div>
-            <div className="mt-0.5 text-slate-400">
-              쿨다운 {skill.cooldown}초 · 남은 사용 {usesLeft}회
-            </div>
-            {skill.description && <p className="mt-1 text-slate-300">{skill.description}</p>}
-            {skill.effect.type === "damage_area" && (
-              <p className="mt-1 text-[10px] text-orange-400">
-                버튼 클릭 후 맵을 클릭해 시전합니다.
-              </p>
-            )}
-            {exhausted && (
-              <p className="mt-1 text-[10px] text-red-400">
-                사용 횟수를 모두 소진했습니다. (난이도별 제한)
-              </p>
-            )}
-          </>
-        }
-      >
-        <button
-          disabled={cd > 0 || exhausted}
-          onClick={onClick}
-          className={`btn w-full py-1.5 text-left text-[11px] ${
-            aiming ? "border-orange-500 bg-orange-500/20 text-orange-200" : ""
-          }`}
-        >
-          <span className="font-bold">{skill.name}</span>
-          {skill.effect.type === "damage_area" && !aiming && !exhausted && (
-            <span className="ml-1 text-orange-400">🎯</span>
-          )}
-          {aiming && <span className="ml-1 text-orange-300">조준 중...</span>}
-          <span className="float-right text-slate-400">
-            {exhausted ? (
-              <span className="text-red-400">소진</span>
-            ) : cd > 0 ? (
-              `${Math.ceil(cd)}s`
-            ) : (
-              `쿨 ${skill.cooldown}s`
-            )}
-          </span>
-        </button>
-      </HoverTip>
-    );
-  };
-
-  const gachaButtons = (
-    <div className="space-y-2">
-      {engine.gachaDefs.map((g) => {
-        const cost = gachaCost(g, engine.job);
-        if (g.regionMode === "select") {
-          return (
-            <div key={g.id} className="flex gap-1.5">
-              <select
-                className="input flex-1"
-                value={gachaRegionSel}
-                onChange={(e) => setGachaRegionSel(e.target.value)}
-              >
-                <option value="">지역 선택...</option>
-                {regions.map((r) => (
-                  <option key={r} value={r}>
-                    {r}
-                  </option>
-                ))}
-              </select>
-              <button
-                className="btn whitespace-nowrap"
-                disabled={!gachaRegionSel || !engine.canAffordGacha(g.id)}
-                onClick={() => doGacha(g.id, gachaRegionSel)}
-              >
-                {g.name} <span className="text-amber-400">{cost}G</span>
-              </button>
-            </div>
-          );
-        }
-        return (
-          <button
-            key={g.id}
-            className="btn w-full py-2.5 text-left"
-            disabled={!engine.canAffordGacha(g.id)}
-            onClick={() => doGacha(g.id)}
-          >
-            {g.name}
-            {g.regionMode === "fixed" && g.fixedRegion && (
-              <span className="ml-1 text-slate-400">[{g.fixedRegion}]</span>
-            )}
-            {g.description && (
-              <span className="block text-[10px] text-slate-500">{g.description}</span>
-            )}
-            <span className="float-right font-bold text-amber-400">{cost}G</span>
-          </button>
-        );
-      })}
-      <p className="text-center text-xs text-slate-500">
-        보유 골드: <b className="text-amber-400">{engine.gold}G</b> · 대기석{" "}
-        {engine.bench.length}/9
-      </p>
-    </div>
-  );
-
-  const benchCards = (
+  // 정보 패널 내용 (우선순위: 적 hover > 다른 타워 hover > 선택 유닛)
+  const infoContent = hoverEnemy ? (
+    <EnemyDetail engine={engine} enemy={hoverEnemy} />
+  ) : hoverTower && hoverTower.uid !== selectedUid ? (
+    <TowerDetail engine={engine} unit={hoverTower} def={engine.towerDefs.get(hoverTower.defId)!} regionColor={regionColor} />
+  ) : selectedUnit && selectedDef ? (
     <>
-      {engine.bench.map((unit) => {
-        const def = engine.towerDefs.get(unit.defId);
-        if (!def) return null;
-        return (
-          <div
-            key={unit.uid}
-            className="shrink-0 touch-none"
-            onPointerDown={(e) => handleBenchDragStart(unit.uid, e)}
-            onClick={(e) => handleBenchClick(unit.uid, e)}
-            onContextMenu={(e) => {
-              e.preventDefault();
-              openUnitMenu(unit.uid, e.clientX, e.clientY);
-            }}
-          >
-            <UnitCard
-              def={def}
-              selected={selectedUid === unit.uid}
-              fusionCandidate={fusionCandidates.has(unit.uid)}
-              fusionSelected={fusionTargetUid === unit.uid}
-            />
-          </div>
-        );
-      })}
+      <TowerDetail engine={engine} unit={selectedUnit} def={selectedDef} regionColor={regionColor} />
+      {unitActions}
     </>
-  );
+  ) : null;
+
+  const waveRatio = engine.totalWaves > 0 ? engine.wave / engine.totalWaves : 0;
+  const volIcon: IconName = volume === null || volume === 0 ? "volumeOff" : volume < 1 ? "volumeLow" : "volumeHigh";
+  const cycleVolume = () => {
+    const snd = getSound();
+    if (!snd) return;
+    snd.unlock();
+    setVolume(snd.cycleVolume());
+  };
+  const toggleSpeed = () => {
+    engine.speed = engine.speed === 1 ? 2 : 1;
+    setUiTick((v) => v + 1);
+  };
+  const jobColor = engine.job?.appearance?.color ?? "#cfa24e";
 
   return (
     <div
-      className="fixed inset-0 z-50 flex select-none flex-col overflow-hidden bg-slate-950"
+      ref={rootRef}
+      className="fixed inset-0 z-50 flex select-none flex-col overflow-hidden bg-arkesia bg-noise"
       onPointerDownCapture={() => getSound()?.unlock()}
     >
       {/* ===== 상단 HUD ===== */}
-      <div className="relative z-30 flex h-12 shrink-0 items-center gap-2 border-b border-slate-800/60 bg-slate-950/90 px-2 text-sm backdrop-blur">
-        <Link href="/" className="btn px-2 py-1 text-xs">
-          ←
-        </Link>
-        <span className="whitespace-nowrap font-bold text-amber-400">💰{engine.gold}</span>
-        <span className="whitespace-nowrap font-bold text-red-400">❤️{engine.lives}</span>
-        <span className="whitespace-nowrap text-slate-300">
-          🌊{engine.wave}/{engine.totalWaves}
-        </span>
-        <span className="hidden text-xs text-slate-500 md:inline">
-          {engine.stage?.name} · {DIFFICULTY[engine.difficulty].label}
-          {engine.job ? ` · ${engine.job.name}` : ""}
-        </span>
-
-        {/* 중앙: 웨이브 시작 / 조기 호출 버튼 (모바일은 HUD 아래 줄) */}
-        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 md:block">
-          {waveButton}
+      <div className="relative z-30 flex h-14 shrink-0 items-center gap-1.5 px-2 sm:gap-2 sm:px-3">
+        <button className="btn-ghost h-8 w-8 shrink-0 rounded-full sm:h-9 sm:w-9" onClick={exitToLobby} aria-label="로비로">
+          <Icon name="chevronLeft" />
+        </button>
+        <div
+          key={`lives-${livesPulse.key}`}
+          className={`plate h-8 px-2 sm:h-9 sm:px-3 ${livesPulse.dir < 0 ? "animate-hit-flash border-blood-500/60" : ""}`}
+          title="목숨"
+        >
+          <Icon name="heart" className="text-sm text-blood-400 sm:text-base" />
+          <span className="font-display text-sm font-bold text-parchment-50 sm:text-base">{engine.lives}</span>
+        </div>
+        <div className="plate h-8 px-2 sm:h-9 sm:px-3" title="골드">
+          <Icon name="coin" className="text-sm text-gold-400 sm:text-base" />
+          <span className="min-w-[2.5ch] font-display text-sm font-bold text-gold-200 sm:text-base">{gold}</span>
         </div>
 
-        <span className="ml-auto flex items-center gap-1.5">
+        {/* 웨이브 판 (데스크톱 가운데) */}
+        <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 flex-col items-center md:flex">
+          <div className="flex items-baseline gap-2">
+            <span className="font-display text-[10px] font-bold tracking-[0.35em] text-parchment-500">WAVE</span>
+            <span className="font-display text-2xl font-black leading-none text-gold-grad">{engine.wave}</span>
+            <span className="font-display text-sm font-bold text-parchment-500">/ {engine.totalWaves}</span>
+          </div>
+          <div className="relative mt-1 h-1.5 w-56 overflow-hidden rounded-full bg-ink-800 ring-1 ring-white/5">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-gold-700 via-gold-500 to-gold-300 transition-[width] duration-700 ease-out-expo"
+              style={{ width: `${waveRatio * 100}%` }}
+            />
+            {Array.from({ length: engine.totalWaves }, (_, i) => i + 1)
+              .filter((w) => engine.isBossWave(w))
+              .map((w) => (
+                <span
+                  key={w}
+                  className="absolute top-0 h-full w-[3px] -translate-x-1/2 bg-blood-400"
+                  style={{ left: `${(w / engine.totalWaves) * 100}%`, opacity: w <= engine.wave ? 0.4 : 0.9 }}
+                />
+              ))}
+          </div>
+          <div className="mt-0.5 h-3 text-[10px] text-parchment-500">
+            {engine.phase === "wave" ? `남은 적 ${remainingEnemies}` : engine.stage?.name}
+          </div>
+        </div>
+
+        <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
+          {/* 모바일 웨이브 표시 */}
+          <div className="plate h-8 gap-1 px-2 md:hidden">
+            <span className="font-display text-[9px] font-bold tracking-[0.2em] text-parchment-500">WAVE</span>
+            <span className="font-display text-sm font-black text-gold-200">
+              {engine.wave}
+              <span className="text-parchment-500">/{engine.totalWaves}</span>
+            </span>
+          </div>
           <button
-            className="btn px-2 py-1 text-xs"
-            title="효과음 (끄기 / 작게 / 크게)"
-            onClick={() => {
-              const snd = getSound();
-              if (!snd) return;
-              snd.unlock();
-              setVolume(snd.cycleVolume());
-            }}
+            className={`btn-ghost h-8 gap-0.5 px-2 text-xs font-bold sm:h-9 sm:gap-1 sm:px-2.5 ${engine.speed > 1 ? "border-gold-400/70 text-gold-200" : ""}`}
+            onClick={toggleSpeed}
+            aria-label="게임 속도"
           >
-            {volume === null || volume === 0 ? "🔇" : volume < 1 ? "🔉" : "🔊"}
+            <Icon name="fast" />×{engine.speed}
           </button>
-          <button
-            className="btn px-2 py-1 text-xs"
-            onClick={() => {
-              engine.speed = engine.speed === 1 ? 2 : 1;
-              setUiTick((v) => v + 1);
-            }}
-          >
-            ×{engine.speed}
+          <button className="btn-ghost hidden h-9 w-9 lg:inline-flex" onClick={cycleVolume} aria-label="효과음">
+            <Icon name={volIcon} />
           </button>
-          <button
-            className="btn px-2 py-1 text-xs"
-            onClick={() => {
-              engine.paused = !engine.paused;
-              setUiTick((v) => v + 1);
-            }}
-          >
-            {engine.paused ? "▶" : "⏸"}
+          <button className="btn-ghost hidden h-9 w-9 lg:inline-flex" onClick={() => setSheet("log")} aria-label="전투 기록">
+            <Icon name="log" />
           </button>
-          <button
-            className={`btn px-2 py-1 text-xs ${sheet === "log" ? "border-amber-500" : ""}`}
-            onClick={() => setSheet(sheet === "log" ? "none" : "log")}
-          >
-            📜
+          <button className="btn-ghost h-8 w-8 sm:h-9 sm:w-9" onClick={() => togglePause(true)} aria-label="일시정지">
+            <Icon name="pause" />
           </button>
-        </span>
+        </div>
       </div>
 
-      {/* ===== 모바일: 웨이브 버튼 줄 (좁은 HUD에서 겹치지 않게) ===== */}
-      <div className="relative z-30 flex shrink-0 justify-center border-b border-slate-800/60 bg-slate-950/90 py-1.5 md:hidden">
-        {waveButton}
-      </div>
-
-      {/* ===== 본문: 좌 패널 | 캔버스 | 우 패널 ===== */}
+      {/* ===== 본문: 좌 패널 | 전장 | 우 패널 ===== */}
       <div className="flex min-h-0 flex-1">
-        {/* ---- 좌측 패널 (데스크톱) ---- */}
-        <div className="hidden w-60 shrink-0 flex-col gap-2 overflow-y-auto border-r border-slate-800/60 bg-slate-950/80 p-2 lg:flex">
-          {/* 스테이지 / 직업 / 스킬 */}
-          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2">
-            <div className="text-xs font-bold text-slate-200">{engine.stage?.name}</div>
-            <div className="mt-0.5 text-[10px] text-slate-500">
-              난이도: {DIFFICULTY[engine.difficulty].label}
-            </div>
-
-            {/* 가장 가까운 보스 정보 */}
-            {bossInfo && (
-              <div className="mt-2 rounded border border-red-900/60 bg-red-950/30 p-1.5">
-                <div className="flex items-center justify-between text-[10px] font-bold text-red-300">
-                  <span>
-                    {bossInfo.alive ? "⚔ 보스 전투 중!" : "👑 다음 보스"} · 웨이브{" "}
-                    {bossInfo.wave}
-                  </span>
-                </div>
-                <div className="mt-1 flex items-center gap-1.5 text-xs font-bold text-slate-200">
-                  <span className="text-base">{bossInfo.def.appearance.icon}</span>
-                  {bossInfo.def.name}
-                </div>
-                {bossInfo.alive ? (
-                  <div className="mt-1">
-                    <div className="h-1.5 w-full rounded bg-slate-800">
-                      <div
-                        className="h-1.5 rounded bg-red-500"
-                        style={{
-                          width: `${Math.max(0, (bossInfo.alive.hp / bossInfo.maxHp) * 100)}%`,
-                        }}
-                      />
-                    </div>
-                    <div className="mt-0.5 text-[10px] text-slate-400">
-                      ❤️ {Math.max(0, Math.round(bossInfo.alive.hp)).toLocaleString()} /{" "}
-                      {bossInfo.maxHp.toLocaleString()}
-                    </div>
+        {/* ---- 좌측 (데스크톱): 직업 / 시너지 ---- */}
+        <aside className="hidden w-64 shrink-0 flex-col gap-3 overflow-y-auto p-3 pt-1 lg:flex">
+          {engine.job && (
+            <div className="frame p-3">
+              <div className="flex items-center gap-3">
+                <span
+                  className="flex h-12 w-12 shrink-0 items-center justify-center text-2xl"
+                  style={{
+                    clipPath: "polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)",
+                    background: `linear-gradient(160deg, ${jobColor}, #0e131e 85%)`,
+                  }}
+                >
+                  {engine.job.appearance?.icon}
+                </span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1 text-[10px] font-semibold text-parchment-500">
+                    {engine.job.group && <Icon name={JOB_GROUP_ICON[engine.job.group] ?? "hex"} />}
+                    {engine.job.group ?? "직업"}
                   </div>
-                ) : (
-                  <div className="mt-0.5 text-[10px] text-slate-400">
-                    예상 체력 ❤️ {bossInfo.maxHp.toLocaleString()}
-                  </div>
-                )}
-                <div className="mt-0.5 flex gap-2 text-[10px] text-slate-400">
-                  <span>🛡 {bossInfo.def.defense}</span>
-                  <span>✨ {bossInfo.def.magicDefense}</span>
-                  <span>👟 {bossInfo.def.moveSpeed}</span>
-                </div>
-                {bossInfo.def.description && (
-                  <div className="mt-0.5 text-[9px] text-slate-500">
-                    {bossInfo.def.description}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* 다음 웨이브 구성 미리보기 */}
-            {nextWavePreview.length > 0 && (
-              <div className="mt-2 rounded border border-slate-800 bg-slate-900 p-1.5">
-                <div className="text-[10px] font-bold text-slate-400">
-                  🌊 다음 웨이브 {engine.wave + 1} 구성
-                </div>
-                <div className="mt-1 flex flex-wrap gap-1">
-                  {nextWavePreview.map(({ def, count }) => (
-                    <span
-                      key={def.id}
-                      className={`rounded px-1.5 py-0.5 text-[10px] ${
-                        def.isBoss ? "bg-red-500/20 text-red-300" : "bg-slate-800 text-slate-300"
-                      }`}
-                      title={def.traits?.map((t) => TRAIT_LABEL[t.type] ?? t.type).join(", ")}
-                    >
-                      {def.appearance.icon} {def.name} ×{count}
-                      {def.traits && def.traits.length > 0 && (
-                        <span className="ml-0.5 text-purple-300">
-                          [{def.traits.map((t) => TRAIT_LABEL[t.type] ?? t.type).join("/")}]
-                        </span>
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* 웨이브 미션 */}
-            {missionInfo && (
-              <div
-                className={`mt-2 rounded border p-1.5 ${
-                  missionInfo.failed
-                    ? "border-red-900/60 bg-red-950/20 opacity-80"
-                    : "border-violet-800/60 bg-violet-950/20"
-                }`}
-              >
-                <div className="flex items-center justify-between text-[10px] font-bold text-violet-300">
-                  <span>
-                    🎯 {missionInfo.upcoming ? `웨이브 ${engine.wave + 1} 미션` : "진행 중 미션"}
-                  </span>
-                  <span className={missionInfo.failed ? "text-red-400" : "text-amber-400"}>
-                    {missionInfo.failed ? "✖ 실패" : `+${missionInfo.def.rewardGold}G`}
-                  </span>
-                </div>
-                <div className="mt-0.5 text-xs font-bold text-slate-200">{missionInfo.def.name}</div>
-                <div className="text-[10px] text-slate-400">
-                  {missionInfo.def.description || describeMissionCondition(missionInfo.def.condition)}
-                </div>
-                {missionInfo.progress && (
-                  <div className="mt-0.5 text-[10px] font-bold text-violet-200">{missionInfo.progress}</div>
-                )}
-              </div>
-            )}
-
-            {engine.job && (
-              <>
-                <div className="mt-2 border-t border-slate-800 pt-2 text-xs font-bold text-slate-200">
-                  {engine.job.appearance?.icon} {engine.job.name}
+                  <div className="truncate font-serif text-base font-bold text-parchment-50">{engine.job.name}</div>
                   {engine.job.synergyRegion && (
-                    <span className="ml-1 text-[10px] font-normal text-amber-400/80">
-                      [{engine.job.synergyRegion}] 시너지 +1
-                    </span>
+                    <div className="text-[10px] font-bold" style={{ color: regionColor.get(engine.job.synergyRegion) ?? "#cfa24e" }}>
+                      {engine.job.synergyRegion} 시너지 +1
+                    </div>
                   )}
                 </div>
-                {/* 패시브: 텍스트로 상시 표시 */}
-                {passiveSkills.length > 0 && (
-                  <div className="mt-1.5 space-y-1">
-                    {passiveSkills.map((s, i) => (
-                      <div
-                        key={i}
-                        className="rounded bg-slate-900 px-1.5 py-1 text-[10px] text-slate-300"
-                      >
-                        <span className="font-bold text-sky-300">[패시브] {s.name}</span>{" "}
-                        <span className="text-slate-400">
-                          {s.description ??
-                            `${PASSIVE_LABEL[s.type] ?? s.type} +${s.value}`}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {/* 액티브: hover 툴팁 버튼 + 난이도별 사용 횟수 */}
-                {activeSkills.length > 0 && (
-                  <div className="mt-1.5 space-y-1">
-                    <div className="flex items-center justify-between text-[10px] text-slate-400">
-                      <span>액티브 스킬</span>
-                      <span
-                        className={
-                          engine.jobSkillUsesLeft <= 0
-                            ? "font-bold text-red-400"
-                            : "font-bold text-amber-400"
-                        }
-                      >
-                        남은 사용 {engine.jobSkillUsesLeft}/
-                        {DIFFICULTY[engine.difficulty].jobSkillUses}회
-                      </span>
+              </div>
+              {passiveSkills.length > 0 && (
+                <div className="mt-2.5 space-y-1">
+                  {passiveSkills.map((s, i) => (
+                    <div key={i} className="rounded-md bg-ink-950/50 px-2 py-1 text-[11px]">
+                      <span className="font-bold text-ark-300">{s.name}</span>{" "}
+                      <span className="text-parchment-400">{s.description}</span>
                     </div>
-                    {activeSkills.map(({ index }) => jobSkillButton(index, false))}
-                  </div>
-                )}
-              </>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          <div className="frame min-h-0 flex-1 p-3">
+            <div className="frame-title mb-2">Synergy</div>
+            <SynergyRows synergies={engine.activeSynergies} />
           </div>
+        </aside>
 
-          {/* 시너지 */}
-          <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-2">
-            <div className="mb-1.5 text-xs font-bold text-slate-200">🔗 시너지</div>
-            {synergyList(true)}
-          </div>
-
-          {/* hover / 선택 정보 */}
-          <div className="min-h-36 rounded-lg border border-slate-800 bg-slate-900/60 p-2 text-xs">
-            <div className="mb-1.5 text-xs font-bold text-slate-200">ℹ️ 정보</div>
-            {hoverEnemy ? (
-              enemyInfoBody(hoverEnemy)
-            ) : hoverTower && hoverTower.uid !== selectedUid ? (
-              towerInfoBody(hoverTower, engine.towerDefs.get(hoverTower.defId)!)
-            ) : selectedUnit && selectedDef ? (
-              <>
-                {towerInfoBody(selectedUnit, selectedDef)}
-                {fusionCandidates.size > 0 && !fusionTargetUid && (
-                  <div className="mt-1.5 text-[10px] text-amber-400">
-                    점선 표시된 같은 등급을 클릭하면 합성 대상 지정
-                  </div>
-                )}
-                {unitActionButtons}
-              </>
-            ) : (
-              <p className="text-[11px] text-slate-500">
-                맵의 타워/적에 마우스를 올리거나 유닛을 선택하면 정보가 표시됩니다.
-              </p>
-            )}
-          </div>
-        </div>
-
-        {/* ---- 캔버스 영역 ---- */}
+        {/* ---- 전장 ---- */}
         <div ref={areaRef} className="relative min-h-0 min-w-0 flex-1">
           <div className="absolute inset-0 flex items-center justify-center">
-            <canvas
-              ref={canvasRef}
-              width={Math.round(engine.map.cols * tileSize * dpr)}
-              height={Math.round(engine.map.rows * tileSize * dpr)}
-              style={{
-                width: engine.map.cols * tileSize,
-                height: engine.map.rows * tileSize,
-                touchAction: "none",
-              }}
-              className={aimSkillIndex !== null ? "cursor-crosshair" : "cursor-pointer"}
-              onPointerDown={handlePointerDown}
-              onPointerMove={handlePointerMove}
-              onPointerUp={handlePointerUp}
-              onPointerCancel={handlePointerCancel}
-              onPointerLeave={handlePointerCancel}
-              onContextMenu={handleContextMenu}
-            />
+            <div className="relative rounded-xl border border-gold-500/25 bg-ink-950 p-1.5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95),0_0_0_1px_rgba(0,0,0,0.6)]">
+              <div className="pointer-events-none absolute -inset-px rounded-xl [background:linear-gradient(180deg,rgba(230,194,116,0.18),transparent_30%,transparent_70%,rgba(230,194,116,0.12))]" />
+              <canvas
+                ref={canvasRef}
+                width={Math.round(displaySize(engine.map, rotated).cols * tileSize * dpr)}
+                height={Math.round(displaySize(engine.map, rotated).rows * tileSize * dpr)}
+                style={{
+                  width: displaySize(engine.map, rotated).cols * tileSize,
+                  height: displaySize(engine.map, rotated).rows * tileSize,
+                  touchAction: "none",
+                }}
+                className={`relative block rounded-lg ${aimSkillIndex !== null ? "cursor-crosshair" : "cursor-pointer"}`}
+                onPointerDown={handlePointerDown}
+                onPointerMove={handlePointerMove}
+                onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerCancel}
+                onPointerLeave={handlePointerCancel}
+                onContextMenu={handleContextMenu}
+              />
+              {/* 목숨을 잃으면 가장자리가 붉게 번쩍임 */}
+              {leakKey > 0 && (
+                <div
+                  key={leakKey}
+                  className="pointer-events-none absolute inset-1.5 rounded-lg"
+                  style={{
+                    boxShadow: "inset 0 0 60px 10px rgba(229,72,77,0.55)",
+                    animation: "fade-out 700ms cubic-bezier(0.7,0,0.84,0) forwards",
+                  }}
+                />
+              )}
+            </div>
           </div>
 
-          {/* 모바일: 좌측 시너지 칩 */}
-          <div className="absolute left-1.5 top-1.5 z-20 flex max-h-[60%] flex-col gap-1 overflow-y-auto lg:hidden">
-            {engine.activeSynergies.map((syn) => (
-              <button
-                key={syn.synergyId}
-                onClick={() => setSheet(sheet === "synergy" ? "none" : "synergy")}
-                className={`flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-bold backdrop-blur ${
-                  syn.activeTierIndex >= 0
-                    ? "border-slate-500 bg-slate-900/85"
-                    : "border-slate-800 bg-slate-950/70 opacity-70"
-                }`}
-                style={{ color: syn.color }}
-              >
-                {syn.region}
-                <span className="text-slate-300">{syn.count}</span>
-              </button>
-            ))}
+          <ToastStack toasts={toasts} />
+          <BannerLayer banner={banner} />
+
+          {/* 조준 안내 */}
+          {aimSkillIndex !== null && (
+            <div className="absolute bottom-3 left-1/2 z-20 -translate-x-1/2 animate-pop-in whitespace-nowrap rounded-full border border-[#ff9d4d]/50 bg-ink-950/90 px-3 py-1.5 text-xs font-bold text-[#ffb27a] backdrop-blur">
+              <Icon name="target" className="mr-1 inline" />
+              맵을 눌러 시전 · 스킬 버튼을 다시 누르면 취소
+            </div>
+          )}
+
+          {/* 모바일: 좌상단 시너지 칩 */}
+          <div className="absolute left-1.5 top-1.5 z-20 flex max-h-[55%] flex-col items-start gap-1 overflow-y-auto lg:hidden">
+            <SynergyChips synergies={engine.activeSynergies} onOpen={() => setSheet("synergy")} />
           </div>
 
           {/* 모바일: 우상단 미션 */}
           {missionInfo && (
             <div
-              className={`absolute right-1.5 top-10 z-20 max-w-[45%] rounded-lg border px-2 py-1 text-[10px] backdrop-blur lg:hidden ${
-                missionInfo.failed
-                  ? "border-red-900/70 bg-red-950/60 text-red-300"
-                  : "border-violet-700/70 bg-slate-950/80 text-violet-200"
+              className={`absolute right-1.5 top-1.5 z-20 max-w-[46%] rounded-xl border px-2 py-1 text-[10px] backdrop-blur lg:hidden ${
+                missionInfo.failed ? "border-blood-500/40 bg-ink-950/85 text-blood-400" : "border-[#a78bfa]/40 bg-ink-950/85 text-[#d9c4ff]"
               }`}
             >
-              <div className="truncate font-bold">
-                🎯 {missionInfo.def.name}{" "}
-                <span className={missionInfo.failed ? "" : "text-amber-400"}>
-                  {missionInfo.failed ? "✖ 실패" : `+${missionInfo.def.rewardGold}G`}
+              <div className="flex items-center gap-1 truncate font-bold">
+                <Icon name="target" className="shrink-0" />
+                <span className="truncate">{missionInfo.def.name}</span>
+                <span className={missionInfo.failed ? "" : "text-gold-300"}>
+                  {missionInfo.failed ? "실패" : `+${missionInfo.def.rewardGold}`}
                 </span>
               </div>
-              <div className="truncate text-slate-400">
-                {missionInfo.progress || describeMissionCondition(missionInfo.def.condition)}
-              </div>
+              {missionInfo.progress && <div className="truncate text-parchment-400">{missionInfo.progress}</div>}
             </div>
           )}
 
           {/* 모바일: 우하단 원형 직업 스킬 */}
           {activeSkills.length > 0 && (
             <div className="absolute bottom-2 right-2 z-20 flex flex-col gap-2 lg:hidden">
-              {activeSkills.map(({ index }) => jobSkillButton(index, true))}
+              {activeSkills.map(({ index, skill }) => (
+                <SkillButton
+                  key={index}
+                  skill={skill}
+                  index={index}
+                  cdLeft={engine.jobSkillCooldownLeft(index)}
+                  usesLeft={engine.jobSkillUsesLeft}
+                  aiming={aimSkillIndex === index}
+                  icon={engine.job?.appearance?.icon}
+                  color={jobColor}
+                  variant="round"
+                  onClick={() => castSkill(index)}
+                />
+              ))}
             </div>
           )}
 
-          {/* 조준 안내 */}
-          {aimSkillIndex !== null && (
-            <div className="absolute left-1/2 top-2 z-20 -translate-x-1/2 rounded-full bg-orange-500/90 px-3 py-1 text-xs font-bold text-slate-950">
-              🎯 맵을 클릭해 시전 (스킬 버튼으로 취소)
-            </div>
-          )}
-
-          {/* 최근 로그 토스트 */}
-          {lastLog && aimSkillIndex === null && (
-            <div
-              className="pointer-events-none absolute left-1/2 top-2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-slate-950/70 px-3 py-1 text-[11px] backdrop-blur"
-              style={{ color: lastLog.color ?? "#94a3b8" }}
-            >
-              {lastLog.text}
-            </div>
-          )}
-
-          {/* 모바일: 선택 타워 정보 플로팅 카드 */}
-          {selectedUnit && selectedDef && (
-            <div className="absolute bottom-2 left-1/2 z-20 w-[min(94%,480px)] -translate-x-1/2 rounded-xl border border-slate-700 bg-slate-950/95 p-2.5 text-xs shadow-xl backdrop-blur lg:hidden">
-              <div className="flex items-start">
-                <div className="min-w-0 flex-1">
-                  {towerInfoBody(selectedUnit, selectedDef)}
-                </div>
-                <button
-                  className="ml-2 text-slate-500"
-                  onClick={() => {
-                    setSelectedUid(null);
-                    setFusionTargetUid(null);
-                  }}
-                >
-                  ✕
-                </button>
-              </div>
-              {fusionCandidates.size > 0 && !fusionTargetUid && (
-                <div className="mt-1 text-[10px] text-amber-400">
-                  점선 표시된 같은 등급을 탭하면 합성 대상 지정
-                </div>
-              )}
-              {unitActionButtons}
-            </div>
-          )}
-
-          {/* 승리/패배 오버레이 */}
-          {(engine.phase === "victory" || engine.phase === "defeat") && (
-            <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-4 bg-slate-950/80 backdrop-blur">
-              <div className="text-4xl font-extrabold">
-                {engine.phase === "victory" ? "🎉 승리!" : "💀 게임 오버"}
-              </div>
-              <div className="text-sm text-slate-400">
-                웨이브 {engine.wave}/{engine.totalWaves} · {engine.stage?.name} · 시드{" "}
-                {engine.seed}
-              </div>
-              {towerStats.length > 0 && (
-                <div className="w-[min(92%,420px)] rounded-xl border border-slate-700 bg-slate-900/80 p-3 text-xs">
-                  <div className="mb-1.5 font-bold text-slate-200">🏆 전투 기여도</div>
-                  {towerStats.slice(0, 6).map((s, i) => {
-                    const total = towerStats.reduce((sum, x) => sum + x.damage, 0) || 1;
-                    return (
-                      <div key={s.unit.uid} className="mb-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className={i === 0 ? "font-bold text-amber-400" : "text-slate-400"}>
-                            {i === 0 ? "MVP" : `#${i + 1}`}
-                          </span>
-                          <span
-                            className="rounded px-1 text-[9px] font-bold text-slate-950"
-                            style={{ backgroundColor: GRADE_COLOR[s.def.grade] }}
-                          >
-                            {GRADE_LABEL[s.def.grade]}
-                          </span>
-                          <span>
-                            {s.def.appearance.icon} {s.def.name}
-                          </span>
-                          <span className="ml-auto text-slate-300">
-                            {s.damage.toLocaleString()} ({Math.round((s.damage / total) * 100)}%) · ☠{" "}
-                            {s.kills}
-                          </span>
-                        </div>
-                        <div className="mt-0.5 h-1 w-full rounded bg-slate-800">
-                          <div
-                            className="h-1 rounded"
-                            style={{
-                              width: `${(s.damage / total) * 100}%`,
-                              backgroundColor: GRADE_COLOR[s.def.grade],
-                            }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
-              <Link href="/" className="btn btn-primary px-8 py-3 text-lg font-bold">
-                돌아가기
-              </Link>
-            </div>
-          )}
-        </div>
-
-        {/* ---- 우측 패널 (데스크톱) ---- */}
-        <div className="hidden w-64 shrink-0 flex-col gap-2 overflow-y-auto border-l border-slate-800/60 bg-slate-950/80 p-2 lg:flex">
-          {/* 자원 */}
-          <div className="flex items-center justify-around rounded-lg border border-slate-800 bg-slate-900/60 p-2">
-            <div className="text-center">
-              <div className="text-lg font-extrabold text-amber-400">💰 {engine.gold}</div>
-              <div className="text-[10px] text-slate-500">골드</div>
-            </div>
-            <div className="text-center">
-              <div className="text-lg font-extrabold text-red-400">❤️ {engine.lives}</div>
-              <div className="text-[10px] text-slate-500">목숨</div>
-            </div>
-          </div>
-
-          {/* 바로 뽑기 (최근 뽑기 반복) / 상점 열기 (popover) */}
-          <div className="relative grid grid-cols-2 gap-2">
-            <button
-              className="rounded-lg border-2 border-amber-500 bg-amber-500/15 py-3 text-center text-sm font-bold text-amber-300 transition-transform active:scale-95 disabled:opacity-40"
-              disabled={!quickGachaReady}
-              onClick={() =>
-                quickGachaDef && doGacha(quickGachaDef.id, quickGachaRegion)
-              }
-              title={
-                quickGachaDef
-                  ? `${quickGachaDef.name}${quickGachaRegion ? ` [${quickGachaRegion}]` : ""} 1회 (${gachaCost(quickGachaDef, engine.job)}G)`
-                  : ""
-              }
-            >
-              🎲 바로 뽑기
-              {quickGachaDef && (
-                <span className="block truncate px-1 text-[10px] font-normal">
-                  {quickGachaDef.name}
-                  {quickGachaRegion ? ` [${quickGachaRegion}]` : ""} ·{" "}
-                  {gachaCost(quickGachaDef, engine.job)}G
+          {/* 모바일: 보스전 체력 바 */}
+          {bossInfo?.alive && !selectedUnit && (
+            <div className="absolute bottom-2 left-2 right-[4.5rem] z-20 animate-fade-rise rounded-xl border border-blood-500/30 bg-ink-950/85 px-2.5 py-1.5 backdrop-blur lg:hidden">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold">
+                <Icon name="crown" className="text-blood-400" />
+                <span className="truncate text-parchment-100">{bossInfo.def.name}</span>
+                <span className="ml-auto shrink-0 text-parchment-400">
+                  {Math.max(0, Math.round(bossInfo.alive.hp)).toLocaleString()}
                 </span>
-              )}
-            </button>
-            <button
-              ref={shopBtnRef}
-              className={`rounded-lg border-2 py-3 text-center text-sm font-bold transition-transform active:scale-95 ${
-                shopOpen
-                  ? "border-amber-500 bg-amber-500/10 text-amber-300"
-                  : "border-slate-600 bg-slate-800/60 text-slate-200"
-              }`}
-              onClick={() => setShopOpen((v) => !v)}
-            >
-              🏪 상점 {shopOpen ? "닫기" : "열기"}
-              <span className="block text-[10px] font-normal text-slate-400">
-                뽑기 {engine.gachaDefs.length}종
-              </span>
-            </button>
-
-            {/* 상점 popover (버튼에 붙어서 표시, fixed로 스크롤/오버플로우 클리핑 회피) */}
-            {shopOpen && shopBtnRef.current && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={() => setShopOpen(false)} />
-                <div
-                  className="fixed z-50 w-72 rounded-xl border border-slate-600 bg-slate-950 p-3 shadow-2xl"
-                  style={(() => {
-                    const rect = shopBtnRef.current.getBoundingClientRect();
-                    return {
-                      top: Math.min(rect.bottom + 6, window.innerHeight - 420),
-                      right: window.innerWidth - rect.right,
-                    };
-                  })()}
-                >
-                  <div className="mb-2 flex items-center">
-                    <h3 className="text-sm font-bold text-slate-200">🏪 상점 — 캐릭터 뽑기</h3>
-                    <button
-                      className="ml-auto px-1 text-slate-500"
-                      onClick={() => setShopOpen(false)}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                  {gachaButtons}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* 보유 캐릭터 (대기석) */}
-          <div className="flex min-h-0 flex-1 flex-col rounded-lg border border-slate-800 bg-slate-900/60 p-2">
-            <div className="mb-1.5 text-xs font-bold text-slate-200">
-              내 보유 캐릭터 ({engine.bench.length}/9)
-            </div>
-            <div className="flex flex-wrap content-start gap-1.5 overflow-y-auto">
-              {benchCards}
-              {engine.bench.length === 0 && (
-                <p className="text-[11px] text-slate-500">
-                  뽑기로 캐릭터를 획득하세요. 카드를 맵으로 드래그하거나, 클릭 후 초록
-                  타일을 클릭해 배치합니다.
-                </p>
-              )}
-            </div>
-            {fusionCandidates.size > 0 && !fusionTargetUid && (
-              <p className="mt-1 text-[10px] text-amber-400">
-                점선 카드 클릭 → 합성 대상 지정
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* ===== 모바일: 하단 대기석 바 ===== */}
-      <div className="z-30 shrink-0 border-t border-slate-800/60 bg-slate-950/95 px-2 pb-[env(safe-area-inset-bottom)] pt-1.5 backdrop-blur lg:hidden">
-        <div className="flex items-center gap-2">
-          <div className="flex flex-1 gap-1.5 overflow-x-auto pb-1.5">
-            {benchCards}
-            {engine.bench.length === 0 && (
-              <p className="self-center whitespace-nowrap px-1 text-[11px] text-slate-500">
-                뽑기로 캐릭터 획득 → 카드 탭 → 초록 타일 탭으로 배치
-              </p>
-            )}
-          </div>
-          <button
-            className="mb-1.5 flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl border-2 border-amber-500 bg-amber-500/15 text-amber-300 transition-transform active:scale-95"
-            onClick={() => setSheet(sheet === "gacha" ? "none" : "gacha")}
-          >
-            <span className="text-xl">🎲</span>
-            <span className="text-[10px] font-bold">뽑기</span>
-          </button>
-        </div>
-      </div>
-
-      {/* ===== 시트: 상점(뽑기) ===== */}
-      {sheet === "gacha" && (
-        <Sheet title="🏪 상점 — 캐릭터 뽑기" onClose={() => setSheet("none")}>
-          {gachaButtons}
-        </Sheet>
-      )}
-
-      {/* ===== 시트: 시너지 (모바일) ===== */}
-      {sheet === "synergy" && (
-        <Sheet title="🔗 지역 시너지 (효과는 아군 전체 적용)" onClose={() => setSheet("none")}>
-          <div className="space-y-2">
-            {engine.activeSynergies.map((syn) => (
-              <div
-                key={syn.synergyId}
-                className={`rounded-lg border p-2 text-xs ${
-                  syn.activeTierIndex >= 0
-                    ? "border-slate-600 bg-slate-800/70"
-                    : "border-slate-800 opacity-70"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold" style={{ color: syn.color }}>
-                    {syn.region} · {syn.name}
-                  </span>
-                  <span className="text-slate-300">
-                    {syn.tiers.map((t, i) => (
-                      <span
-                        key={t.count}
-                        className={i === syn.activeTierIndex ? "font-bold text-amber-400" : ""}
-                      >
-                        {i > 0 && " / "}
-                        {t.count}
-                      </span>
-                    ))}
-                    <span className="ml-1 text-slate-500">({syn.count})</span>
-                  </span>
-                </div>
-                {syn.description && (
-                  <p className="mt-1 text-[10px] text-slate-400">{syn.description}</p>
-                )}
-                <div className="mt-1.5 space-y-1">
-                  {syn.tiers.map((tier, i) => (
-                    <div
-                      key={tier.count}
-                      className={`rounded px-1.5 py-1 text-[10px] ${
-                        i === syn.activeTierIndex
-                          ? "bg-amber-500/15 text-amber-300"
-                          : "bg-slate-900 text-slate-400"
-                      }`}
-                    >
-                      <b>{tier.count}명</b>:{" "}
-                      {tier.effects
-                        .map((e) => `${SYNERGY_EFFECT_LABEL[e.type] ?? e.type} +${e.value}`)
-                        .join(", ")}
-                    </div>
-                  ))}
-                </div>
               </div>
-            ))}
-          </div>
-        </Sheet>
-      )}
+              <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-ink-800">
+                <div
+                  data-boss-hp
+                  className="h-full rounded-full bg-gradient-to-r from-blood-600 to-blood-400"
+                  style={{ width: `${Math.max(0, (bossInfo.alive.hp / bossInfo.maxHp) * 100)}%` }}
+                />
+              </div>
+            </div>
+          )}
 
-      {/* ===== 합성 popover (합성 대상을 지정한 지점 근처에 표시) ===== */}
-      {fusionTargetUid && fusionTargetDef && selectedDef && fusionPopoverPos && (
-        <div
-          className="fixed z-[65] -translate-x-1/2 rounded-xl border border-amber-600 bg-slate-950/95 p-2 text-xs shadow-2xl backdrop-blur"
-          style={{
-            left: Math.max(120, Math.min(fusionPopoverPos.x, window.innerWidth - 120)),
-            top: Math.max(52, fusionPopoverPos.y - 92),
-          }}
-        >
-          <div className="whitespace-nowrap text-center text-slate-300">
-            <b>{selectedDef.name}</b> + <b>{fusionTargetDef.name}</b>
+          {/* 모바일: 선택 유닛 정보 카드 (빠른 메뉴가 열려 있으면 숨김) */}
+          {selectedUnit && selectedDef && !unitMenu && (
+            <div className="frame absolute bottom-2 left-2 right-[4.5rem] z-20 max-w-md animate-fade-rise p-2.5 lg:hidden">
+              <button
+                className="absolute right-1.5 top-1.5 z-10 flex h-7 w-7 items-center justify-center rounded-lg text-parchment-400"
+                onClick={() => {
+                  setSelectedUid(null);
+                  clearFusion();
+                }}
+                aria-label="닫기"
+              >
+                <Icon name="close" />
+              </button>
+              <TowerDetail engine={engine} unit={selectedUnit} def={selectedDef} regionColor={regionColor} compact />
+              {unitActions}
+            </div>
+          )}
+        </div>
+
+        {/* ---- 우측 (데스크톱): 정보 / 보스 / 다음 웨이브 / 미션 ---- */}
+        <aside className="hidden w-72 shrink-0 flex-col gap-3 overflow-y-auto p-3 pt-1 lg:flex">
+          <div className="frame p-3">
+            <div className="frame-title mb-2.5">
+              {hoverEnemy ? "Enemy" : infoContent ? "Unit" : "Guide"}
+            </div>
+            {infoContent ?? (
+              <ul className="space-y-1.5 text-xs text-parchment-400">
+                <li className="flex gap-2">
+                  <Icon name="gem" className="mt-0.5 shrink-0 text-gold-400" />
+                  <span>
+                    <b className="text-parchment-100">소환</b>으로 캐릭터를 얻고 대기석에서 맵으로 끌어다 배치하세요
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <Icon name="sparkles" className="mt-0.5 shrink-0 text-gold-400" />
+                  <span>
+                    같은 등급 둘을 <b className="text-parchment-100">합성</b>하면 상위 등급이 됩니다
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <Icon name="hex" className="mt-0.5 shrink-0 text-gold-400" />
+                  <span>
+                    같은 지역 캐릭터를 모으면 <b className="text-parchment-100">시너지</b>가 아군 전체를 강화합니다
+                  </span>
+                </li>
+                <li className="flex gap-2">
+                  <Icon name="target" className="mt-0.5 shrink-0 text-gold-400" />
+                  <span>우클릭(모바일은 길게 누르기)으로 공격 대상·회수·판매</span>
+                </li>
+              </ul>
+            )}
           </div>
-          <div className="mt-0.5 whitespace-nowrap text-center text-[10px] text-amber-400">
-            상위 등급 획득 (1% 확률 2단계 점프!)
+          {bossInfo && <BossCard boss={bossInfo} />}
+          {nextWavePreview.length > 0 && <NextWave wave={engine.wave + 1} preview={nextWavePreview} />}
+          {missionInfo && <MissionCard info={missionInfo} wave={engine.wave + 1} />}
+        </aside>
+      </div>
+
+      {/* ===== 하단 도크 (데스크톱) ===== */}
+      <div className="relative z-30 hidden shrink-0 items-end gap-4 border-t border-gold-500/15 bg-ink-950/85 px-4 pb-3 pt-2.5 backdrop-blur lg:flex">
+        <div className="flex items-end gap-2">
+          {activeSkills.length > 0 && (
+            <div className="flex flex-col items-center">
+              <div className="mb-1 text-[10px] text-parchment-500">
+                남은 사용 <b className={engine.jobSkillUsesLeft > 0 ? "text-gold-300" : "text-blood-400"}>{engine.jobSkillUsesLeft}</b>
+              </div>
+              <div className="flex gap-2">
+                {activeSkills.map(({ index, skill }) => (
+                  <SkillButton
+                    key={index}
+                    skill={skill}
+                    index={index}
+                    cdLeft={engine.jobSkillCooldownLeft(index)}
+                    usesLeft={engine.jobSkillUsesLeft}
+                    aiming={aimSkillIndex === index}
+                    icon={engine.job?.appearance?.icon}
+                    color={jobColor}
+                    variant="square"
+                    onClick={() => castSkill(index)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="flex min-w-0 flex-1 flex-col items-center">
+          <div className="mb-1.5 flex items-center gap-2">
+            <span className="font-display text-[10px] font-bold tracking-[0.3em] text-gold-500/70">BENCH</span>
+            <span className={`text-[11px] font-bold ${engine.bench.length >= BENCH_SIZE ? "text-blood-400" : "text-parchment-400"}`}>
+              {engine.bench.length}/{BENCH_SIZE}
+            </span>
           </div>
-          <div className="mt-1.5 flex justify-center gap-1.5">
-            <button className="btn btn-primary px-4 py-1 font-bold" onClick={doFuse}>
-              ⚗️ 합성
-            </button>
-            <button className="btn px-3 py-1" onClick={clearFusion}>
-              취소
-            </button>
+          <div className="flex gap-1.5">
+            <BenchSlots
+              engine={engine}
+              units={engine.bench}
+              capacity={BENCH_SIZE}
+              size={tileSize >= 64 ? 58 : 50}
+              selectedUid={selectedUid}
+              fusionCandidates={fusionCandidates}
+              fusionTargetUid={fusionTargetUid}
+              onPointerDown={handleBenchDragStart}
+              onClick={handleBenchClick}
+              onContextMenu={(uid, e) => openUnitMenu(uid, e.clientX, e.clientY)}
+            />
           </div>
         </div>
+
+        <div className="flex items-end gap-2">
+          {shopButton("h-14 w-14 flex-col gap-0.5")}
+          {summonButton("h-14 min-w-[8.5rem] px-4")}
+          {waveButton("h-14 min-w-[10.5rem] px-4")}
+        </div>
+      </div>
+
+      {/* ===== 하단 도크 (모바일) ===== */}
+      <div className="relative z-30 shrink-0 border-t border-gold-500/15 bg-ink-950/90 px-2 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 backdrop-blur lg:hidden">
+        <div className="flex gap-1.5 overflow-x-auto pb-2 pt-1.5">
+          <BenchSlots
+            engine={engine}
+            units={engine.bench}
+            capacity={BENCH_SIZE}
+            size={50}
+            selectedUid={selectedUid}
+            fusionCandidates={fusionCandidates}
+            fusionTargetUid={fusionTargetUid}
+            onPointerDown={handleBenchDragStart}
+            onClick={handleBenchClick}
+            onContextMenu={(uid, e) => openUnitMenu(uid, e.clientX, e.clientY)}
+          />
+        </div>
+        <div className="flex gap-2">
+          {shopButton("h-12 w-12 shrink-0 flex-col gap-0")}
+          {summonButton("h-12 flex-1 px-3")}
+          {waveButton("h-12 flex-[1.3] px-3")}
+        </div>
+      </div>
+
+      {/* ===== 상점 ===== */}
+      <Modal open={shopOpen} onClose={() => setShopOpen(false)} kicker="Summon" title="소환" width={460}>
+        <ShopPanel
+          engine={engine}
+          regions={shopRegions}
+          regionSel={gachaRegionSel}
+          onRegionSel={setGachaRegionSel}
+          onRoll={doGacha}
+        />
+      </Modal>
+
+      {/* ===== 시너지 (모바일) ===== */}
+      <Modal open={sheet === "synergy"} onClose={() => setSheet("none")} kicker="Synergy" title="지역 시너지">
+        <SynergyDetailList synergies={engine.activeSynergies} />
+      </Modal>
+
+      {/* ===== 전투 기록 ===== */}
+      <Modal open={sheet === "log"} onClose={() => setSheet("none")} kicker="Log" title="전투 기록">
+        <div className="flex flex-col gap-1 text-xs">
+          {[...engine.logs].reverse().map((l, i) => (
+            <div key={i} className="rounded-md bg-ink-950/40 px-2 py-1" style={{ color: l.color ?? "#a9a08b" }}>
+              {l.text}
+            </div>
+          ))}
+        </div>
+      </Modal>
+
+      {/* ===== 일시정지 ===== */}
+      <PauseMenu
+        open={pauseOpen && !finished}
+        volume={volume}
+        speed={engine.speed}
+        onResume={() => togglePause(false)}
+        onCycleVolume={cycleVolume}
+        onToggleSpeed={toggleSpeed}
+        onOpenLog={() => setSheet("log")}
+        onLobby={exitToLobby}
+      />
+
+      {/* ===== 합성 확인 ===== */}
+      {fusionTargetUid && fusionTargetDef && selectedDef && fusionPopoverPos && (
+        <FusionPopover
+          engine={engine}
+          a={selectedDef}
+          b={fusionTargetDef}
+          x={fusionPopoverPos.x}
+          y={fusionPopoverPos.y}
+          onFuse={doFuse}
+          onCancel={clearFusion}
+        />
       )}
 
       {/* ===== 유닛 빠른 메뉴 (터치 롱프레스 / 마우스 우클릭) ===== */}
-      {unitMenu &&
-        (() => {
-          const unit = engine.findUnit(unitMenu.uid);
-          const def = unit ? engine.towerDefs.get(unit.defId) : undefined;
-          if (!unit || !def) return null;
-          const placed = !!unit.tile;
-          const candidates = engine.fusionCandidates(unit.uid).length;
-          const close = () => setUnitMenu(null);
-          const act = (ok: boolean) => {
-            if (ok) {
+      {unitMenu && (
+        <>
+          <div
+            className="fixed inset-0 z-[66]"
+            onPointerDown={() => (menuBackdropDownRef.current = true)}
+            onClick={() => {
+              if (menuBackdropDownRef.current) setUnitMenu(null);
+              menuBackdropDownRef.current = false;
+            }}
+            onContextMenu={(e) => {
+              e.preventDefault();
+              setUnitMenu(null);
+            }}
+          />
+          <UnitQuickMenu
+            engine={engine}
+            uid={unitMenu.uid}
+            x={unitMenu.x}
+            y={unitMenu.y}
+            onClose={() => setUnitMenu(null)}
+            onDone={() => {
               setSelectedUid(null);
               clearFusion();
-            }
-            close();
-          };
-          return (
-            <>
-              <div
-                className="fixed inset-0 z-[66]"
-                onPointerDown={() => (menuBackdropDownRef.current = true)}
-                onClick={() => {
-                  if (menuBackdropDownRef.current) close();
-                  menuBackdropDownRef.current = false;
-                }}
-                onContextMenu={(e) => {
-                  e.preventDefault();
-                  close();
-                }}
-              />
-              <div
-                className="fixed z-[67] w-56 rounded-xl border border-slate-600 bg-slate-950/95 p-2 text-xs shadow-2xl backdrop-blur"
-                style={{
-                  left: Math.max(8, Math.min(unitMenu.x - 112, window.innerWidth - 232)),
-                  top: Math.max(56, Math.min(unitMenu.y + 12, window.innerHeight - 290)),
-                }}
-              >
-                <div className="flex items-center gap-1.5">
-                  <span
-                    className="rounded px-1.5 py-0.5 text-[10px] font-bold text-slate-950"
-                    style={{ backgroundColor: GRADE_COLOR[def.grade] }}
-                  >
-                    {GRADE_LABEL[def.grade]}
-                  </span>
-                  <span className="truncate font-bold">
-                    {def.appearance.icon} {def.name}
-                  </span>
-                  <button className="ml-auto px-1 text-slate-500" onClick={close}>
-                    ✕
-                  </button>
-                </div>
-                <div className="mt-0.5 text-[10px] text-slate-400">
-                  [{def.regions.join(", ")}] · {placed ? "배치됨" : "대기석"}
-                </div>
-
-                {placed && (
-                  <>
-                    <div className="mt-2 text-[10px] font-bold text-slate-400">🎯 타겟팅</div>
-                    <div className="mt-1 grid grid-cols-2 gap-1">
-                      {(Object.keys(TARGET_MODE_LABEL) as TargetMode[]).map((m) => (
-                        <button
-                          key={m}
-                          className={`btn px-1 py-1.5 text-[11px] ${
-                            unit.targetMode === m ? "border-amber-500 bg-amber-500/20 text-amber-300" : ""
-                          }`}
-                          onClick={() => engine.setTargetMode(unit.uid, m)}
-                        >
-                          {TARGET_MODE_LABEL[m]}
-                        </button>
-                      ))}
-                    </div>
-                  </>
-                )}
-
-                <div className="mt-2 grid grid-cols-2 gap-1">
-                  {placed && (
-                    <button
-                      className="btn py-2 text-[11px]"
-                      disabled={engine.bench.length >= BENCH_SIZE}
-                      onClick={() => act(engine.unplaceTower(unit.uid))}
-                    >
-                      ↩ 회수
-                    </button>
-                  )}
-                  <button
-                    className={`btn btn-danger py-2 text-[11px] ${placed ? "" : "col-span-2"}`}
-                    onClick={() => act(engine.sellTower(unit.uid))}
-                  >
-                    💰 판매 +{sellRefund(def.grade)}G
-                  </button>
-                  {candidates > 0 && (
-                    <button
-                      className="btn col-span-2 py-2 text-[11px] text-amber-300"
-                      onClick={close}
-                    >
-                      ⚗️ 합성 대상 고르기 ({candidates}) — 점선 유닛을 탭
-                    </button>
-                  )}
-                </div>
-              </div>
-            </>
-          );
-        })()}
+            }}
+          />
+        </>
+      )}
 
       {/* ===== 대기석 드래그 고스트 ===== */}
       {benchGhost && (
         <div
-          className="pointer-events-none fixed z-[65] flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg border-2 bg-slate-900/90 text-2xl shadow-xl"
-          style={{
-            left: benchGhost.x,
-            top: benchGhost.y,
-            borderColor:
-              GRADE_COLOR[engine.towerDefs.get(benchGhost.defId)?.grade ?? "common"],
-          }}
+          className="pointer-events-none fixed z-[65] -translate-x-1/2 -translate-y-1/2 opacity-90 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
+          style={{ left: benchGhost.x, top: benchGhost.y }}
         >
-          {engine.towerDefs.get(benchGhost.defId)?.appearance.icon}
+          {(() => {
+            const def = engine.towerDefs.get(benchGhost.defId) as TowerDef | undefined;
+            return def ? <GradeSlot grade={def.grade} appearance={def.appearance} size={52} selected /> : null;
+          })()}
         </div>
       )}
 
-      {/* ===== 시트: 로그 ===== */}
-      {sheet === "log" && (
-        <Sheet title="📜 전투 로그" onClose={() => setSheet("none")}>
-          <div className="flex flex-col-reverse gap-0.5 text-[11px]">
-            {[...engine.logs].reverse().map((l, i) => (
-              <div key={i} style={{ color: l.color ?? "#94a3b8" }}>
-                {l.text}
-              </div>
-            ))}
-          </div>
-        </Sheet>
-      )}
-    </div>
-  );
-}
-
-/**
- * hover 툴팁 — position: fixed로 렌더링해서
- * 스크롤 컨테이너의 overflow 클리핑이나 캔버스 영역에 가려지는 문제를 회피
- */
-function HoverTip({
-  tip,
-  children,
-}: {
-  tip: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  const anchorRef = useRef<HTMLDivElement | null>(null);
-  const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
-
-  return (
-    <div
-      ref={anchorRef}
-      onMouseEnter={() => {
-        const rect = anchorRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        setPos({
-          left: rect.right + 8,
-          // 화면 아래로 넘치지 않게 클램프
-          top: Math.max(8, Math.min(rect.top, window.innerHeight - 320)),
-        });
-      }}
-      onMouseLeave={() => setPos(null)}
-    >
-      {children}
-      {pos && (
-        <div
-          className="pointer-events-none fixed z-[70] w-60 rounded-md border border-slate-600 bg-slate-950 p-2 text-[11px] shadow-2xl"
-          style={pos}
-        >
-          {tip}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/** 바텀시트 (모바일) / 중앙 모달처럼 동작 (데스크톱) */
-function Sheet({
-  title,
-  onClose,
-  children,
-}: {
-  title: string;
-  onClose: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="absolute inset-0 z-40 flex flex-col justify-end lg:items-center lg:justify-center">
-      <div className="absolute inset-0 bg-slate-950/50" onClick={onClose} />
-      <div className="relative max-h-[70%] overflow-y-auto rounded-t-2xl border-t border-slate-700 bg-slate-950 p-3 pb-[max(12px,env(safe-area-inset-bottom))] shadow-2xl lg:w-[420px] lg:rounded-2xl lg:border">
-        <div className="mb-2 flex items-center">
-          <div className="absolute left-1/2 top-1.5 h-1 w-10 -translate-x-1/2 rounded-full bg-slate-700 lg:hidden" />
-          <h3 className="mt-1 text-sm font-bold text-slate-200">{title}</h3>
-          <button className="ml-auto mt-1 px-2 text-slate-500" onClick={onClose}>
-            ✕
-          </button>
-        </div>
-        {children}
-      </div>
+      {/* ===== 결과 ===== */}
+      {finished && <ResultOverlay engine={engine} onRetry={retry} onLobby={() => router.push("/")} />}
     </div>
   );
 }

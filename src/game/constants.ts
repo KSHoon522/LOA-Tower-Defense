@@ -20,12 +20,22 @@ export const GRADE_LABEL: Record<Grade, string> = {
   legendary: "전설",
 };
 
+/** 등급 색 (로스트아크 아이템 등급 색) */
 export const GRADE_COLOR: Record<Grade, string> = {
-  common: "#9ca3af",
-  uncommon: "#4ade80",
-  rare: "#38bdf8",
-  hero: "#c084fc",
-  legendary: "#fb923c",
+  common: "#b5b5b5",
+  uncommon: "#8df901",
+  rare: "#00b0fa",
+  hero: "#ce43fc",
+  legendary: "#f99200",
+};
+
+/** 등급 슬롯 배경 그라데이션 [어두운 쪽, 밝은 쪽] (로스트아크 아이템 슬롯 배경) */
+export const GRADE_BG: Record<Grade, [string, string]> = {
+  common: ["#232323", "#575757"],
+  uncommon: ["#18220b", "#304911"],
+  rare: ["#111f2c", "#113d5d"],
+  hero: ["#201e2e", "#481d5e"],
+  legendary: ["#362003", "#9e5f04"],
 };
 
 /** 합성으로 도달 가능한 최대 등급 */

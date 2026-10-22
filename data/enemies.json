@@ -1,23 +1,5 @@
 [
   {
-    "id": "en-c3200031",
-    "name": "하백",
-    "hp": 90,
-    "defense": 8,
-    "magicDefense": 45,
-    "moveSpeed": 1.3,
-    "isBoss": false,
-    "goldReward": 6,
-    "appearance": {
-      "color": "#7c3aed",
-      "shape": "star",
-      "icon": "😈"
-    },
-    "description": "창천비무제의 창천제일검이자, 환술을 익힌 도사. 에스더의 제자로 웨이와 함께 수학했다고 한다.",
-    "traits": [],
-    "artRef": "elderly sage swordsman with grey topknot, gold mask over the eyes, white fur collar, crimson robe with gold patterns and gold sash, belt of hanging scroll tassels, glowing paper talisman held up in one hand, silver demon-face orb on a gold rope"
-  },
-  {
     "id": "en-c3200035",
     "name": "카인",
     "hp": 90,
@@ -876,6 +858,24 @@
     "description": "몽환의 궁전에서 아브렐슈드가 만들어낸 피조물. 체스의 폰 같은 형상을 하고 있다.",
     "traits": [],
     "artRef": "demonic foot soldier with a tall pointed conical black helm, curling dark horns with violet sheen, fanged gaping mouth, black plate armor, large round dark shield ringed with jagged tooth-like spikes, short violet-glowing mace, violet energy glow"
+  },
+  {
+    "id": "en-c3200246",
+    "name": "텔파",
+    "hp": 32,
+    "defense": 10,
+    "magicDefense": 10,
+    "moveSpeed": 2,
+    "isBoss": false,
+    "goldReward": 3,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "욘 대륙에 살고 있는 종족. 반짝거리는 것을 좋아해 우마르들과 자주 다툰다.",
+    "traits": [],
+    "artRef": "hunched mole-like beast warrior with long pink snout and protruding tusks, spiky black crest, shaggy black fur, gray steel armor with round shoulder shields and spiked circular bosses, red cloth collar, long pale claws"
   },
   {
     "id": "en-c3200308",

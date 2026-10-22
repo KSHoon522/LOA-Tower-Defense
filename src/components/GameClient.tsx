@@ -56,6 +56,8 @@ const PASSIVE_LABEL: Record<string, string> = {
   atk_pct_all: "물리 공격력 %",
   magic_atk_pct_all: "마법 공격력 %",
   atk_speed_pct_all: "공격속도 %",
+  crit_damage_pct_all: "치명타 피해 %p",
+  mana_regen_pct_all: "마나 회복 %",
   gold_per_kill: "처치당 골드",
   fusion_jackpot_pct: "합성 대성공 %p",
 };

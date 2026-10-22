@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { GameEngine } from "../engine";
 import { DIFFICULTY } from "../constants";
 import { runSimulation } from "../simulate";
-import type { EnemyDef, StageDef } from "../types";
+import type { EnemyDef, JobDef, StageDef } from "../types";
 import { baseOptions, firstBuildable, loadData } from "./helpers";
 
 const data = loadData();
@@ -88,6 +88,30 @@ describe("GameEngine 기본", () => {
     }
     expect(casts).toBe(DIFFICULTY.nightmare.jobSkillUses);
     expect(e.jobSkillUsesLeft).toBe(0);
+  });
+
+  it("직업 패시브/버프로 치명타 피해와 마나 회복이 오른다", () => {
+    const job: JobDef = {
+      id: "job-t",
+      name: "t",
+      skills: [
+        { kind: "passive", name: "치피", type: "crit_damage_pct_all", value: 20 },
+        { kind: "passive", name: "마나", type: "mana_regen_pct_all", value: 50 },
+        {
+          kind: "active",
+          name: "버프",
+          cooldown: 10,
+          effect: { type: "buff_all", stat: "crit_damage_pct", value: 30, duration: 5 },
+        },
+      ],
+    };
+    const def = data.towers[0];
+    const base = new GameEngine(baseOptions());
+    const e = new GameEngine(baseOptions({ job }));
+    expect(e.effectiveCritDamage(def)).toBe(base.effectiveCritDamage(def) + 20);
+    expect(e.effectiveManaRegen(def)).toBeCloseTo(base.effectiveManaRegen(def) * 1.5);
+    expect(e.castJobSkill(e.activeJobSkills()[0].index)).toBe(true);
+    expect(e.effectiveCritDamage(def)).toBe(base.effectiveCritDamage(def) + 50);
   });
 
   it("타워 이동은 건설 가능 타일로만 가능하다", () => {

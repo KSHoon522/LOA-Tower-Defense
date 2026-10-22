@@ -18,7 +18,7 @@
       "description": "단일 대상에게 공격력 260% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -48,7 +48,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 140% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -79,7 +79,7 @@
       "description": "3초간 자신의 공격속도 +60%"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "triangle",
       "icon": "🐾"
     },
@@ -109,7 +109,7 @@
       "description": "대상에게 마법 공격력 240% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "✨"
     },
@@ -200,7 +200,7 @@
       "description": "3초간 자신의 공격속도 +70%"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "triangle",
       "icon": "👊"
     },
@@ -231,7 +231,7 @@
       "description": "3초간 자신의 공격속도 +60%"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "triangle",
       "icon": "🐾"
     },
@@ -240,37 +240,6 @@
       "로헨델"
     ],
     "artRef": "large flightless yellow bird mount with long neck, beaked face and tall pointed ears, gray feather tufts, ornate silver saddle and harness with wing-shaped side plates and teal gems, black leather reins, red-tipped tail feathers"
-  },
-  {
-    "id": "tw-c3200246",
-    "name": "텔파",
-    "grade": "common",
-    "atk": 13,
-    "magicAtk": 0,
-    "attackSpeed": 1.5,
-    "range": 1.9,
-    "maxMana": 50,
-    "manaRegen": 5,
-    "manaOnHit": 8,
-    "skill": {
-      "name": "야성 해방",
-      "type": "buff_atkspeed",
-      "damageType": "physical",
-      "power": 0,
-      "duration": 3,
-      "buffPct": 60,
-      "description": "3초간 자신의 공격속도 +60%"
-    },
-    "appearance": {
-      "color": "#b45309",
-      "shape": "triangle",
-      "icon": "🐾"
-    },
-    "description": "욘 대륙에 살고 있는 종족. 반짝거리는 것을 좋아해 우마르들과 자주 다툰다.",
-    "regions": [
-      "욘"
-    ],
-    "artRef": "hunched mole-like beast warrior with long pink snout and protruding tusks, spiky black crest, shaggy black fur, gray steel armor with round shoulder shields and spiked circular bosses, red cloth collar, long pale claws"
   },
   {
     "id": "tw-c3200247",
@@ -293,7 +262,7 @@
       "description": "3초간 자신의 공격속도 +70%"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "triangle",
       "icon": "👊"
     },
@@ -323,7 +292,7 @@
       "description": "반경 1.6칸에 마법 공격력 180% 피해"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "star",
       "icon": "🔮"
     },
@@ -354,7 +323,7 @@
       "description": "3초간 자신의 공격속도 +60%"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "triangle",
       "icon": "🐾"
     },
@@ -384,7 +353,7 @@
       "description": "대상에게 마법 공격력 240% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#e879f9",
+      "color": "#f472b6",
       "shape": "circle",
       "icon": "✨"
     },
@@ -475,7 +444,7 @@
       "description": "대상에게 마법 공격력 240% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "✨"
     },
@@ -505,7 +474,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 140% 피해"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -536,7 +505,7 @@
       "description": "3초간 자신의 공격속도 +60%"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "triangle",
       "icon": "🐾"
     },
@@ -596,7 +565,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 140% 피해"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -744,7 +713,7 @@
       "description": "대상에게 공격력 210% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -773,7 +742,7 @@
       "description": "단일 대상에게 공격력 270% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -803,7 +772,7 @@
       "description": "반경 1.6칸에 마법 공격력 190% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "star",
       "icon": "🔮"
     },
@@ -833,7 +802,7 @@
       "description": "반경 1.6칸에 마법 공격력 190% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "star",
       "icon": "🔮"
     },
@@ -862,7 +831,7 @@
       "description": "단일 대상에게 공격력 340% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "triangle",
       "icon": "🏹"
     },
@@ -892,7 +861,7 @@
       "description": "대상에게 공격력 210% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -923,7 +892,7 @@
       "description": "3초간 자신의 공격속도 +60%"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "triangle",
       "icon": "🐾"
     },
@@ -952,7 +921,7 @@
       "description": "단일 대상에게 공격력 270% 피해"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -1405,7 +1374,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
     },
     "appearance": {
-      "color": "#e879f9",
+      "color": "#f472b6",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -1465,7 +1434,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -1495,7 +1464,7 @@
       "description": "반경 1.6칸에 마법 공격력 190% 피해"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "star",
       "icon": "🔮"
     },
@@ -1525,7 +1494,7 @@
       "description": "반경 1.6칸에 마법 공격력 190% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "star",
       "icon": "🔮"
     },
@@ -1555,7 +1524,7 @@
       "description": "반경 1.6칸에 마법 공격력 190% 피해"
     },
     "appearance": {
-      "color": "#d4a373",
+      "color": "#e7c9a9",
       "shape": "star",
       "icon": "🔮"
     },
@@ -1616,7 +1585,7 @@
       "description": "3초간 자신의 공격속도 +70%"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "triangle",
       "icon": "👊"
     },
@@ -1766,7 +1735,7 @@
       "description": "대상에게 마법 공격력 250% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "circle",
       "icon": "✨"
     },
@@ -1917,7 +1886,7 @@
       "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#e879f9",
+      "color": "#f472b6",
       "shape": "circle",
       "icon": "✨"
     },
@@ -1947,7 +1916,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
     },
     "appearance": {
-      "color": "#e879f9",
+      "color": "#f472b6",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -1977,7 +1946,7 @@
       "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#d4a373",
+      "color": "#e7c9a9",
       "shape": "circle",
       "icon": "✨"
     },
@@ -2007,7 +1976,7 @@
       "description": "대상에게 공격력 220% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -2036,7 +2005,7 @@
       "description": "단일 대상에게 공격력 290% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -2066,7 +2035,7 @@
       "description": "반경 1.5칸에 마법 공격력 220% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🌀"
     },
@@ -2096,7 +2065,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -2126,7 +2095,7 @@
       "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "✨"
     },
@@ -2156,7 +2125,7 @@
       "description": "반경 1.5칸에 마법 공격력 220% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "star",
       "icon": "🌀"
     },
@@ -2186,7 +2155,7 @@
       "description": "반경 1.5칸에 마법 공격력 220% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "star",
       "icon": "🌀"
     },
@@ -2216,7 +2185,7 @@
       "description": "대상에게 공격력 220% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -2245,7 +2214,7 @@
       "description": "단일 대상에게 공격력 290% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -2275,7 +2244,7 @@
       "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "circle",
       "icon": "✨"
     },
@@ -2305,7 +2274,7 @@
       "description": "대상에게 공격력 220% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -2335,7 +2304,7 @@
       "description": "반경 1.5칸에 마법 공격력 220% 피해"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "star",
       "icon": "🌀"
     },
@@ -2606,7 +2575,7 @@
       "description": "반경 1.6칸에 마법 공격력 200% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🔮"
     },
@@ -2636,7 +2605,7 @@
       "description": "반경 1.6칸에 마법 공격력 200% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🔮"
     },
@@ -2666,7 +2635,7 @@
       "description": "반경 1.6칸에 마법 공격력 200% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🔮"
     },
@@ -2696,7 +2665,7 @@
       "description": "반경 1.6칸에 마법 공격력 200% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🔮"
     },
@@ -2726,7 +2695,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -2756,7 +2725,7 @@
       "description": "대상 포함 최대 4명에게 공격력 160% 피해"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "square",
       "icon": "🤖"
     },
@@ -2786,7 +2755,7 @@
       "description": "대상에게 공격력 220% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -2816,7 +2785,7 @@
       "description": "대상에게 공격력 220% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -2845,7 +2814,7 @@
       "description": "단일 대상에게 공격력 330% 피해"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "diamond",
       "icon": "🗡️"
     },
@@ -2874,7 +2843,7 @@
       "description": "단일 대상에게 공격력 330% 피해"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "diamond",
       "icon": "🗡️"
     },
@@ -2904,7 +2873,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -3026,7 +2995,7 @@
       "description": "반경 1.6칸에 마법 공격력 200% 피해"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "star",
       "icon": "🔮"
     },
@@ -3055,7 +3024,7 @@
       "description": "단일 대상에게 공격력 290% 피해"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -3085,7 +3054,7 @@
       "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "circle",
       "icon": "✨"
     },
@@ -3266,7 +3235,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 170% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -3296,7 +3265,7 @@
       "description": "반경 1.6칸에 마법 공격력 220% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "star",
       "icon": "🔮"
     },
@@ -3357,7 +3326,7 @@
       "description": "3초간 자신의 공격속도 +70%"
     },
     "appearance": {
-      "color": "#84cc16",
+      "color": "#a3e635",
       "shape": "triangle",
       "icon": "👊"
     },
@@ -3366,6 +3335,35 @@
       "토토이크"
     ],
     "artRef": "small curious sprout-folk boy with short black hair and pointed ears, tall green pointed leaf hat topped with a curling vine sprout and leaves, layered green leaf cape with brown seed-pod tassels, white tunic, big yellow leaf satchel tied with rope"
+  },
+  {
+    "id": "tw-c3200031",
+    "name": "하백",
+    "grade": "hero",
+    "atk": 90,
+    "magicAtk": 0,
+    "attackSpeed": 1,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "필살 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 310,
+      "description": "단일 대상에게 공격력 310% 피해"
+    },
+    "appearance": {
+      "color": "#fb7185",
+      "shape": "square",
+      "icon": "⚔️"
+    },
+    "description": "창천비무제의 창천제일검이자, 환술을 익힌 도사. 에스더의 제자로 웨이와 함께 수학했다고 한다.",
+    "regions": [
+      "애니츠"
+    ],
+    "artRef": "elderly sage swordsman with grey topknot, gold mask over the eyes, white fur collar, crimson robe with gold patterns and gold sash, belt of hanging scroll tassels, glowing paper talisman held up in one hand, silver demon-face orb on a gold rope"
   },
   {
     "id": "tw-c3200033",
@@ -3566,7 +3564,7 @@
       "description": "반경 1.5칸에 마법 공격력 240% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🌀"
     },
@@ -3596,7 +3594,7 @@
       "description": "반경 1.5칸에 마법 공격력 240% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🌀"
     },
@@ -3626,7 +3624,7 @@
       "description": "반경 1.5칸에 마법 공격력 240% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🌀"
     },
@@ -3655,7 +3653,7 @@
       "description": "단일 대상에게 공격력 310% 피해"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -3684,7 +3682,7 @@
       "description": "단일 대상에게 공격력 360% 피해"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "diamond",
       "icon": "🗡️"
     },
@@ -3713,7 +3711,7 @@
       "description": "단일 대상에게 공격력 360% 피해"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "diamond",
       "icon": "🗡️"
     },
@@ -3743,7 +3741,7 @@
       "description": "대상에게 마법 공격력 290% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#94a3b8",
+      "color": "#818cf8",
       "shape": "circle",
       "icon": "✨"
     },
@@ -3832,7 +3830,7 @@
       "description": "반경 1.6칸에 마법 공격력 220% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🔮"
     },
@@ -3952,7 +3950,7 @@
       "description": "대상 포함 최대 4명에게 마법 공격력 170% 피해"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "circle",
       "icon": "🎵"
     },
@@ -3981,7 +3979,7 @@
       "description": "단일 대상에게 공격력 360% 피해"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "diamond",
       "icon": "🗡️"
     },
@@ -4011,7 +4009,7 @@
       "description": "반경 1.5칸에 마법 공격력 240% 피해"
     },
     "appearance": {
-      "color": "#f97316",
+      "color": "#fb923c",
       "shape": "star",
       "icon": "🌀"
     },
@@ -4041,7 +4039,7 @@
       "description": "대상에게 마법 공격력 320% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "circle",
       "icon": "✨"
     },
@@ -4070,7 +4068,7 @@
       "description": "단일 대상에게 공격력 350% 피해"
     },
     "appearance": {
-      "color": "#cbd5e1",
+      "color": "#e2e8f0",
       "shape": "square",
       "icon": "⚔️"
     },
@@ -4222,7 +4220,7 @@
       "description": "반경 1.6칸에 마법 공격력 240% 피해"
     },
     "appearance": {
-      "color": "#34d399",
+      "color": "#4ade80",
       "shape": "star",
       "icon": "🔮"
     },
@@ -4252,7 +4250,7 @@
       "description": "대상에게 공격력 270% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "diamond",
       "icon": "🔨"
     },
@@ -4313,7 +4311,7 @@
       "description": "대상에게 공격력 270% 피해 + 1.2초 기절"
     },
     "appearance": {
-      "color": "#b45309",
+      "color": "#c08457",
       "shape": "diamond",
       "icon": "🔨"
     },

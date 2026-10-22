@@ -334,11 +334,16 @@ export class GameEngine {
   }
 
   effectiveCritDamage(def: TowerDef): number {
-    return synergyBonus(this.activeSynergies, "crit_damage_pct");
+    return (
+      synergyBonus(this.activeSynergies, "crit_damage_pct") +
+      this.jobBonus("crit_damage_pct_all") +
+      this.globalBuffValue("crit_damage_pct")
+    );
   }
 
   effectiveManaRegen(def: TowerDef): number {
-    const pct = synergyBonus(this.activeSynergies, "mana_regen_pct");
+    const pct =
+      synergyBonus(this.activeSynergies, "mana_regen_pct") + this.jobBonus("mana_regen_pct_all");
     return def.manaRegen * (1 + pct / 100);
   }
 

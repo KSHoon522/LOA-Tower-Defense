@@ -190,6 +190,8 @@ export type JobPassiveType =
   | "atk_pct_all" // 전체 물리 공격력 %
   | "magic_atk_pct_all" // 전체 마법 공격력 %
   | "atk_speed_pct_all" // 전체 공격속도 %
+  | "crit_damage_pct_all" // 전체 치명타 피해 +%p
+  | "mana_regen_pct_all" // 전체 마나 회복 %
   | "gold_per_kill" // 처치당 추가 골드
   | "fusion_jackpot_pct"; // 합성 2단계 상위 확률 +%p
 
@@ -206,7 +208,8 @@ export type JobBuffStat =
   | "atk_pct"
   | "magic_atk_pct"
   | "atk_speed_pct"
-  | "crit_chance";
+  | "crit_chance"
+  | "crit_damage_pct";
 
 export type JobActiveEffect =
   | {

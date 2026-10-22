@@ -2,46 +2,966 @@
   {
     "id": "job-berserker",
     "name": "버서커",
-    "synergyRegion": "애니츠",
+    "synergyRegion": "슈샤이어",
     "skills": [
-      { "kind": "passive", "name": "광기", "type": "atk_pct_all", "value": 10, "description": "전체 물리 공격력 +10%" },
-      { "kind": "active", "name": "분노 폭발", "cooldown": 45, "effect": { "type": "buff_all", "stat": "atk_pct", "value": 50, "duration": 6 }, "description": "6초간 아군 전체 물리 공격력 +50%" }
+      {
+        "kind": "passive",
+        "name": "광기",
+        "type": "atk_pct_all",
+        "value": 12,
+        "description": "전체 물리 공격력 +12%"
+      },
+      {
+        "kind": "active",
+        "name": "광전사의 비기",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "atk_pct",
+          "value": 50,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 물리 공격력 +50%"
+      }
     ],
-    "appearance": { "color": "#ef4444", "shape": "diamond", "icon": "⚔️" },
-    "description": "패시브: 전체 물리 공격력 +10% / 액티브: 분노 폭발 (아군 강화). 애니츠 시너지 +1."
+    "appearance": {
+      "color": "#ef4444",
+      "shape": "diamond",
+      "icon": "⚔️"
+    },
+    "description": "[전사] 패시브: 전체 물리 공격력 +12% / 액티브: 광전사의 비기 (10초간 아군 전체 물리 공격력 +50%). 슈샤이어 시너지 +1."
   },
   {
-    "id": "job-summoner",
-    "name": "서머너",
-    "synergyRegion": "로헨델",
+    "id": "job-destroyer",
+    "name": "디스트로이어",
+    "synergyRegion": "욘",
     "skills": [
-      { "kind": "passive", "name": "마력 친화", "type": "magic_atk_pct_all", "value": 12, "description": "전체 마법 공격력 +12%" },
-      { "kind": "active", "name": "정령 소환: 폭발", "cooldown": 30, "effect": { "type": "damage_area", "damage": 300, "damageType": "magical", "radius": 2.5 }, "description": "클릭 지점 반경 2.5칸에 마법 피해 300" }
+      {
+        "kind": "passive",
+        "name": "중력 수련",
+        "type": "atk_pct_all",
+        "value": 8,
+        "description": "전체 물리 공격력 +8%"
+      },
+      {
+        "kind": "active",
+        "name": "분노의 망치",
+        "cooldown": 35,
+        "effect": {
+          "type": "damage_area",
+          "damage": 450,
+          "damageType": "physical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 물리 피해 450"
+      }
     ],
-    "appearance": { "color": "#8b5cf6", "shape": "star", "icon": "🔮" },
-    "description": "패시브: 전체 마법 공격력 +12% / 액티브: 범위 마법 폭격. 로헨델 시너지 +1."
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "🔨"
+    },
+    "description": "[전사] 패시브: 전체 물리 공격력 +8% / 액티브: 분노의 망치 (클릭 지점 반경 2칸에 물리 피해 450). 욘 시너지 +1."
+  },
+  {
+    "id": "job-warlord",
+    "name": "워로드",
+    "synergyRegion": "루테란",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "전투 태세",
+        "type": "extra_lives",
+        "value": 2,
+        "description": "목숨 +2"
+      },
+      {
+        "kind": "active",
+        "name": "고독한 기사",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "atk_pct",
+          "value": 45,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 물리 공격력 +45%"
+      }
+    ],
+    "appearance": {
+      "color": "#94a3b8",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "[전사] 패시브: 목숨 +2 / 액티브: 고독한 기사 (10초간 아군 전체 물리 공격력 +45%). 루테란 시너지 +1."
+  },
+  {
+    "id": "job-holyknight",
+    "name": "홀리나이트",
+    "synergyRegion": "루테란",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "축복의 오라",
+        "type": "extra_lives",
+        "value": 2,
+        "description": "목숨 +2"
+      },
+      {
+        "kind": "active",
+        "name": "심판자",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "crit_damage_pct",
+          "value": 120,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 치명타 피해 +120%p"
+      }
+    ],
+    "appearance": {
+      "color": "#fde047",
+      "shape": "square",
+      "icon": "⚜️"
+    },
+    "description": "[전사] 패시브: 목숨 +2 / 액티브: 심판자 (10초간 아군 전체 치명타 피해 +120%p). 루테란 시너지 +1."
+  },
+  {
+    "id": "job-slayer",
+    "name": "슬레이어",
+    "synergyRegion": "슈샤이어",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "포식자",
+        "type": "atk_speed_pct_all",
+        "value": 10,
+        "description": "전체 공격속도 +10%"
+      },
+      {
+        "kind": "active",
+        "name": "처단자",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "crit_damage_pct",
+          "value": 150,
+          "duration": 8
+        },
+        "description": "8초간 아군 전체 치명타 피해 +150%p"
+      }
+    ],
+    "appearance": {
+      "color": "#dc2626",
+      "shape": "diamond",
+      "icon": "🪓"
+    },
+    "description": "[전사] 패시브: 전체 공격속도 +10% / 액티브: 처단자 (8초간 아군 전체 치명타 피해 +150%p). 슈샤이어 시너지 +1."
+  },
+  {
+    "id": "job-valkyrie",
+    "name": "발키리",
+    "synergyRegion": "엘가시아",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "해방자",
+        "type": "extra_lives",
+        "value": 2,
+        "description": "목숨 +2"
+      },
+      {
+        "kind": "active",
+        "name": "빛의 기사",
+        "cooldown": 35,
+        "effect": {
+          "type": "damage_area",
+          "damage": 380,
+          "damageType": "magical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 마법 피해 380"
+      }
+    ],
+    "appearance": {
+      "color": "#facc15",
+      "shape": "square",
+      "icon": "🌟"
+    },
+    "description": "[전사] 패시브: 목숨 +2 / 액티브: 빛의 기사 (클릭 지점 반경 2칸에 마법 피해 380). 엘가시아 시너지 +1."
+  },
+  {
+    "id": "job-guardianknight",
+    "name": "가디언나이트",
+    "synergyRegion": "엘가시아",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "엠버레스의 가호",
+        "type": "atk_speed_pct_all",
+        "value": 8,
+        "description": "전체 공격속도 +8%"
+      },
+      {
+        "kind": "active",
+        "name": "엠버레스 해방",
+        "cooldown": 40,
+        "effect": {
+          "type": "damage_area",
+          "damage": 500,
+          "damageType": "physical",
+          "radius": 1.6
+        },
+        "description": "클릭 지점 반경 1.6칸에 물리 피해 500"
+      }
+    ],
+    "appearance": {
+      "color": "#f97316",
+      "shape": "diamond",
+      "icon": "🐉"
+    },
+    "description": "[전사] 패시브: 전체 공격속도 +8% / 액티브: 엠버레스 해방 (클릭 지점 반경 1.6칸에 물리 피해 500). 엘가시아 시너지 +1."
+  },
+  {
+    "id": "job-battlemaster",
+    "name": "배틀마스터",
+    "synergyRegion": "애니츠",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "초심",
+        "type": "atk_speed_pct_all",
+        "value": 10,
+        "description": "전체 공격속도 +10%"
+      },
+      {
+        "kind": "active",
+        "name": "오의 강화",
+        "cooldown": 35,
+        "effect": {
+          "type": "damage_area",
+          "damage": 400,
+          "damageType": "physical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 물리 피해 400"
+      }
+    ],
+    "appearance": {
+      "color": "#fb923c",
+      "shape": "triangle",
+      "icon": "🥋"
+    },
+    "description": "[무도가] 패시브: 전체 공격속도 +10% / 액티브: 오의 강화 (클릭 지점 반경 2칸에 물리 피해 400). 애니츠 시너지 +1."
+  },
+  {
+    "id": "job-infighter",
+    "name": "인파이터",
+    "synergyRegion": "파푸니카",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "체술",
+        "type": "atk_pct_all",
+        "value": 10,
+        "description": "전체 물리 공격력 +10%"
+      },
+      {
+        "kind": "active",
+        "name": "충격 단련",
+        "cooldown": 35,
+        "effect": {
+          "type": "damage_area",
+          "damage": 500,
+          "damageType": "physical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 물리 피해 500"
+      }
+    ],
+    "appearance": {
+      "color": "#ea580c",
+      "shape": "triangle",
+      "icon": "👊"
+    },
+    "description": "[무도가] 패시브: 전체 물리 공격력 +10% / 액티브: 충격 단련 (클릭 지점 반경 2칸에 물리 피해 500). 파푸니카 시너지 +1."
+  },
+  {
+    "id": "job-soulmaster",
+    "name": "기공사",
+    "synergyRegion": "애니츠",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "세맥타통",
+        "type": "atk_pct_all",
+        "value": 6,
+        "description": "전체 물리 공격력 +6%"
+      },
+      {
+        "kind": "passive",
+        "name": "역천지체",
+        "type": "magic_atk_pct_all",
+        "value": 6,
+        "description": "전체 마법 공격력 +6%"
+      },
+      {
+        "kind": "active",
+        "name": "기공파",
+        "cooldown": 35,
+        "effect": {
+          "type": "damage_area",
+          "damage": 350,
+          "damageType": "magical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 마법 피해 350"
+      }
+    ],
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "circle",
+      "icon": "☯️"
+    },
+    "description": "[무도가] 패시브: 전체 물리 공격력 +6% · 전체 마법 공격력 +6% / 액티브: 기공파 (클릭 지점 반경 2칸에 마법 피해 350). 애니츠 시너지 +1."
+  },
+  {
+    "id": "job-lancemaster",
+    "name": "창술사",
+    "synergyRegion": "애니츠",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "절제",
+        "type": "crit_chance_all",
+        "value": 10,
+        "description": "전체 치명타 확률 +10%p"
+      },
+      {
+        "kind": "active",
+        "name": "절정",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "crit_chance",
+          "value": 50,
+          "duration": 8
+        },
+        "description": "8초간 아군 전체 치명타 확률 +50%p"
+      }
+    ],
+    "appearance": {
+      "color": "#fdba74",
+      "shape": "triangle",
+      "icon": "🔱"
+    },
+    "description": "[무도가] 패시브: 전체 치명타 확률 +10%p / 액티브: 절정 (8초간 아군 전체 치명타 확률 +50%p). 애니츠 시너지 +1."
+  },
+  {
+    "id": "job-striker",
+    "name": "스트라이커",
+    "synergyRegion": "아르테미스",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "오의난무",
+        "type": "atk_speed_pct_all",
+        "value": 8,
+        "description": "전체 공격속도 +8%"
+      },
+      {
+        "kind": "active",
+        "name": "일격필살",
+        "cooldown": 45,
+        "effect": {
+          "type": "damage_area",
+          "damage": 700,
+          "damageType": "physical",
+          "radius": 1
+        },
+        "description": "클릭 지점 반경 1칸에 물리 피해 700"
+      }
+    ],
+    "appearance": {
+      "color": "#fcd34d",
+      "shape": "triangle",
+      "icon": "⚡"
+    },
+    "description": "[무도가] 패시브: 전체 공격속도 +8% / 액티브: 일격필살 (클릭 지점 반경 1칸에 물리 피해 700). 아르테미스 시너지 +1."
+  },
+  {
+    "id": "job-breaker",
+    "name": "브레이커",
+    "synergyRegion": "욘",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "수라의 길",
+        "type": "atk_pct_all",
+        "value": 10,
+        "description": "전체 물리 공격력 +10%"
+      },
+      {
+        "kind": "active",
+        "name": "권왕파천무",
+        "cooldown": 40,
+        "effect": {
+          "type": "damage_area",
+          "damage": 400,
+          "damageType": "physical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 물리 피해 400"
+      }
+    ],
+    "appearance": {
+      "color": "#c2410c",
+      "shape": "triangle",
+      "icon": "💥"
+    },
+    "description": "[무도가] 패시브: 전체 물리 공격력 +10% / 액티브: 권왕파천무 (클릭 지점 반경 2칸에 물리 피해 400). 욘 시너지 +1."
   },
   {
     "id": "job-devilhunter",
     "name": "데빌헌터",
     "synergyRegion": "아르데타인",
     "skills": [
-      { "kind": "passive", "name": "정밀 조준", "type": "crit_chance_all", "value": 8, "description": "전체 치명타 확률 +8%p" },
-      { "kind": "active", "name": "스피드 리로드", "cooldown": 40, "effect": { "type": "buff_all", "stat": "atk_speed_pct", "value": 60, "duration": 5 }, "description": "5초간 아군 전체 공격속도 +60%" }
+      {
+        "kind": "passive",
+        "name": "핸드거너",
+        "type": "crit_chance_all",
+        "value": 12,
+        "description": "전체 치명타 확률 +12%p"
+      },
+      {
+        "kind": "active",
+        "name": "강화 무기",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "atk_speed_pct",
+          "value": 60,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 공격속도 +60%"
+      }
     ],
-    "appearance": { "color": "#f59e0b", "shape": "triangle", "icon": "🔫" },
-    "description": "패시브: 전체 치명타 확률 +8%p / 액티브: 공격속도 버프. 아르데타인 시너지 +1."
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🔫"
+    },
+    "description": "[헌터] 패시브: 전체 치명타 확률 +12%p / 액티브: 강화 무기 (10초간 아군 전체 공격속도 +60%). 아르데타인 시너지 +1."
+  },
+  {
+    "id": "job-blaster",
+    "name": "블래스터",
+    "synergyRegion": "아르데타인",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "화력 강화",
+        "type": "atk_pct_all",
+        "value": 8,
+        "description": "전체 물리 공격력 +8%"
+      },
+      {
+        "kind": "active",
+        "name": "포격 강화",
+        "cooldown": 45,
+        "effect": {
+          "type": "damage_area",
+          "damage": 420,
+          "damageType": "physical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 물리 피해 420"
+      }
+    ],
+    "appearance": {
+      "color": "#a16207",
+      "shape": "square",
+      "icon": "💣"
+    },
+    "description": "[헌터] 패시브: 전체 물리 공격력 +8% / 액티브: 포격 강화 (클릭 지점 반경 2칸에 물리 피해 420). 아르데타인 시너지 +1."
+  },
+  {
+    "id": "job-hawkeye",
+    "name": "호크아이",
+    "synergyRegion": "토토이크",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "죽음의 습격",
+        "type": "crit_damage_pct_all",
+        "value": 40,
+        "description": "전체 치명타 피해 +40%p"
+      },
+      {
+        "kind": "active",
+        "name": "두 번째 동료",
+        "cooldown": 30,
+        "effect": {
+          "type": "damage_area",
+          "damage": 400,
+          "damageType": "physical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 물리 피해 400"
+      }
+    ],
+    "appearance": {
+      "color": "#84cc16",
+      "shape": "triangle",
+      "icon": "🦅"
+    },
+    "description": "[헌터] 패시브: 전체 치명타 피해 +40%p / 액티브: 두 번째 동료 (클릭 지점 반경 2칸에 물리 피해 400). 토토이크 시너지 +1."
+  },
+  {
+    "id": "job-scouter",
+    "name": "스카우터",
+    "synergyRegion": "아르데타인",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "아르데타인의 기술",
+        "type": "gacha_discount_pct",
+        "value": 10,
+        "description": "뽑기 비용 10% 할인"
+      },
+      {
+        "kind": "active",
+        "name": "진화의 유산",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "atk_pct",
+          "value": 40,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 물리 공격력 +40%"
+      }
+    ],
+    "appearance": {
+      "color": "#eab308",
+      "shape": "square",
+      "icon": "🤖"
+    },
+    "description": "[헌터] 패시브: 뽑기 비용 10% 할인 / 액티브: 진화의 유산 (10초간 아군 전체 물리 공격력 +40%). 아르데타인 시너지 +1."
+  },
+  {
+    "id": "job-gunslinger",
+    "name": "건슬링어",
+    "synergyRegion": "대양",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "피스메이커",
+        "type": "atk_speed_pct_all",
+        "value": 10,
+        "description": "전체 공격속도 +10%"
+      },
+      {
+        "kind": "active",
+        "name": "사냥의 시간",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "crit_chance",
+          "value": 50,
+          "duration": 8
+        },
+        "description": "8초간 아군 전체 치명타 확률 +50%p"
+      }
+    ],
+    "appearance": {
+      "color": "#facc15",
+      "shape": "triangle",
+      "icon": "🎯"
+    },
+    "description": "[헌터] 패시브: 전체 공격속도 +10% / 액티브: 사냥의 시간 (8초간 아군 전체 치명타 확률 +50%p). 대양 시너지 +1."
   },
   {
     "id": "job-bard",
     "name": "바드",
     "synergyRegion": "베른",
     "skills": [
-      { "kind": "passive", "name": "수호의 노래", "type": "extra_lives", "value": 3, "description": "목숨 +3" },
-      { "kind": "passive", "name": "행운의 선율", "type": "fusion_jackpot_pct", "value": 2, "description": "합성 대성공 확률 +2%p" },
-      { "kind": "active", "name": "세레나데 오브 포춘", "cooldown": 60, "effect": { "type": "gold_grant", "value": 80 }, "description": "즉시 80골드 획득" }
+      {
+        "kind": "passive",
+        "name": "절실한 구원",
+        "type": "extra_lives",
+        "value": 3,
+        "description": "목숨 +3"
+      },
+      {
+        "kind": "active",
+        "name": "진실된 용맹",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "atk_speed_pct",
+          "value": 40,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 공격속도 +40%"
+      }
     ],
-    "appearance": { "color": "#ec4899", "shape": "circle", "icon": "🎵" },
-    "description": "패시브: 목숨 +3, 합성 대성공 +2%p / 액티브: 골드 획득. 베른 시너지 +1."
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "🎵"
+    },
+    "description": "[마법사] 패시브: 목숨 +3 / 액티브: 진실된 용맹 (10초간 아군 전체 공격속도 +40%). 베른 시너지 +1."
+  },
+  {
+    "id": "job-summoner",
+    "name": "서머너",
+    "synergyRegion": "로헨델",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "상급 소환사",
+        "type": "magic_atk_pct_all",
+        "value": 12,
+        "description": "전체 마법 공격력 +12%"
+      },
+      {
+        "kind": "active",
+        "name": "넘치는 교감",
+        "cooldown": 30,
+        "effect": {
+          "type": "damage_area",
+          "damage": 300,
+          "damageType": "magical",
+          "radius": 2.2
+        },
+        "description": "클릭 지점 반경 2.2칸에 마법 피해 300"
+      }
+    ],
+    "appearance": {
+      "color": "#8b5cf6",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "[마법사] 패시브: 전체 마법 공격력 +12% / 액티브: 넘치는 교감 (클릭 지점 반경 2.2칸에 마법 피해 300). 로헨델 시너지 +1."
+  },
+  {
+    "id": "job-arcana",
+    "name": "아르카나",
+    "synergyRegion": "베른",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "황제의 칙령",
+        "type": "fusion_jackpot_pct",
+        "value": 3,
+        "description": "합성 대성공 확률 +3%p"
+      },
+      {
+        "kind": "active",
+        "name": "황후의 은총",
+        "cooldown": 60,
+        "effect": {
+          "type": "gold_grant",
+          "value": 40
+        },
+        "description": "즉시 40골드 획득"
+      }
+    ],
+    "appearance": {
+      "color": "#c026d3",
+      "shape": "star",
+      "icon": "🃏"
+    },
+    "description": "[마법사] 패시브: 합성 대성공 확률 +3%p / 액티브: 황후의 은총 (즉시 40골드 획득). 베른 시너지 +1."
+  },
+  {
+    "id": "job-sorceress",
+    "name": "소서리스",
+    "synergyRegion": "로헨델",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "환류",
+        "type": "mana_regen_pct_all",
+        "value": 20,
+        "description": "전체 마나 회복 +20%"
+      },
+      {
+        "kind": "active",
+        "name": "점화",
+        "cooldown": 40,
+        "effect": {
+          "type": "damage_area",
+          "damage": 400,
+          "damageType": "magical",
+          "radius": 2.2
+        },
+        "description": "클릭 지점 반경 2.2칸에 마법 피해 400"
+      }
+    ],
+    "appearance": {
+      "color": "#a855f7",
+      "shape": "star",
+      "icon": "☄️"
+    },
+    "description": "[마법사] 패시브: 전체 마나 회복 +20% / 액티브: 점화 (클릭 지점 반경 2.2칸에 마법 피해 400). 로헨델 시너지 +1."
+  },
+  {
+    "id": "job-blade",
+    "name": "블레이드",
+    "synergyRegion": "유디아",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "잔재된 기운",
+        "type": "atk_speed_pct_all",
+        "value": 10,
+        "description": "전체 공격속도 +10%"
+      },
+      {
+        "kind": "active",
+        "name": "버스트",
+        "cooldown": 40,
+        "effect": {
+          "type": "damage_area",
+          "damage": 600,
+          "damageType": "physical",
+          "radius": 1.2
+        },
+        "description": "클릭 지점 반경 1.2칸에 물리 피해 600"
+      }
+    ],
+    "appearance": {
+      "color": "#6366f1",
+      "shape": "diamond",
+      "icon": "🗡️"
+    },
+    "description": "[암살자] 패시브: 전체 공격속도 +10% / 액티브: 버스트 (클릭 지점 반경 1.2칸에 물리 피해 600). 유디아 시너지 +1."
+  },
+  {
+    "id": "job-demonic",
+    "name": "데모닉",
+    "synergyRegion": "페이튼",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "완벽한 억제",
+        "type": "atk_pct_all",
+        "value": 10,
+        "description": "전체 물리 공격력 +10%"
+      },
+      {
+        "kind": "active",
+        "name": "멈출 수 없는 충동",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "atk_pct",
+          "value": 60,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 물리 공격력 +60%"
+      }
+    ],
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "diamond",
+      "icon": "😈"
+    },
+    "description": "[암살자] 패시브: 전체 물리 공격력 +10% / 액티브: 멈출 수 없는 충동 (10초간 아군 전체 물리 공격력 +60%). 페이튼 시너지 +1."
+  },
+  {
+    "id": "job-reaper",
+    "name": "리퍼",
+    "synergyRegion": "페이튼",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "갈증",
+        "type": "crit_chance_all",
+        "value": 10,
+        "description": "전체 치명타 확률 +10%p"
+      },
+      {
+        "kind": "active",
+        "name": "달의 소리",
+        "cooldown": 40,
+        "effect": {
+          "type": "damage_area",
+          "damage": 500,
+          "damageType": "physical",
+          "radius": 1.8
+        },
+        "description": "클릭 지점 반경 1.8칸에 물리 피해 500"
+      }
+    ],
+    "appearance": {
+      "color": "#4c1d95",
+      "shape": "diamond",
+      "icon": "💀"
+    },
+    "description": "[암살자] 패시브: 전체 치명타 확률 +10%p / 액티브: 달의 소리 (클릭 지점 반경 1.8칸에 물리 피해 500). 페이튼 시너지 +1."
+  },
+  {
+    "id": "job-souleater",
+    "name": "소울이터",
+    "synergyRegion": "대양",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "그믐의 경계",
+        "type": "gold_per_kill",
+        "value": 1,
+        "description": "처치당 골드 +1"
+      },
+      {
+        "kind": "active",
+        "name": "만월의 집행자",
+        "cooldown": 40,
+        "effect": {
+          "type": "damage_area",
+          "damage": 450,
+          "damageType": "magical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 마법 피해 450"
+      }
+    ],
+    "appearance": {
+      "color": "#312e81",
+      "shape": "diamond",
+      "icon": "🌑"
+    },
+    "description": "[암살자] 패시브: 처치당 골드 +1 / 액티브: 만월의 집행자 (클릭 지점 반경 2칸에 마법 피해 450). 대양 시너지 +1."
+  },
+  {
+    "id": "job-artist",
+    "name": "도화가",
+    "synergyRegion": "아르테미스",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "만개",
+        "type": "mana_regen_pct_all",
+        "value": 20,
+        "description": "전체 마나 회복 +20%"
+      },
+      {
+        "kind": "active",
+        "name": "회귀",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "magic_atk_pct",
+          "value": 50,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 마법 공격력 +50%"
+      }
+    ],
+    "appearance": {
+      "color": "#14b8a6",
+      "shape": "circle",
+      "icon": "🖌️"
+    },
+    "description": "[스페셜리스트] 패시브: 전체 마나 회복 +20% / 액티브: 회귀 (10초간 아군 전체 마법 공격력 +50%). 아르테미스 시너지 +1."
+  },
+  {
+    "id": "job-aeromancer",
+    "name": "기상술사",
+    "synergyRegion": "파푸니카",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "이슬비",
+        "type": "mana_regen_pct_all",
+        "value": 25,
+        "description": "전체 마나 회복 +25%"
+      },
+      {
+        "kind": "active",
+        "name": "질풍노도",
+        "cooldown": 35,
+        "effect": {
+          "type": "buff_all",
+          "stat": "atk_speed_pct",
+          "value": 60,
+          "duration": 10
+        },
+        "description": "10초간 아군 전체 공격속도 +60%"
+      }
+    ],
+    "appearance": {
+      "color": "#06b6d4",
+      "shape": "circle",
+      "icon": "☔"
+    },
+    "description": "[스페셜리스트] 패시브: 전체 마나 회복 +25% / 액티브: 질풍노도 (10초간 아군 전체 공격속도 +60%). 파푸니카 시너지 +1."
+  },
+  {
+    "id": "job-wildsoul",
+    "name": "환수사",
+    "synergyRegion": "토토이크",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "야성",
+        "type": "atk_pct_all",
+        "value": 8,
+        "description": "전체 물리 공격력 +8%"
+      },
+      {
+        "kind": "active",
+        "name": "환수 각성",
+        "cooldown": 35,
+        "effect": {
+          "type": "damage_area",
+          "damage": 420,
+          "damageType": "physical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 물리 피해 420"
+      }
+    ],
+    "appearance": {
+      "color": "#22c55e",
+      "shape": "circle",
+      "icon": "🐻"
+    },
+    "description": "[스페셜리스트] 패시브: 전체 물리 공격력 +8% / 액티브: 환수 각성 (클릭 지점 반경 2칸에 물리 피해 420). 토토이크 시너지 +1."
+  },
+  {
+    "id": "job-dimensionist",
+    "name": "차원술사",
+    "synergyRegion": "유디아",
+    "skills": [
+      {
+        "kind": "passive",
+        "name": "차원 시계",
+        "type": "atk_speed_pct_all",
+        "value": 8,
+        "description": "전체 공격속도 +8%"
+      },
+      {
+        "kind": "active",
+        "name": "시침·분침 결합",
+        "cooldown": 35,
+        "effect": {
+          "type": "damage_area",
+          "damage": 420,
+          "damageType": "magical",
+          "radius": 2
+        },
+        "description": "클릭 지점 반경 2칸에 마법 피해 420"
+      }
+    ],
+    "appearance": {
+      "color": "#0ea5e9",
+      "shape": "circle",
+      "icon": "⏳"
+    },
+    "description": "[스페셜리스트] 패시브: 전체 공격속도 +8% / 액티브: 시침·분침 결합 (클릭 지점 반경 2칸에 마법 피해 420). 유디아 시너지 +1."
   }
 ]

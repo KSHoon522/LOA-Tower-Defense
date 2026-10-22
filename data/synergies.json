@@ -1,39 +1,16 @@
 [
   {
-    "id": "syn-shushire",
-    "region": "슈샤이어",
-    "name": "설원의 냉기",
-    "color": "#38bdf8",
+    "id": "syn-luterra",
+    "region": "루테란",
+    "name": "기사의 나라",
+    "color": "#e2e8f0",
     "tiers": [
-      { "count": 2, "effects": [{ "type": "magic_atk_pct", "value": 15 }] },
-      { "count": 4, "effects": [{ "type": "magic_atk_pct", "value": 35 }, { "type": "mana_regen_pct", "value": 25 }] },
-      { "count": 6, "effects": [{ "type": "magic_atk_pct", "value": 70 }, { "type": "mana_regen_pct", "value": 50 }] }
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 8 }] },
+      { "count": 4, "effects": [{ "type": "atk_pct", "value": 16 }, { "type": "crit_chance", "value": 5 }] },
+      { "count": 6, "effects": [{ "type": "atk_pct", "value": 26 }, { "type": "crit_chance", "value": 8 }] },
+      { "count": 8, "effects": [{ "type": "atk_pct", "value": 40 }, { "type": "crit_chance", "value": 12 }] }
     ],
-    "description": "슈샤이어 캐릭터의 마법 공격력과 마나 회복이 증가합니다."
-  },
-  {
-    "id": "syn-anikka",
-    "region": "애니츠",
-    "name": "무도가의 기백",
-    "color": "#fb7185",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "atk_speed_pct", "value": 12 }] },
-      { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 28 }, { "type": "atk_pct", "value": 15 }] },
-      { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 55 }, { "type": "atk_pct", "value": 30 }] }
-    ],
-    "description": "애니츠 캐릭터의 공격속도가 크게 증가합니다."
-  },
-  {
-    "id": "syn-arthetine",
-    "region": "아르데타인",
-    "name": "정밀 사격",
-    "color": "#fbbf24",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "crit_chance", "value": 10 }] },
-      { "count": 4, "effects": [{ "type": "crit_chance", "value": 20 }, { "type": "crit_damage_pct", "value": 40 }] },
-      { "count": 6, "effects": [{ "type": "crit_chance", "value": 35 }, { "type": "crit_damage_pct", "value": 90 }] }
-    ],
-    "description": "아르데타인 캐릭터의 치명타 확률과 피해가 증가합니다."
+    "description": "기사단의 나라. 물리 공격력이 오르고, 4명부터 치명타 확률이 붙습니다."
   },
   {
     "id": "syn-vern",
@@ -41,112 +18,12 @@
     "name": "왕국의 위엄",
     "color": "#a78bfa",
     "tiers": [
-      { "count": 2, "effects": [{ "type": "atk_pct", "value": 12 }, { "type": "magic_atk_pct", "value": 12 }] },
-      { "count": 4, "effects": [{ "type": "atk_pct", "value": 28 }, { "type": "magic_atk_pct", "value": 28 }] }
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 6 }, { "type": "magic_atk_pct", "value": 6 }] },
+      { "count": 4, "effects": [{ "type": "atk_pct", "value": 12 }, { "type": "magic_atk_pct", "value": 12 }] },
+      { "count": 6, "effects": [{ "type": "atk_pct", "value": 20 }, { "type": "magic_atk_pct", "value": 20 }] },
+      { "count": 8, "effects": [{ "type": "atk_pct", "value": 32 }, { "type": "magic_atk_pct", "value": 32 }] }
     ],
-    "description": "베른 캐릭터의 물리/마법 공격력이 함께 증가합니다."
-  },
-  {
-    "id": "syn-rohendel",
-    "region": "로헨델",
-    "name": "정령의 가호",
-    "color": "#34d399",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 30 }] },
-      { "count": 4, "effects": [{ "type": "mana_regen_pct", "value": 70 }, { "type": "range_add", "value": 1 }] }
-    ],
-    "description": "로헨델 캐릭터의 마나 회복이 증가하고 사거리가 늘어납니다."
-  },
-  {
-    "id": "syn-punika",
-    "region": "파푸니카",
-    "name": "남쪽 섬의 축복",
-    "color": "#f97316",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 1 }] },
-      { "count": 4, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "atk_speed_pct", "value": 15 }] }
-    ],
-    "description": "적 처치 시 추가 골드를 획득합니다."
-  },
-  {
-    "id": "syn-luterra",
-    "region": "루테란",
-    "name": "기사의 나라",
-    "color": "#cbd5e1",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "atk_pct", "value": 10 }] },
-      { "count": 4, "effects": [{ "type": "atk_pct", "value": 22 }, { "type": "crit_chance", "value": 8 }] },
-      { "count": 6, "effects": [{ "type": "atk_pct", "value": 40 }, { "type": "crit_chance", "value": 15 }] }
-    ],
-    "description": "루테란 캐릭터의 물리 공격력과 치명타 확률이 증가합니다."
-  },
-  {
-    "id": "syn-rethramis",
-    "region": "아르테미스",
-    "name": "레온하트의 가호",
-    "color": "#e879f9",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 20 }] },
-      { "count": 4, "effects": [{ "type": "mana_regen_pct", "value": 45 }, { "type": "magic_atk_pct", "value": 15 }] }
-    ],
-    "description": "아르테미스 캐릭터의 마나 회복과 마법 공격력이 증가합니다."
-  },
-  {
-    "id": "syn-yudia",
-    "region": "유디아",
-    "name": "소금사막의 지혜",
-    "color": "#d4a373",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 1 }, { "type": "magic_atk_pct", "value": 10 }] }
-    ],
-    "description": "적 처치 시 추가 골드를 얻고 마법 공격력이 증가합니다."
-  },
-  {
-    "id": "syn-tortoyk",
-    "region": "토토이크",
-    "name": "모코코의 생명력",
-    "color": "#84cc16",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "atk_speed_pct", "value": 10 }] },
-      { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 22 }, { "type": "gold_per_kill", "value": 1 }] },
-      { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 40 }, { "type": "gold_per_kill", "value": 2 }] }
-    ],
-    "description": "토토이크 캐릭터의 공격속도가 증가하고 처치 골드를 더 얻습니다."
-  },
-  {
-    "id": "syn-yorn",
-    "region": "욘",
-    "name": "우마르의 대장간",
-    "color": "#b45309",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "atk_pct", "value": 12 }] },
-      { "count": 4, "effects": [{ "type": "atk_pct", "value": 25 }, { "type": "crit_damage_pct", "value": 20 }] },
-      { "count": 6, "effects": [{ "type": "atk_pct", "value": 45 }, { "type": "crit_damage_pct", "value": 50 }] }
-    ],
-    "description": "욘 캐릭터의 물리 공격력과 치명타 피해가 증가합니다."
-  },
-  {
-    "id": "syn-feiton",
-    "region": "페이튼",
-    "name": "아베스타의 그림자",
-    "color": "#94a3b8",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "crit_chance", "value": 8 }] },
-      { "count": 4, "effects": [{ "type": "crit_chance", "value": 16 }, { "type": "crit_damage_pct", "value": 30 }] },
-      { "count": 6, "effects": [{ "type": "crit_chance", "value": 28 }, { "type": "crit_damage_pct", "value": 70 }] }
-    ],
-    "description": "페이튼 캐릭터의 치명타 확률과 피해가 증가합니다."
-  },
-  {
-    "id": "syn-elgacia",
-    "region": "엘가시아",
-    "name": "라제니스의 축복",
-    "color": "#fde68a",
-    "tiers": [
-      { "count": 2, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "magic_atk_pct", "value": 10 }] },
-      { "count": 3, "effects": [{ "type": "range_add", "value": 1 }, { "type": "magic_atk_pct", "value": 20 }, { "type": "atk_pct", "value": 20 }] }
-    ],
-    "description": "엘가시아 캐릭터의 사거리와 공격력이 증가합니다."
+    "description": "물리/마법 공격력이 함께 오릅니다. 어떤 조합에도 무난합니다."
   },
   {
     "id": "syn-ocean",
@@ -155,9 +32,139 @@
     "color": "#2dd4bf",
     "tiers": [
       { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 1 }] },
-      { "count": 4, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "mana_regen_pct", "value": 20 }] },
-      { "count": 6, "effects": [{ "type": "gold_per_kill", "value": 3 }, { "type": "mana_regen_pct", "value": 40 }, { "type": "atk_speed_pct", "value": 15 }] }
+      { "count": 4, "effects": [{ "type": "gold_per_kill", "value": 1 }, { "type": "crit_chance", "value": 6 }] },
+      { "count": 6, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "crit_chance", "value": 10 }] },
+      { "count": 8, "effects": [{ "type": "gold_per_kill", "value": 3 }, { "type": "crit_chance", "value": 15 }] }
     ],
-    "description": "적 처치 시 추가 골드를 얻고, 단계가 오르면 마나 회복과 공격속도가 증가합니다."
+    "description": "적 처치 골드가 늘고, 4명부터 치명타 확률이 오릅니다."
+  },
+  {
+    "id": "syn-anikka",
+    "region": "애니츠",
+    "name": "무도가의 기백",
+    "color": "#fb7185",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_speed_pct", "value": 10 }] },
+      { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 20 }, { "type": "atk_pct", "value": 8 }] },
+      { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 32 }, { "type": "atk_pct", "value": 15 }] },
+      { "count": 8, "effects": [{ "type": "atk_speed_pct", "value": 50 }, { "type": "atk_pct", "value": 25 }] }
+    ],
+    "description": "공격속도가 크게 오르고, 4명부터 물리 공격력도 오릅니다."
+  },
+  {
+    "id": "syn-rohendel",
+    "region": "로헨델",
+    "name": "정령의 가호",
+    "color": "#4ade80",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "magic_atk_pct", "value": 12 }, { "type": "mana_regen_pct", "value": 15 }] },
+      { "count": 4, "effects": [{ "type": "magic_atk_pct", "value": 25 }, { "type": "mana_regen_pct", "value": 30 }] },
+      { "count": 6, "effects": [{ "type": "magic_atk_pct", "value": 45 }, { "type": "mana_regen_pct", "value": 50 }, { "type": "range_add", "value": 0.5 }] }
+    ],
+    "description": "마법 공격력과 마나 회복이 오르고, 6명이면 사거리도 늘어납니다."
+  },
+  {
+    "id": "syn-yorn",
+    "region": "욘",
+    "name": "우마르의 대장간",
+    "color": "#c08457",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 12 }] },
+      { "count": 4, "effects": [{ "type": "atk_pct", "value": 25 }, { "type": "crit_damage_pct", "value": 20 }] },
+      { "count": 6, "effects": [{ "type": "atk_pct", "value": 45 }, { "type": "crit_damage_pct", "value": 45 }] }
+    ],
+    "description": "물리 공격력이 크게 오르고, 4명부터 치명타 피해가 붙습니다."
+  },
+  {
+    "id": "syn-punika",
+    "region": "파푸니카",
+    "name": "남쪽 섬의 축제",
+    "color": "#fb923c",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_speed_pct", "value": 10 }, { "type": "mana_regen_pct", "value": 15 }] },
+      { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 20 }, { "type": "mana_regen_pct", "value": 30 }] },
+      { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 35 }, { "type": "mana_regen_pct", "value": 50 }] }
+    ],
+    "description": "공격속도와 마나 회복이 함께 올라 스킬을 자주 씁니다."
+  },
+  {
+    "id": "syn-tortoyk",
+    "region": "토토이크",
+    "name": "모코코의 생명력",
+    "color": "#a3e635",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 1 }] },
+      { "count": 4, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "atk_speed_pct", "value": 10 }] },
+      { "count": 6, "effects": [{ "type": "gold_per_kill", "value": 3 }, { "type": "atk_speed_pct", "value": 20 }] }
+    ],
+    "description": "적 처치 골드가 늘고, 4명부터 공격속도가 오릅니다."
+  },
+  {
+    "id": "syn-feiton",
+    "region": "페이튼",
+    "name": "아베스타의 그림자",
+    "color": "#818cf8",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "crit_chance", "value": 8 }, { "type": "crit_damage_pct", "value": 15 }] },
+      { "count": 4, "effects": [{ "type": "crit_chance", "value": 15 }, { "type": "crit_damage_pct", "value": 35 }] },
+      { "count": 6, "effects": [{ "type": "crit_chance", "value": 25 }, { "type": "crit_damage_pct", "value": 70 }] }
+    ],
+    "description": "치명타 확률과 치명타 피해가 함께 오릅니다."
+  },
+  {
+    "id": "syn-arthetine",
+    "region": "아르데타인",
+    "name": "정밀 사격",
+    "color": "#fbbf24",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "range_add", "value": 0.5 }] },
+      { "count": 4, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "crit_chance", "value": 10 }] },
+      { "count": 6, "effects": [{ "type": "range_add", "value": 1 }, { "type": "crit_chance", "value": 20 }, { "type": "crit_damage_pct", "value": 30 }] }
+    ],
+    "description": "사거리가 늘고, 4명부터 치명타 확률이 오릅니다."
+  },
+  {
+    "id": "syn-shushire",
+    "region": "슈샤이어",
+    "name": "설원의 냉기",
+    "color": "#38bdf8",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 10 }, { "type": "magic_atk_pct", "value": 10 }] },
+      { "count": 3, "effects": [{ "type": "atk_pct", "value": 20 }, { "type": "magic_atk_pct", "value": 20 }, { "type": "crit_damage_pct", "value": 15 }] },
+      { "count": 5, "effects": [{ "type": "atk_pct", "value": 40 }, { "type": "magic_atk_pct", "value": 40 }, { "type": "crit_damage_pct", "value": 40 }] }
+    ],
+    "description": "인원이 적은 대신 3명부터 물리/마법 공격력과 치명타 피해가 크게 오릅니다."
+  },
+  {
+    "id": "syn-rethramis",
+    "region": "아르테미스",
+    "name": "레온하트의 가호",
+    "color": "#f472b6",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 25 }, { "type": "magic_atk_pct", "value": 10 }] },
+      { "count": 4, "effects": [{ "type": "mana_regen_pct", "value": 60 }, { "type": "magic_atk_pct", "value": 30 }] }
+    ],
+    "description": "마나 회복과 마법 공격력이 오릅니다."
+  },
+  {
+    "id": "syn-elgacia",
+    "region": "엘가시아",
+    "name": "라제니스의 축복",
+    "color": "#fde68a",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "atk_pct", "value": 10 }, { "type": "magic_atk_pct", "value": 10 }] },
+      { "count": 3, "effects": [{ "type": "range_add", "value": 1 }, { "type": "atk_pct", "value": 25 }, { "type": "magic_atk_pct", "value": 25 }] }
+    ],
+    "description": "사거리와 물리/마법 공격력이 함께 오릅니다."
+  },
+  {
+    "id": "syn-yudia",
+    "region": "유디아",
+    "name": "소금사막의 지혜",
+    "color": "#e7c9a9",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "gold_per_kill", "value": 2 }, { "type": "atk_pct", "value": 15 }, { "type": "magic_atk_pct", "value": 15 }] }
+    ],
+    "description": "2명만 모아도 처치 골드와 물리/마법 공격력이 크게 오릅니다."
   }
 ]

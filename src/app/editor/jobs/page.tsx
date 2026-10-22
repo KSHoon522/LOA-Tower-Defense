@@ -29,6 +29,8 @@ const PASSIVE_TYPES: { value: JobPassiveType; label: string }[] = [
   { value: "atk_pct_all", label: "전체 물리 공격력 %" },
   { value: "magic_atk_pct_all", label: "전체 마법 공격력 %" },
   { value: "atk_speed_pct_all", label: "전체 공격속도 %" },
+  { value: "crit_damage_pct_all", label: "전체 치명타 피해 +%p" },
+  { value: "mana_regen_pct_all", label: "전체 마나 회복 %" },
   { value: "gold_per_kill", label: "처치당 골드 +" },
   { value: "fusion_jackpot_pct", label: "합성 대성공 확률 +%p" },
 ];
@@ -44,6 +46,7 @@ const BUFF_STATS: { value: JobBuffStat; label: string }[] = [
   { value: "magic_atk_pct", label: "마법 공격력 %" },
   { value: "atk_speed_pct", label: "공격속도 %" },
   { value: "crit_chance", label: "치명타 확률 %p" },
+  { value: "crit_damage_pct", label: "치명타 피해 %p" },
 ];
 
 function blankPassive(): JobPassiveSkill {

@@ -178,6 +178,8 @@ const jobSkillSchema = z.discriminatedUnion("kind", [
       "atk_pct_all",
       "magic_atk_pct_all",
       "atk_speed_pct_all",
+      "crit_damage_pct_all",
+      "mana_regen_pct_all",
       "gold_per_kill",
       "fusion_jackpot_pct",
     ]),
@@ -191,7 +193,7 @@ const jobSkillSchema = z.discriminatedUnion("kind", [
     effect: z.discriminatedUnion("type", [
       z.object({
         type: z.literal("buff_all"),
-        stat: z.enum(["atk_pct", "magic_atk_pct", "atk_speed_pct", "crit_chance"]),
+        stat: z.enum(["atk_pct", "magic_atk_pct", "atk_speed_pct", "crit_chance", "crit_damage_pct"]),
         value: num,
         duration: positive,
       }),

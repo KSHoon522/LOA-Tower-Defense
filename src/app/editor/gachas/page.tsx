@@ -16,7 +16,7 @@ function blank(): GachaDef {
     id: "",
     name: "",
     cost: 20,
-    rates: { common: 40, uncommon: 30, rare: 18, hero: 9, legendary: 2.5, esther: 0.5 },
+    rates: { common: 40, uncommon: 30, rare: 18, hero: 9, legendary: 3 },
     regionMode: "any",
     fixedRegion: "",
     description: "",

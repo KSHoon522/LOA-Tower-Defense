@@ -497,9 +497,10 @@ export class GameEngine {
 
     this.gold -= cost;
     this.bench.push(this.createTowerUnit(def.id));
-    this.log(`[뽑기] ${def.name} 획득!`, def.grade === "esther" ? "#22d3ee" : undefined);
-    if (def.grade === "esther") this.log("★★★ 에스더 등급! ★★★", "#22d3ee");
-    this.emit(def.grade === "esther" ? "gacha_esther" : "gacha");
+    const top = def.grade === "legendary";
+    this.log(`[뽑기] ${def.name} 획득!`, top ? "#fb923c" : undefined);
+    if (top) this.log("★★★ 전설 등급! ★★★", "#fb923c");
+    this.emit(top ? "gacha_legendary" : "gacha");
     this.bump();
     return def;
   }

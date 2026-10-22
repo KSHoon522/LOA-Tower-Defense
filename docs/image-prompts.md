@@ -56,14 +56,14 @@ game asset, centered, full body
 
 > 팁: 카봇 스타일은 디테일을 단순화하므로, 5번 "실루엣 요소" 하나를 반드시 넣어야 캐릭터가 구분됩니다.
 
-### 예시 — 웨이 (애니츠, 에스더)
+### 예시 — 웨이 (애니츠, 전설)
 
 ```
 [공통 스타일],
 martial artist with dark brown medium hair and a red headband, short beard,
 cream-colored oriental gi with fur collar and a red scarf, leather bracers,
 bare-handed fighting stance, translucent purple lion-demon spirit rising behind him,
-divine cyan-white glow, floating relics, godlike presence, particle sparkles,
+radiant golden-orange aura, legendary weapon, epic silhouette,
 idle pose, standing on small circular base, front-facing 3/4 view
 --no realistic, photorealistic, 3d render, gradient shading, text, watermark, extra limbs
 ```
@@ -89,7 +89,6 @@ huge imposing boss monster, screen-filling presence, dramatic lighting accents, 
 | 희귀 | polished equipment, blue magical glow accents |
 | 영웅 | ornate armor or robes, purple aura, heroic pose |
 | 전설 | radiant golden-orange aura, legendary weapon, epic silhouette |
-| 에스더 | divine cyan-white glow, floating relics, godlike presence, particle sparkles |
 
 | 출력 형식 | 추가 키워드 |
 |-----------|-------------|

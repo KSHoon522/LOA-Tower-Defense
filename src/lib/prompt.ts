@@ -21,7 +21,6 @@ export const GRADE_KEYWORDS: Record<Grade, string> = {
   rare: "polished equipment, blue magical glow accents",
   hero: "ornate armor or robes, purple aura, heroic pose",
   legendary: "radiant golden-orange aura, legendary weapon, epic silhouette",
-  esther: "divine cyan-white glow, floating relics, godlike presence, particle sparkles",
 };
 
 export type PromptKind = "portrait" | "sheet" | "enemy" | "boss";

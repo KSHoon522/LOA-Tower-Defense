@@ -64,7 +64,7 @@ describe("데이터 검증", () => {
   });
 
   it("뽑고 바로 팔아도 이득인 뽑기는 경고한다", () => {
-    const g = { id: "g", name: "g", cost: 10, rates: { esther: 100 }, regionMode: "any" as const };
+    const g = { id: "g", name: "g", cost: 10, rates: { legendary: 100 }, regionMode: "any" as const };
     expect(gachaRefundExpectation(g.rates)).toBeGreaterThan(g.cost);
     const issues = validateItem("gachas", g, data);
     expect(hasErrors(issues)).toBe(false);

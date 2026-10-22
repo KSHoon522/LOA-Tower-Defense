@@ -640,8 +640,8 @@
     "id": "tw-c3200412",
     "name": "키에사",
     "grade": "common",
-    "atk": 13,
-    "magicAtk": 5,
+    "atk": 15,
+    "magicAtk": 0,
     "attackSpeed": 1.1,
     "range": 3.4,
     "maxMana": 60,
@@ -847,8 +847,8 @@
     "id": "tw-c3200193",
     "name": "아자란",
     "grade": "uncommon",
-    "atk": 22,
-    "magicAtk": 8,
+    "atk": 27,
+    "magicAtk": 0,
     "attackSpeed": 1.1,
     "range": 3.4,
     "maxMana": 60,
@@ -2561,8 +2561,8 @@
     "id": "tw-c3200148",
     "name": "페일린",
     "grade": "rare",
-    "atk": 40,
-    "magicAtk": 15,
+    "atk": 48,
+    "magicAtk": 0,
     "attackSpeed": 1.1,
     "range": 3.4,
     "maxMana": 60,
@@ -2740,8 +2740,8 @@
     "id": "tw-c3200165",
     "name": "피에르",
     "grade": "rare",
-    "atk": 35,
-    "magicAtk": 25,
+    "atk": 45,
+    "magicAtk": 0,
     "attackSpeed": 1,
     "range": 3.2,
     "maxMana": 70,
@@ -3371,8 +3371,8 @@
     "id": "tw-c3200033",
     "name": "바스티안",
     "grade": "hero",
-    "atk": 63,
-    "magicAtk": 45,
+    "atk": 81,
+    "magicAtk": 0,
     "attackSpeed": 1,
     "range": 3.2,
     "maxMana": 70,
@@ -3431,8 +3431,8 @@
     "id": "tw-c3200036",
     "name": "마리 파우렌츠",
     "grade": "hero",
-    "atk": 63,
-    "magicAtk": 45,
+    "atk": 81,
+    "magicAtk": 0,
     "attackSpeed": 1,
     "range": 3.2,
     "maxMana": 70,
@@ -4052,6 +4052,127 @@
     "artRef": "young priest with short tousled silver-white hair, deep blue hooded cloak with high upturned collar and gold-trimmed shoulder patches, ornate silver winged filigree breastplate set with glowing blue gems, dark brown leather tunic, drifting teal light motes"
   },
   {
+    "id": "tw-c3200001",
+    "name": "실리안",
+    "grade": "legendary",
+    "atk": 180,
+    "magicAtk": 0,
+    "attackSpeed": 1,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "필살 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 350,
+      "description": "단일 대상에게 공격력 350% 피해"
+    },
+    "appearance": {
+      "color": "#cbd5e1",
+      "shape": "square",
+      "icon": "⚔️"
+    },
+    "description": "루테란의 왕자. 강직하고 올곧은 성품을 지니고 있다.",
+    "regions": [
+      "루테란"
+    ],
+    "artRef": "young knight prince with wavy medium-length blond hair, silver plate armor on one shoulder and arm, white cloth draped over his shoulders, red high-collared coat and long red tabard, brown leather vest with chains, black gloves, ornate silver longsword with dark winged crossguard"
+  },
+  {
+    "id": "tw-c3200004",
+    "name": "샨디",
+    "grade": "legendary",
+    "atk": 0,
+    "magicAtk": 180,
+    "attackSpeed": 0.8,
+    "range": 3,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 240,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 240% 피해"
+    },
+    "appearance": {
+      "color": "#2dd4bf",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "7인의 에스더 중 한 명. 자유분방한 성격으로, 제자와 함께 세상을 유랑하고 있다.",
+    "regions": [
+      "대양"
+    ],
+    "artRef": "ageless sage with a youthful face and spiky silver-white hair, curved golden crescent crown sweeping out like horns, white ruffled collar, black buttoned tunic with yellow waist sash, long grey travel coat with orange-red lining and round emblem on the sleeve"
+  },
+  {
+    "id": "tw-c3200005",
+    "name": "진저웨일",
+    "grade": "legendary",
+    "atk": 135,
+    "magicAtk": 0,
+    "attackSpeed": 1.4,
+    "range": 2,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "연환격",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 70,
+      "description": "3초간 자신의 공격속도 +70%"
+    },
+    "appearance": {
+      "color": "#2dd4bf",
+      "shape": "triangle",
+      "icon": "👊"
+    },
+    "description": "에스더 샨디의 제자. 장난스럽고 까불거리는 성격이다. 샨디와 함께 대륙을 유랑하며 에스더의 후계자 수업을 받고 있다.",
+    "regions": [
+      "대양"
+    ],
+    "artRef": "mischievous young martial artist with spiky brown hair, red headband with white cloth tails, wide grin, cream scarf wrapped around his neck, pale yellow shirt with leaf-shaped pendant, open grey coat with orange lining, red striped waist sash, bandaged wrists, swirling green leaves"
+  },
+  {
+    "id": "tw-c3200008",
+    "name": "웨이",
+    "grade": "legendary",
+    "atk": 135,
+    "magicAtk": 0,
+    "attackSpeed": 1.4,
+    "range": 2,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "연환격",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 70,
+      "description": "3초간 자신의 공격속도 +70%"
+    },
+    "appearance": {
+      "color": "#fb7185",
+      "shape": "triangle",
+      "icon": "👊"
+    },
+    "description": "에스더의 이름을 이어받은 무인. 스승을 죽인 불사귀 도철을 제압하여, 세상을 구하기 위해 나선다.",
+    "regions": [
+      "애니츠"
+    ],
+    "artRef": "stern bearded martial warrior with long flowing black hair, red-and-white patterned headband, white cloth mantle over his shoulders, crimson high collar, grey scale armor with red trim, black bracer gripping a dark curved claw blade"
+  },
+  {
     "id": "tw-c3200014",
     "name": "베아트리스",
     "grade": "legendary",
@@ -4082,134 +4203,13 @@
     "artRef": "serene observer woman with long wavy honey-blonde hair and bangs, golden feather-wing hair ornament with a green gem, long white silk gown with plunging neckline, dark brown high-collared mantle with gold embroidered shoulder panel, black ribbon at the chest, drifting golden mist"
   },
   {
-    "id": "tw-c3200001",
-    "name": "실리안",
-    "grade": "esther",
-    "atk": 300,
-    "magicAtk": 0,
-    "attackSpeed": 1,
-    "range": 2.7,
-    "maxMana": 60,
-    "manaRegen": 5,
-    "manaOnHit": 10,
-    "skill": {
-      "name": "필살 일격",
-      "type": "nuke",
-      "damageType": "physical",
-      "power": 420,
-      "description": "단일 대상에게 공격력 420% 피해"
-    },
-    "appearance": {
-      "color": "#cbd5e1",
-      "shape": "square",
-      "icon": "⚔️"
-    },
-    "description": "루테란의 왕자. 강직하고 올곧은 성품을 지니고 있다.",
-    "regions": [
-      "루테란"
-    ],
-    "artRef": "young knight prince with wavy medium-length blond hair, silver plate armor on one shoulder and arm, white cloth draped over his shoulders, red high-collared coat and long red tabard, brown leather vest with chains, black gloves, ornate silver longsword with dark winged crossguard"
-  },
-  {
-    "id": "tw-c3200004",
-    "name": "샨디",
-    "grade": "esther",
-    "atk": 0,
-    "magicAtk": 300,
-    "attackSpeed": 0.8,
-    "range": 3.5,
-    "maxMana": 80,
-    "manaRegen": 8,
-    "manaOnHit": 10,
-    "skill": {
-      "name": "마력 폭발",
-      "type": "aoe",
-      "damageType": "magical",
-      "power": 290,
-      "radius": 1.6,
-      "description": "반경 1.6칸에 마법 공격력 290% 피해"
-    },
-    "appearance": {
-      "color": "#2dd4bf",
-      "shape": "star",
-      "icon": "🔮"
-    },
-    "description": "7인의 에스더 중 한 명. 자유분방한 성격으로, 제자와 함께 세상을 유랑하고 있다.",
-    "regions": [
-      "대양"
-    ],
-    "artRef": "ageless sage with a youthful face and spiky silver-white hair, curved golden crescent crown sweeping out like horns, white ruffled collar, black buttoned tunic with yellow waist sash, long grey travel coat with orange-red lining and round emblem on the sleeve"
-  },
-  {
-    "id": "tw-c3200005",
-    "name": "진저웨일",
-    "grade": "esther",
-    "atk": 225,
-    "magicAtk": 0,
-    "attackSpeed": 1.4,
-    "range": 2.5,
-    "maxMana": 50,
-    "manaRegen": 5,
-    "manaOnHit": 8,
-    "skill": {
-      "name": "연환격",
-      "type": "buff_atkspeed",
-      "damageType": "physical",
-      "power": 0,
-      "duration": 3,
-      "buffPct": 70,
-      "description": "3초간 자신의 공격속도 +70%"
-    },
-    "appearance": {
-      "color": "#2dd4bf",
-      "shape": "triangle",
-      "icon": "👊"
-    },
-    "description": "에스더 샨디의 제자. 장난스럽고 까불거리는 성격이다. 샨디와 함께 대륙을 유랑하며 에스더의 후계자 수업을 받고 있다.",
-    "regions": [
-      "대양"
-    ],
-    "artRef": "mischievous young martial artist with spiky brown hair, red headband with white cloth tails, wide grin, cream scarf wrapped around his neck, pale yellow shirt with leaf-shaped pendant, open grey coat with orange lining, red striped waist sash, bandaged wrists, swirling green leaves"
-  },
-  {
-    "id": "tw-c3200008",
-    "name": "웨이",
-    "grade": "esther",
-    "atk": 225,
-    "magicAtk": 0,
-    "attackSpeed": 1.4,
-    "range": 2.5,
-    "maxMana": 50,
-    "manaRegen": 5,
-    "manaOnHit": 8,
-    "skill": {
-      "name": "연환격",
-      "type": "buff_atkspeed",
-      "damageType": "physical",
-      "power": 0,
-      "duration": 3,
-      "buffPct": 70,
-      "description": "3초간 자신의 공격속도 +70%"
-    },
-    "appearance": {
-      "color": "#fb7185",
-      "shape": "triangle",
-      "icon": "👊"
-    },
-    "description": "에스더의 이름을 이어받은 무인. 스승을 죽인 불사귀 도철을 제압하여, 세상을 구하기 위해 나선다.",
-    "regions": [
-      "애니츠"
-    ],
-    "artRef": "stern bearded martial warrior with long flowing black hair, red-and-white patterned headband, white cloth mantle over his shoulders, crimson high collar, grey scale armor with red trim, black bracer gripping a dark curved claw blade"
-  },
-  {
     "id": "tw-c3200015",
     "name": "아제나&이난나",
-    "grade": "esther",
+    "grade": "legendary",
     "atk": 0,
-    "magicAtk": 300,
+    "magicAtk": 180,
     "attackSpeed": 0.8,
-    "range": 3.5,
+    "range": 3,
     "maxMana": 80,
     "manaRegen": 8,
     "manaOnHit": 10,
@@ -4217,9 +4217,9 @@
       "name": "마력 폭발",
       "type": "aoe",
       "damageType": "magical",
-      "power": 290,
+      "power": 240,
       "radius": 1.6,
-      "description": "반경 1.6칸에 마법 공격력 290% 피해"
+      "description": "반경 1.6칸에 마법 공격력 240% 피해"
     },
     "appearance": {
       "color": "#34d399",
@@ -4235,11 +4235,11 @@
   {
     "id": "tw-c3200016",
     "name": "바훈투르",
-    "grade": "esther",
-    "atk": 345,
+    "grade": "legendary",
+    "atk": 207,
     "magicAtk": 0,
     "attackSpeed": 0.8,
-    "range": 2.6,
+    "range": 2.1,
     "maxMana": 70,
     "manaRegen": 5,
     "manaOnHit": 12,
@@ -4247,9 +4247,9 @@
       "name": "분쇄 강타",
       "type": "stun",
       "damageType": "physical",
-      "power": 320,
+      "power": 270,
       "duration": 1.2,
-      "description": "대상에게 공격력 320% 피해 + 1.2초 기절"
+      "description": "대상에게 공격력 270% 피해 + 1.2초 기절"
     },
     "appearance": {
       "color": "#b45309",
@@ -4265,11 +4265,11 @@
   {
     "id": "tw-c3200019",
     "name": "에스더 시엔",
-    "grade": "esther",
-    "atk": 225,
+    "grade": "legendary",
+    "atk": 135,
     "magicAtk": 0,
     "attackSpeed": 1.4,
-    "range": 2.5,
+    "range": 2,
     "maxMana": 50,
     "manaRegen": 5,
     "manaOnHit": 8,
@@ -4296,11 +4296,11 @@
   {
     "id": "tw-c3200020",
     "name": "에스더 갈라투르",
-    "grade": "esther",
-    "atk": 345,
+    "grade": "legendary",
+    "atk": 207,
     "magicAtk": 0,
     "attackSpeed": 0.8,
-    "range": 2.6,
+    "range": 2.1,
     "maxMana": 70,
     "manaRegen": 5,
     "manaOnHit": 12,
@@ -4308,9 +4308,9 @@
       "name": "분쇄 강타",
       "type": "stun",
       "damageType": "physical",
-      "power": 320,
+      "power": 270,
       "duration": 1.2,
-      "description": "대상에게 공격력 320% 피해 + 1.2초 기절"
+      "description": "대상에게 공격력 270% 피해 + 1.2초 기절"
     },
     "appearance": {
       "color": "#b45309",
@@ -4326,11 +4326,11 @@
   {
     "id": "tw-c3200021",
     "name": "니나브",
-    "grade": "esther",
-    "atk": 240,
-    "magicAtk": 90,
+    "grade": "legendary",
+    "atk": 171,
+    "magicAtk": 0,
     "attackSpeed": 1.1,
-    "range": 3.9,
+    "range": 3.4,
     "maxMana": 60,
     "manaRegen": 5,
     "manaOnHit": 10,
@@ -4338,8 +4338,8 @@
       "name": "강습 화살",
       "type": "nuke",
       "damageType": "physical",
-      "power": 510,
-      "description": "단일 대상에게 공격력 510% 피해"
+      "power": 430,
+      "description": "단일 대상에게 공격력 430% 피해"
     },
     "appearance": {
       "color": "#fde68a",
@@ -4355,11 +4355,11 @@
   {
     "id": "tw-c3200022",
     "name": "카단",
-    "grade": "esther",
-    "atk": 300,
+    "grade": "legendary",
+    "atk": 180,
     "magicAtk": 0,
     "attackSpeed": 1,
-    "range": 2.7,
+    "range": 2.2,
     "maxMana": 60,
     "manaRegen": 5,
     "manaOnHit": 10,
@@ -4367,8 +4367,8 @@
       "name": "필살 일격",
       "type": "nuke",
       "damageType": "physical",
-      "power": 420,
-      "description": "단일 대상에게 공격력 420% 피해"
+      "power": 350,
+      "description": "단일 대상에게 공격력 350% 피해"
     },
     "appearance": {
       "color": "#a78bfa",
@@ -4384,9 +4384,9 @@
   {
     "id": "tw-esther-luteran",
     "name": "에스더 루테란",
-    "grade": "esther",
-    "atk": 320,
-    "magicAtk": 320,
+    "grade": "legendary",
+    "atk": 190,
+    "magicAtk": 190,
     "attackSpeed": 1.6,
     "range": 4,
     "maxMana": 110,
@@ -4396,9 +4396,9 @@
       "name": "성검 해방",
       "type": "aoe",
       "damageType": "physical",
-      "power": 500,
+      "power": 300,
       "radius": 3,
-      "description": "성검의 힘으로 초광역 500% 피해"
+      "description": "성검의 힘으로 초광역 300% 피해"
     },
     "appearance": {
       "color": "#22d3ee",
@@ -4434,7 +4434,7 @@
         }
       }
     },
-    "description": "전설 속의 에스더. 뽑기로만 매우 낮은 확률로 등장한다.",
+    "description": "전설 속의 에스더. 성검의 힘으로 전장을 휩쓴다.",
     "regions": [
       "루테란"
     ],

@@ -10,7 +10,6 @@ export const GRADE_ORDER: Grade[] = [
   "rare",
   "hero",
   "legendary",
-  "esther",
 ];
 
 export const GRADE_LABEL: Record<Grade, string> = {
@@ -19,7 +18,6 @@ export const GRADE_LABEL: Record<Grade, string> = {
   rare: "희귀",
   hero: "영웅",
   legendary: "전설",
-  esther: "에스더",
 };
 
 export const GRADE_COLOR: Record<Grade, string> = {
@@ -28,7 +26,6 @@ export const GRADE_COLOR: Record<Grade, string> = {
   rare: "#38bdf8",
   hero: "#c084fc",
   legendary: "#fb923c",
-  esther: "#22d3ee",
 };
 
 /** 합성으로 도달 가능한 최대 등급 */
@@ -163,7 +160,7 @@ export function describeMissionCondition(c: MissionCondition): string {
 }
 
 /**
- * 타워 판매 환급률 (%) — 판매가 = SELL_BASE_GOLD × 2^등급 × 환급률 (일반 5G … 에스더 160G)
+ * 타워 판매 환급률 (%) — 판매가 = SELL_BASE_GOLD × 2^등급 × 환급률 (일반 5G … 전설 80G)
  * 뽑기 1회의 판매 환급 기대값이 뽑기 비용보다 크면 뽑기→판매 반복으로 골드가 무한히 늘어나므로
  * 올릴 때는 에디터의 데이터 점검 경고를 확인할 것 (기본 뽑기 20G 기준 약 32% 미만이어야 안전)
  */

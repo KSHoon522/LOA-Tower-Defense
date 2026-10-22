@@ -8,8 +8,7 @@
       "uncommon": 29.5,
       "rare": 18,
       "hero": 9,
-      "legendary": 3,
-      "esther": 0.5
+      "legendary": 3.5
     },
     "regionMode": "any",
     "description": "모든 등급이 나올 수 있는 기본 뽑기. 에스더는 0.5%로 매우 낮음."
@@ -21,8 +20,7 @@
     "rates": {
       "rare": 60,
       "hero": 30,
-      "legendary": 9.7,
-      "esther": 0.3
+      "legendary": 10
     },
     "regionMode": "any",
     "description": "희귀 등급 이상만 등장하는 고급 뽑기."
@@ -36,8 +34,7 @@
       "uncommon": 29.5,
       "rare": 18,
       "hero": 9,
-      "legendary": 3,
-      "esther": 0.5
+      "legendary": 3.5
     },
     "regionMode": "select",
     "description": "원하는 지역의 캐릭터만 등장. 시너지 맞추기에 유용."
@@ -51,8 +48,7 @@
       "uncommon": 0,
       "rare": 0,
       "hero": 0,
-      "legendary": 0,
-      "esther": 100
+      "legendary": 100
     },
     "regionMode": "any",
     "fixedRegion": "",

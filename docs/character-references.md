@@ -16,19 +16,19 @@
 
 ---
 
-## 에스더 (아군 최상위 — 에스더 등급 후보)
+## 에스더 (아군 최상위 — 전설 등급)
 
 ### 루테란 Luterra
 - 루테란 왕국 건국왕, 에스더의 리더. 아서왕 모티프. 젊은 시절 은색 갑옷의 미남, 첫 등장은 백발 노인 영혼.
 - 무기: 패자의 검 (부러진 검, 황금빛 투기의 날). 상징색: 은·금·흰
-- **[아군 · 에스더 · 물리]** 전방 관통 황금 검기
+- **[아군 · 전설 · 물리]** 전방 관통 황금 검기
 - PROMPT: `young golden-haired knight king in polished silver plate armor with a white cape, wielding a broken longsword that projects a golden energy blade, eagle crest, radiant royal aura`
 - 변형(노년 영혼): `translucent ghostly old king with long white hair and beard, hooded, sword wrapped in bandages, faint golden glow`
 
 ### 카단 Kadan
 - 최강의 에스더, "검은 기사". 은색 장발·창백한 인상(세피로스 오마주), 가죽 코트, 해골 장식 다수. 푸른 불꽃, 전력 시 전신이 푸르게 빛남. 검 나히니르(가드에 붉은 눈 해골).
 - 상징색: 은·청·검정
-- **[아군 · 에스더 · 물리+마법]** 푸른 불꽃 검격, 보스 특효
+- **[아군 · 전설 · 물리+마법]** 푸른 불꽃 검격, 보스 특효
 - PROMPT: `pale swordsman with long silver hair and cold eyes, black leather coat adorned with small skull ornaments, dark longsword with a skull-shaped guard whose eyes glow red, blue flames wreathing the blade`
 
 ### 아제나 / 이난나 Azena / Inanna
@@ -36,14 +36,14 @@
 - 카드 일러스트('아제나&이난나', '빛을 맞이하는 아제나') 기준
   - 아제나: 창백한 피부, 청록 브릿지가 섞인 청흑색 장발, 검은 곡선 뿔이 달린 화려한 금관(보라 보석), 남색·보라 드레스 + 검은 깃털 망토
   - 이난나: 옅은 금빛 머리, 초록 보석의 금빛 사슴뿔 관, 상아색·금색 드레스, 눈을 감은 온화한 표정
-- **[아군 · 에스더 · 마법]** 광역 창 폭격 / 이난나 모드 아군 정화
+- **[아군 · 전설 · 마법]** 광역 창 폭격 / 이난나 모드 아군 정화
 - PROMPT: `elegant elf queen with pale skin and long blue-black hair streaked with cyan, ornate gold crown with sweeping black curved horns and a violet gem, dark navy and violet gown under a black feathered cape, dozens of glowing ancient spears floating behind her, commanding pose`
 - 변형(이난나): `serene elf queen with pale golden hair and closed eyes, golden antler-like crown with green jewels, ivory-white and gold gown, soft pink-white healing light`
 
 ### 시엔 Sien
 - 애니츠 시조, 시화류 창시자. 왼팔에 불사귀 도철 봉인. 웨이와 닮았으나 더 노련한 인상.
 - 카드 일러스트('에스더 시엔') 기준: 뒤로 묶은 흑발 장발 + 흘러내린 앞머리, 수염, 다부진 상반신 노출, 흰 털 깃의 해진 청록색 도포, 붉은 허리띠, **왼팔 전체를 감싼 화려한 금빛 갑옷**, 몸을 휘감는 푸른 불꽃, 뒤로 붉은 귀신(도철) 얼굴
-- **[아군 · 전설~에스더 · 물리]** 왼팔 개방 단일 폭딜
+- **[아군 · 전설 · 물리]** 왼팔 개방 단일 폭딜
 - PROMPT: `veteran martial arts master with long black hair tied back and loose strands, stubble beard, bare muscular chest, tattered teal robe with white fur collar, red sash, left arm encased in ornate golden armor, blue spirit flames swirling around him, faint red demon face looming behind`
 
 ### 갈라투르 Galatur
@@ -60,7 +60,7 @@
 ### 니나브 Nineveh
 - 엘가시아 라제니스, 날개 보유(한쪽 날개가 어둠에 잠식). 활 파르쿠나스(리라로 변환). "천사 같은" 미모.
 - 카드 일러스트('니나브') 기준: 앞머리 있는 어깨 길이 금발 + 흰 꽃 머리장식, 푸른 눈, 흰 깃털 날개(카드에서는 양쪽 모두 흰색), 푸른 보석 펜던트의 은빛 목장식, 흰 홀터넥 드레스 + 갈색 가죽 코르셋 벨트, 옆에 검은 은빛 날개 모양 무기
-- **[아군 · 전설~에스더 · 물리(원거리)]** 초장거리 강력 화살
+- **[아군 · 전설 · 물리(원거리)]** 초장거리 강력 화살
 - PROMPT: `angelic archer girl with shoulder-length blonde hair with bangs and a white flower ornament, blue eyes, white feathered wings, silver collar necklace with a blue gem pendant, white sleeveless halter dress with a brown leather corset belt, ornate dark-silver wing-shaped bow`
 
 ### 바훈투르 Bahuntur
@@ -80,7 +80,7 @@
 
 ### 웨이 Wei
 - 애니츠 현 에스더(시엔 계보). 흑갈색 미디엄 헤어 + 붉은 머리띠, 짧은 수염, 크림색 무협 도복(모피 칼라) + 붉은 스카프, 가죽 팔 보호대. 맨손 기공. 등 뒤로 보라빛 반투명 사자형 요괴 도철.
-- **[아군 · 에스더 · 마법(기공)]** 광역 무력화 기공파
+- **[아군 · 전설 · 마법(기공)]** 광역 무력화 기공파
 - PROMPT: `martial artist with dark brown medium hair and a red headband, short beard, cream-colored oriental gi with fur collar and a red scarf, leather bracers, bare-handed fighting stance, translucent purple lion-demon spirit rising behind him`
 
 ---

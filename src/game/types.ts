@@ -9,8 +9,7 @@ export type Grade =
   | "uncommon" // 고급
   | "rare" // 희귀
   | "hero" // 영웅
-  | "legendary" // 전설
-  | "esther"; // 에스더
+  | "legendary"; // 전설 (에스더 포함)
 
 /** 지역(시너지) - 데이터 주도. 예: 슈샤이어, 애니츠, 아르데타인 ... */
 export type Region = string;
@@ -594,7 +593,7 @@ export type GameEventType =
   | "early_call"
   | "wave_clear"
   | "gacha"
-  | "gacha_esther"
+  | "gacha_legendary"
   | "fusion"
   | "fusion_jackpot"
   | "place"

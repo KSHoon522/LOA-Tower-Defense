@@ -73,7 +73,7 @@ const RECIPES: Record<GameEventType, Recipe> = {
   },
   wave_clear: { minGap: 0.3, voices: arp([N.G4, N.C5, N.E5], 0.1, 0.18, 0.08) },
   gacha: { minGap: 0.05, voices: [{ wave: "sine", freq: 700, to: 1050, dur: 0.12, gain: 0.07 }] },
-  gacha_esther: {
+  gacha_legendary: {
     minGap: 0.3,
     voices: [...arp([N.C6, N.E6, N.G6, N.C7], 0.07, 0.3, 0.07, "sine"), { noise: true, dur: 0.3, gain: 0.02, delay: 0.28 }],
   },

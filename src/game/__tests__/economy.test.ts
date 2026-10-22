@@ -193,7 +193,7 @@ describe("엔진 이벤트", () => {
     e.startWave();
     const events = e.drainEvents();
     expect(events).toContain("wave_start");
-    expect(events.some((x) => x === "gacha" || x === "gacha_esther")).toBe(true);
+    expect(events.some((x) => x === "gacha" || x === "gacha_legendary")).toBe(true);
     expect(e.drainEvents()).toEqual([]);
   });
 

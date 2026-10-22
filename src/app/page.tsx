@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { DIFFICULTY } from "@/game/constants";
-import type { Difficulty, GameData, SaveSlot } from "@/game/types";
+import type { Difficulty, GameData, JobDef, SaveSlot } from "@/game/types";
 import { fetchGameData } from "@/lib/api";
 import { clearSave, loadSave } from "@/lib/save";
 
@@ -16,6 +16,7 @@ export default function HomePage() {
   const [jobId, setJobId] = useState("");
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [save, setSave] = useState<SaveSlot | null>(null);
+  const [openGroups, setOpenGroups] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     setSave(loadSave());
@@ -26,7 +27,10 @@ export default function HomePage() {
           setChapterId(d.chapters[0].id);
           if (d.chapters[0].stages[0]) setStageId(d.chapters[0].stages[0].id);
         }
-        if (d.jobs[0]) setJobId(d.jobs[0].id);
+        if (d.jobs[0]) {
+          setJobId(d.jobs[0].id);
+          setOpenGroups(new Set([jobGroup(d.jobs[0])]));
+        }
       })
       .catch((e) => setError(e.message));
   }, []);
@@ -40,6 +44,14 @@ export default function HomePage() {
 
   const chapter = data.chapters.find((c) => c.id === chapterId);
   const selectedJob = data.jobs.find((j) => j.id === jobId);
+  const jobGroups = groupJobs(data.jobs);
+  const toggleGroup = (g: string) =>
+    setOpenGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(g)) next.delete(g);
+      else next.add(g);
+      return next;
+    });
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
@@ -154,35 +166,67 @@ export default function HomePage() {
       </section>
 
       <section className="panel space-y-2">
-        <h2 className="font-bold text-slate-200">4. 직업 선택</h2>
-        <div className="grid gap-2 sm:grid-cols-2">
-          {data.jobs.map((j) => (
-            <button
-              key={j.id}
-              onClick={() => setJobId(j.id)}
-              className={`btn text-left ${jobId === j.id ? "border-amber-500 bg-amber-500/10" : ""}`}
-            >
-              <div className="font-semibold">
-                {j.appearance?.icon} {j.name}
-              </div>
-              <div className="mt-0.5 text-xs text-slate-400">{j.description}</div>
-              <div className="mt-1 flex flex-wrap gap-1">
-                {j.skills.map((s, i) => (
-                  <span
-                    key={i}
-                    className={`rounded px-1 py-0.5 text-[9px] ${
-                      s.kind === "active"
-                        ? "bg-orange-500/20 text-orange-300"
-                        : "bg-slate-700 text-slate-300"
-                    }`}
-                  >
-                    {s.kind === "active" ? "액티브" : "패시브"} {s.name}
-                  </span>
-                ))}
-              </div>
-            </button>
-          ))}
+        <div className="flex items-baseline justify-between gap-2">
+          <h2 className="font-bold text-slate-200">4. 직업 선택</h2>
+          {selectedJob && (
+            <span className="text-sm text-amber-300">
+              선택: {selectedJob.appearance?.icon} {selectedJob.name}
+            </span>
+          )}
         </div>
+        {jobGroups.map(({ group, jobs }) => {
+          const open = openGroups.has(group);
+          const hasSelected = jobs.some((j) => j.id === jobId);
+          return (
+            <div key={group} className="rounded border border-slate-800">
+              <button
+                type="button"
+                onClick={() => toggleGroup(group)}
+                aria-expanded={open}
+                className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-slate-800/50"
+              >
+                <span className="w-3 text-sm text-slate-400">{open ? "▾" : "▸"}</span>
+                <span className="font-semibold text-slate-200">{group}</span>
+                <span className="text-xs text-slate-500">{jobs.length}</span>
+                <span className="ml-auto truncate text-xs text-slate-400">
+                  {hasSelected
+                    ? `✔ ${selectedJob?.name}`
+                    : jobs.map((j) => j.appearance?.icon ?? "").join(" ")}
+                </span>
+              </button>
+              {open && (
+                <div className="grid gap-2 p-2 pt-0 sm:grid-cols-2">
+                  {jobs.map((j) => (
+                    <button
+                      key={j.id}
+                      onClick={() => setJobId(j.id)}
+                      className={`btn text-left ${jobId === j.id ? "border-amber-500 bg-amber-500/10" : ""}`}
+                    >
+                      <div className="font-semibold">
+                        {j.appearance?.icon} {j.name}
+                      </div>
+                      <div className="mt-0.5 text-xs text-slate-400">{j.description}</div>
+                      <div className="mt-1 flex flex-wrap gap-1">
+                        {j.skills.map((s, i) => (
+                          <span
+                            key={i}
+                            className={`rounded px-1 py-0.5 text-[9px] ${
+                              s.kind === "active"
+                                ? "bg-orange-500/20 text-orange-300"
+                                : "bg-slate-700 text-slate-300"
+                            }`}
+                          >
+                            {s.kind === "active" ? "액티브" : "패시브"} {s.name}
+                          </span>
+                        ))}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
         {selectedJob?.synergyRegion && (
           <p className="text-xs text-amber-400/80">
             선택 시 [{selectedJob.synergyRegion}] 지역 시너지 카운트 +1
@@ -203,4 +247,25 @@ export default function HomePage() {
       </button>
     </div>
   );
+}
+
+const NO_GROUP = "기타";
+
+function jobGroup(j: JobDef): string {
+  return j.group?.trim() || NO_GROUP;
+}
+
+/** 직업군별로 묶기 (데이터 순서대로, 직업군이 없으면 "기타") */
+function groupJobs(jobs: JobDef[]): { group: string; jobs: JobDef[] }[] {
+  const out: { group: string; jobs: JobDef[] }[] = [];
+  for (const j of jobs) {
+    const g = jobGroup(j);
+    let entry = out.find((o) => o.group === g);
+    if (!entry) {
+      entry = { group: g, jobs: [] };
+      out.push(entry);
+    }
+    entry.jobs.push(j);
+  }
+  return out;
 }

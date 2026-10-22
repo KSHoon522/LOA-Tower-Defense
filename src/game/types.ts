@@ -245,6 +245,8 @@ export type JobSkill = JobPassiveSkill | JobActiveSkill;
 export interface JobDef {
   id: string;
   name: string;
+  /** 직업군 (홈 화면 직업 목록을 이 이름으로 묶어 접기/펼치기) 예: 전사, 무도가 */
+  group?: string;
   /** 이 지역 시너지 캐릭터 수 +1 (TFT 상징 아이템 개념) */
   synergyRegion?: Region;
   skills: JobSkill[];

@@ -286,6 +286,12 @@ export default function JobsEditor() {
           <div className="grid grid-cols-3 gap-2">
             <TextField label="ID (고유값)" value={draft.id} onChange={(v) => set("id", v)} placeholder="job-xxx" disabled={!isNew} />
             <TextField label="이름" value={draft.name} onChange={(v) => set("name", v)} />
+            <TextField
+              label="직업군 (홈 화면 묶음)"
+              value={draft.group ?? ""}
+              onChange={(v) => set("group", v || undefined)}
+              placeholder="예: 전사"
+            />
             <SelectField
               label="시너지 지역 (카운트 +1)"
               value={draft.synergyRegion ?? ""}

@@ -212,6 +212,7 @@ const jobSkillSchema = z.discriminatedUnion("kind", [
 const jobSchema = z.object({
   id: idSchema,
   name: nameSchema,
+  group: optText,
   synergyRegion: optText,
   skills: z.array(jobSkillSchema),
   appearance: appearanceSchema.optional(),

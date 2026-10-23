@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import Icon, { JOB_GROUP_ICON, type IconName } from "@/components/ui/Icon";
+import JobEmblem from "@/components/ui/JobEmblem";
 import Sigil from "@/components/ui/Sigil";
 import { DIFFICULTY } from "@/game/constants";
 import type { Difficulty, EnemyDef, GameData, JobDef, JobSkill, SaveSlot } from "@/game/types";
@@ -454,14 +455,17 @@ export default function LobbyPage() {
                     style={{ animationDelay: `${i * 35}ms` }}
                   >
                     <span
-                      className="flex h-11 w-11 items-center justify-center text-2xl transition duration-300"
+                      className={`flex h-11 w-11 items-center justify-center transition duration-300 ${
+                        active ? "text-gold-200" : "text-parchment-300 group-hover:text-parchment-50"
+                      }`}
                       style={{
                         clipPath: "polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)",
-                        background: `linear-gradient(160deg, ${color}66, ${color}1a 70%)`,
-                        filter: active ? `drop-shadow(0 0 10px ${color})` : undefined,
+                        background: active
+                          ? `linear-gradient(160deg, ${color}aa, ${color}33 70%)`
+                          : `linear-gradient(160deg, ${color}66, ${color}1a 70%)`,
                       }}
                     >
-                      {j.appearance?.icon}
+                      <JobEmblem appearance={j.appearance} size={28} glow={active ? "#f3dc9c" : undefined} />
                     </span>
                     <span
                       className={`w-full truncate px-1 text-center text-xs font-bold ${
@@ -480,13 +484,13 @@ export default function LobbyPage() {
               <div key={job.id} className="mt-4 animate-fade-rise rounded-xl border border-white/5 bg-ink-950/50 p-3">
                 <div className="flex items-center gap-3">
                   <span
-                    className="flex h-14 w-14 shrink-0 items-center justify-center text-3xl"
+                    className="flex h-14 w-14 shrink-0 items-center justify-center text-parchment-50"
                     style={{
                       clipPath: "polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)",
                       background: `linear-gradient(160deg, ${job.appearance?.color ?? "#cfa24e"}, #0e131e 85%)`,
                     }}
                   >
-                    {job.appearance?.icon}
+                    <JobEmblem appearance={job.appearance} size={36} />
                   </span>
                   <div className="min-w-0">
                     <div className="text-[11px] font-semibold text-parchment-500">{jobGroup(job)}</div>
@@ -527,7 +531,8 @@ export default function LobbyPage() {
               {job && (
                 <>
                   <span className="mx-1.5 text-parchment-500">·</span>
-                  {job.appearance?.icon} {job.name}
+                  <JobEmblem appearance={job.appearance} size={15} className="mr-1 align-[-3px] text-parchment-100" />
+                  {job.name}
                 </>
               )}
             </div>

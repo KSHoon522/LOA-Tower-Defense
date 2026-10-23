@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import AppearanceFields from "@/components/editor/AppearanceFields";
+import JobEmblem from "@/components/ui/JobEmblem";
 import {
   EditorLayout,
   NumberField,
@@ -276,7 +277,8 @@ export default function JobsEditor() {
                 setIsNew(false);
               }}
             >
-              {j.appearance?.icon} {j.name}
+              <JobEmblem appearance={j.appearance} size={14} className="mr-1 align-[-2px]" />
+              {j.name}
             </button>
           ))}
         </div>

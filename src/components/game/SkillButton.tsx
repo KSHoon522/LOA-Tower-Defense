@@ -1,8 +1,9 @@
 "use client";
 
 import Icon from "@/components/ui/Icon";
+import JobEmblem from "@/components/ui/JobEmblem";
 import { Tip } from "@/components/ui/Overlay";
-import type { JobActiveSkill } from "@/game/types";
+import type { Appearance, JobActiveSkill } from "@/game/types";
 
 /**
  * 직업 액티브 스킬 버튼
@@ -15,7 +16,7 @@ export default function SkillButton({
   cdLeft,
   usesLeft,
   aiming,
-  icon,
+  appearance,
   color = "#cfa24e",
   variant,
   onClick,
@@ -25,7 +26,8 @@ export default function SkillButton({
   cdLeft: number;
   usesLeft: number;
   aiming: boolean;
-  icon?: string;
+  /** 직업 외형 (엠블럼 표시) */
+  appearance?: Appearance;
   color?: string;
   variant: "square" | "round";
   onClick: () => void;
@@ -55,9 +57,7 @@ export default function SkillButton({
         boxShadow: ready && !aiming ? `0 8px 22px -10px ${color}` : undefined,
       }}
     >
-      <span className={`leading-none drop-shadow-[0_2px_3px_rgba(0,0,0,0.7)] ${round ? "text-xl" : "text-2xl"}`}>
-        {icon ?? "✨"}
-      </span>
+      <JobEmblem appearance={appearance} size={round ? 26 : 30} />
       {!round && (
         <span className="mt-1 w-full truncate px-1 text-center text-[10px] font-bold text-parchment-100">
           {skill.name}

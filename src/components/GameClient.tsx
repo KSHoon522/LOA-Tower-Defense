@@ -12,6 +12,7 @@ import { clearSave, loadSave, writeSave } from "@/lib/save";
 import { getSound } from "@/lib/sound";
 import GradeSlot from "./ui/GradeSlot";
 import Icon, { JOB_GROUP_ICON, type IconName } from "./ui/Icon";
+import JobEmblem from "./ui/JobEmblem";
 import { Modal } from "./ui/Overlay";
 import Sigil from "./ui/Sigil";
 import { prefersReducedMotion, useChangePulse, useTweenedNumber } from "./ui/motion";
@@ -1109,13 +1110,13 @@ export default function GameClient() {
             <div className="frame p-3">
               <div className="flex items-center gap-3">
                 <span
-                  className="flex h-12 w-12 shrink-0 items-center justify-center text-2xl"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center text-parchment-50"
                   style={{
                     clipPath: "polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)",
                     background: `linear-gradient(160deg, ${jobColor}, #0e131e 85%)`,
                   }}
                 >
-                  {engine.job.appearance?.icon}
+                  <JobEmblem appearance={engine.job.appearance} size={30} />
                 </span>
                 <div className="min-w-0">
                   <div className="flex items-center gap-1 text-[10px] font-semibold text-parchment-500">
@@ -1229,7 +1230,7 @@ export default function GameClient() {
                   cdLeft={engine.jobSkillCooldownLeft(index)}
                   usesLeft={engine.jobSkillUsesLeft}
                   aiming={aimSkillIndex === index}
-                  icon={engine.job?.appearance?.icon}
+                  appearance={engine.job?.appearance}
                   color={jobColor}
                   variant="round"
                   onClick={() => castSkill(index)}
@@ -1333,7 +1334,7 @@ export default function GameClient() {
                     cdLeft={engine.jobSkillCooldownLeft(index)}
                     usesLeft={engine.jobSkillUsesLeft}
                     aiming={aimSkillIndex === index}
-                    icon={engine.job?.appearance?.icon}
+                    appearance={engine.job?.appearance}
                     color={jobColor}
                     variant="square"
                     onClick={() => castSkill(index)}

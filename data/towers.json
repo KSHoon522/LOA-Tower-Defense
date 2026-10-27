@@ -85,7 +85,7 @@
     },
     "description": "토토이크에서 모코코들이 기르는 귀여운 애완동물. 울음소리를 따 나루니라고 이름 지어졌다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "small chubby dark gray dragon-like lizard pet with curved pink-tipped horns, big round brown eye, tiny red tongue, pink belly and pink spots on its legs, short stubby legs, curled spiky tail, green leaves stuck to its back"
   },
@@ -175,7 +175,7 @@
     },
     "description": "아크라시아 대륙을 떠돌아 다니는 여행자. 신기한 장소를 볼 때마다 사진으로 남기고 싶어한다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "elderly traveler with bald head and short white beard, tan scarf wrapped around his neck, long brown leather coat over green quilted vest, buckled crossbody leather strap, large backpack with rolled maps, brass compass hanging at the belt"
   },
@@ -359,7 +359,7 @@
     },
     "description": "세이크리아의 사제. 근엄하고 책임감 있는 초소장이다.",
     "regions": [
-      "아르테미스"
+      "루테란"
     ],
     "artRef": "stern priest commander with an ornate golden helmet topped by a crest spike, long white coat with gold trim and wide lapels, dark teal inner robe with gold vertical panels and emblem, ornate gold belt buckle"
   },
@@ -389,7 +389,7 @@
     },
     "description": "정이 많아 주변을 잘 챙겨주는 성격의 고래지기.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "elderly whale-keeper woman with short swept-back silver-white hair, kindly weathered face, lime-green short-sleeved wrap jacket with black and crimson collar trim, billowing white undersleeves, gray cloth sash belt, teal beaded collar necklace"
   },
@@ -420,7 +420,7 @@
     },
     "description": "밝고 순박한 성격의 고블린 여성.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "cheerful female goblin with green skin, long pointed ears, big orange nose and toothy grin, pale blond hair in a braided bun with side braids, maroon laced bodice dress over white puffed blouse, dark sleeves, black corset belt, hunched stance"
   },
@@ -898,7 +898,7 @@
     },
     "description": "토토이크의 몸 속에서 태어나는 창조의 알을 키우는 존재. 늘 도망 다니는 창조의 알들을 잡기 위해 뛰고 있다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "three small moss-topped stone cube creatures stacked like a totem, spindly green limbs, carved tribal glyph patterns, glowing rune faces in blue, green and orange-red, tufts of bright green moss on each block"
   },
@@ -927,7 +927,7 @@
     },
     "description": "토토이크의 몸 속을 지키는 수호자. 불길을 두른 검으로 상대의 자격을 시험한다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "towering ancient guardian construct in olive-bronze armor with mossy patina, spiked angular helm with curled black horns, tall crescent crest inlaid with glowing cyan runes, glowing cyan glyph bands on the arms, large greatsword with a cloth-wrapped hilt"
   },
@@ -1261,7 +1261,7 @@
     },
     "description": "별빛 등대의 섬에 있는 활기찬 여자아이. 아버지 프랭크를 위해 어머니의 추억을 찾고자 한다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "young village girl with long straight brown hair, white long-sleeved blouse with laced collar, dark blue denim pinafore dress with buttoned shoulder straps, brown rope belt tied at the waist, gentle wistful face"
   },
@@ -1291,7 +1291,7 @@
     },
     "description": "별빛 등대의 섬에 있는 등대지기. 세상에 떠도는 영혼들을 하늘로 올려 보내기 위해 피아노를 연주한다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "burly lighthouse keeper with short dark brown hair, sleeveless gray-green padded vest with rope-trimmed edges and toggle fastenings, quilted white short sleeves, white undershirt, dark blue cloth sash, brown leather wristbands, muscular bare forearms"
   },
@@ -1320,7 +1320,7 @@
     },
     "description": "금방 사랑에 빠져버리는 남자. 사랑과 관련된 일이라면 각종 착각과 환상에 빠져 있다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "muscular young man with tousled blond hair, open sleeveless brown leather vest, low-cut light blue tunic baring his chest, rope belt at the waist, gold bracelet on one wrist and brown leather band on the other, confident smirk"
   },
@@ -1350,7 +1350,7 @@
     },
     "description": "사제 미카엘은 어릴 적 노메드와 만났다. 그리고 둘은 뒤섞여, 떼어놓을 수 없는 존재가 되었다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "gaunt demonic fused creature, bony crown crest with a central horn spike and curling side horns framing a fanged skull-like face, sinewy pale gray body, jagged teal-green spines over shoulders and arms, long dark blade-like wing, faint red glow in the chest"
   },
@@ -1380,7 +1380,7 @@
     },
     "description": "레온하트의 음유시인.",
     "regions": [
-      "아르테미스"
+      "루테란"
     ],
     "artRef": "female bard with short blond hair under an orange-red knit cap, gold hoop earrings, off-shoulder white blouse with puffed sleeves, dark brown laced corset bodice, mustard yellow skirt, wooden lute held across her body"
   },
@@ -1410,7 +1410,7 @@
     },
     "description": "빙하의 섬에서 피아노를 연주하는 음악가. 차분하고 고요한 성격.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "elderly pianist with balding head, short white hair and trimmed white beard, long black coat with brown edging, gray hood draped at the neck, gray-green high-collared waistcoat with silver buttons, white shirt, brown leather belt, calm stern expression"
   },
@@ -1530,7 +1530,7 @@
     },
     "description": "유디아의 주술사가 되기 위해 노력 중인 젊은 여인.",
     "regions": [
-      "유디아"
+      "루테란"
     ],
     "artRef": "young apprentice shaman woman with long wavy golden hair, dark headband with white diamond pattern and red trim, pale gray-green tunic with white diamond-patterned trim and double row of white buttons, blue tassel pendant at the collar, red sash with brown belt"
   },
@@ -1591,7 +1591,7 @@
     },
     "description": "모코코 마을에 살고 있는 책임감 강한 모코코. 가족을 사랑한다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "small sprout-folk boy with pointed ears, swept-up ash brown hair, large violet eyes, sleeveless white leaf-shaped top with green vine trim and knotted fastenings, skirt-belt of green leaves at the waist, vine bracelets, hand on hip"
   },
@@ -1621,7 +1621,7 @@
     },
     "description": "배가 난파되어 섬에 머무르게 된 보물탐색꾼.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "young castaway treasure hunter girl with short black bob hair, wide conical red hat with black band, white diamond pattern and teal trim, long red scarf wrapped around neck and shoulders, gray jacket with white diamond-patterned sleeves, brown belt, dark skirt"
   },
@@ -1651,7 +1651,7 @@
     },
     "description": "페이토에서 마술 공연을 하는 소녀. 사람들의 환호를 좋아한다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "young stage magician girl with long straight blond hair, black ribbon bow at a high collar, purple and white ornate jacket with silver filigree and puffed shoulders, black gloves, holding a large black top hat"
   },
@@ -1681,7 +1681,7 @@
     },
     "description": "고블린들을 다스렸던 자비로운 고블린 왕. 화려하고 재미난 것을 좋아한다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "old goblin king with wrinkled green skin, long pointed ears, large hooked nose, long flowing white beard, small purple and gold jeweled crown, lavender-blue royal robe with gold embroidered trim and dangling gold tassels, brown leather belt"
   },
@@ -1862,7 +1862,7 @@
     },
     "description": "에스더 니나브의 독수리. 아주 멀리에 있더라도 니나브의 목소리를 들을 수 있다.",
     "regions": [
-      "엘가시아"
+      "베른"
     ],
     "artRef": "great white eagle with pale silver-white feathers, hooked dark beak, blue eyes, ornate silver helmet armor with a horned crest on its head, silver armored neck collar and wing plates, huge spread wings, faint blue sparkles"
   },
@@ -1892,7 +1892,7 @@
     },
     "description": "레온하트 성당의 온화한 사제. 세이크리아 출신으로 교황 구스토를 수호하는 새벽의 사제 중 하나이다.",
     "regions": [
-      "아르테미스"
+      "루테란"
     ],
     "artRef": "elderly priest with short white hair and full white beard, tall white mitre with gold cross emblem, long white robes with gold trim, dark embroidered stole with gold ornaments, black holy book in one hand, other hand raised in blessing"
   },
@@ -1922,7 +1922,7 @@
     },
     "description": "레온하트 주점에서 일하는 요리가 취미인 밝고 상냥한 소녀",
     "regions": [
-      "아르테미스"
+      "루테란"
     ],
     "artRef": "cheerful young tavern girl with very long straight platinum-blonde hair, blue flower and white feather hair ornament, blue ribbon choker, turquoise satin dress with large bow on the bodice, sheer white lace long-sleeved overlay"
   },
@@ -1952,7 +1952,7 @@
     },
     "description": "하늘을 모시는 유랑민 제사장. 그녀가 제를 올리면 하늘이 감복해 비를 내려준다고 한다.",
     "regions": [
-      "유디아"
+      "루테란"
     ],
     "artRef": "elderly nomad priestess with long white braided pigtails ending in white fur tassels, red and white knit cap with dark round ear discs, red neckerchief, white shawl over dark teal robe, gold arm cuffs"
   },
@@ -2250,7 +2250,7 @@
     },
     "description": "모코코 마을의 인자한 촌장. 해적들이 쳐들어온 혼란 속에서도 굳건히 모코코 마을을 지키고 있다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "elderly plant-folk village chief with long white beard and drooping white mustache, crown of green leaves with red flower and green sprout cap, green robe draped with red and orange autumn leaves, glowing floating paper page, golden swirling wisps"
   },
@@ -2280,7 +2280,7 @@
     },
     "description": "토토이크의 마음을 지키는 수호자. 석상 안에 잠들어 있던 중, 수호자의 시험을 위해 깨어났다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "giant ancient treant guardian with gnarled dark bark body, huge curved branching horns, stone block torso and legs inlaid with glowing teal runes, thick root-like arms, massive wooden hammer"
   },
@@ -2310,7 +2310,7 @@
     },
     "description": "토토이크의 몸 속에 잠든 아크를 지키는 수호자. 파도의 힘을 통해 상대의 자격을 시험한다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "aquatic guardian spirit with translucent glowing blue water body, tall finned crest headdress, ornate dark silver armor with curved bladed shoulder spikes and chest filigree, scaled serpentine lower body, splashing wave effects"
   },
@@ -2909,7 +2909,7 @@
     },
     "description": "카바티안 왕국의 마지막 왕비. 어둠의 주술에 심취한 남편 키사르를 늘 걱정했지만, 이미 그는 주술에 의해 변해버리고 만 뒤였다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "mournful queen with her face hidden under a sheer white lace mesh veil draped to the shoulders, black halter gown with deep plunging neckline, brown leather buckled underbust corset with silver filigree, long flared black sleeves with patterned silver cuffs, flowing black skirt"
   },
@@ -2940,7 +2940,7 @@
     },
     "description": "섬에 사는 거대한 판다. 대나무를 좋아하고, 공처럼 구르는 재주가 있다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "giant round panda with fluffy black and white fur, black eye patches, round black ears, black legs and shoulders, red cloth bandana draped over its head and back, heavy chubby body standing on all fours"
   },
@@ -2971,7 +2971,7 @@
     },
     "description": "빙하의 섬에 살고 있는 북극곰. 어미를 잃고 슬픔에 잠겨 있던 중, 아르코와 만나 함께 지내게 된다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "young polar bear with thick creamy white fur, small rounded ears, black nose and dark gentle eyes, broad shoulders and big padded paws, standing upright on its hind legs with front paws raised, sad downcast expression"
   },
@@ -3301,7 +3301,7 @@
     },
     "description": "검은 이리호의 선장. 여유있고 카리스마 넘친다. 실종된 대해적 크림스네일을 대신해 바다의 질서를 지키고 있다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "confident female pirate captain with long black hair in a high messy ponytail with gold hairpin, black high-collared captain's coat with gold buttons and red lining, gold crest emblem, white ruffled blouse, red fang necklace, gold-hilted rapier, cutlass at the hip"
   },
@@ -3332,7 +3332,7 @@
     },
     "description": "호기심 많은 모코코 소년. 토토이크의 마음을 되돌리기 위해 일생일대의 모험을 시작한다.",
     "regions": [
-      "토토이크"
+      "애니츠"
     ],
     "artRef": "small curious sprout-folk boy with short black hair and pointed ears, tall green pointed leaf hat topped with a curling vine sprout and leaves, layered green leaf cape with brown seed-pod tassels, white tunic, big yellow leaf satchel tied with rope"
   },
@@ -3866,7 +3866,7 @@
     },
     "description": "지고의 섬에 세워진 고성 아탈란테의 여주인. 비밀을 숨긴 채 파티를 열고 있다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "aristocratic castle mistress with short black bob hair and pointed ears, red drop earrings, silver necklace with ruby pendant, crimson velvet gown with silver ornamental bodice panel, lace cuffs, large white feathered high collar flaring around her shoulders"
   },
@@ -3926,7 +3926,7 @@
     },
     "description": "바다를 지배하는 네 명의 해적 중  한 명. 의리 있는 호탕한 중년이다.",
     "regions": [
-      "대양"
+      "섬"
     ],
     "artRef": "burly middle-aged pirate captain with long brown hair and thick beard, black tricorn hat with white feather plume, glowing blue mechanical eyepatch, dark green coat with red fur shoulder, bare muscular tattooed chest, silver chained shoulder armor, heavy mechanical cannon on his shoulder"
   },
@@ -4104,7 +4104,7 @@
     },
     "description": "7인의 에스더 중 한 명. 자유분방한 성격으로, 제자와 함께 세상을 유랑하고 있다.",
     "regions": [
-      "대양"
+      "림레이크"
     ],
     "artRef": "ageless sage with a youthful face and spiky silver-white hair, curved golden crescent crown sweeping out like horns, white ruffled collar, black buttoned tunic with yellow waist sash, long grey travel coat with orange-red lining and round emblem on the sleeve"
   },
@@ -4135,7 +4135,7 @@
     },
     "description": "에스더 샨디의 제자. 장난스럽고 까불거리는 성격이다. 샨디와 함께 대륙을 유랑하며 에스더의 후계자 수업을 받고 있다.",
     "regions": [
-      "대양"
+      "림레이크"
     ],
     "artRef": "mischievous young martial artist with spiky brown hair, red headband with white cloth tails, wide grin, cream scarf wrapped around his neck, pale yellow shirt with leaf-shaped pendant, open grey coat with orange lining, red striped waist sash, bandaged wrists, swirling green leaves"
   },
@@ -4196,7 +4196,7 @@
     },
     "description": "주신 루페온에게 차원의 틈인 트리시온에서 세계를 관찰하는 임무를 부여 받은 라제니스.",
     "regions": [
-      "엘가시아"
+      "베른"
     ],
     "artRef": "serene observer woman with long wavy honey-blonde hair and bangs, golden feather-wing hair ornament with a green gem, long white silk gown with plunging neckline, dark brown high-collared mantle with gold embroidered shoulder panel, black ribbon at the chest, drifting golden mist"
   },
@@ -4346,7 +4346,7 @@
     },
     "description": "에스더의 일원인 라제니스. 만물과 소통할 수 있는 능력을 지니고 있다.",
     "regions": [
-      "엘가시아"
+      "베른"
     ],
     "artRef": "gentle winged maiden with shoulder-length blonde hair and bangs, white flower hair clip, large white feathered wings, white off-shoulder dress with silver filigree collar and blue gem, ornate dark silver gauntlet on one arm, brown leather waist corset with silver emblem"
   },

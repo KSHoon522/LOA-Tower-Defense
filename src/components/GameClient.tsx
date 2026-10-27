@@ -6,6 +6,7 @@ import { BENCH_SIZE, GRADE_COLOR, GRADE_LABEL, GRADE_ORDER, TARGET_MODE_LABEL } 
 import { GameEngine } from "@/game/engine";
 import { gachaCost, sellRefund } from "@/game/gacha";
 import { createViewState, displaySize, drawGame, screenToMap, type ViewState } from "@/game/render";
+import { floorTheme } from "@/game/themes";
 import type { Difficulty, EnemyUnit, GameData, GameEventType, Point, TargetMode, TowerDef } from "@/game/types";
 import { fetchGameData } from "@/lib/api";
 import { clearSave, loadSave, writeSave } from "@/lib/save";
@@ -61,6 +62,8 @@ export default function GameClient() {
   const [tileSize, setTileSize] = useState(48);
   /** 세로로 긴 화면에서는 맵을 90° 돌려 타일을 크게 */
   const [rotated, setRotated] = useState(false);
+  /** 바닥 테마 지역 (전장 테두리 색) */
+  const [floorRegion, setFloorRegion] = useState<string | null>(null);
   const [dpr, setDpr] = useState(1);
   const [selectedUid, setSelectedUid] = useState<string | null>(null);
   const [fusionTargetUid, setFusionTargetUid] = useState<string | null>(null);
@@ -116,6 +119,9 @@ export default function GameClient() {
       return;
     }
     const job = data.jobs.find((j) => j.id === jobId) ?? null;
+    // 바닥 테마: 챕터 지역, 없으면 맵 지역
+    viewRef.current.region = chapter.region ?? map.region ?? null;
+    setFloorRegion(viewRef.current.region);
     const opts = {
       map,
       towers: data.towers,
@@ -1162,7 +1168,10 @@ export default function GameClient() {
         {/* ---- 전장 ---- */}
         <div ref={areaRef} className="relative min-h-0 min-w-0 flex-1">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative rounded-[22px] border-4 border-line bg-[#8a5a2b] p-1.5 shadow-[inset_0_3px_0_rgba(255,255,255,0.25),inset_0_-4px_0_rgba(0,0,0,0.25),0_6px_0_#1b1438,0_20px_40px_-16px_rgba(5,5,30,0.7)]">
+            <div
+              className="relative rounded-[22px] border-4 border-line p-1.5 shadow-[inset_0_3px_0_rgba(255,255,255,0.25),inset_0_-4px_0_rgba(0,0,0,0.25),0_6px_0_#1b1438,0_20px_40px_-16px_rgba(5,5,30,0.7)]"
+              style={{ backgroundColor: floorTheme(floorRegion).frame }}
+            >
               <canvas
                 ref={canvasRef}
                 width={Math.round(displaySize(engine.map, rotated).cols * tileSize * dpr)}

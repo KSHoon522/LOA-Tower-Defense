@@ -1,5 +1,6 @@
 import { GRADE_BG, GRADE_COLOR, PATH_COLORS } from "./constants";
 import type { GameEngine } from "./engine";
+import { floorTheme, type DecorKind, type FloorTheme } from "./themes";
 import type { Appearance, EnemyUnit, MapDef, Point, TowerDef, TowerUnit } from "./types";
 
 // ============================================================
@@ -36,6 +37,8 @@ export interface ViewState {
   shakeUntil: number;
   /** '움직임 줄이기' 설정 — 흔들림 등 생략 */
   reducedMotion: boolean;
+  /** 바닥 테마를 정하는 지역 (챕터 지역, 없으면 맵 지역) */
+  region: string | null;
   /** 연출용 캐시 */
   cache: RenderCache;
 }
@@ -78,6 +81,7 @@ export function createViewState(tileSize: number): ViewState {
     now: 0,
     shakeUntil: 0,
     reducedMotion: false,
+    region: null,
     cache: {
       board: null,
       seen: new Map(),
@@ -362,20 +366,9 @@ function toonText(ctx: CanvasRenderingContext2D, text: string, x: number, y: num
 // 정적 판 (오프스크린 캐시)
 // ------------------------------------------------------------
 
-const GRASS = {
-  /** 칸 사이 틈 / 빈 땅 */
-  base: "#3f9636",
-  empty: "#55ad41",
-  tile: "#72cc55",
-  tileAlt: "#69c34d",
-  /** 칸 아래 두께 */
-  lip: "#46923a",
-  tuft: "#3a842f",
-};
-const ROAD = { edge: "#b47a3f", sand: "#ecc583", light: "rgba(255,244,214,0.35)", pebble: "#c4945a" };
+// 막힌 칸 장식 — 모두 굵은 외곽선 + 납작한 두 톤
 
-/** 막힌 칸 장식: 바위 */
-function drawRock(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number) {
+function drawRock(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
   const pts = 7;
   ctx.beginPath();
   for (let i = 0; i < pts; i++) {
@@ -387,17 +380,17 @@ function drawRock(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: num
     else ctx.lineTo(px, py);
   }
   ctx.closePath();
-  ctx.fillStyle = "#7f88a3";
+  ctx.fillStyle = th.rock[0];
   ctx.fill();
   ctx.save();
   ctx.clip();
   ctx.beginPath();
   ctx.arc(cx - ts * 0.08, cy - ts * 0.06, ts * 0.3, 0, Math.PI * 2);
-  ctx.fillStyle = "#a9b2c9";
+  ctx.fillStyle = th.rock[1];
   ctx.fill();
   ctx.beginPath();
   ctx.ellipse(cx - ts * 0.12, cy - ts * 0.14, ts * 0.09, ts * 0.05, -0.5, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(255,255,255,0.6)";
+  ctx.fillStyle = "rgba(255,255,255,0.55)";
   ctx.fill();
   ctx.restore();
   outline(ctx, lw);
@@ -407,10 +400,29 @@ function drawRock(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: num
   ctx.lineTo(cx + ts * 0.12, cy + ts * 0.02);
   ctx.lineTo(cx + ts * 0.08, cy + ts * 0.1);
   outline(ctx, lw * 0.6);
+  // 설원은 눈 모자
+  if (th.detail === "snow") {
+    ctx.beginPath();
+    ctx.ellipse(cx - ts * 0.04, cy - ts * 0.17, ts * 0.17, ts * 0.07, 0, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    outline(ctx, lw * 0.7);
+  }
 }
 
-/** 막힌 칸 장식: 덤불 */
-function drawBush(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number) {
+/** 용암 바위: 짙은 바위 + 주황빛 갈라진 틈 */
+function drawLavaRock(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
+  drawRock(ctx, cx, cy, ts, seed, lw, th);
+  ctx.beginPath();
+  ctx.moveTo(cx - ts * 0.16, cy - ts * 0.02);
+  ctx.lineTo(cx - ts * 0.04, cy + ts * 0.04);
+  ctx.lineTo(cx + ts * 0.02, cy - ts * 0.06);
+  ctx.lineTo(cx + ts * 0.14, cy + ts * 0.06);
+  outline(ctx, lw * 1.6);
+  outline(ctx, lw * 0.8, th.gem);
+}
+
+function drawBush(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
   const blobs: [number, number, number][] = [
     [-0.17, 0.06, 0.2],
     [0.17, 0.07, 0.19],
@@ -425,11 +437,11 @@ function drawBush(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: num
   for (const [x, y, r] of blobs) {
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = "#2f8f2c";
+    ctx.fillStyle = th.leaf[0];
     ctx.fill();
     ctx.beginPath();
     ctx.arc(x - r * 0.15, y - r * 0.18, r * 0.78, 0, Math.PI * 2);
-    ctx.fillStyle = "#47b23a";
+    ctx.fillStyle = th.leaf[1];
     ctx.fill();
   }
   // 열매
@@ -437,41 +449,415 @@ function drawBush(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: num
     for (let i = 0; i < 3; i++) {
       ctx.beginPath();
       ctx.arc(cx + (hash(i, 11, seed) - 0.5) * ts * 0.36, cy + (hash(i, 13, seed) - 0.6) * ts * 0.24, ts * 0.035, 0, Math.PI * 2);
-      ctx.fillStyle = "#ff5d73";
+      ctx.fillStyle = th.gem;
       ctx.fill();
       outline(ctx, lw * 0.5);
     }
   }
 }
 
-/** 막힌 칸 장식: 나무 */
-function drawTree(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number) {
+function drawTree(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
   roundRect(ctx, cx - ts * 0.06, cy - ts * 0.02, ts * 0.12, ts * 0.3, ts * 0.04);
-  ctx.fillStyle = "#8a5a2b";
+  ctx.fillStyle = th.trunk;
   ctx.fill();
   outline(ctx, lw);
   const r = ts * (0.27 + hash(3, 3, seed) * 0.05);
+  const ty = cy - ts * 0.12;
   ctx.beginPath();
-  ctx.arc(cx, cy - ts * 0.12, r, 0, Math.PI * 2);
-  ctx.fillStyle = "#2b8a3a";
+  ctx.arc(cx, ty, r, 0, Math.PI * 2);
+  ctx.fillStyle = th.leaf[0];
   ctx.fill();
   ctx.save();
   ctx.clip();
   ctx.beginPath();
-  ctx.arc(cx - r * 0.2, cy - ts * 0.12 - r * 0.22, r * 0.85, 0, Math.PI * 2);
-  ctx.fillStyle = "#3fb04b";
+  ctx.arc(cx - r * 0.2, ty - r * 0.22, r * 0.85, 0, Math.PI * 2);
+  ctx.fillStyle = th.leaf[1];
   ctx.fill();
   ctx.beginPath();
-  ctx.ellipse(cx - r * 0.38, cy - ts * 0.12 - r * 0.45, r * 0.22, r * 0.12, -0.6, 0, Math.PI * 2);
+  ctx.ellipse(cx - r * 0.38, ty - r * 0.45, r * 0.22, r * 0.12, -0.6, 0, Math.PI * 2);
   ctx.fillStyle = "rgba(255,255,255,0.45)";
   ctx.fill();
   ctx.restore();
   ctx.beginPath();
-  ctx.arc(cx, cy - ts * 0.12, r, 0, Math.PI * 2);
+  ctx.arc(cx, ty, r, 0, Math.PI * 2);
   outline(ctx, lw);
 }
 
-function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number) {
+/** 침엽수 (설원에선 눈 덮임) */
+function drawPine(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
+  roundRect(ctx, cx - ts * 0.05, cy + ts * 0.12, ts * 0.1, ts * 0.16, ts * 0.03);
+  ctx.fillStyle = th.trunk;
+  ctx.fill();
+  outline(ctx, lw);
+  const h = ts * (0.62 + hash(4, 4, seed) * 0.1);
+  for (let i = 0; i < 3; i++) {
+    const w = ts * (0.4 - i * 0.09);
+    const top = cy + ts * 0.16 - h * (0.42 + i * 0.29);
+    const bottom = top + h * 0.42;
+    ctx.beginPath();
+    ctx.moveTo(cx, top);
+    ctx.lineTo(cx + w, bottom);
+    ctx.lineTo(cx - w, bottom);
+    ctx.closePath();
+    ctx.fillStyle = th.leaf[i % 2];
+    ctx.fill();
+    outline(ctx, lw);
+    if (th.detail === "snow") {
+      ctx.beginPath();
+      ctx.moveTo(cx, top);
+      ctx.lineTo(cx + w * 0.45, top + h * 0.19);
+      ctx.quadraticCurveTo(cx, top + h * 0.26, cx - w * 0.45, top + h * 0.19);
+      ctx.closePath();
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+    }
+  }
+}
+
+/** 야자수 */
+function drawPalm(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
+  const lean = (hash(6, 6, seed) - 0.5) * ts * 0.16;
+  const topX = cx + lean;
+  const topY = cy - ts * 0.24;
+  ctx.beginPath();
+  ctx.moveTo(cx - ts * 0.03, cy + ts * 0.26);
+  ctx.quadraticCurveTo(cx + lean * 0.2, cy, topX, topY);
+  outline(ctx, ts * 0.11);
+  ctx.strokeStyle = "#c98a4a";
+  ctx.lineWidth = ts * 0.07;
+  ctx.stroke();
+  for (let i = 0; i < 5; i++) {
+    const a = -Math.PI / 2 + (i - 2) * 0.75 + (hash(i, 7, seed) - 0.5) * 0.2;
+    const len = ts * 0.32;
+    const ex = topX + Math.cos(a) * len;
+    const ey = topY + Math.sin(a) * len * 0.6 + ts * 0.08;
+    ctx.beginPath();
+    ctx.moveTo(topX, topY);
+    ctx.quadraticCurveTo(topX + Math.cos(a) * len * 0.6, topY + Math.sin(a) * len * 0.6 - ts * 0.08, ex, ey);
+    ctx.quadraticCurveTo(topX + Math.cos(a) * len * 0.5, topY + Math.sin(a) * len * 0.3, topX, topY);
+    ctx.fillStyle = th.leaf[i % 2];
+    ctx.fill();
+    outline(ctx, lw * 0.8);
+  }
+  for (let i = 0; i < 2; i++) {
+    ctx.beginPath();
+    ctx.arc(topX + (i - 0.5) * ts * 0.07, topY + ts * 0.05, ts * 0.045, 0, Math.PI * 2);
+    ctx.fillStyle = "#8a5a2b";
+    ctx.fill();
+    outline(ctx, lw * 0.6);
+  }
+}
+
+/** 선인장 */
+function drawCactus(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number) {
+  const body = (x: number, y: number, w: number, h: number) => {
+    roundRect(ctx, x - w / 2, y, w, h, w / 2);
+    ctx.fillStyle = "#4caf50";
+    ctx.fill();
+    outline(ctx, lw);
+    roundRect(ctx, x - w / 2 + w * 0.18, y + w * 0.2, w * 0.25, h - w * 0.5, w * 0.12);
+    ctx.fillStyle = "#7ed46f";
+    ctx.fill();
+  };
+  const flip = hash(8, 8, seed) > 0.5 ? 1 : -1;
+  body(cx - flip * ts * 0.17, cy - ts * 0.1, ts * 0.11, ts * 0.22);
+  body(cx + flip * ts * 0.16, cy - ts * 0.02, ts * 0.1, ts * 0.18);
+  body(cx, cy - ts * 0.3, ts * 0.17, ts * 0.56);
+  if (hash(9, 8, seed) > 0.5) {
+    ctx.beginPath();
+    ctx.arc(cx, cy - ts * 0.3, ts * 0.05, 0, Math.PI * 2);
+    ctx.fillStyle = "#ff7ab6";
+    ctx.fill();
+    outline(ctx, lw * 0.6);
+  }
+}
+
+/** 수정 무더기 */
+function drawCrystal(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
+  const shards: [number, number, number][] = [
+    [-0.15, 0.22, -0.35],
+    [0.15, 0.24, 0.3],
+    [0, 0.36, 0],
+  ];
+  for (const [dx, h, tilt] of shards) {
+    const bx = cx + dx * ts;
+    const by = cy + ts * 0.22;
+    const w = ts * 0.09;
+    const hh = h * ts * (0.9 + hash(Math.round(dx * 10), 2, seed) * 0.2);
+    ctx.save();
+    ctx.translate(bx, by);
+    ctx.rotate(tilt);
+    ctx.beginPath();
+    ctx.moveTo(-w, 0);
+    ctx.lineTo(-w, -hh * 0.7);
+    ctx.lineTo(0, -hh);
+    ctx.lineTo(w, -hh * 0.7);
+    ctx.lineTo(w, 0);
+    ctx.closePath();
+    ctx.fillStyle = th.gem;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-w, 0);
+    ctx.lineTo(-w, -hh * 0.7);
+    ctx.lineTo(0, -hh);
+    ctx.lineTo(0, 0);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(255,255,255,0.45)";
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-w, 0);
+    ctx.lineTo(-w, -hh * 0.7);
+    ctx.lineTo(0, -hh);
+    ctx.lineTo(w, -hh * 0.7);
+    ctx.lineTo(w, 0);
+    ctx.closePath();
+    outline(ctx, lw);
+    ctx.restore();
+  }
+}
+
+/** 큰 버섯 */
+function drawMushroom(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
+  const s = 0.9 + hash(5, 5, seed) * 0.2;
+  roundRect(ctx, cx - ts * 0.07 * s, cy - ts * 0.04, ts * 0.14 * s, ts * 0.3, ts * 0.05);
+  ctx.fillStyle = "#fff1d6";
+  ctx.fill();
+  outline(ctx, lw);
+  const r = ts * 0.3 * s;
+  const capY = cy - ts * 0.04;
+  ctx.beginPath();
+  ctx.moveTo(cx - r, capY);
+  ctx.quadraticCurveTo(cx - r, capY - r * 1.1, cx, capY - r * 1.1);
+  ctx.quadraticCurveTo(cx + r, capY - r * 1.1, cx + r, capY);
+  ctx.closePath();
+  ctx.fillStyle = th.gem;
+  ctx.fill();
+  outline(ctx, lw);
+  for (const [dx, dy, rr] of [
+    [-0.4, -0.45, 0.16],
+    [0.25, -0.7, 0.13],
+    [0.45, -0.3, 0.1],
+  ]) {
+    ctx.beginPath();
+    ctx.arc(cx + dx * r, capY + dy * r, rr * r, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+  }
+}
+
+/** 대나무 */
+function drawBamboo(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number) {
+  for (let i = 0; i < 3; i++) {
+    const x = cx + (i - 1) * ts * 0.13;
+    const h = ts * (0.55 + hash(i, 4, seed) * 0.15);
+    const top = cy + ts * 0.26 - h;
+    roundRect(ctx, x - ts * 0.04, top, ts * 0.08, h, ts * 0.03);
+    ctx.fillStyle = i === 1 ? "#5fbf4a" : "#4caf50";
+    ctx.fill();
+    outline(ctx, lw);
+    for (let k = 1; k < 3; k++) {
+      ctx.beginPath();
+      ctx.moveTo(x - ts * 0.04, top + (h * k) / 3);
+      ctx.lineTo(x + ts * 0.04, top + (h * k) / 3);
+      outline(ctx, lw * 0.7);
+    }
+    ctx.beginPath();
+    ctx.ellipse(x + ts * 0.08, top + h * 0.3, ts * 0.07, ts * 0.025, -0.5, 0, Math.PI * 2);
+    ctx.fillStyle = "#7ed46f";
+    ctx.fill();
+    outline(ctx, lw * 0.6);
+  }
+}
+
+/** 마른 나무 */
+function drawDeadTree(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number, th: FloorTheme) {
+  const flip = hash(2, 9, seed) > 0.5 ? 1 : -1;
+  const branches: [number, number, number, number][] = [
+    [cx, cy + ts * 0.26, cx, cy - ts * 0.2],
+    [cx, cy - ts * 0.02, cx + flip * ts * 0.2, cy - ts * 0.2],
+    [cx, cy - ts * 0.1, cx - flip * ts * 0.16, cy - ts * 0.3],
+    [cx + flip * ts * 0.12, cy - ts * 0.12, cx + flip * ts * 0.22, cy - ts * 0.08],
+  ];
+  for (const w of [ts * 0.13, ts * 0.07]) {
+    for (const [x0, y0, x1, y1] of branches) {
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
+      if (w > ts * 0.1) outline(ctx, w);
+      else {
+        ctx.lineWidth = w;
+        ctx.strokeStyle = th.trunk;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+/** 하얀 돌기둥 */
+function drawPillar(ctx: CanvasRenderingContext2D, cx: number, cy: number, ts: number, seed: number, lw: number) {
+  const broken = hash(7, 7, seed) > 0.55;
+  const top = cy - ts * (broken ? 0.12 : 0.3);
+  roundRect(ctx, cx - ts * 0.2, cy + ts * 0.14, ts * 0.4, ts * 0.12, ts * 0.03);
+  ctx.fillStyle = "#e4e2f2";
+  ctx.fill();
+  outline(ctx, lw);
+  ctx.beginPath();
+  ctx.rect(cx - ts * 0.12, top, ts * 0.24, cy + ts * 0.14 - top);
+  ctx.fillStyle = "#f6f5ff";
+  ctx.fill();
+  outline(ctx, lw);
+  for (const dx of [-0.05, 0.03]) {
+    ctx.beginPath();
+    ctx.moveTo(cx + dx * ts, top + ts * 0.04);
+    ctx.lineTo(cx + dx * ts, cy + ts * 0.11);
+    outline(ctx, lw * 0.5, "#b9b6d4");
+  }
+  if (broken) {
+    ctx.beginPath();
+    ctx.moveTo(cx - ts * 0.12, top);
+    ctx.lineTo(cx - ts * 0.04, top - ts * 0.06);
+    ctx.lineTo(cx + ts * 0.03, top + ts * 0.01);
+    ctx.lineTo(cx + ts * 0.12, top - ts * 0.04);
+    outline(ctx, lw);
+  } else {
+    roundRect(ctx, cx - ts * 0.18, top - ts * 0.08, ts * 0.36, ts * 0.09, ts * 0.03);
+    ctx.fillStyle = "#e4e2f2";
+    ctx.fill();
+    outline(ctx, lw);
+  }
+}
+
+function drawDecor(
+  ctx: CanvasRenderingContext2D,
+  kind: DecorKind,
+  cx: number,
+  cy: number,
+  ts: number,
+  seed: number,
+  lw: number,
+  th: FloorTheme
+) {
+  switch (kind) {
+    case "rock":
+      return drawRock(ctx, cx, cy, ts, seed, lw, th);
+    case "lavarock":
+      return drawLavaRock(ctx, cx, cy, ts, seed, lw, th);
+    case "bush":
+      return drawBush(ctx, cx, cy, ts, seed, lw, th);
+    case "tree":
+      return drawTree(ctx, cx, cy, ts, seed, lw, th);
+    case "pine":
+      return drawPine(ctx, cx, cy, ts, seed, lw, th);
+    case "palm":
+      return drawPalm(ctx, cx, cy, ts, seed, lw, th);
+    case "cactus":
+      return drawCactus(ctx, cx, cy, ts, seed, lw);
+    case "crystal":
+      return drawCrystal(ctx, cx, cy, ts, seed, lw, th);
+    case "mushroom":
+      return drawMushroom(ctx, cx, cy, ts, seed, lw, th);
+    case "bamboo":
+      return drawBamboo(ctx, cx, cy, ts, seed, lw);
+    case "deadtree":
+      return drawDeadTree(ctx, cx, cy, ts, seed, lw, th);
+    case "pillar":
+      return drawPillar(ctx, cx, cy, ts, seed, lw);
+  }
+}
+
+/** 칸 위 잔무늬 (풀 포기, 꽃, 눈, 조개 …) */
+function drawDetail(ctx: CanvasRenderingContext2D, th: FloorTheme, px: number, py: number, ts: number, h: number) {
+  const [c0, c1] = th.detailColors;
+  const s = ts * 0.07;
+  switch (th.detail) {
+    case "tuft":
+      ctx.beginPath();
+      ctx.moveTo(px - s, py - s * 0.9);
+      ctx.lineTo(px - s * 0.4, py);
+      ctx.moveTo(px, py - s * 1.3);
+      ctx.lineTo(px, py);
+      ctx.moveTo(px + s, py - s * 0.9);
+      ctx.lineTo(px + s * 0.4, py);
+      outline(ctx, Math.max(1.2, ts * 0.025), c0);
+      break;
+    case "flower":
+      for (let i = 0; i < 5; i++) {
+        const a = (i / 5) * Math.PI * 2;
+        ctx.beginPath();
+        ctx.arc(px + Math.cos(a) * s * 0.55, py + Math.sin(a) * s * 0.55, s * 0.42, 0, Math.PI * 2);
+        ctx.fillStyle = h < 0.5 ? c0 : c1;
+        ctx.fill();
+      }
+      ctx.beginPath();
+      ctx.arc(px, py, s * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = "#fff6c2";
+      ctx.fill();
+      outline(ctx, Math.max(1, ts * 0.018));
+      break;
+    case "petal":
+      for (let i = 0; i < 2; i++) {
+        ctx.beginPath();
+        ctx.ellipse(px + i * s * 1.4, py - i * s * 0.6, s * 0.55, s * 0.3, h * 6 + i, 0, Math.PI * 2);
+        ctx.fillStyle = i === 0 ? c0 : c1;
+        ctx.fill();
+      }
+      break;
+    case "snow":
+      ctx.beginPath();
+      ctx.arc(px, py, s * 0.4, 0, Math.PI * 2);
+      ctx.arc(px + s * 1.3, py + s * 0.5, s * 0.28, 0, Math.PI * 2);
+      ctx.fillStyle = c0;
+      ctx.fill();
+      starPath(ctx, px + s * 0.6, py - s * 0.9, s * 0.5, s * 0.15, 4);
+      ctx.fillStyle = c1;
+      ctx.fill();
+      break;
+    case "pebble":
+      ctx.beginPath();
+      ctx.ellipse(px, py, s * 0.6, s * 0.4, 0, 0, Math.PI * 2);
+      ctx.fillStyle = c0;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(px + s * 1.1, py + s * 0.4, s * 0.35, s * 0.25, 0, 0, Math.PI * 2);
+      ctx.fillStyle = c1;
+      ctx.fill();
+      break;
+    case "sparkle":
+      starPath(ctx, px, py, s * 0.75, s * 0.22, 4);
+      ctx.fillStyle = h < 0.5 ? c0 : c1;
+      ctx.fill();
+      break;
+    case "crack":
+      ctx.beginPath();
+      ctx.moveTo(px - s, py - s * 0.4);
+      ctx.lineTo(px - s * 0.2, py + s * 0.2);
+      ctx.lineTo(px + s * 0.3, py - s * 0.3);
+      ctx.lineTo(px + s * 1.1, py + s * 0.3);
+      outline(ctx, Math.max(1.2, ts * 0.022), c0);
+      break;
+    case "shell":
+      ctx.beginPath();
+      ctx.moveTo(px, py + s * 0.5);
+      ctx.arc(px, py + s * 0.5, s * 0.75, Math.PI * 1.1, Math.PI * 1.9);
+      ctx.closePath();
+      ctx.fillStyle = h < 0.5 ? c0 : c1;
+      ctx.fill();
+      outline(ctx, Math.max(1, ts * 0.018));
+      break;
+    case "ember":
+      ctx.beginPath();
+      ctx.arc(px, py, s * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = c0;
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(px + s * 1.2, py - s * 0.6, s * 0.22, 0, Math.PI * 2);
+      ctx.fillStyle = c1;
+      ctx.fill();
+      break;
+  }
+}
+
+function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number, th: FloorTheme) {
   const { cols, rows } = displaySize(map, rotated);
   const W = cols * ts;
   const H = rows * ts;
@@ -484,10 +870,10 @@ function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number) {
   const lw = Math.max(1.8, ts * 0.045);
 
   // 땅
-  ctx.fillStyle = GRASS.base;
+  ctx.fillStyle = th.base;
   ctx.fillRect(0, 0, W, H);
 
-  // 칸: 건설 가능 칸은 살짝 솟은 잔디 블록, 빈 땅은 낮은 풀밭
+  // 칸: 건설 가능 칸은 살짝 솟은 블록, 빈 땅은 낮은 바닥
   for (let y = 0; y < map.rows; y++) {
     for (let x = 0; x < map.cols; x++) {
       const t = map.tiles[y][x];
@@ -500,10 +886,10 @@ function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number) {
       if (t === "buildable") {
         const lip = Math.max(2, ts * 0.06);
         roundRect(ctx, x0 + m, y0 + m + lip * 0.6, ts - m * 2, ts - m * 2 - lip * 0.6, r);
-        ctx.fillStyle = GRASS.lip;
+        ctx.fillStyle = th.lip;
         ctx.fill();
         roundRect(ctx, x0 + m, y0 + m, ts - m * 2, ts - m * 2 - lip * 0.6, r);
-        ctx.fillStyle = (x + y) % 2 === 0 ? GRASS.tile : GRASS.tileAlt;
+        ctx.fillStyle = th.tile[(x + y) % 2];
         ctx.fill();
         // 윗변 광택
         roundRect(ctx, x0 + m + ts * 0.14, y0 + m + ts * 0.07, ts - m * 2 - ts * 0.28, Math.max(1.5, ts * 0.05), ts * 0.03);
@@ -511,37 +897,18 @@ function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number) {
         ctx.fill();
       } else {
         roundRect(ctx, x0 + m * 0.5, y0 + m * 0.5, ts - m, ts - m, r);
-        ctx.fillStyle = GRASS.empty;
+        ctx.fillStyle = th.empty;
         ctx.fill();
       }
-      // 풀 포기
-      if (hash(x, y, 41) < 0.55) {
-        const px = x0 + ts * (0.2 + hash(x, y, 42) * 0.6);
-        const py = y0 + ts * (0.35 + hash(x, y, 43) * 0.45);
-        const s = ts * 0.07;
-        ctx.beginPath();
-        ctx.moveTo(px - s, py - s * 0.9);
-        ctx.lineTo(px - s * 0.4, py);
-        ctx.moveTo(px, py - s * 1.3);
-        ctx.lineTo(px, py);
-        ctx.moveTo(px + s, py - s * 0.9);
-        ctx.lineTo(px + s * 0.4, py);
-        outline(ctx, Math.max(1.2, ts * 0.025), GRASS.tuft);
-      }
-      // 빈 땅의 작은 꽃
-      if (t === "empty" && hash(x, y, 51) < 0.3) {
-        const px = x0 + ts * (0.25 + hash(x, y, 52) * 0.5);
-        const py = y0 + ts * (0.25 + hash(x, y, 53) * 0.5);
-        ctx.beginPath();
-        ctx.arc(px, py, ts * 0.045, 0, Math.PI * 2);
-        ctx.fillStyle = hash(x, y, 54) < 0.5 ? "#fff6c2" : "#ffb3c7";
-        ctx.fill();
-        outline(ctx, Math.max(1, ts * 0.02));
+      // 잔무늬
+      const h = hash(x, y, 41);
+      if (h < (t === "empty" ? 0.6 : 0.5)) {
+        drawDetail(ctx, th, x0 + ts * (0.22 + hash(x, y, 42) * 0.5), y0 + ts * (0.35 + hash(x, y, 43) * 0.4), ts, hash(x, y, 44));
       }
     }
   }
 
-  // 길: 굵은 외곽선이 있는 모래 흙길
+  // 길: 굵은 외곽선을 두른 길 (지형마다 흙길/돌길/나무 다리/아스팔트)
   const paths: ScreenPath[] = [];
   map.paths.forEach((path, pi) => {
     if (path.length < 2) return;
@@ -552,34 +919,58 @@ function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number) {
     }
     paths.push({ pts, acc, color: PATH_COLORS[pi % PATH_COLORS.length] });
   });
-  const strokeAll = (w: number, style: string) => {
+  const tracePath = (p: ScreenPath) => {
+    ctx.beginPath();
+    p.pts.forEach(([px, py], i) => (i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)));
+  };
+  const strokeAll = (w: number, style: string, dash?: number[]) => {
     for (const p of paths) {
-      ctx.beginPath();
-      p.pts.forEach(([px, py], i) => (i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)));
+      tracePath(p);
       ctx.lineWidth = w;
       ctx.strokeStyle = style;
-      ctx.lineCap = "round";
+      ctx.lineCap = dash ? "butt" : "round";
       ctx.lineJoin = "round";
+      if (dash) ctx.setLineDash(dash);
       ctx.stroke();
+      ctx.setLineDash([]);
     }
   };
+  const road = th.road;
   // 여러 경로가 겹쳐도 안쪽 선이 남지 않도록 층별로 모두 그림
   strokeAll(ts * 0.94, LINE);
-  strokeAll(ts * 0.82, ROAD.edge);
-  strokeAll(ts * 0.7, ROAD.sand);
-  strokeAll(ts * 0.26, ROAD.light);
-  // 길 위 자갈
+  strokeAll(ts * 0.82, road.edge);
+  strokeAll(ts * 0.7, road.fill);
+  if (road.style === "asphalt") {
+    strokeAll(ts * 0.06, road.center, [ts * 0.22, ts * 0.18]);
+  } else if (road.style === "plank") {
+    // 길을 가로지르는 널빤지 이음매
+    strokeAll(ts * 0.7, road.edge, [Math.max(1.5, ts * 0.03), ts * 0.2]);
+    strokeAll(ts * 0.26, road.center);
+  } else {
+    strokeAll(ts * 0.26, road.center);
+  }
+  // 길 위 자갈 / 돌
   for (let y = 0; y < map.rows; y++) {
     for (let x = 0; x < map.cols; x++) {
       if (map.tiles[y][x] !== "path") continue;
       const [cx, cy] = S(x, y);
-      for (let i = 0; i < 2; i++) {
-        const px = cx + (hash(x, y, i + 20) - 0.5) * ts * 0.5;
-        const py = cy + (hash(x, y, i + 30) - 0.5) * ts * 0.5;
-        ctx.beginPath();
-        ctx.ellipse(px, py, ts * 0.045, ts * 0.032, 0, 0, Math.PI * 2);
-        ctx.fillStyle = ROAD.pebble;
-        ctx.fill();
+      if (road.style === "stone") {
+        for (let i = 0; i < 3; i++) {
+          const px = cx + (hash(x, y, i + 20) - 0.5) * ts * 0.48;
+          const py = cy + (hash(x, y, i + 30) - 0.5) * ts * 0.48;
+          roundRect(ctx, px - ts * 0.07, py - ts * 0.05, ts * 0.14, ts * 0.1, ts * 0.04);
+          ctx.fillStyle = road.pebble;
+          ctx.fill();
+        }
+      } else if (road.style === "dirt") {
+        for (let i = 0; i < 2; i++) {
+          const px = cx + (hash(x, y, i + 20) - 0.5) * ts * 0.5;
+          const py = cy + (hash(x, y, i + 30) - 0.5) * ts * 0.5;
+          ctx.beginPath();
+          ctx.ellipse(px, py, ts * 0.045, ts * 0.032, 0, 0, Math.PI * 2);
+          ctx.fillStyle = road.pebble;
+          ctx.fill();
+        }
       }
     }
   }
@@ -594,10 +985,8 @@ function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number) {
       ctx.ellipse(cx, cy + ts * 0.26, ts * 0.32, ts * 0.1, 0, 0, Math.PI * 2);
       ctx.fillStyle = "rgba(27,20,56,0.25)";
       ctx.fill();
-      const kind = hash(x, y, 62);
-      if (kind < 0.45) drawRock(ctx, cx, cy, ts, seed, lw);
-      else if (kind < 0.8) drawBush(ctx, cx, cy, ts, seed, lw);
-      else drawTree(ctx, cx, cy, ts, seed, lw);
+      const kind = th.decor[Math.floor(hash(x, y, 62) * th.decor.length) % th.decor.length];
+      drawDecor(ctx, kind, cx, cy, ts, seed, lw, th);
     }
   }
 
@@ -616,14 +1005,15 @@ function buildBoard(map: MapDef, ts: number, rotated: boolean, dpr: number) {
 // ------------------------------------------------------------
 
 /** 길 위를 흐르는 화살표 (적 진행 방향) */
-function drawFlow(ctx: CanvasRenderingContext2D, paths: ScreenPath[], ts: number, now: number) {
+function drawFlow(ctx: CanvasRenderingContext2D, paths: ScreenPath[], ts: number, now: number, th: FloorTheme) {
   const spacing = ts * 0.9;
   const offset = ((now / 1000) * ts * 0.55) % spacing;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   for (const p of paths) {
     const total = p.acc[p.acc.length - 1];
-    ctx.strokeStyle = withAlpha(p.color === PATH_COLORS[0] ? "#9a6431" : p.color, 0.5);
+    // 첫 경로는 길 색에 어울리는 짙은 화살표, 나머지 경로는 경로 색으로 구분
+    ctx.strokeStyle = p.color === PATH_COLORS[0] ? mix(th.road.edge, LINE, 0.25) : withAlpha(p.color, 0.6);
     ctx.lineWidth = Math.max(2, ts * 0.06);
     for (let d = offset + ts * 0.6; d < total - ts * 0.6; d += spacing) {
       let i = 1;
@@ -1120,13 +1510,14 @@ export function drawGame(ctx: CanvasRenderingContext2D, engine: GameEngine, view
   }
 
   // ---- 판 ----
-  const key = `${map.id}:${map.cols}x${map.rows}:${ts}:${view.rotated}:${view.dpr}:${map.paths.length}`;
+  const theme = floorTheme(view.region ?? map.region);
+  const key = `${map.id}:${map.cols}x${map.rows}:${ts}:${view.rotated}:${view.dpr}:${map.paths.length}:${theme.label}`;
   if (!cache.board || cache.board.key !== key) {
-    const b = buildBoard(map, ts, view.rotated, view.dpr);
+    const b = buildBoard(map, ts, view.rotated, view.dpr, theme);
     cache.board = { key, canvas: b.canvas, paths: b.paths };
   }
   ctx.drawImage(cache.board.canvas, 0, 0, W, H);
-  drawFlow(ctx, cache.board.paths, ts, now);
+  drawFlow(ctx, cache.board.paths, ts, now, theme);
 
   // 출발/도착
   const ends = new Set<string>();

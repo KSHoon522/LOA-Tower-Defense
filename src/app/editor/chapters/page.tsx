@@ -11,6 +11,7 @@ import {
 } from "@/components/editor/crud";
 import WaveDefsEditor from "@/components/editor/WaveDefsEditor";
 import { DEFAULT_REGIONS } from "@/game/constants";
+import { THEMED_REGIONS, floorTheme } from "@/game/themes";
 import type { ChapterDef, EnemyDef, MapDef, MissionDef, StageDef, SynergyDef } from "@/game/types";
 
 function blankStage(n: number): StageDef {
@@ -156,9 +157,11 @@ export default function ChaptersEditor() {
   const set = <K extends keyof ChapterDef>(k: K, v: ChapterDef[K]) =>
     setDraft((d) => ({ ...d, [k]: v }));
 
+  // 시너지 대륙 + 바닥 테마가 있는 지명 (토토이크·유디아처럼 대륙에 합쳐진 곳도 선택 가능)
   const regionOptions = useMemo(() => {
     const set = new Set<string>(synergies.map((s) => s.region));
     if (set.size === 0) DEFAULT_REGIONS.forEach((r) => set.add(r));
+    THEMED_REGIONS.forEach((r) => set.add(r));
     return Array.from(set);
   }, [synergies]);
 
@@ -202,12 +205,12 @@ export default function ChaptersEditor() {
             <TextField label="ID (고유값)" value={draft.id} onChange={(v) => set("id", v)} placeholder="ch-xxx" disabled={!isNew} />
             <TextField label="챕터 이름" value={draft.name} onChange={(v) => set("name", v)} />
             <SelectField
-              label="챕터 지역 (테마)"
+              label="챕터 지역 (바닥 테마)"
               value={draft.region ?? ""}
               onChange={(v) => set("region", v || undefined)}
               options={[
-                { value: "", label: "(없음)" },
-                ...regionOptions.map((r) => ({ value: r, label: r })),
+                { value: "", label: "(없음 — 맵 지역 사용)" },
+                ...regionOptions.map((r) => ({ value: r, label: `${r} · ${floorTheme(r).label}` })),
               ]}
             />
             <SelectField

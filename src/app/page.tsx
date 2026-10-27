@@ -7,6 +7,7 @@ import GradeSlot, { BOSS_PALETTE } from "@/components/ui/GradeSlot";
 import Icon, { JOB_GROUP_ICON, type IconName } from "@/components/ui/Icon";
 import JobEmblem from "@/components/ui/JobEmblem";
 import { DIFFICULTY } from "@/game/constants";
+import { floorTheme } from "@/game/themes";
 import type { Difficulty, EnemyDef, GameData, JobDef, JobSkill, SaveSlot } from "@/game/types";
 import { fetchGameData } from "@/lib/api";
 import { clearSave, loadSave } from "@/lib/save";
@@ -128,6 +129,10 @@ export default function LobbyPage() {
   const stageIndex = chapter?.stages.findIndex((s) => s.id === stageId) ?? -1;
   const stage = chapter && stageIndex >= 0 ? chapter.stages[stageIndex] : undefined;
   const job = data.jobs.find((j) => j.id === jobId);
+  // 전장 바닥 테마: 챕터 지역, 없으면 맵 지역
+  const terrain = chapter
+    ? floorTheme(chapter.region ?? data.maps.find((m) => m.id === chapter.mapId)?.region)
+    : undefined;
   const groupJobs = groups.find((g) => g.name === group)?.jobs ?? [];
   const boss = stage?.bossId ? enemyById.get(stage.bossId) : undefined;
   const foes = (stage?.enemyIds ?? []).map((id) => enemyById.get(id)).filter(Boolean) as EnemyDef[];
@@ -260,7 +265,7 @@ export default function LobbyPage() {
                   <div className="min-w-0">
                     <span
                       className="inline-flex items-center gap-1.5 rounded-lg border-2 border-line px-2 py-0.5 font-display text-xs text-parchment-50 text-toon-sm shadow-[0_2px_0_#1b1438]"
-                      style={{ backgroundColor: (chapter.region && regionColor.get(chapter.region)) || "#5068d0" }}
+                      style={{ backgroundColor: terrain?.accent ?? "#5068d0" }}
                     >
                       CHAPTER {chapterNumber(chapter.name, data.chapters.indexOf(chapter))}
                     </span>
@@ -268,9 +273,20 @@ export default function LobbyPage() {
                       {chapter.name.replace(/^챕터\s*\d+\s*[:：]\s*/, "")}
                     </h2>
                   </div>
-                  <span className="chip shrink-0">
-                    <Icon name="map" /> 스테이지 {chapter.stages.length}
-                  </span>
+                  <div className="flex shrink-0 flex-col items-end gap-1">
+                    <span className="chip">
+                      <Icon name="map" /> 스테이지 {chapter.stages.length}
+                    </span>
+                    {terrain && (
+                      <span className="chip">
+                        <span
+                          className="h-2.5 w-2.5 rounded-full border-2 border-line"
+                          style={{ backgroundColor: terrain.accent }}
+                        />
+                        {terrain.label}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 {chapter.description && <p className="mt-1.5 text-sm text-parchment-300">{chapter.description}</p>}
 

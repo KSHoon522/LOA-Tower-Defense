@@ -173,7 +173,7 @@
     "id": "job-valkyrie",
     "name": "발키리",
     "group": "전사",
-    "synergyRegion": "엘가시아",
+    "synergyRegion": "베른",
     "skills": [
       {
         "kind": "passive",
@@ -201,13 +201,13 @@
       "icon": "🌟",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_holyknight_female.png"
     },
-    "description": "패시브: 목숨 +2 / 액티브: 빛의 기사 (클릭 지점 반경 2칸에 마법 피해 380). 엘가시아 시너지 +1."
+    "description": "패시브: 목숨 +2 / 액티브: 빛의 기사 (클릭 지점 반경 2칸에 마법 피해 380). 베른 시너지 +1."
   },
   {
     "id": "job-guardianknight",
     "name": "가디언나이트",
     "group": "전사",
-    "synergyRegion": "엘가시아",
+    "synergyRegion": "베른",
     "skills": [
       {
         "kind": "passive",
@@ -235,7 +235,7 @@
       "icon": "🐉",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_dragon_knight.png"
     },
-    "description": "패시브: 전체 공격속도 +8% / 액티브: 엠버레스 해방 (클릭 지점 반경 1.6칸에 물리 피해 500). 엘가시아 시너지 +1."
+    "description": "패시브: 전체 공격속도 +8% / 액티브: 엠버레스 해방 (클릭 지점 반경 1.6칸에 물리 피해 500). 베른 시너지 +1."
   },
   {
     "id": "job-battlemaster",
@@ -384,7 +384,7 @@
     "id": "job-striker",
     "name": "스트라이커",
     "group": "무도가",
-    "synergyRegion": "아르테미스",
+    "synergyRegion": "루테란",
     "skills": [
       {
         "kind": "passive",
@@ -412,7 +412,7 @@
       "icon": "⚡",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_battle_master_male.png"
     },
-    "description": "패시브: 전체 공격속도 +8% / 액티브: 일격필살 (클릭 지점 반경 1칸에 물리 피해 700). 아르테미스 시너지 +1."
+    "description": "패시브: 전체 공격속도 +8% / 액티브: 일격필살 (클릭 지점 반경 1칸에 물리 피해 700). 루테란 시너지 +1."
   },
   {
     "id": "job-breaker",
@@ -520,7 +520,7 @@
     "id": "job-hawkeye",
     "name": "호크아이",
     "group": "헌터",
-    "synergyRegion": "토토이크",
+    "synergyRegion": "애니츠",
     "skills": [
       {
         "kind": "passive",
@@ -548,7 +548,7 @@
       "icon": "🦅",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_hawk_eye.png"
     },
-    "description": "패시브: 전체 치명타 피해 +40%p / 액티브: 두 번째 동료 (클릭 지점 반경 2칸에 물리 피해 400). 토토이크 시너지 +1."
+    "description": "패시브: 전체 치명타 피해 +40%p / 액티브: 두 번째 동료 (클릭 지점 반경 2칸에 물리 피해 400). 애니츠 시너지 +1."
   },
   {
     "id": "job-scouter",
@@ -588,7 +588,7 @@
     "id": "job-gunslinger",
     "name": "건슬링어",
     "group": "헌터",
-    "synergyRegion": "대양",
+    "synergyRegion": "섬",
     "skills": [
       {
         "kind": "passive",
@@ -616,7 +616,7 @@
       "icon": "🎯",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_devil_hunter_female.png"
     },
-    "description": "패시브: 전체 공격속도 +10% / 액티브: 사냥의 시간 (8초간 아군 전체 치명타 확률 +50%p). 대양 시너지 +1."
+    "description": "패시브: 전체 공격속도 +10% / 액티브: 사냥의 시간 (8초간 아군 전체 치명타 확률 +50%p). 섬 시너지 +1."
   },
   {
     "id": "job-bard",
@@ -756,7 +756,7 @@
     "id": "job-blade",
     "name": "블레이드",
     "group": "암살자",
-    "synergyRegion": "유디아",
+    "synergyRegion": "루테란",
     "skills": [
       {
         "kind": "passive",
@@ -784,7 +784,7 @@
       "icon": "🗡️",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_blade.png"
     },
-    "description": "패시브: 전체 공격속도 +10% / 액티브: 버스트 (클릭 지점 반경 1.2칸에 물리 피해 600). 유디아 시너지 +1."
+    "description": "패시브: 전체 공격속도 +10% / 액티브: 버스트 (클릭 지점 반경 1.2칸에 물리 피해 600). 루테란 시너지 +1."
   },
   {
     "id": "job-demonic",
@@ -858,7 +858,7 @@
     "id": "job-souleater",
     "name": "소울이터",
     "group": "암살자",
-    "synergyRegion": "대양",
+    "synergyRegion": "섬",
     "skills": [
       {
         "kind": "passive",
@@ -886,13 +886,13 @@
       "icon": "🌑",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_soul_eater.png"
     },
-    "description": "패시브: 처치당 골드 +1 / 액티브: 만월의 집행자 (클릭 지점 반경 2칸에 마법 피해 450). 대양 시너지 +1."
+    "description": "패시브: 처치당 골드 +1 / 액티브: 만월의 집행자 (클릭 지점 반경 2칸에 마법 피해 450). 섬 시너지 +1."
   },
   {
     "id": "job-artist",
     "name": "도화가",
     "group": "스페셜리스트",
-    "synergyRegion": "아르테미스",
+    "synergyRegion": "림레이크",
     "skills": [
       {
         "kind": "passive",
@@ -920,7 +920,7 @@
       "icon": "🖌️",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_yinyangshi.png"
     },
-    "description": "패시브: 전체 마나 회복 +20% / 액티브: 회귀 (10초간 아군 전체 마법 공격력 +50%). 아르테미스 시너지 +1."
+    "description": "패시브: 전체 마나 회복 +20% / 액티브: 회귀 (10초간 아군 전체 마법 공격력 +50%). 림레이크 시너지 +1."
   },
   {
     "id": "job-aeromancer",
@@ -960,7 +960,7 @@
     "id": "job-wildsoul",
     "name": "환수사",
     "group": "스페셜리스트",
-    "synergyRegion": "토토이크",
+    "synergyRegion": "림레이크",
     "skills": [
       {
         "kind": "passive",
@@ -988,13 +988,13 @@
       "icon": "🐻",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_alchemist.png"
     },
-    "description": "패시브: 전체 물리 공격력 +8% / 액티브: 환수 각성 (클릭 지점 반경 2칸에 물리 피해 420). 토토이크 시너지 +1."
+    "description": "패시브: 전체 물리 공격력 +8% / 액티브: 환수 각성 (클릭 지점 반경 2칸에 물리 피해 420). 림레이크 시너지 +1."
   },
   {
     "id": "job-dimensionist",
     "name": "차원술사",
     "group": "스페셜리스트",
-    "synergyRegion": "유디아",
+    "synergyRegion": "림레이크",
     "skills": [
       {
         "kind": "passive",
@@ -1022,6 +1022,6 @@
       "icon": "⏳",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_dimension_master.png"
     },
-    "description": "패시브: 전체 공격속도 +8% / 액티브: 시침·분침 결합 (클릭 지점 반경 2칸에 마법 피해 420). 유디아 시너지 +1."
+    "description": "패시브: 전체 공격속도 +8% / 액티브: 시침·분침 결합 (클릭 지점 반경 2칸에 마법 피해 420). 림레이크 시너지 +1."
   }
 ]

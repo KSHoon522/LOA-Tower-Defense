@@ -8,6 +8,7 @@ import {
   useCrud,
 } from "@/components/editor/crud";
 import { MAX_PATHS, PATH_COLORS } from "@/game/constants";
+import { floorTheme } from "@/game/themes";
 import type { MapDef, TileType } from "@/game/types";
 
 const TILE = 36;
@@ -256,7 +257,11 @@ export default function MapsEditor() {
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
             <TextField label="ID (고유값)" value={draft.id} onChange={(v) => set("id", v)} placeholder="map-xxx" disabled={!isNew} />
             <TextField label="이름" value={draft.name} onChange={(v) => set("name", v)} />
-            <TextField label="지역 (테마)" value={draft.region ?? ""} onChange={(v) => set("region", v || undefined)} />
+            <TextField
+              label={`지역 (바닥 테마: ${floorTheme(draft.region).label})`}
+              value={draft.region ?? ""}
+              onChange={(v) => set("region", v || undefined)}
+            />
             <NumberField label="가로 (칸)" value={draft.cols} onChange={(v) => resize(v, draft.rows)} />
             <NumberField label="세로 (칸)" value={draft.rows} onChange={(v) => resize(draft.cols, v)} />
           </div>

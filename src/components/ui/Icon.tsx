@@ -9,7 +9,7 @@ const SHADE = { fill: "#000", fillOpacity: 0.28 } as const;
 const STROKE = {
   fill: "none",
   stroke: "currentColor",
-  strokeWidth: 1.8,
+  strokeWidth: 2.2,
   strokeLinecap: "round",
   strokeLinejoin: "round",
 } as const;

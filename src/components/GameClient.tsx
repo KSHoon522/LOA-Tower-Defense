@@ -14,7 +14,6 @@ import GradeSlot from "./ui/GradeSlot";
 import Icon, { JOB_GROUP_ICON, type IconName } from "./ui/Icon";
 import JobEmblem from "./ui/JobEmblem";
 import { Modal } from "./ui/Overlay";
-import Sigil from "./ui/Sigil";
 import { prefersReducedMotion, useChangePulse, useTweenedNumber } from "./ui/motion";
 import BenchSlots from "./game/BenchSlots";
 import { BannerLayer, ToastStack, type BannerData, type ToastData } from "./game/Banners";
@@ -771,9 +770,9 @@ export default function GameClient() {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-arkesia p-4">
         <div className="frame max-w-sm p-6 text-center">
-          <Icon name="info" className="mx-auto text-3xl text-blood-400" />
-          <p className="mt-2 text-parchment-100">{error}</p>
-          <button className="btn-gold mt-4 h-10 px-5 text-sm" onClick={() => router.push("/")}>
+          <Icon name="info" className="mx-auto text-4xl text-blood-400" />
+          <p className="mt-2 text-parchment-50 text-toon-sm">{error}</p>
+          <button className="btn-gold mt-4 h-11 px-5 text-base" onClick={() => router.push("/")}>
             <Icon name="home" /> 로비로
           </button>
         </div>
@@ -783,8 +782,8 @@ export default function GameClient() {
   if (!data || !engine) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-arkesia">
-        <Sigil className="h-24 w-24 animate-[spin_6s_linear_infinite] text-gold-400/70" />
-        <p className="font-display text-xs tracking-[0.4em] text-gold-400/80">PREPARING</p>
+        <div className="animate-float -rotate-3 font-display text-6xl text-gold-grad">로타디</div>
+        <p className="font-display text-lg tracking-wider text-parchment-50 text-toon-sm">출정 준비 중…</p>
       </div>
     );
   }
@@ -876,34 +875,36 @@ export default function GameClient() {
   const waveButton = (cls: string) =>
     canCallEarly ? (
       <button
-        className={`btn-ark animate-ark-pulse ${cls}`}
+        className={`btn-ark animate-nudge ${cls}`}
         title="남은 적이 많을수록 보너스가 큽니다. 클리어 보상은 적 전멸 시 합산(이자는 1회), 조기 호출한 웨이브에는 미션이 붙지 않습니다."
         onClick={() => engine.startWave()}
       >
         <Icon name="fast" className="text-lg" />
         <span className="flex flex-col items-start leading-tight">
-          <span className="text-sm font-black">조기 호출</span>
-          <span className="text-[11px] font-bold opacity-80">웨이브 {engine.wave + 1} · +{engine.earlyCallBonus()}G</span>
+          <span className="text-base">조기 호출</span>
+          <span className="text-[11px]">웨이브 {engine.wave + 1} · +{engine.earlyCallBonus()}G</span>
         </span>
       </button>
     ) : engine.phase === "wave" ? (
       <button className={`btn-ghost cursor-default ${cls}`} disabled>
-        <Icon name="swords" className="text-lg text-gold-400" />
+        <Icon name="swords" className="text-lg" />
         <span className="flex flex-col items-start leading-tight">
-          <span className="text-sm font-bold text-parchment-100">전투 중</span>
-          <span className="text-[11px] text-parchment-400">남은 적 {remainingEnemies}</span>
+          <span className="text-base">전투 중</span>
+          <span className="text-[11px]">남은 적 {remainingEnemies}</span>
         </span>
       </button>
     ) : (
       <button
-        className={`btn-gold sheen ${engine.canStartWave() ? "animate-glow-pulse" : ""} ${cls}`}
+        className={`${engine.isBossWave(engine.wave + 1) ? "btn-red" : "btn-green"} sheen ${
+          engine.canStartWave() ? "animate-nudge" : ""
+        } ${cls}`}
         disabled={!engine.canStartWave()}
         onClick={() => engine.startWave()}
       >
-        <Icon name={engine.isBossWave(engine.wave + 1) ? "crown" : "play"} className="text-lg" />
+        <Icon name={engine.isBossWave(engine.wave + 1) ? "crown" : "play"} className="text-xl" />
         <span className="flex flex-col items-start leading-tight">
-          <span className="text-sm font-black">{engine.isBossWave(engine.wave + 1) ? "보스 웨이브" : "웨이브 시작"}</span>
-          <span className="text-[11px] font-bold opacity-75">
+          <span className="text-base">{engine.isBossWave(engine.wave + 1) ? "보스 웨이브" : "웨이브 시작"}</span>
+          <span className="text-[11px]">
             WAVE {engine.wave + 1}
             <span className="hidden lg:inline"> · Space</span>
           </span>
@@ -922,11 +923,11 @@ export default function GameClient() {
           : ""
       }
     >
-      <Icon name="gem" className="text-lg" />
+      <Icon name="gem" className="text-xl" />
       <span className="flex flex-col items-start leading-tight">
-        <span className="text-sm font-black">소환</span>
-        <span className="flex items-center gap-0.5 text-[11px] font-bold opacity-80">
-          <Icon name="coin" className="text-[#7a5418]" />
+        <span className="text-base">소환</span>
+        <span className="flex items-center gap-0.5 text-[11px]">
+          <Icon name="coin" className="text-gold-200" />
           {quickCost}
           {quickGachaRegion && <span className="ml-0.5 max-w-[4rem] truncate">· {quickGachaRegion}</span>}
         </span>
@@ -936,8 +937,8 @@ export default function GameClient() {
 
   const shopButton = (cls: string) => (
     <button className={`btn-ghost ${cls}`} onClick={() => setShopOpen(true)} title="상점 — 소환 종류 선택">
-      <Icon name="chest" className="text-lg text-gold-400" />
-      <span className="text-[10px] font-bold text-parchment-300">상점</span>
+      <Icon name="chest" className="text-xl text-gold-300" />
+      <span className="text-[11px]">상점</span>
     </button>
   );
 
@@ -948,10 +949,10 @@ export default function GameClient() {
           {(Object.keys(TARGET_MODE_LABEL) as TargetMode[]).map((m) => (
             <button
               key={m}
-              className={`truncate rounded-md border px-0.5 py-1 text-[10px] font-bold transition duration-150 ${
+              className={`truncate rounded-lg border-2 border-line px-0.5 py-1 text-[11px] transition duration-150 ease-spring ${
                 selectedUnit.targetMode === m
-                  ? "border-gold-400/70 bg-gold-500/15 text-gold-200"
-                  : "border-white/10 text-parchment-400 hover:border-white/25"
+                  ? "-translate-y-px bg-gold-400 text-line shadow-[0_2px_0_#1b1438]"
+                  : "bg-ink-950/60 text-parchment-300 hover:bg-ink-950/90"
               }`}
               onClick={() => engine.setTargetMode(selectedUnit.uid, m)}
               title={`공격 대상: ${TARGET_MODE_LABEL[m]}`}
@@ -962,14 +963,14 @@ export default function GameClient() {
         </div>
       )}
       {fusionCandidates.size > 0 && !fusionTargetUid && (
-        <div className="flex items-center gap-1 text-[11px] text-gold-300">
+        <div className="flex items-center gap-1 text-xs text-gold-300 text-toon-sm">
           <Icon name="sparkles" /> 점선 표시된 같은 등급 유닛을 누르면 합성
         </div>
       )}
       <div className="flex gap-1.5">
         {selectedIsPlaced && (
           <button
-            className="btn-ghost h-8 flex-1 text-[11px]"
+            className="btn-ghost h-9 flex-1 rounded-xl text-xs"
             disabled={engine.bench.length >= BENCH_SIZE}
             onClick={() => {
               if (engine.unplaceTower(selectedUnit.uid)) {
@@ -978,11 +979,11 @@ export default function GameClient() {
               }
             }}
           >
-            <Icon name="recall" /> 회수 <kbd className="hidden rounded bg-white/10 px-1 text-[9px] lg:inline">W</kbd>
+            <Icon name="recall" /> 회수 <kbd className="hidden rounded bg-line/40 px-1 text-[10px] lg:inline">W</kbd>
           </button>
         )}
         <button
-          className="btn-ghost h-8 flex-1 border-blood-500/30 text-[11px] text-blood-400 hover:border-blood-400/60 hover:text-blood-400"
+          className="btn-red h-9 flex-1 rounded-xl text-xs"
           onClick={() => {
             if (sellUnit(selectedUnit.uid)) {
               setSelectedUid(null);
@@ -991,7 +992,7 @@ export default function GameClient() {
           }}
         >
           <Icon name="coin" /> 판매 +{sellRefund(selectedDef.grade)}
-          <kbd className="hidden rounded bg-white/10 px-1 text-[9px] lg:inline">F</kbd>
+          <kbd className="hidden rounded bg-line/40 px-1 text-[10px] lg:inline">F</kbd>
         </button>
       </div>
     </div>
@@ -1026,37 +1027,43 @@ export default function GameClient() {
   return (
     <div
       ref={rootRef}
-      className="fixed inset-0 z-50 flex select-none flex-col overflow-hidden bg-arkesia bg-noise"
+      className="fixed inset-0 z-50 flex select-none flex-col overflow-hidden bg-arkesia"
       onPointerDownCapture={() => getSound()?.unlock()}
     >
       {/* ===== 상단 HUD ===== */}
-      <div className="relative z-30 flex h-14 shrink-0 items-center gap-1.5 px-2 sm:gap-2 sm:px-3">
-        <button className="btn-ghost h-8 w-8 shrink-0 rounded-full sm:h-9 sm:w-9" onClick={exitToLobby} aria-label="로비로">
-          <Icon name="chevronLeft" />
+      <div className="relative z-30 flex h-14 shrink-0 items-center gap-1.5 px-2 sm:h-16 sm:gap-2 sm:px-3">
+        <button className="btn-ghost h-9 w-9 shrink-0 rounded-full sm:h-10 sm:w-10" onClick={exitToLobby} aria-label="로비로">
+          <Icon name="chevronLeft" className="text-lg" />
         </button>
         <div
           key={`lives-${livesPulse.key}`}
-          className={`plate h-8 px-2 sm:h-9 sm:px-3 ${livesPulse.dir < 0 ? "animate-hit-flash border-blood-500/60" : ""}`}
+          className={`plate relative h-8 pl-6 pr-2.5 sm:h-9 sm:pl-7 sm:pr-3 ${livesPulse.dir < 0 ? "animate-hit-flash" : ""}`}
           title="목숨"
         >
-          <Icon name="heart" className="text-sm text-blood-400 sm:text-base" />
-          <span className="font-display text-sm font-bold text-parchment-50 sm:text-base">{engine.lives}</span>
+          <Icon
+            name="heart"
+            className="absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-blood-400 drop-shadow-[0_2px_0_#1b1438] sm:text-[30px]"
+          />
+          <span className="font-display text-base text-parchment-50 text-toon-sm sm:text-lg">{engine.lives}</span>
         </div>
-        <div className="plate h-8 px-2 sm:h-9 sm:px-3" title="골드">
-          <Icon name="coin" className="text-sm text-gold-400 sm:text-base" />
-          <span className="min-w-[2.5ch] font-display text-sm font-bold text-gold-200 sm:text-base">{gold}</span>
+        <div className="plate relative ml-1.5 h-8 pl-6 pr-2.5 sm:h-9 sm:pl-7 sm:pr-3" title="골드">
+          <Icon
+            name="coin"
+            className="absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-gold-400 drop-shadow-[0_2px_0_#1b1438] sm:text-[30px]"
+          />
+          <span className="min-w-[2.5ch] font-display text-base text-gold-300 text-toon-sm sm:text-lg">{gold}</span>
         </div>
 
         {/* 웨이브 판 (데스크톱 가운데) */}
         <div className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 flex-col items-center md:flex">
-          <div className="flex items-baseline gap-2">
-            <span className="font-display text-[10px] font-bold tracking-[0.35em] text-parchment-500">WAVE</span>
-            <span className="font-display text-2xl font-black leading-none text-gold-grad">{engine.wave}</span>
-            <span className="font-display text-sm font-bold text-parchment-500">/ {engine.totalWaves}</span>
+          <div className="flex items-baseline gap-1.5">
+            <span className="font-display text-sm text-parchment-50 text-toon-sm">WAVE</span>
+            <span className="font-display text-3xl leading-none text-gold-grad">{engine.wave}</span>
+            <span className="font-display text-base text-parchment-300 text-toon-sm">/ {engine.totalWaves}</span>
           </div>
-          <div className="relative mt-1 h-1.5 w-56 overflow-hidden rounded-full bg-ink-800 ring-1 ring-white/5">
+          <div className="gauge mt-1 h-3.5 w-60">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-gold-700 via-gold-500 to-gold-300 transition-[width] duration-700 ease-out-expo"
+              className="gauge-fill bg-gold-400 transition-[width] duration-700 ease-out-expo"
               style={{ width: `${waveRatio * 100}%` }}
             />
             {Array.from({ length: engine.totalWaves }, (_, i) => i + 1)
@@ -1064,12 +1071,12 @@ export default function GameClient() {
               .map((w) => (
                 <span
                   key={w}
-                  className="absolute top-0 h-full w-[3px] -translate-x-1/2 bg-blood-400"
-                  style={{ left: `${(w / engine.totalWaves) * 100}%`, opacity: w <= engine.wave ? 0.4 : 0.9 }}
+                  className="absolute top-0 h-full w-1 -translate-x-1/2 bg-blood-500"
+                  style={{ left: `${(w / engine.totalWaves) * 100}%`, opacity: w <= engine.wave ? 0.45 : 1 }}
                 />
               ))}
           </div>
-          <div className="mt-0.5 h-3 text-[10px] text-parchment-500">
+          <div className="mt-0.5 h-3 text-[11px] text-parchment-100 text-toon-sm">
             {engine.phase === "wave" ? `남은 적 ${remainingEnemies}` : engine.stage?.name}
           </div>
         </div>
@@ -1077,26 +1084,26 @@ export default function GameClient() {
         <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
           {/* 모바일 웨이브 표시 */}
           <div className="plate h-8 gap-1 px-2 md:hidden">
-            <span className="font-display text-[9px] font-bold tracking-[0.2em] text-parchment-500">WAVE</span>
-            <span className="font-display text-sm font-black text-gold-200">
+            <span className="font-display text-[10px] text-parchment-300">WAVE</span>
+            <span className="font-display text-base text-gold-300 text-toon-sm">
               {engine.wave}
-              <span className="text-parchment-500">/{engine.totalWaves}</span>
+              <span className="text-xs text-parchment-300">/{engine.totalWaves}</span>
             </span>
           </div>
           <button
-            className={`btn-ghost h-8 gap-0.5 px-2 text-xs font-bold sm:h-9 sm:gap-1 sm:px-2.5 ${engine.speed > 1 ? "border-gold-400/70 text-gold-200" : ""}`}
+            className={`h-8 gap-0.5 rounded-xl px-2 text-sm sm:h-9 sm:gap-1 sm:px-2.5 ${engine.speed > 1 ? "btn-gold" : "btn-ghost"}`}
             onClick={toggleSpeed}
             aria-label="게임 속도"
           >
             <Icon name="fast" />×{engine.speed}
           </button>
-          <button className="btn-ghost hidden h-9 w-9 lg:inline-flex" onClick={cycleVolume} aria-label="효과음">
+          <button className="btn-ghost hidden h-9 w-9 rounded-xl lg:inline-flex" onClick={cycleVolume} aria-label="효과음">
             <Icon name={volIcon} />
           </button>
-          <button className="btn-ghost hidden h-9 w-9 lg:inline-flex" onClick={() => setSheet("log")} aria-label="전투 기록">
+          <button className="btn-ghost hidden h-9 w-9 rounded-xl lg:inline-flex" onClick={() => setSheet("log")} aria-label="전투 기록">
             <Icon name="log" />
           </button>
-          <button className="btn-ghost h-8 w-8 sm:h-9 sm:w-9" onClick={() => togglePause(true)} aria-label="일시정지">
+          <button className="btn-ghost h-8 w-8 rounded-xl sm:h-9 sm:w-9" onClick={() => togglePause(true)} aria-label="일시정지">
             <Icon name="pause" />
           </button>
         </div>
@@ -1110,33 +1117,36 @@ export default function GameClient() {
             <div className="frame p-3">
               <div className="flex items-center gap-3">
                 <span
-                  className="flex h-12 w-12 shrink-0 items-center justify-center text-parchment-50"
+                  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border-[3px] border-line text-parchment-50"
                   style={{
-                    clipPath: "polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)",
-                    background: `linear-gradient(160deg, ${jobColor}, #0e131e 85%)`,
+                    background: `linear-gradient(180deg, ${jobColor} 0%, color-mix(in srgb, ${jobColor} 60%, #1b1438) 100%)`,
+                    boxShadow: "inset 0 3px 0 rgba(255,255,255,0.4), 0 3px 0 #1b1438",
                   }}
                 >
-                  <JobEmblem appearance={engine.job.appearance} size={30} />
+                  <JobEmblem appearance={engine.job.appearance} size={34} />
                 </span>
                 <div className="min-w-0">
-                  <div className="flex items-center gap-1 text-[10px] font-semibold text-parchment-500">
+                  <div className="flex items-center gap-1 text-[11px] text-parchment-300">
                     {engine.job.group && <Icon name={JOB_GROUP_ICON[engine.job.group] ?? "hex"} />}
                     {engine.job.group ?? "직업"}
                   </div>
-                  <div className="truncate font-serif text-base font-bold text-parchment-50">{engine.job.name}</div>
+                  <div className="truncate font-display text-xl leading-tight text-parchment-50 text-toon">{engine.job.name}</div>
                   {engine.job.synergyRegion && (
-                    <div className="text-[10px] font-bold" style={{ color: regionColor.get(engine.job.synergyRegion) ?? "#cfa24e" }}>
+                    <span
+                      className="mt-0.5 inline-block rounded-md border-2 border-line px-1 text-[10px] text-parchment-50 text-toon-sm"
+                      style={{ backgroundColor: regionColor.get(engine.job.synergyRegion) ?? "#5068d0" }}
+                    >
                       {engine.job.synergyRegion} 시너지 +1
-                    </div>
+                    </span>
                   )}
                 </div>
               </div>
               {passiveSkills.length > 0 && (
                 <div className="mt-2.5 space-y-1">
                   {passiveSkills.map((s, i) => (
-                    <div key={i} className="rounded-md bg-ink-950/50 px-2 py-1 text-[11px]">
-                      <span className="font-bold text-ark-300">{s.name}</span>{" "}
-                      <span className="text-parchment-400">{s.description}</span>
+                    <div key={i} className="well px-2 py-1.5 text-xs">
+                      <span className="text-ark-300">{s.name}</span>{" "}
+                      <span className="text-parchment-300">{s.description}</span>
                     </div>
                   ))}
                 </div>
@@ -1144,7 +1154,7 @@ export default function GameClient() {
             </div>
           )}
           <div className="frame min-h-0 flex-1 p-3">
-            <div className="frame-title mb-2">Synergy</div>
+            <div className="frame-title mb-2">시너지</div>
             <SynergyRows synergies={engine.activeSynergies} />
           </div>
         </aside>
@@ -1152,8 +1162,7 @@ export default function GameClient() {
         {/* ---- 전장 ---- */}
         <div ref={areaRef} className="relative min-h-0 min-w-0 flex-1">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative rounded-xl border border-gold-500/25 bg-ink-950 p-1.5 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.95),0_0_0_1px_rgba(0,0,0,0.6)]">
-              <div className="pointer-events-none absolute -inset-px rounded-xl [background:linear-gradient(180deg,rgba(230,194,116,0.18),transparent_30%,transparent_70%,rgba(230,194,116,0.12))]" />
+            <div className="relative rounded-[22px] border-4 border-line bg-[#8a5a2b] p-1.5 shadow-[inset_0_3px_0_rgba(255,255,255,0.25),inset_0_-4px_0_rgba(0,0,0,0.25),0_6px_0_#1b1438,0_20px_40px_-16px_rgba(5,5,30,0.7)]">
               <canvas
                 ref={canvasRef}
                 width={Math.round(displaySize(engine.map, rotated).cols * tileSize * dpr)}
@@ -1163,7 +1172,7 @@ export default function GameClient() {
                   height: displaySize(engine.map, rotated).rows * tileSize,
                   touchAction: "none",
                 }}
-                className={`relative block rounded-lg ${aimSkillIndex !== null ? "cursor-crosshair" : "cursor-pointer"}`}
+                className={`relative block rounded-[14px] ${aimSkillIndex !== null ? "cursor-crosshair" : "cursor-pointer"}`}
                 onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
@@ -1175,7 +1184,7 @@ export default function GameClient() {
               {leakKey > 0 && (
                 <div
                   key={leakKey}
-                  className="pointer-events-none absolute inset-1.5 rounded-lg"
+                  className="pointer-events-none absolute inset-1.5 rounded-[14px]"
                   style={{
                     boxShadow: "inset 0 0 60px 10px rgba(229,72,77,0.55)",
                     animation: "fade-out 700ms cubic-bezier(0.7,0,0.84,0) forwards",
@@ -1186,11 +1195,10 @@ export default function GameClient() {
           </div>
 
           <ToastStack toasts={toasts} />
-          <BannerLayer banner={banner} />
 
           {/* 조준 안내 */}
           {aimSkillIndex !== null && (
-            <div className="absolute bottom-3 left-1/2 z-20 -translate-x-1/2 animate-pop-in whitespace-nowrap rounded-full border border-[#ff9d4d]/50 bg-ink-950/90 px-3 py-1.5 text-xs font-bold text-[#ffb27a] backdrop-blur">
+            <div className="absolute bottom-3 left-1/2 z-20 -translate-x-1/2 animate-pop-in whitespace-nowrap rounded-full border-[3px] border-line bg-[#ff9d4d] px-3 py-1.5 text-sm text-parchment-50 text-toon-sm shadow-[0_3px_0_#1b1438]">
               <Icon name="target" className="mr-1 inline" />
               맵을 눌러 시전 · 스킬 버튼을 다시 누르면 취소
             </div>
@@ -1204,18 +1212,18 @@ export default function GameClient() {
           {/* 모바일: 우상단 미션 */}
           {missionInfo && (
             <div
-              className={`absolute right-1.5 top-1.5 z-20 max-w-[46%] rounded-xl border px-2 py-1 text-[10px] backdrop-blur lg:hidden ${
-                missionInfo.failed ? "border-blood-500/40 bg-ink-950/85 text-blood-400" : "border-[#a78bfa]/40 bg-ink-950/85 text-[#d9c4ff]"
+              className={`absolute right-1.5 top-1.5 z-20 max-w-[46%] rounded-xl border-2 border-line px-2 py-1 text-[11px] text-parchment-50 shadow-[0_2px_0_#1b1438] lg:hidden ${
+                missionInfo.failed ? "bg-blood-600" : "bg-[#7c4ddb]"
               }`}
             >
-              <div className="flex items-center gap-1 truncate font-bold">
+              <div className="flex items-center gap-1 truncate text-toon-sm">
                 <Icon name="target" className="shrink-0" />
                 <span className="truncate">{missionInfo.def.name}</span>
                 <span className={missionInfo.failed ? "" : "text-gold-300"}>
                   {missionInfo.failed ? "실패" : `+${missionInfo.def.rewardGold}`}
                 </span>
               </div>
-              {missionInfo.progress && <div className="truncate text-parchment-400">{missionInfo.progress}</div>}
+              {missionInfo.progress && <div className="truncate text-parchment-100">{missionInfo.progress}</div>}
             </div>
           )}
 
@@ -1241,18 +1249,18 @@ export default function GameClient() {
 
           {/* 모바일: 보스전 체력 바 */}
           {bossInfo?.alive && !selectedUnit && (
-            <div className="absolute bottom-2 left-2 right-[4.5rem] z-20 animate-fade-rise rounded-xl border border-blood-500/30 bg-ink-950/85 px-2.5 py-1.5 backdrop-blur lg:hidden">
-              <div className="flex items-center gap-1.5 text-[11px] font-bold">
-                <Icon name="crown" className="text-blood-400" />
-                <span className="truncate text-parchment-100">{bossInfo.def.name}</span>
-                <span className="ml-auto shrink-0 text-parchment-400">
+            <div className="absolute bottom-2 left-2 right-[4.5rem] z-20 animate-fade-rise rounded-2xl border-[3px] border-line bg-blood-600 px-2.5 py-1.5 shadow-[inset_0_2px_0_rgba(255,255,255,0.25),0_3px_0_#1b1438] lg:hidden">
+              <div className="flex items-center gap-1.5 text-xs text-parchment-50 text-toon-sm">
+                <Icon name="crown" className="text-gold-300" />
+                <span className="truncate">{bossInfo.def.name}</span>
+                <span className="ml-auto shrink-0 font-display">
                   {Math.max(0, Math.round(bossInfo.alive.hp)).toLocaleString()}
                 </span>
               </div>
-              <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-ink-800">
+              <div className="gauge mt-1 h-3">
                 <div
                   data-boss-hp
-                  className="h-full rounded-full bg-gradient-to-r from-blood-600 to-blood-400"
+                  className="gauge-fill bg-blood-400"
                   style={{ width: `${Math.max(0, (bossInfo.alive.hp / bossInfo.maxHp) * 100)}%` }}
                 />
               </div>
@@ -1263,7 +1271,7 @@ export default function GameClient() {
           {selectedUnit && selectedDef && !unitMenu && (
             <div className="frame absolute bottom-2 left-2 right-[4.5rem] z-20 max-w-md animate-fade-rise p-2.5 lg:hidden">
               <button
-                className="absolute right-1.5 top-1.5 z-10 flex h-7 w-7 items-center justify-center rounded-lg text-parchment-400"
+                className="btn-red absolute right-1.5 top-1.5 z-10 h-7 w-7 rounded-full"
                 onClick={() => {
                   setSelectedUid(null);
                   clearFusion();
@@ -1282,30 +1290,30 @@ export default function GameClient() {
         <aside className="hidden w-72 shrink-0 flex-col gap-3 overflow-y-auto p-3 pt-1 lg:flex">
           <div className="frame p-3">
             <div className="frame-title mb-2.5">
-              {hoverEnemy ? "Enemy" : infoContent ? "Unit" : "Guide"}
+              {hoverEnemy ? "적 정보" : infoContent ? "유닛 정보" : "도움말"}
             </div>
             {infoContent ?? (
-              <ul className="space-y-1.5 text-xs text-parchment-400">
+              <ul className="space-y-2 text-[13px] text-parchment-100">
                 <li className="flex gap-2">
-                  <Icon name="gem" className="mt-0.5 shrink-0 text-gold-400" />
+                  <Icon name="gem" className="mt-0.5 shrink-0 text-gold-300" />
                   <span>
-                    <b className="text-parchment-100">소환</b>으로 캐릭터를 얻고 대기석에서 맵으로 끌어다 배치하세요
+                    <b className="font-normal text-gold-300">소환</b>으로 캐릭터를 얻고 대기석에서 맵으로 끌어다 배치하세요
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <Icon name="sparkles" className="mt-0.5 shrink-0 text-gold-400" />
+                  <Icon name="sparkles" className="mt-0.5 shrink-0 text-gold-300" />
                   <span>
-                    같은 등급 둘을 <b className="text-parchment-100">합성</b>하면 상위 등급이 됩니다
+                    같은 등급 둘을 <b className="font-normal text-gold-300">합성</b>하면 상위 등급이 됩니다
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <Icon name="hex" className="mt-0.5 shrink-0 text-gold-400" />
+                  <Icon name="hex" className="mt-0.5 shrink-0 text-gold-300" />
                   <span>
-                    같은 지역 캐릭터를 모으면 <b className="text-parchment-100">시너지</b>가 아군 전체를 강화합니다
+                    같은 지역 캐릭터를 모으면 <b className="font-normal text-gold-300">시너지</b>가 아군 전체를 강화합니다
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <Icon name="target" className="mt-0.5 shrink-0 text-gold-400" />
+                  <Icon name="target" className="mt-0.5 shrink-0 text-gold-300" />
                   <span>우클릭(모바일은 길게 누르기)으로 공격 대상·회수·판매</span>
                 </li>
               </ul>
@@ -1318,12 +1326,15 @@ export default function GameClient() {
       </div>
 
       {/* ===== 하단 도크 (데스크톱) ===== */}
-      <div className="relative z-30 hidden shrink-0 items-end gap-4 border-t border-gold-500/15 bg-ink-950/85 px-4 pb-3 pt-2.5 backdrop-blur lg:flex">
+      <div className="relative z-30 hidden shrink-0 items-end gap-4 border-t-[3px] border-line bg-ink-900 px-4 pb-3 pt-2.5 shadow-[inset_0_3px_0_rgba(255,255,255,0.1)] lg:flex">
         <div className="flex items-end gap-2">
           {activeSkills.length > 0 && (
             <div className="flex flex-col items-center">
-              <div className="mb-1 text-[10px] text-parchment-500">
-                남은 사용 <b className={engine.jobSkillUsesLeft > 0 ? "text-gold-300" : "text-blood-400"}>{engine.jobSkillUsesLeft}</b>
+              <div className="mb-1 text-[11px] text-parchment-300">
+                남은 사용{" "}
+                <span className={`font-display text-sm text-toon-sm ${engine.jobSkillUsesLeft > 0 ? "text-gold-300" : "text-blood-400"}`}>
+                  {engine.jobSkillUsesLeft}
+                </span>
               </div>
               <div className="flex gap-2">
                 {activeSkills.map(({ index, skill }) => (
@@ -1347,8 +1358,12 @@ export default function GameClient() {
 
         <div className="flex min-w-0 flex-1 flex-col items-center">
           <div className="mb-1.5 flex items-center gap-2">
-            <span className="font-display text-[10px] font-bold tracking-[0.3em] text-gold-500/70">BENCH</span>
-            <span className={`text-[11px] font-bold ${engine.bench.length >= BENCH_SIZE ? "text-blood-400" : "text-parchment-400"}`}>
+            <span className="font-display text-sm text-parchment-50 text-toon-sm">대기석</span>
+            <span
+              className={`rounded-md border-2 border-line px-1.5 font-display text-xs text-parchment-50 text-toon-sm ${
+                engine.bench.length >= BENCH_SIZE ? "bg-blood-500" : "bg-ink-700"
+              }`}
+            >
               {engine.bench.length}/{BENCH_SIZE}
             </span>
           </div>
@@ -1376,7 +1391,7 @@ export default function GameClient() {
       </div>
 
       {/* ===== 하단 도크 (모바일) ===== */}
-      <div className="relative z-30 shrink-0 border-t border-gold-500/15 bg-ink-950/90 px-2 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 backdrop-blur lg:hidden">
+      <div className="relative z-30 shrink-0 border-t-[3px] border-line bg-ink-900 px-2 pb-[max(8px,env(safe-area-inset-bottom))] pt-2 shadow-[inset_0_3px_0_rgba(255,255,255,0.1)] lg:hidden">
         <div className="flex gap-1.5 overflow-x-auto pb-2 pt-1.5">
           <BenchSlots
             engine={engine}
@@ -1398,8 +1413,13 @@ export default function GameClient() {
         </div>
       </div>
 
+      {/* ===== 중앙 배너: 상점 창이 열려 있어도 보이게 창보다 위에 ===== */}
+      <div className="pointer-events-none fixed inset-0 z-[82]">
+        <BannerLayer banner={banner} />
+      </div>
+
       {/* ===== 상점 ===== */}
-      <Modal open={shopOpen} onClose={() => setShopOpen(false)} kicker="Summon" title="소환" width={460}>
+      <Modal open={shopOpen} onClose={() => setShopOpen(false)} kicker="Shop" title="소환 상점" width={460}>
         <ShopPanel
           engine={engine}
           regions={shopRegions}
@@ -1418,7 +1438,7 @@ export default function GameClient() {
       <Modal open={sheet === "log"} onClose={() => setSheet("none")} kicker="Log" title="전투 기록">
         <div className="flex flex-col gap-1 text-xs">
           {[...engine.logs].reverse().map((l, i) => (
-            <div key={i} className="rounded-md bg-ink-950/40 px-2 py-1" style={{ color: l.color ?? "#a9a08b" }}>
+            <div key={i} className="well px-2.5 py-1.5" style={{ color: l.color ?? "#cdd6ff" }}>
               {l.text}
             </div>
           ))}
@@ -1482,7 +1502,7 @@ export default function GameClient() {
       {/* ===== 대기석 드래그 고스트 ===== */}
       {benchGhost && (
         <div
-          className="pointer-events-none fixed z-[65] -translate-x-1/2 -translate-y-1/2 opacity-90 drop-shadow-[0_10px_20px_rgba(0,0,0,0.7)]"
+          className="pointer-events-none fixed z-[65] -translate-x-1/2 -translate-y-1/2 rotate-6 scale-110 drop-shadow-[0_10px_0_rgba(27,20,56,0.35)]"
           style={{ left: benchGhost.x, top: benchGhost.y }}
         >
           {(() => {

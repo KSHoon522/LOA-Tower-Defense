@@ -43,54 +43,55 @@ export default function SkillButton({
       disabled={cooling || exhausted}
       onClick={onClick}
       aria-label={`${skill.name} (남은 사용 ${usesLeft}회)`}
-      className={`group relative flex flex-col items-center justify-center overflow-hidden border text-parchment-50 transition duration-200 ease-out-expo active:scale-95 disabled:cursor-not-allowed ${
-        round ? "h-14 w-14 rounded-full" : "h-[68px] w-[68px] rounded-xl"
-      } ${
-        aiming
-          ? "border-[#ff9d4d] shadow-[0_0_0_2px_rgba(255,157,77,0.35),0_0_22px_rgba(255,157,77,0.55)]"
-          : ready
-            ? "border-gold-400/70 hover:-translate-y-0.5 hover:border-gold-300"
-            : "border-white/10"
-      }`}
+      className={`group relative flex flex-col items-center justify-center overflow-hidden border-[3px] border-line text-parchment-50 transition duration-150 ease-spring active:translate-y-[3px] disabled:cursor-not-allowed ${
+        round ? "h-14 w-14 rounded-full" : "h-[70px] w-[70px] rounded-2xl"
+      } ${ready && !aiming ? "hover:-translate-y-0.5" : ""}`}
       style={{
-        background: `radial-gradient(120% 90% at 50% 0%, ${color}55 0%, #131a28 55%, #0a0e16 100%)`,
-        boxShadow: ready && !aiming ? `0 8px 22px -10px ${color}` : undefined,
+        background: `linear-gradient(180deg, ${color} 0%, ${color} 50%, color-mix(in srgb, ${color} 70%, #1b1438) 50%)`,
+        boxShadow: [
+          "inset 0 3px 0 rgba(255,255,255,0.4)",
+          "inset 0 -4px 0 rgba(0,0,0,0.18)",
+          "0 4px 0 #1b1438",
+          aiming ? "0 0 0 4px #ff9d4d" : ready ? "0 0 0 3px rgba(255,226,102,0.85)" : "",
+        ]
+          .filter(Boolean)
+          .join(", "),
       }}
     >
-      <JobEmblem appearance={appearance} size={round ? 26 : 30} />
+      <JobEmblem appearance={appearance} size={round ? 28 : 30} />
       {!round && (
-        <span className="mt-1 w-full truncate px-1 text-center text-[10px] font-bold text-parchment-100">
+        <span className="mt-0.5 w-full truncate px-1 text-center text-[11px] text-parchment-50 text-toon-sm">
           {skill.name}
         </span>
       )}
       {skill.effect.type === "damage_area" && ready && !aiming && (
-        <Icon name="target" className="absolute bottom-1 left-1 text-[11px] text-[#ffb27a]" />
+        <Icon name="target" className="absolute bottom-1 left-1 text-xs text-[#ffe0c2] drop-shadow-[0_1px_0_#1b1438]" />
       )}
 
       {/* 쿨다운 그림자 */}
       <span
         className="pointer-events-none absolute inset-0"
-        style={{ background: "conic-gradient(rgba(5,7,11,0.78) calc(var(--cd, 0) * 1turn), transparent 0)" }}
+        style={{ background: "conic-gradient(rgba(16,22,74,0.8) calc(var(--cd, 0) * 1turn), transparent 0)" }}
       />
       {cooling && (
-        <span className="absolute inset-0 flex items-center justify-center font-display text-lg font-bold text-parchment-50 drop-shadow">
+        <span className="absolute inset-0 flex items-center justify-center font-display text-2xl text-parchment-50 text-toon">
           {Math.ceil(cdLeft)}
         </span>
       )}
       {exhausted && (
-        <span className="absolute inset-0 flex items-center justify-center bg-ink-950/70 text-[10px] font-bold text-blood-400">
+        <span className="absolute inset-0 flex items-center justify-center bg-ink-950/75 font-display text-xs text-blood-400 text-toon-sm">
           소진
         </span>
       )}
       {aiming && (
-        <span className="absolute inset-x-0 bottom-0 bg-[#ff9d4d] py-px text-center text-[9px] font-black text-ink-950">
+        <span className="absolute inset-x-0 bottom-0 border-t-2 border-line bg-[#ff9d4d] py-px text-center text-[10px] text-parchment-50 text-toon-sm">
           조준 중
         </span>
       )}
       {/* 남은 사용 횟수 */}
       <span
-        className={`absolute right-1 top-1 min-w-[16px] rounded-full px-1 text-center text-[9px] font-black leading-[14px] ${
-          exhausted ? "bg-blood-600 text-parchment-50" : "bg-gold-400 text-ink-950"
+        className={`absolute right-0.5 top-0.5 min-w-[18px] rounded-full border-2 border-line px-1 text-center font-display text-[10px] leading-[14px] ${
+          exhausted ? "bg-blood-500 text-parchment-50" : "bg-gold-400 text-line"
         }`}
       >
         {usesLeft}
@@ -104,14 +105,14 @@ export default function SkillButton({
       side="top"
       tip={
         <>
-          <div className="font-serif text-sm font-bold text-gold-300">{skill.name}</div>
-          <div className="mt-0.5 flex items-center gap-2 text-parchment-500">
+          <div className="font-display text-base text-gold-300 text-toon-sm">{skill.name}</div>
+          <div className="mt-0.5 flex items-center gap-2 text-parchment-300">
             <span className="flex items-center gap-0.5">
               <Icon name="hourglass" /> {skill.cooldown}초
             </span>
             <span>남은 사용 {usesLeft}회</span>
           </div>
-          {skill.description && <p className="mt-1 text-parchment-300">{skill.description}</p>}
+          {skill.description && <p className="mt-1 text-parchment-100">{skill.description}</p>}
           {skill.effect.type === "damage_area" && (
             <p className="mt-1 text-[#ffb27a]">버튼을 누른 뒤 맵을 클릭해 시전합니다</p>
           )}

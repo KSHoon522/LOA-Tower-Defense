@@ -5,11 +5,11 @@ import { GRADE_BG, GRADE_COLOR } from "@/game/constants";
 import type { Appearance, Grade } from "@/game/types";
 
 /** 적/특수 슬롯용 팔레트 */
-export const FOE_PALETTE = { color: "#e5484d", bg: ["#2a0d10", "#5c1a1f"] as [string, string] };
-export const BOSS_PALETTE = { color: "#ff6b6b", bg: ["#3a0a0e", "#8f1d24"] as [string, string] };
+export const FOE_PALETTE = { color: "#ff6b72", bg: ["#8a1c2e", "#e2475a"] as [string, string] };
+export const BOSS_PALETTE = { color: "#ff9a3c", bg: ["#6e0f24", "#c81e3a"] as [string, string] };
 
 /**
- * 로스트아크 아이템 슬롯처럼 등급 그라데이션 배경 + 등급색 테두리를 가진 초상 칸
+ * 카툰 카드 칸: 굵은 외곽선 + 등급색 그라데이션 + 등급색 안쪽 테두리
  * - 스프라이트 시트가 있으면 대기 동작 첫 프레임, 이미지가 있으면 이미지, 없으면 이모지
  */
 export default function GradeSlot({
@@ -34,41 +34,46 @@ export default function GradeSlot({
   className?: string;
   children?: React.ReactNode;
 }) {
-  const color = palette?.color ?? (grade ? GRADE_COLOR[grade] : "#7f7867");
-  const [bg0, bg1] = palette?.bg ?? (grade ? GRADE_BG[grade] : ["#141a26", "#252e42"]);
-  const radius = Math.max(6, Math.round(size * 0.16));
+  const color = palette?.color ?? (grade ? GRADE_COLOR[grade] : "#a5b2ec");
+  const [bg0, bg1] = palette?.bg ?? (grade ? GRADE_BG[grade] : ["#223088", "#3a4fb8"]);
+  const radius = Math.max(8, Math.round(size * 0.22));
+  const lineW = size >= 40 ? 3 : 2;
 
   return (
     <div
-      className={`relative shrink-0 overflow-hidden transition duration-200 ease-out-expo ${
+      className={`relative shrink-0 overflow-hidden transition duration-200 ease-spring ${
         dim ? "opacity-45 saturate-50" : ""
       } ${className}`}
       style={{
         width: size,
         height: size,
         borderRadius: radius,
-        background: `linear-gradient(135deg, ${bg0} 0%, ${bg1} 100%)`,
+        border: `${lineW}px solid #1b1438`,
+        background: `linear-gradient(180deg, ${bg1} 0%, ${bg0} 100%)`,
         boxShadow: [
-          `inset 0 0 0 1px ${color}${selected ? "ff" : "8c"}`,
-          "inset 0 -12px 18px -6px rgba(0,0,0,0.45)",
-          selected ? `0 0 0 2px #05070b, 0 0 0 3.5px ${color}, 0 0 18px ${color}88` : "0 4px 10px -6px rgba(0,0,0,0.8)",
+          `inset 0 0 0 2px ${color}`,
+          "inset 0 -5px 0 rgba(0,0,0,0.2)",
+          selected ? `0 0 0 3px #ffe266, 0 0 16px 2px rgba(255,226,102,0.7)` : `0 ${lineW}px 0 #1b1438`,
         ].join(", "),
       }}
     >
       {/* 윗부분 광택 */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/[0.12] to-transparent" />
+      <div
+        className="pointer-events-none absolute inset-x-[3px] top-[3px] h-[38%] bg-white/20"
+        style={{ borderRadius: `${radius - 4}px ${radius - 4}px 40% 40%` }}
+      />
       {dashed && (
         <div
-          className="pointer-events-none absolute inset-[3px] animate-pulse border-2 border-dashed border-gold-300/90"
-          style={{ borderRadius: radius - 2 }}
+          className="pointer-events-none absolute inset-[3px] animate-pulse border-[3px] border-dashed border-gold-300"
+          style={{ borderRadius: radius - 4 }}
         />
       )}
-      <Portrait appearance={appearance} size={size} />
+      <Portrait appearance={appearance} size={size - lineW * 2} />
       {/* 등급 보석 */}
       {grade && (
         <div
-          className="pointer-events-none absolute left-1 top-1 h-1.5 w-1.5 rotate-45 shadow-[0_0_6px_currentColor]"
-          style={{ backgroundColor: color, color }}
+          className="pointer-events-none absolute left-1 top-1 h-2 w-2 rotate-45 rounded-[2px] border-[1.5px] border-line"
+          style={{ backgroundColor: color }}
         />
       )}
       {children}
@@ -91,7 +96,7 @@ function Portrait({ appearance, size }: { appearance?: Appearance; size: number 
   }
   return (
     <span
-      className="absolute inset-0 flex items-center justify-center leading-none drop-shadow-[0_2px_2px_rgba(0,0,0,0.6)]"
+      className="absolute inset-0 flex items-center justify-center leading-none drop-shadow-[0_2px_0_rgba(27,20,56,0.55)]"
       style={{ fontSize: Math.round(size * 0.46) }}
     >
       {appearance?.icon ?? "?"}

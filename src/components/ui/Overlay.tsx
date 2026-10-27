@@ -29,7 +29,7 @@ export function Modal({
   return (
     <div className="fixed inset-0 z-[80] flex items-end justify-center lg:items-center">
       <div
-        className={`absolute inset-0 bg-ink-950/65 backdrop-blur-[2px] ${
+        className={`absolute inset-0 bg-[#0a0e33]/70 ${
           closing ? "animate-fade-out" : "animate-fade-in"
         }`}
         onClick={onClose}
@@ -37,26 +37,20 @@ export function Modal({
       <div
         role="dialog"
         aria-modal="true"
-        className={`frame relative max-h-[80vh] w-full overflow-y-auto rounded-b-none px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-4 lg:w-[var(--modal-w)] lg:rounded-xl lg:pb-4 ${
+        className={`frame relative max-h-[80vh] w-full overflow-y-auto rounded-b-none px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-4 lg:w-[var(--modal-w)] lg:rounded-[22px] lg:pb-4 ${
           closing ? "max-lg:animate-sheet-out lg:animate-pop-out" : "max-lg:animate-sheet-in lg:animate-pop-in"
         }`}
         style={{ "--modal-w": `${width}px` } as React.CSSProperties}
       >
-        <div className="absolute left-1/2 top-1.5 h-1 w-10 -translate-x-1/2 rounded-full bg-white/15 lg:hidden" />
+        <div className="absolute left-1/2 top-1.5 h-1.5 w-12 -translate-x-1/2 rounded-full bg-line/50 lg:hidden" />
         <div className="mb-3 flex items-start gap-3">
           <div className="min-w-0 flex-1">
             {kicker && (
-              <div className="font-display text-[10px] font-bold uppercase tracking-[0.3em] text-gold-500/80">
-                {kicker}
-              </div>
+              <div className="font-display text-xs uppercase tracking-wider text-gold-300 text-toon-sm">{kicker}</div>
             )}
-            <h3 className="font-serif text-lg font-bold text-parchment-50">{title}</h3>
+            <h3 className="font-display text-2xl leading-tight text-parchment-50 text-toon">{title}</h3>
           </div>
-          <button
-            className="btn-ghost h-8 w-8 shrink-0 rounded-lg text-parchment-300"
-            onClick={onClose}
-            aria-label="닫기"
-          >
+          <button className="btn-red h-9 w-9 shrink-0 rounded-full" onClick={onClose} aria-label="닫기">
             <Icon name="close" className="text-base" />
           </button>
         </div>
@@ -122,7 +116,7 @@ export function Tip({
           }}
         >
           <div
-            className="frame animate-pop-in p-3 text-[11px] leading-relaxed text-parchment-300"
+            className="frame animate-pop-in rounded-2xl p-3 text-[12px] leading-relaxed text-parchment-300"
             style={{
               transformOrigin: pos.origin === "bottom" ? "bottom center" : `${pos.origin} top`,
             }}

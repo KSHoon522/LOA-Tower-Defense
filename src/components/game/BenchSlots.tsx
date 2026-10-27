@@ -40,7 +40,7 @@ export default function BenchSlots({
           return (
             <div
               key={`empty-${i}`}
-              className="shrink-0 rounded-[10px] border border-dashed border-white/[0.07] bg-ink-950/40"
+              className="well shrink-0 rounded-[14px]"
               style={{ width: size, height: size }}
             />
           );
@@ -51,8 +51,8 @@ export default function BenchSlots({
         return (
           <div
             key={unit.uid}
-            className={`shrink-0 animate-summon touch-none transition-transform duration-200 ease-out-expo ${
-              selected ? "-translate-y-1.5" : "hover:-translate-y-1"
+            className={`shrink-0 animate-summon touch-none transition-transform duration-200 ease-spring ${
+              selected ? "-translate-y-2 rotate-[-4deg]" : "hover:-translate-y-1"
             }`}
             onPointerDown={(e) => onPointerDown(unit.uid, e)}
             onClick={(e) => onClick(unit.uid, e)}
@@ -70,10 +70,8 @@ export default function BenchSlots({
               dashed={fusionCandidates.has(unit.uid) && fusionTargetUid !== unit.uid}
               className="cursor-grab active:cursor-grabbing"
             >
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-0.5 pb-0.5 pt-3">
-                <div className="truncate text-center text-[9px] font-bold leading-tight text-parchment-50">
-                  {def.name}
-                </div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-line/70 px-0.5 pb-px pt-px">
+                <div className="truncate text-center text-[10px] leading-tight text-parchment-50">{def.name}</div>
               </div>
             </GradeSlot>
           </div>

@@ -6,18 +6,29 @@ import type { Appearance } from "@/game/types";
 /** 이미지 주소별 로드 실패 기록 (같은 엠블럼을 여러 곳에서 써도 한 번만 확인) */
 const failed = new Set<string>();
 const checked = new Set<string>();
+/** 실패가 확인되면 같은 주소를 쓰는 모든 엠블럼을 다시 그림 */
+const listeners = new Map<string, Set<() => void>>();
 
 function useImageOk(src?: string): boolean {
   const [, rerender] = useState(0);
   useEffect(() => {
-    if (!src || checked.has(src)) return;
-    checked.add(src);
-    const img = new Image();
-    img.onerror = () => {
-      failed.add(src);
-      rerender((n) => n + 1);
+    if (!src || failed.has(src)) return;
+    const notify = () => rerender((n) => n + 1);
+    let set = listeners.get(src);
+    if (!set) listeners.set(src, (set = new Set()));
+    set.add(notify);
+    if (!checked.has(src)) {
+      checked.add(src);
+      const img = new Image();
+      img.onerror = () => {
+        failed.add(src);
+        listeners.get(src)?.forEach((fn) => fn());
+      };
+      img.src = src;
+    }
+    return () => {
+      set!.delete(notify);
     };
-    img.src = src;
   }, [src]);
   return !!src && !failed.has(src);
 }

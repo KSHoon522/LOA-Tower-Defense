@@ -29,13 +29,13 @@ export const GRADE_COLOR: Record<Grade, string> = {
   legendary: "#f99200",
 };
 
-/** 등급 슬롯 배경 그라데이션 [어두운 쪽, 밝은 쪽] (로스트아크 아이템 슬롯 배경) */
+/** 등급 슬롯 배경 그라데이션 [어두운 쪽, 밝은 쪽] (카툰 카드처럼 밝은 등급색) */
 export const GRADE_BG: Record<Grade, [string, string]> = {
-  common: ["#232323", "#575757"],
-  uncommon: ["#18220b", "#304911"],
-  rare: ["#111f2c", "#113d5d"],
-  hero: ["#201e2e", "#481d5e"],
-  legendary: ["#362003", "#9e5f04"],
+  common: ["#5d6680", "#a3acc2"],
+  uncommon: ["#2f7d14", "#76c93a"],
+  rare: ["#1360b8", "#3fb0ff"],
+  hero: ["#6a1fb0", "#b968ff"],
+  legendary: ["#c45a00", "#ffb547"],
 };
 
 /** 합성으로 도달 가능한 최대 등급 */

@@ -12,11 +12,11 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "#05070b",
+  themeColor: "#172064",
 };
 
 const FONTS =
-  "https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Gothic+A1:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@600;700;900&display=swap";
+  "https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;600;800&family=Jua&family=Lilita+One&display=swap";
 
 export default function RootLayout({
   children,

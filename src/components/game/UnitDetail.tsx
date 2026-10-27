@@ -9,11 +9,11 @@ import { TRAIT_ICON, traitText } from "./labels";
 
 function Stat({ icon, label, value, tone }: { icon: IconName; label: string; value: React.ReactNode; tone: string }) {
   return (
-    <div className="flex items-center gap-1.5 rounded-md bg-ink-950/50 px-1.5 py-1">
-      <Icon name={icon} className={`shrink-0 text-[13px] ${tone}`} />
+    <div className="well flex items-center gap-1.5 rounded-xl px-1.5 py-1">
+      <Icon name={icon} className={`shrink-0 text-[15px] drop-shadow-[0_1px_0_#1b1438] ${tone}`} />
       <div className="min-w-0 leading-none">
-        <div className="text-[9px] text-parchment-500">{label}</div>
-        <div className="mt-0.5 truncate text-xs font-bold text-parchment-100">{value}</div>
+        <div className="text-[10px] text-parchment-400">{label}</div>
+        <div className="mt-0.5 truncate font-display text-sm text-parchment-50">{value}</div>
       </div>
     </div>
   );
@@ -41,21 +41,16 @@ export function TowerDetail({
       <div className="flex gap-3">
         <GradeSlot grade={def.grade} appearance={def.appearance} size={compact ? 44 : 56} />
         <div className="min-w-0 flex-1">
-          <div className="text-[10px] font-bold" style={{ color: GRADE_COLOR[def.grade] }}>
+          <div className="font-display text-xs text-toon-sm" style={{ color: GRADE_COLOR[def.grade] }}>
             {GRADE_LABEL[def.grade]}
           </div>
-          <div className="truncate font-serif text-base font-bold leading-tight text-parchment-50">
-            {def.name}
-          </div>
+          <div className="truncate font-display text-lg leading-tight text-parchment-50 text-toon">{def.name}</div>
           <div className="mt-1 flex flex-wrap gap-1">
             {def.regions.map((r) => (
               <span
                 key={r}
-                className="rounded px-1.5 py-px text-[10px] font-bold"
-                style={{
-                  color: regionColor.get(r) ?? "#cfa24e",
-                  backgroundColor: `${regionColor.get(r) ?? "#cfa24e"}1f`,
-                }}
+                className="rounded-md border-2 border-line px-1.5 text-[11px] text-parchment-50 text-toon-sm"
+                style={{ backgroundColor: regionColor.get(r) ?? "#5068d0" }}
               >
                 {r}
               </span>
@@ -85,22 +80,19 @@ export function TowerDetail({
         </div>
       )}
 
-      <div className="mt-2 rounded-lg border border-ark-500/20 bg-ark-500/[0.06] p-2">
+      <div className="well mt-2 p-2">
         <div className="flex items-center justify-between gap-2">
-          <span className="truncate text-xs font-bold text-ark-300">{def.skill.name}</span>
-          <span className="flex shrink-0 items-center gap-0.5 text-[10px] text-parchment-500">
+          <span className="truncate text-sm text-ark-300 text-toon-sm">{def.skill.name}</span>
+          <span className="flex shrink-0 items-center gap-0.5 font-display text-[11px] text-parchment-300">
             <Icon name="drop" className="text-ark-400" />
             {Math.floor(unit.mana)}/{def.maxMana}
           </span>
         </div>
-        <div className="mt-1 h-1 overflow-hidden rounded-full bg-ink-950/80">
-          <div
-            className="h-full rounded-full bg-gradient-to-r from-ark-500 to-ark-300 transition-[width] duration-150"
-            style={{ width: `${manaRatio * 100}%` }}
-          />
+        <div className="gauge mt-1 h-2.5">
+          <div className="gauge-fill bg-ark-400 transition-[width] duration-150" style={{ width: `${manaRatio * 100}%` }} />
         </div>
         {def.skill.description && !compact && (
-          <p className="mt-1 text-[11px] leading-snug text-parchment-400">{def.skill.description}</p>
+          <p className="mt-1 text-xs leading-snug text-parchment-100">{def.skill.description}</p>
         )}
       </div>
     </div>
@@ -117,7 +109,7 @@ export function EnemyDetail({ engine, enemy }: { engine: GameEngine; enemy: Enem
       <div className="flex gap-3">
         <GradeSlot palette={enemy.isBoss ? BOSS_PALETTE : FOE_PALETTE} appearance={def.appearance} size={56} />
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-1 text-[10px] font-bold text-blood-400">
+          <div className="flex items-center gap-1 font-display text-xs text-blood-400 text-toon-sm">
             {enemy.isBoss ? (
               <>
                 <Icon name="crown" /> 보스
@@ -126,16 +118,11 @@ export function EnemyDetail({ engine, enemy }: { engine: GameEngine; enemy: Enem
               "적"
             )}
           </div>
-          <div className="truncate font-serif text-base font-bold leading-tight text-parchment-50">
-            {def.name}
+          <div className="truncate font-display text-lg leading-tight text-parchment-50 text-toon">{def.name}</div>
+          <div className="gauge mt-1.5 h-3">
+            <div className="gauge-fill bg-blood-400" style={{ width: `${ratio * 100}%` }} />
           </div>
-          <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-ink-950/80">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-blood-600 to-blood-400"
-              style={{ width: `${ratio * 100}%` }}
-            />
-          </div>
-          <div className="mt-0.5 text-[10px] text-parchment-400">
+          <div className="mt-0.5 font-display text-[11px] text-parchment-300">
             {Math.max(0, Math.round(enemy.hp)).toLocaleString()} / {enemy.maxHp.toLocaleString()}
           </div>
         </div>
@@ -149,7 +136,7 @@ export function EnemyDetail({ engine, enemy }: { engine: GameEngine; enemy: Enem
       {def.traits && def.traits.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1">
           {def.traits.map((tr, i) => (
-            <span key={i} className="chip border-[#c4a1ff]/20 bg-[#c4a1ff]/10 text-[#d9c4ff]">
+            <span key={i} className="chip bg-[#7c4ddb]">
               <Icon name={TRAIT_ICON[tr.type] ?? "info"} />
               {traitText(tr)}
             </span>
@@ -157,7 +144,7 @@ export function EnemyDetail({ engine, enemy }: { engine: GameEngine; enemy: Enem
         </div>
       )}
       {def.description && (
-        <p className="mt-2 line-clamp-3 text-[11px] leading-snug text-parchment-500">{def.description}</p>
+        <p className="mt-2 line-clamp-3 text-xs leading-snug text-parchment-300">{def.description}</p>
       )}
     </div>
   );

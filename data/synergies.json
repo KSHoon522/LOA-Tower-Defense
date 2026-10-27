@@ -23,7 +23,7 @@
       { "count": 6, "effects": [{ "type": "atk_pct", "value": 20 }, { "type": "magic_atk_pct", "value": 20 }] },
       { "count": 8, "effects": [{ "type": "atk_pct", "value": 32 }, { "type": "magic_atk_pct", "value": 32 }] }
     ],
-    "description": "물리/마법 공격력이 함께 오릅니다. 어떤 조합에도 무난합니다. (엘가시아 출신 포함)"
+    "description": "물리/마법 공격력이 함께 오릅니다. 어떤 조합에도 무난합니다."
   },
   {
     "id": "syn-anikka",
@@ -122,6 +122,17 @@
       { "count": 5, "effects": [{ "type": "atk_pct", "value": 40 }, { "type": "magic_atk_pct", "value": 40 }, { "type": "crit_damage_pct", "value": 40 }] }
     ],
     "description": "인원이 적은 대신 3명부터 물리/마법 공격력과 치명타 피해가 크게 오릅니다."
+  },
+  {
+    "id": "syn-elgacia",
+    "region": "엘가시아",
+    "name": "라제니스의 축복",
+    "color": "#fde68a",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "atk_pct", "value": 10 }, { "type": "magic_atk_pct", "value": 10 }] },
+      { "count": 3, "effects": [{ "type": "range_add", "value": 1 }, { "type": "atk_pct", "value": 25 }, { "type": "magic_atk_pct", "value": 25 }] }
+    ],
+    "description": "사거리와 물리/마법 공격력이 함께 오릅니다."
   },
   {
     "id": "syn-rimelake",

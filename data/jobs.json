@@ -207,6 +207,7 @@
     "id": "job-guardianknight",
     "name": "가디언나이트",
     "group": "전사",
+    "synergyRegion": "섬",
     "skills": [
       {
         "kind": "passive",
@@ -234,7 +235,7 @@
       "icon": "🐉",
       "image": "https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/emblem_dragon_knight.png"
     },
-    "description": "패시브: 전체 공격속도 +8% / 액티브: 엠버레스 해방 (클릭 지점 반경 1.6칸에 물리 피해 500)."
+    "description": "패시브: 전체 공격속도 +8% / 액티브: 엠버레스 해방 (클릭 지점 반경 1.6칸에 물리 피해 500). 섬 시너지 +1."
   },
   {
     "id": "job-battlemaster",

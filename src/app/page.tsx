@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import GradeSlot, { BOSS_PALETTE } from "@/components/ui/GradeSlot";
 import Icon, { JOB_GROUP_ICON, type IconName } from "@/components/ui/Icon";
 import JobEmblem from "@/components/ui/JobEmblem";
@@ -32,6 +32,11 @@ function chapterNumber(name: string, index: number) {
   return name.match(/^챕터\s*(\d+)/)?.[1] ?? String(index + 1);
 }
 
+/** "챕터 1: 토토이크" → "토토이크" */
+function chapterTitle(name: string) {
+  return name.replace(/^챕터\s*\d+\s*[:：]\s*/, "");
+}
+
 const NO_GROUP = "기타";
 const jobGroup = (j: JobDef) => j.group?.trim() || NO_GROUP;
 
@@ -46,6 +51,7 @@ export default function LobbyPage() {
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [save, setSave] = useState<SaveSlot | null>(null);
   const [launching, setLaunching] = useState(false);
+  const chapterTabsRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setSave(loadSave());
@@ -83,6 +89,14 @@ export default function LobbyPage() {
       // 저장 공간을 쓸 수 없어도 로비는 그대로 동작
     }
   }, [data, chapterId, stageId, jobId, difficulty]);
+
+  // 고른 챕터 탭이 가로 스크롤 밖에 있으면 가운데로 (세로 스크롤은 건드리지 않음)
+  useEffect(() => {
+    const box = chapterTabsRef.current;
+    const el = box?.querySelector<HTMLElement>("[data-active]");
+    if (!box || !el) return;
+    box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + el.clientWidth / 2, behavior: "smooth" });
+  }, [data, chapterId]);
 
   const enemyById = useMemo(
     () => new Map<string, EnemyDef>((data?.enemies ?? []).map((e) => [e.id, e])),
@@ -233,7 +247,7 @@ export default function LobbyPage() {
           </section>
         )}
 
-        <div className="grid gap-6 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
           {/* ===== 원정지 ===== */}
           <section
             className="frame animate-fade-rise p-4 sm:p-5 lg:col-span-7"
@@ -243,19 +257,31 @@ export default function LobbyPage() {
 
             {/* 챕터 */}
             {data.chapters.length > 1 && (
-              <div className="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-2 pt-1">
-                {data.chapters.map((c) => (
-                  <button
-                    key={c.id}
-                    onClick={() => {
-                      setChapterId(c.id);
-                      setStageId(c.stages[0]?.id ?? "");
-                    }}
-                    className={`h-9 shrink-0 rounded-xl px-3 text-sm ${chapterId === c.id ? "btn-gold" : "btn-ghost"}`}
-                  >
-                    {c.name}
-                  </button>
-                ))}
+              <div ref={chapterTabsRef} className="relative -mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-2 pt-1">
+                {data.chapters.map((c, i) => {
+                  const active = chapterId === c.id;
+                  const accent = floorTheme(c.region ?? data.maps.find((m) => m.id === c.mapId)?.region).accent;
+                  return (
+                    <button
+                      key={c.id}
+                      data-active={active || undefined}
+                      onClick={() => {
+                        setChapterId(c.id);
+                        setStageId(c.stages[0]?.id ?? "");
+                      }}
+                      className={`h-10 shrink-0 rounded-xl pl-1.5 pr-3 text-sm ${active ? "btn-gold" : "btn-ghost"}`}
+                      title={c.name}
+                    >
+                      <span
+                        className="flex h-6 min-w-6 items-center justify-center rounded-full border-2 border-line px-1 text-xs"
+                        style={{ backgroundColor: accent }}
+                      >
+                        {chapterNumber(c.name, i)}
+                      </span>
+                      {chapterTitle(c.name)}
+                    </button>
+                  );
+                })}
               </div>
             )}
 
@@ -270,7 +296,7 @@ export default function LobbyPage() {
                       CHAPTER {chapterNumber(chapter.name, data.chapters.indexOf(chapter))}
                     </span>
                     <h2 className="mt-1.5 truncate font-display text-3xl leading-tight text-parchment-50 text-toon">
-                      {chapter.name.replace(/^챕터\s*\d+\s*[:：]\s*/, "")}
+                      {chapterTitle(chapter.name)}
                     </h2>
                   </div>
                   <div className="flex shrink-0 flex-col items-end gap-1">

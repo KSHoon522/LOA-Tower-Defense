@@ -310,5 +310,2069 @@
         }
       ]
     ]
+  },
+  {
+    "id": "map-luterra",
+    "name": "디오리카 평원",
+    "region": "루테란",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 7
+        },
+        {
+          "x": 2,
+          "y": 7
+        },
+        {
+          "x": 2,
+          "y": 4
+        },
+        {
+          "x": 6,
+          "y": 4
+        }
+      ]
+    ],
+    "description": "ㄷ자로 돌아 성 안쪽으로 파고드는 길. 안쪽 칸이 명당이다."
+  },
+  {
+    "id": "map-anikka",
+    "name": "델파이 현",
+    "region": "애니츠",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 3,
+          "y": 1
+        },
+        {
+          "x": 3,
+          "y": 7
+        },
+        {
+          "x": 6,
+          "y": 7
+        },
+        {
+          "x": 6,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 7
+        },
+        {
+          "x": 11,
+          "y": 7
+        }
+      ]
+    ],
+    "description": "위아래로 세 번 꺾이는 지그재그 길."
+  },
+  {
+    "id": "map-arthetine",
+    "name": "알트아이젠",
+    "region": "아르데타인",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "empty",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "empty",
+        "empty"
+      ],
+      [
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "blocked",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "empty",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 4,
+          "y": 4
+        },
+        {
+          "x": 4,
+          "y": 1
+        },
+        {
+          "x": 8,
+          "y": 1
+        },
+        {
+          "x": 8,
+          "y": 7
+        },
+        {
+          "x": 11,
+          "y": 7
+        }
+      ]
+    ],
+    "description": "곧게 뻗은 구간이 길어 적이 빠르게 지나간다."
+  },
+  {
+    "id": "map-vern",
+    "name": "베른 성",
+    "region": "베른",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 10,
+          "y": 1
+        },
+        {
+          "x": 10,
+          "y": 7
+        },
+        {
+          "x": 2,
+          "y": 7
+        },
+        {
+          "x": 2,
+          "y": 3
+        },
+        {
+          "x": 7,
+          "y": 3
+        },
+        {
+          "x": 7,
+          "y": 5
+        },
+        {
+          "x": 5,
+          "y": 5
+        }
+      ]
+    ],
+    "description": "성벽을 따라 안으로 감겨 드는 나선 길."
+  },
+  {
+    "id": "map-shushire",
+    "name": "설원 협곡",
+    "region": "슈샤이어",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 5,
+          "y": 1
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 11,
+          "y": 4
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 5,
+          "y": 7
+        },
+        {
+          "x": 5,
+          "y": 4
+        },
+        {
+          "x": 11,
+          "y": 4
+        }
+      ]
+    ],
+    "description": "위아래 두 갈래 길이 가운데서 합쳐진다."
+  },
+  {
+    "id": "map-rohendel",
+    "name": "환영 나비 숲",
+    "region": "로헨델",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path"
+      ],
+      [
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 11,
+          "y": 0
+        },
+        {
+          "x": 11,
+          "y": 2
+        },
+        {
+          "x": 1,
+          "y": 2
+        },
+        {
+          "x": 1,
+          "y": 4
+        },
+        {
+          "x": 10,
+          "y": 4
+        },
+        {
+          "x": 10,
+          "y": 6
+        },
+        {
+          "x": 1,
+          "y": 6
+        },
+        {
+          "x": 1,
+          "y": 8
+        }
+      ]
+    ],
+    "description": "숲을 세 번 가로지르는 긴 뱀길."
+  },
+  {
+    "id": "map-yorn",
+    "name": "용암 갱도",
+    "region": "욘",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "blocked",
+        "blocked",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 6,
+          "y": 2
+        },
+        {
+          "x": 6,
+          "y": 8
+        }
+      ],
+      [
+        {
+          "x": 11,
+          "y": 5
+        },
+        {
+          "x": 6,
+          "y": 5
+        },
+        {
+          "x": 6,
+          "y": 8
+        }
+      ]
+    ],
+    "description": "왼쪽과 오른쪽 갱도에서 내려온 적이 한 길로 모인다."
+  },
+  {
+    "id": "map-feiton",
+    "name": "그늘진 절벽",
+    "region": "페이튼",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 2,
+          "y": 1
+        },
+        {
+          "x": 2,
+          "y": 3
+        },
+        {
+          "x": 5,
+          "y": 3
+        },
+        {
+          "x": 5,
+          "y": 5
+        },
+        {
+          "x": 8,
+          "y": 5
+        },
+        {
+          "x": 8,
+          "y": 7
+        },
+        {
+          "x": 11,
+          "y": 7
+        }
+      ]
+    ],
+    "description": "절벽을 따라 계단처럼 내려가는 길."
+  },
+  {
+    "id": "map-punika",
+    "name": "나스카 해변",
+    "region": "파푸니카",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "blocked",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 3,
+          "y": 4
+        },
+        {
+          "x": 3,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 7
+        },
+        {
+          "x": 5,
+          "y": 7
+        },
+        {
+          "x": 5,
+          "y": 4
+        }
+      ]
+    ],
+    "description": "해변을 한 바퀴 돌아 가운데로 들어오는 길."
+  },
+  {
+    "id": "map-ocean",
+    "name": "해적 항로",
+    "region": "섬",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "empty",
+        "empty",
+        "empty",
+        "empty"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "empty",
+        "empty",
+        "empty"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable",
+        "empty",
+        "empty"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "empty",
+        "empty",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "empty",
+        "empty",
+        "empty",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 2
+        },
+        {
+          "x": 7,
+          "y": 2
+        },
+        {
+          "x": 7,
+          "y": 6
+        },
+        {
+          "x": 11,
+          "y": 6
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 6
+        },
+        {
+          "x": 11,
+          "y": 6
+        }
+      ]
+    ],
+    "description": "두 해적선 항로가 섬 끝에서 합쳐진다. 바다 칸에는 배치할 수 없다."
+  },
+  {
+    "id": "map-elgacia",
+    "name": "빛의 계단",
+    "region": "엘가시아",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "empty",
+        "empty"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "blocked",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "blocked",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "empty",
+        "empty"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 1
+        },
+        {
+          "x": 8,
+          "y": 1
+        },
+        {
+          "x": 8,
+          "y": 4
+        },
+        {
+          "x": 11,
+          "y": 4
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 11,
+          "y": 4
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 7
+        },
+        {
+          "x": 8,
+          "y": 7
+        },
+        {
+          "x": 8,
+          "y": 4
+        },
+        {
+          "x": 11,
+          "y": 4
+        }
+      ]
+    ],
+    "description": "세 갈래 빛의 길이 한 점으로 모인다. 출발지가 셋이다."
+  },
+  {
+    "id": "map-rimelake",
+    "name": "샤의 호수",
+    "region": "림레이크",
+    "cols": 12,
+    "rows": 9,
+    "tiles": [
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "buildable",
+        "path",
+        "path",
+        "path"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "empty",
+        "empty",
+        "empty",
+        "empty",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "buildable",
+        "buildable",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "path",
+        "buildable",
+        "buildable"
+      ],
+      [
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked",
+        "buildable",
+        "buildable",
+        "buildable",
+        "buildable",
+        "blocked"
+      ]
+    ],
+    "paths": [
+      [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 2,
+          "y": 4
+        },
+        {
+          "x": 2,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 1
+        },
+        {
+          "x": 9,
+          "y": 4
+        },
+        {
+          "x": 11,
+          "y": 4
+        }
+      ],
+      [
+        {
+          "x": 0,
+          "y": 4
+        },
+        {
+          "x": 2,
+          "y": 4
+        },
+        {
+          "x": 2,
+          "y": 7
+        },
+        {
+          "x": 9,
+          "y": 7
+        },
+        {
+          "x": 9,
+          "y": 4
+        },
+        {
+          "x": 11,
+          "y": 4
+        }
+      ]
+    ],
+    "description": "호수를 사이에 두고 두 갈래로 갈라졌다 다시 만나는 길."
   }
 ]

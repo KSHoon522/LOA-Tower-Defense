@@ -129,10 +129,11 @@
     "name": "라제니스의 축복",
     "color": "#fde68a",
     "tiers": [
-      { "count": 2, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "atk_pct", "value": 10 }, { "type": "magic_atk_pct", "value": 10 }] },
-      { "count": 3, "effects": [{ "type": "range_add", "value": 1 }, { "type": "atk_pct", "value": 25 }, { "type": "magic_atk_pct", "value": 25 }] }
+      { "count": 2, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "atk_pct", "value": 8 }, { "type": "magic_atk_pct", "value": 8 }] },
+      { "count": 4, "effects": [{ "type": "range_add", "value": 0.5 }, { "type": "atk_pct", "value": 18 }, { "type": "magic_atk_pct", "value": 18 }] },
+      { "count": 6, "effects": [{ "type": "range_add", "value": 1 }, { "type": "atk_pct", "value": 32 }, { "type": "magic_atk_pct", "value": 32 }] }
     ],
-    "description": "사거리와 물리/마법 공격력이 함께 오릅니다."
+    "description": "라제니스와 천공의 생물들. 사거리와 물리/마법 공격력이 함께 오르고, 6명이면 사거리가 1칸 늘어납니다."
   },
   {
     "id": "syn-rimelake",
@@ -140,8 +141,55 @@
     "name": "요즈의 환영",
     "color": "#f0abfc",
     "tiers": [
-      { "count": 2, "effects": [{ "type": "atk_pct", "value": 20 }, { "type": "magic_atk_pct", "value": 20 }, { "type": "crit_chance", "value": 10 }] }
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 20 }, { "type": "magic_atk_pct", "value": 20 }, { "type": "crit_chance", "value": 10 }] },
+      { "count": 3, "effects": [{ "type": "atk_pct", "value": 35 }, { "type": "magic_atk_pct", "value": 35 }, { "type": "crit_chance", "value": 15 }] }
     ],
-    "description": "요즈족의 고향. 샨디와 진저웨일 둘뿐이라 2명만 모여도 물리/마법 공격력과 치명타 확률이 크게 오릅니다."
+    "description": "요즈족의 고향. 샨디·진저웨일·자크라 셋뿐이라 2명만 모여도 물리/마법 공격력과 치명타 확률이 크게 오르고, 3명이면 더 오릅니다."
+  },
+  {
+    "id": "syn-rowen",
+    "region": "로웬",
+    "name": "복수의 늑대들",
+    "color": "#b5a642",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_speed_pct", "value": 10 }, { "type": "atk_pct", "value": 6 }] },
+      { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 20 }, { "type": "atk_pct", "value": 14 }] },
+      { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 35 }, { "type": "atk_pct", "value": 25 }] }
+    ],
+    "description": "로웬의 늑대들과 용병·신성기사. 공격속도와 물리 공격력이 함께 오릅니다."
+  },
+  {
+    "id": "syn-fleche",
+    "region": "플레체",
+    "name": "예술의 도시",
+    "color": "#ec4899",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 20 }, { "type": "magic_atk_pct", "value": 8 }] },
+      { "count": 4, "effects": [{ "type": "mana_regen_pct", "value": 45 }, { "type": "magic_atk_pct", "value": 22 }] }
+    ],
+    "description": "예술가와 사제의 도시. 마나 회복이 크게 올라 스킬을 자주 쓰고, 마법 공격력도 오릅니다."
+  },
+  {
+    "id": "syn-voldis",
+    "region": "볼다이크",
+    "name": "현자의 탑",
+    "color": "#22d3ee",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "magic_atk_pct", "value": 10 }, { "type": "mana_regen_pct", "value": 10 }] },
+      { "count": 4, "effects": [{ "type": "magic_atk_pct", "value": 22 }, { "type": "mana_regen_pct", "value": 20 }] },
+      { "count": 6, "effects": [{ "type": "magic_atk_pct", "value": 40 }, { "type": "mana_regen_pct", "value": 35 }, { "type": "crit_chance", "value": 8 }] }
+    ],
+    "description": "현자들의 도시. 마법 공격력과 마나 회복이 오르고, 6명이면 치명타 확률도 붙습니다."
+  },
+  {
+    "id": "syn-kurzan",
+    "region": "쿠르잔",
+    "name": "아사르 데런",
+    "color": "#f87171",
+    "tiers": [
+      { "count": 2, "effects": [{ "type": "atk_pct", "value": 8 }, { "type": "crit_damage_pct", "value": 15 }] },
+      { "count": 4, "effects": [{ "type": "atk_pct", "value": 18 }, { "type": "crit_damage_pct", "value": 40 }] }
+    ],
+    "description": "쿠르잔을 터전 삼은 아사르 데런. 인원이 적은 대신 물리 공격력과 치명타 피해가 오릅니다."
   }
 ]

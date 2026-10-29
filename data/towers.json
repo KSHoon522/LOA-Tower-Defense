@@ -664,6 +664,37 @@
     "artRef": "burly pointy-eared elven knight swordsman with short slicked-back light brown hair and stubble, heavy ornate silver-white plate armor with large layered spiked pauldrons, black chest accents, armored gauntlets, long white cape, radiant golden sunburst glow behind him"
   },
   {
+    "id": "tw-c3200611",
+    "name": "코니",
+    "grade": "common",
+    "atk": 13,
+    "magicAtk": 0,
+    "attackSpeed": 1.5,
+    "range": 1.9,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "야성 해방",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 60,
+      "description": "3초간 자신의 공격속도 +60%"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "triangle",
+      "icon": "🐾"
+    },
+    "description": "엘가시아에서 자주 볼 수 있는 신비한 동물. 주로 꽃을 먹이로 삼으며, 앙증맞은 뿔을 지니고 있다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "round fluffy white cat-like creature with pink ears and a tiny rainbow-striped unicorn horn, misty green forest"
+  },
+  {
     "id": "tw-c3200183",
     "name": "한이 서린 여인",
     "grade": "uncommon",
@@ -1865,6 +1896,424 @@
       "엘가시아"
     ],
     "artRef": "great white eagle with pale silver-white feathers, hooked dark beak, blue eyes, ornate silver helmet armor with a horned crest on its head, silver armored neck collar and wing plates, huge spread wings, faint blue sparkles"
+  },
+  {
+    "id": "tw-c3200506",
+    "name": "로웬 젠로드",
+    "grade": "uncommon",
+    "atk": 31,
+    "magicAtk": 0,
+    "attackSpeed": 1.2,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 12,
+    "skill": {
+      "name": "그림자 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 320,
+      "description": "단일 대상에게 공격력 320% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "diamond",
+      "icon": "🗡️"
+    },
+    "description": "카르포스의 젠로드 중 하나로 로웬을 담당하고 있다. 치밀하고 대범하게 계획을 꾸미는 책략가.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "dark-skinned man wearing a white mask over half of his face, black tailored coat with ornate silver shoulder plates and chains, white waistcoat, gothic hall"
+  },
+  {
+    "id": "tw-c3200510",
+    "name": "레퓌스",
+    "grade": "uncommon",
+    "atk": 28,
+    "magicAtk": 0,
+    "attackSpeed": 1.0,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "필살 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 270,
+      "description": "단일 대상에게 공격력 270% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "square",
+      "icon": "⚔️"
+    },
+    "description": "로웬에 주둔 중인 세이크리아 파견단 단장. 이름 높은 신성기사이자 성실한 교리집행관이다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "man with swept brown hair and mustache, silver plate armor with red sash bands and a white fur collar, cathedral spires behind"
+  },
+  {
+    "id": "tw-c3200605",
+    "name": "프리우나",
+    "grade": "uncommon",
+    "atk": 28,
+    "magicAtk": 0,
+    "attackSpeed": 1.0,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "필살 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 270,
+      "description": "단일 대상에게 공격력 270% 피해"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "square",
+      "icon": "⚔️"
+    },
+    "description": "엘가시아 라제니스의 검. 규율과 질서를 담당하며, 냉철하고 고요한 카리스마를 지니고 있다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "woman with long silver-blue hair, ornate silver mask helm with antler-like crest and a halo ring, white and teal armor with silver plates, white wings"
+  },
+  {
+    "id": "tw-c3200606",
+    "name": "티엔",
+    "grade": "uncommon",
+    "atk": 32,
+    "magicAtk": 0,
+    "attackSpeed": 0.8,
+    "range": 2.1,
+    "maxMana": 70,
+    "manaRegen": 5,
+    "manaOnHit": 12,
+    "skill": {
+      "name": "분쇄 강타",
+      "type": "stun",
+      "damageType": "physical",
+      "power": 210,
+      "duration": 1.2,
+      "description": "대상에게 공격력 210% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "diamond",
+      "icon": "🔨"
+    },
+    "description": "엘가시아 라제니스의 검. 진중한 성격으로, 거대한 대검을 능수능란하게 다룬다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "young man with short blond hair and a golden halo ring, heavy ornate gold plate armor with white trim, bright sky"
+  },
+  {
+    "id": "tw-c3200607",
+    "name": "유클리드",
+    "grade": "uncommon",
+    "atk": 0,
+    "magicAtk": 24,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 250,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 250% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "신탁을 듣는 세 예언자 중 한 명. 예언의 실을 잣고 현재를 꿰뚫어 보는 능력을 지니고 있다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "woman with silver-white hair and a red gem circlet under a white veil, spiked silver halo, white gown with silver chain jewelry, white wings, hands folded"
+  },
+  {
+    "id": "tw-c3200608",
+    "name": "키르케",
+    "grade": "uncommon",
+    "atk": 0,
+    "magicAtk": 24,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 250,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 250% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "신탁을 듣는 세 예언자 중 한 명. 예언의 실을 잣고 과거를 되새기는 능력을 지니고 있다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "woman with long green braided hair under a white veil, spiked silver halo, white gown with silver jewelry and a green gem, white wings, gentle smile"
+  },
+  {
+    "id": "tw-c3200609",
+    "name": "하늘 고래",
+    "grade": "uncommon",
+    "atk": 22,
+    "magicAtk": 0,
+    "attackSpeed": 1.5,
+    "range": 1.9,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "야성 해방",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 60,
+      "description": "3초간 자신의 공격속도 +60%"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "triangle",
+      "icon": "🐾"
+    },
+    "description": "하늘을 유영하는 거대한 고래. 목격하는 것만으로도 큰 행운이라고 여겨진다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "giant grey-blue whale with ridged throat grooves swimming through the sky above clouds and floating spires"
+  },
+  {
+    "id": "tw-c3200610",
+    "name": "별자리 큰뱀",
+    "grade": "uncommon",
+    "atk": 0,
+    "magicAtk": 28,
+    "attackSpeed": 0.9,
+    "range": 3.0,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "정령 폭주",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 210,
+      "radius": 1.5,
+      "description": "반경 1.5칸에 마법 공격력 210% 피해"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "star",
+      "icon": "🌀"
+    },
+    "description": "천공의 신비한 생물. 라제니스들은 이 뱀의 움직임을 보며 바람의 흐름을 읽기도 한다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "long slender serpent dragon with a pale gold and violet body, translucent violet ribbon fins and whiskers, coiling through a bright blue sky"
+  },
+  {
+    "id": "tw-c3200809",
+    "name": "베라드",
+    "grade": "uncommon",
+    "atk": 0,
+    "magicAtk": 28,
+    "attackSpeed": 0.8,
+    "range": 3.0,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 190,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 190% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "볼다이크의 현자. 괴팍해 보이는 외형과는 달리 따뜻한 마음과 높은 지식을 가지고 있다.",
+    "regions": [
+      "볼다이크"
+    ],
+    "artRef": "bald dark-skinned elder with a grey goatee, dark sleeveless robe with gold striped panels, gold armband, rocky dusk"
+  },
+  {
+    "id": "tw-c3200810",
+    "name": "닐라이",
+    "grade": "uncommon",
+    "atk": 0,
+    "magicAtk": 28,
+    "attackSpeed": 0.9,
+    "range": 3.0,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "정령 폭주",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 210,
+      "radius": 1.5,
+      "description": "반경 1.5칸에 마법 공격력 210% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "star",
+      "icon": "🌀"
+    },
+    "description": "볼다이크의 현자. 명성이 높은 현자였으나 현재는 고향으로 돌아와 후학을 양성 중이다.",
+    "regions": [
+      "볼다이크"
+    ],
+    "artRef": "dark-skinned man with long brown hair, open dark robe with gold trim over a muscular chest, gold amulet necklace, ornate gold belt buckle, gold bracers, cloudy dusk"
+  },
+  {
+    "id": "tw-c3200900",
+    "name": "게메트",
+    "grade": "uncommon",
+    "atk": 31,
+    "magicAtk": 0,
+    "attackSpeed": 1.2,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 12,
+    "skill": {
+      "name": "그림자 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 320,
+      "description": "단일 대상에게 공격력 320% 피해"
+    },
+    "appearance": {
+      "color": "#f87171",
+      "shape": "diamond",
+      "icon": "🗡️"
+    },
+    "description": "쿠르잔을 터전 삼아 살아가는 아사르 데런. 무심한 듯 보이지만 현명하고 신중하다.",
+    "regions": [
+      "쿠르잔"
+    ],
+    "artRef": "pale man with swept blue-black hair, high-collared black coat, black spiked armor with a glowing red core on the chest, fiery red sky"
+  },
+  {
+    "id": "tw-c3200901",
+    "name": "네페르",
+    "grade": "uncommon",
+    "atk": 28,
+    "magicAtk": 0,
+    "attackSpeed": 1.0,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "필살 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 270,
+      "description": "단일 대상에게 공격력 270% 피해"
+    },
+    "appearance": {
+      "color": "#f87171",
+      "shape": "square",
+      "icon": "⚔️"
+    },
+    "description": "쿠르잔을 터전 삼아 살아가는 아사르 데런. 살아남은 이들을 이끌며 기회를 노리고 있다.",
+    "regions": [
+      "쿠르잔"
+    ],
+    "artRef": "man with short crimson hair, high-collared black cape, black spiked armor with glowing red seams across the chest and gauntlet, red ember sky"
+  },
+  {
+    "id": "tw-c3200902",
+    "name": "프타",
+    "grade": "uncommon",
+    "atk": 21,
+    "magicAtk": 0,
+    "attackSpeed": 1.4,
+    "range": 2.0,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "연환격",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 70,
+      "description": "3초간 자신의 공격속도 +70%"
+    },
+    "appearance": {
+      "color": "#f87171",
+      "shape": "triangle",
+      "icon": "👊"
+    },
+    "description": "쿠르잔을 터전 삼아 살아가는 아사르 데런. 위험 앞에서도 품은 의지는 꺾이지 않았다.",
+    "regions": [
+      "쿠르잔"
+    ],
+    "artRef": "woman with long silver hair and a black blade-like hair ornament, red eyes, black spiked armored bodysuit with glowing red seams, red haze"
+  },
+  {
+    "id": "tw-c3200903",
+    "name": "까미",
+    "grade": "uncommon",
+    "atk": 22,
+    "magicAtk": 0,
+    "attackSpeed": 1.5,
+    "range": 1.9,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "야성 해방",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 60,
+      "description": "3초간 자신의 공격속도 +60%"
+    },
+    "appearance": {
+      "color": "#f87171",
+      "shape": "triangle",
+      "icon": "🐾"
+    },
+    "description": "엘네아드의 떠돌이 강아지. 겁이 많고 소심하지만 마음을 연 사람에게는 애교가 많다.",
+    "regions": [
+      "쿠르잔"
+    ],
+    "artRef": "spiky black armored demon hound with glowing red eyes and red seams, jagged horn spines along its back, red wasteland"
   },
   {
     "id": "tw-c3200094",
@@ -3216,6 +3665,636 @@
     "artRef": "cheerful little girl with long straight dark brown hair, colorful flower crown of white, pink and purple blossoms, cream long-sleeved blouse, dark blue pinafore dress with brown lace-up ties at chest and waist cord, drifting pink petals"
   },
   {
+    "id": "tw-c3200503",
+    "name": "아르노",
+    "grade": "rare",
+    "atk": 50,
+    "magicAtk": 0,
+    "attackSpeed": 1.0,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "필살 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 290,
+      "description": "단일 대상에게 공격력 290% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "square",
+      "icon": "⚔️"
+    },
+    "description": "베른 출신의 전설적인 용병. 엘리야베크의 주요 세력 중 하나인 철혈의 용병대를 만들고 지금까지 이끌고 있다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "stern man with shoulder-length brown hair, dark engraved plate armor with a round chest emblem, thick black fur mantle, deep blue lining"
+  },
+  {
+    "id": "tw-c3200504",
+    "name": "바스키아",
+    "grade": "rare",
+    "atk": 48,
+    "magicAtk": 0,
+    "attackSpeed": 0.9,
+    "range": 3.6,
+    "maxMana": 70,
+    "manaRegen": 4,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "관통 사격",
+      "type": "chain",
+      "damageType": "physical",
+      "power": 180,
+      "bonusTargets": 2,
+      "description": "대상 포함 최대 3명에게 공격력 180% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "square",
+      "icon": "🔫"
+    },
+    "description": "보라칼날 해적단을 이끄는 카리스마 있고 화통한 성격의 해적 선장. 자신을 배신한 자는 절대 용서하지 않는다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "bearded pirate captain in a black tricorn hat with red plumes, white open shirt, red and navy coat with gold trim, crossed leather bandoliers, leather gloves, sunny harbor town"
+  },
+  {
+    "id": "tw-c3200505",
+    "name": "사일러스",
+    "grade": "rare",
+    "atk": 48,
+    "magicAtk": 0,
+    "attackSpeed": 0.9,
+    "range": 3.6,
+    "maxMana": 70,
+    "manaRegen": 4,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "관통 사격",
+      "type": "chain",
+      "damageType": "physical",
+      "power": 180,
+      "bonusTargets": 2,
+      "description": "대상 포함 최대 3명에게 공격력 180% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "square",
+      "icon": "🔫"
+    },
+    "description": "아크라시아에 이름 높은 고고학자이자 트레저헌터. 세상을 떠돌며 밝혀지지 않은 수많은 신비를 탐험하고 있다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "slender man with swept pale blue hair, black high-collared long coat with silver buttons, blue cravat, old leather book in hand, flintlock pistol at the hip, blue stained glass"
+  },
+  {
+    "id": "tw-c3200507",
+    "name": "앙케",
+    "grade": "rare",
+    "atk": 45,
+    "magicAtk": 0,
+    "attackSpeed": 1.0,
+    "range": 3.2,
+    "maxMana": 70,
+    "manaRegen": 6,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "레이저 연쇄",
+      "type": "chain",
+      "damageType": "physical",
+      "power": 160,
+      "bonusTargets": 3,
+      "description": "대상 포함 최대 4명에게 공격력 160% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "square",
+      "icon": "🤖"
+    },
+    "description": "아르데타인의 비밀 조직 이리스의 수석 연구원. 천재적인 두뇌로 로웬에서 이리스 지부를 이끌고 있다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "woman with sleek black hair swept back, blue and white military long coat with gold epaulettes, white uniform with dark belts, arms crossed over a mechanical gauntlet device, snowy colonnade"
+  },
+  {
+    "id": "tw-c3200508",
+    "name": "피엘라",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 50,
+    "attackSpeed": 0.8,
+    "range": 3.0,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 200,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 200% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "그믐의 탑의 부탑주. 사슬전쟁 당시 발생한 제나일 참사 이후 아크라시아를 떠돌다 로웬에 정착하였다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "pointed-eared woman with a short black bob, white and crimson dress with gold trim and a flared skirt, high red collar, open palm raised, glowing blue stained glass windows"
+  },
+  {
+    "id": "tw-c3200509",
+    "name": "빌헬름",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "세이크리아의 대주교. 교리에 대한 높은 이해도와 신실한 신앙심으로 널리 인정받고 있다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "elderly archbishop with long white hair and beard, tall white mitre with a red jewel, white and gold embroidered vestments, golden winged staff"
+  },
+  {
+    "id": "tw-c3200511",
+    "name": "하눈",
+    "grade": "rare",
+    "atk": 38,
+    "magicAtk": 0,
+    "attackSpeed": 1.4,
+    "range": 2.0,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "연환격",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 70,
+      "description": "3초간 자신의 공격속도 +70%"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "triangle",
+      "icon": "👊"
+    },
+    "description": "복수의 늑대들 중 하나로 마리나의 동생. 단순하고 호탕한 성격으로 언제나 선봉에 선다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "muscular man with shaved sides and a topknot, scarred face with tattoos, bare tattooed torso, single black steel pauldron over a fur mantle, leather belts, battlefield haze"
+  },
+  {
+    "id": "tw-c3200512",
+    "name": "마리나",
+    "grade": "rare",
+    "atk": 55,
+    "magicAtk": 0,
+    "attackSpeed": 1.2,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 12,
+    "skill": {
+      "name": "그림자 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 330,
+      "description": "단일 대상에게 공격력 330% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "diamond",
+      "icon": "🗡️"
+    },
+    "description": "복수의 늑대들 중 하나로 하눈의 누나. 언제나 냉정함을 유지하면서 상황을 분석한다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "cool-eyed woman with long straight black hair and small forehead markings, black leather sleeveless outfit, grey feathered fur mantle, leather arm wraps, snowy peaks"
+  },
+  {
+    "id": "tw-c3200601",
+    "name": "아자키엘",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 50,
+    "attackSpeed": 0.8,
+    "range": 3.0,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 200,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 200% 피해"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "엘가시아 라제니스의 검. 기록과 교육을 담당하고 있으며, 명예의 도서관을 관리하고 있다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "man with swept silver-white hair and a small gold wing ornament at the temple, white long coat with silver ornaments, white wings, hand raised palm up, bright sky"
+  },
+  {
+    "id": "tw-c3200602",
+    "name": "벨루마테",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "신탁을 듣는 세 예언자 중 한 명. 예언의 실을 잣고 미래를 볼 수 있는 능력을 지니고 있다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "woman with long blue hair under a sheer white veil, spiked silver halo crown, white gown with silver jewelry and a blue gem, white wings, eyes lowered"
+  },
+  {
+    "id": "tw-c3200603",
+    "name": "디오게네스",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 50,
+    "attackSpeed": 0.8,
+    "range": 3.0,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 200,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 200% 피해"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "엘가시아 라제니스의 검. 오래전 모종의 사건을 추적하던 중 실종되어, 행방이 묘연한 상태이다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "figure in a dark visored ornate helmet and black hooded cloak over dark armor, glowing purple orb in one hand, purple sparks, dusky violet ruins"
+  },
+  {
+    "id": "tw-c3200604",
+    "name": "다이나웨일",
+    "grade": "rare",
+    "atk": 40,
+    "magicAtk": 0,
+    "attackSpeed": 1.5,
+    "range": 1.9,
+    "maxMana": 50,
+    "manaRegen": 5,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "야성 해방",
+      "type": "buff_atkspeed",
+      "damageType": "physical",
+      "power": 0,
+      "duration": 3,
+      "buffPct": 60,
+      "description": "3초간 자신의 공격속도 +60%"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "triangle",
+      "icon": "🐾"
+    },
+    "description": "오랜 잠에서 깨어난 고대 생명체. 잔잔하게 불어오는 바람 너울을 타고 움직인다고 알려졌다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "huge ancient dark-blue whale-like creature with layered fin-like wings and ridged skin, gliding above a sea of clouds and tall spires"
+  },
+  {
+    "id": "tw-c3200701",
+    "name": "클라우디아",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "자애로운 세이크리아의 사제. 빛을 섬기며, 아프고 지친 사람들을 구하기 위해 사제가 되었다.",
+    "regions": [
+      "플레체"
+    ],
+    "artRef": "young woman with long wavy blonde hair, white hooded robe with gold embroidery over a dark red underdress, open gentle hands, cloudy sky"
+  },
+  {
+    "id": "tw-c3200702",
+    "name": "알폰스 베디체",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 40,
+    "attackSpeed": 1.0,
+    "range": 3.0,
+    "maxMana": 60,
+    "manaRegen": 8,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "울려퍼지는 선율",
+      "type": "chain",
+      "damageType": "magical",
+      "power": 150,
+      "bonusTargets": 3,
+      "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
+    },
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "🎵"
+    },
+    "description": "예술가들을 후원하는 플레체 가문의 가주. 예술을 보는 탁월한 안목을 지니고 있다.",
+    "regions": [
+      "플레체"
+    ],
+    "artRef": "elderly gentleman with a long white beard, green wide-brimmed hat, green and gold shawl over a brown vest and white shirt, pocket watch on a chain, sunlit garden balcony"
+  },
+  {
+    "id": "tw-c3200703",
+    "name": "자크라",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 50,
+    "attackSpeed": 0.8,
+    "range": 3.0,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 200,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 200% 피해"
+    },
+    "appearance": {
+      "color": "#f0abfc",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "림레이크 출신의 장로이자 명망 높은 환영술의 대가. 괴팍하고 지극히 현실적이다.",
+    "regions": [
+      "림레이크"
+    ],
+    "artRef": "small girl-like elder with long silver hair, curled golden horns and a purple flower headdress, red feather ear ornaments, green and white crop top, beaded belt and green skirt, bead necklaces"
+  },
+  {
+    "id": "tw-c3200704",
+    "name": "안토니오 주교",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "플레체에 파견된 세이크리아 관할 사제. 이그니스 대성당을 현재의 규모로 완성 시키는데 큰 공을 세웠다.",
+    "regions": [
+      "플레체"
+    ],
+    "artRef": "dark-haired bearded man in a white long coat with an ornate gold and black filigree chest piece, dusky violet sky"
+  },
+  {
+    "id": "tw-c3200705",
+    "name": "로잘린 베디체",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 40,
+    "attackSpeed": 1.0,
+    "range": 3.0,
+    "maxMana": 60,
+    "manaRegen": 8,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "울려퍼지는 선율",
+      "type": "chain",
+      "damageType": "magical",
+      "power": 150,
+      "bonusTargets": 3,
+      "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
+    },
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "🎵"
+    },
+    "description": "알폰스 베디체의 손녀이자 플레체 최고의 미녀. 상냥한 성격으로 아만의 옛 친구이다.",
+    "regions": [
+      "플레체"
+    ],
+    "artRef": "young woman with wavy light-brown hair and a flower hairpin, green velvet gown with puffed sleeves and gold trim, white front panel, pendant necklace, garden balcony"
+  },
+  {
+    "id": "tw-c3200802",
+    "name": "마리우",
+    "grade": "rare",
+    "atk": 45,
+    "magicAtk": 0,
+    "attackSpeed": 1.0,
+    "range": 3.2,
+    "maxMana": 70,
+    "manaRegen": 6,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "레이저 연쇄",
+      "type": "chain",
+      "damageType": "physical",
+      "power": 160,
+      "bonusTargets": 3,
+      "description": "대상 포함 최대 4명에게 공격력 160% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "square",
+      "icon": "🤖"
+    },
+    "description": "마이어 출신의 현자 지망생. 호문쿨루스 제작에 높은 재능을 지니고 있다.",
+    "regions": [
+      "볼다이크"
+    ],
+    "artRef": "young man with curly black hair, sleeveless white tunic with gold geometric trim, blue and gold sash belt, gold necklace and bracer, misty blue backdrop"
+  },
+  {
+    "id": "tw-c3200804",
+    "name": "아이작",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 50,
+    "attackSpeed": 0.8,
+    "range": 3.0,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 200,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 200% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "볼다이크의 상급 현자. 현자들을 통솔하여 이끄는 현자부의 수장으로, 대현자와 함께 볼다이크를 발전시켜 왔다.",
+    "regions": [
+      "볼다이크"
+    ],
+    "artRef": "man with long dark hair braided back, dark sleeveless robe with a gold geometric chest panel, gold armband, misty blue hall"
+  },
+  {
+    "id": "tw-c3200805",
+    "name": "마레가",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 50,
+    "attackSpeed": 0.9,
+    "range": 3.0,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "정령 폭주",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 220,
+      "radius": 1.5,
+      "description": "반경 1.5칸에 마법 공격력 220% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "star",
+      "icon": "🌀"
+    },
+    "description": "볼다이크의 상급 현자. 가디언 연구소장으로 현자의 탑을 지키기 위해 오랜 세월을 노력해 왔다.",
+    "regions": [
+      "볼다이크"
+    ],
+    "artRef": "man with swept silver-grey hair and a short beard, dark sleeveless robe with gold vertical stripes and a patterned gold chest, gold armbands"
+  },
+  {
+    "id": "tw-c3200806",
+    "name": "칼리나리 네리아",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 40,
+    "attackSpeed": 1.0,
+    "range": 3.0,
+    "maxMana": 60,
+    "manaRegen": 8,
+    "manaOnHit": 8,
+    "skill": {
+      "name": "울려퍼지는 선율",
+      "type": "chain",
+      "damageType": "magical",
+      "power": 150,
+      "bonusTargets": 3,
+      "description": "대상 포함 최대 4명에게 마법 공격력 150% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "circle",
+      "icon": "🎵"
+    },
+    "description": "칼리나리의 네리아. 타고난 카리스마와 수완으로 칼리나리 상점가를 주름잡고 있다.",
+    "regions": [
+      "볼다이크"
+    ],
+    "artRef": "woman with long platinum hair in a high ponytail, gold earrings and choker, white draped gown with gold armlets and a gold floral shoulder piece set with a green gem, hand at her chin"
+  },
+  {
     "id": "tw-c3200026",
     "name": "알레그로",
     "grade": "hero",
@@ -4020,6 +5099,184 @@
     "artRef": "majestic winged light guardian beast with pale silver-white scaled serpentine body and long neck, long twisting spiral horns, huge white feathered wings, ornate gold filigree armor plating set with glowing blue gems, crackling red lightning around it"
   },
   {
+    "id": "tw-c3200500",
+    "name": "뮨 히다카",
+    "grade": "hero",
+    "atk": 103,
+    "magicAtk": 0,
+    "attackSpeed": 0.8,
+    "range": 2.1,
+    "maxMana": 70,
+    "manaRegen": 5,
+    "manaOnHit": 12,
+    "skill": {
+      "name": "분쇄 강타",
+      "type": "stun",
+      "damageType": "physical",
+      "power": 240,
+      "duration": 1.2,
+      "description": "대상에게 공격력 240% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "diamond",
+      "icon": "🔨"
+    },
+    "description": "복수의 늑대들을 이끄는 수장. 히다카의 커다란 도끼 공격은 막아서는 모든 것을 분쇄한다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "rugged man with swept-back dark blond hair and a full beard, bare tattooed chest under a huge black fur mantle, dark leather kilt studded with brass discs, wide ornate belt, ruined town behind him"
+  },
+  {
+    "id": "tw-c3200501",
+    "name": "오스피어",
+    "grade": "hero",
+    "atk": 90,
+    "magicAtk": 0,
+    "attackSpeed": 1.0,
+    "range": 2.2,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "필살 일격",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 310,
+      "description": "단일 대상에게 공격력 310% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "square",
+      "icon": "⚔️"
+    },
+    "description": "세이크리아에서 로웬으로 파견한 신성기사. 어린 시절부터 세이크리아와 루페온의 교리를 철저히 교육 받았다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "young man with short dark brown hair, polished silver plate armor engraved with gold filigree, rounded pauldrons, deep red cape, gothic arches and cloudy sky"
+  },
+  {
+    "id": "tw-c3200502",
+    "name": "다르시",
+    "grade": "hero",
+    "atk": 86,
+    "magicAtk": 0,
+    "attackSpeed": 1.1,
+    "range": 3.4,
+    "maxMana": 60,
+    "manaRegen": 5,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "강습 화살",
+      "type": "nuke",
+      "damageType": "physical",
+      "power": 380,
+      "description": "단일 대상에게 공격력 380% 피해"
+    },
+    "appearance": {
+      "color": "#b5a642",
+      "shape": "triangle",
+      "icon": "🏹"
+    },
+    "description": "바위의 수호자로, 타이예르 종족의 가장 뛰어난 전사 중 하나다. 자신의 키만한 거대한 활을 사용한다.",
+    "regions": [
+      "로웬"
+    ],
+    "artRef": "fierce woman with long red hair, braids and teal tribal face paint, white fur mantle, silver chest plate over a bare midriff, bone and feather necklace, leather arm wraps, snowy mountains"
+  },
+  {
+    "id": "tw-c3200600",
+    "name": "라우리엘",
+    "grade": "hero",
+    "atk": 0,
+    "magicAtk": 76,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 290,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 290% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "엘가시아 라제니스의 검의 수장. 온화하고 자애로운 성품으로 라제니스들에게 존경받고 있다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "serene man with long platinum blond hair and a golden winged circlet, white robes with ornate gold winged shoulder armor set with turquoise gems, large white feathered wings, drifting feathers"
+  },
+  {
+    "id": "tw-c3200700",
+    "name": "어린 아만",
+    "grade": "hero",
+    "atk": 0,
+    "magicAtk": 76,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 290,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 290% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "유년 시절의 아만. 엄마와 함께라면 언제 어디서나 행복하다.",
+    "regions": [
+      "플레체"
+    ],
+    "artRef": "young boy with a neat ash-brown bob and blue eyes, white scarf, navy quilted vest over a white shirt and dark sleeves, brown belt with a pouch, sunny woods"
+  },
+  {
+    "id": "tw-c3200801",
+    "name": "세헤라데",
+    "grade": "hero",
+    "atk": 0,
+    "magicAtk": 90,
+    "attackSpeed": 0.8,
+    "range": 3.0,
+    "maxMana": 80,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "마력 폭발",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 220,
+      "radius": 1.6,
+      "description": "반경 1.6칸에 마법 공격력 220% 피해"
+    },
+    "appearance": {
+      "color": "#22d3ee",
+      "shape": "star",
+      "icon": "🔮"
+    },
+    "description": "칼리나리에서 마주한 신비한 인물. 호문쿨루스에게 각별한 관심을 지니고 있다.",
+    "regions": [
+      "볼다이크"
+    ],
+    "artRef": "woman with long straight black hair and golden eyes, dark sleeveless high-collared robe with angular gold and silver shoulder plates, gold bracers, glowing teal and gold runes behind"
+  },
+  {
     "id": "tw-c3200000",
     "name": "아만",
     "grade": "legendary",
@@ -4437,5 +5694,35 @@
       "루테란"
     ],
     "artRef": "young golden-haired knight king in polished silver plate armor with a white cape, wielding a broken longsword that projects a golden energy blade, eagle crest, radiant royal aura"
+  },
+  {
+    "id": "tw-c3200613",
+    "name": "에버그레이스",
+    "grade": "legendary",
+    "atk": 0,
+    "magicAtk": 180,
+    "attackSpeed": 0.9,
+    "range": 3.0,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "정령 폭주",
+      "type": "aoe",
+      "damageType": "magical",
+      "power": 270,
+      "radius": 1.5,
+      "description": "반경 1.5칸에 마법 공격력 270% 피해"
+    },
+    "appearance": {
+      "color": "#fde68a",
+      "shape": "star",
+      "icon": "🌀"
+    },
+    "description": "최초의 가디언이자 빛의 가디언을 이끄는 수장. 루페온의 질서와 이그하람의 혼돈이 결합하여 탄생하였다.",
+    "regions": [
+      "엘가시아"
+    ],
+    "artRef": "radiant golden dragon with glittering gold scales, curved dark horns and spread golden wings, haloed in sparkling light"
   }
 ]

@@ -2568,5 +2568,275 @@
       }
     ],
     "artRef": "giant ape guardian beast with dark charcoal hide and a snarling blue face with fangs, spiked golden crown set with green gems, ornate bronze shoulder armor and chain sash, teal tribal markings on the chest, spiked bronze belt plate, long curling tail"
+  },
+  {
+    "id": "en-c3200621",
+    "name": "가르가디스",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "모든 생명을 집어삼키는 탐욕스러운 포식자. 머리 위에 떠 있는 신물을 이용해 강력한 천둥의 힘을 다룬다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "hulking pale grey toad-like predator beast with a bloated belly, ornate bronze-gold armor plates and a spiked gold crown topped by a floating sacred orb, glowing blue eyes, curved glowing blue crystal horns jutting from its head and shoulders, misty swamp water"
+  },
+  {
+    "id": "en-c3200620",
+    "name": "소나벨",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "고대의 존재인 소나벨은 각종 속성을 모두 다룰 수 있는 신비한 힘을 지니고 있다.",
+    "traits": [],
+    "artRef": "towering ancient tree-like guardian with a crown of glowing golden foliage, grey carved stone-and-bark armored body with ornate filigree, two glowing yellow-orange core openings in its chest, red-orange branch horns, trailing root tendrils for limbs"
+  },
+  {
+    "id": "en-c3200800",
+    "name": "바르칸",
+    "hp": 1100,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "혼돈의 가디언을 이끄는 가디언. 과거 에버그레이스를 저버리고 페트라니아로 떠났다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "colossal black-violet dragon with a tall spiked crown-like crest of curved horns, glowing violet eyes, long ridged serpentine neck with bony spines, glowing violet rune on its chest, crackling purple lightning aura"
+  },
+  {
+    "id": "en-c3200803",
+    "name": "베히모스",
+    "hp": 850,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "바르칸을 따르는 혼돈의 가디언. 사슬전쟁 당시 모든 이들에게 공포의 상징으로 군림했었다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      }
+    ],
+    "artRef": "massive black-scaled dragon with jagged armored plates edged in glowing blue lines, fanged red maw, glowing blue eye, long glowing blue tendril whiskers hanging from its jaw, dark storm clouds"
+  },
+  {
+    "id": "en-c3200808",
+    "name": "라카이서스",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "봉인에서 깨어난 혼돈의 가디언. 사슬전쟁 이후 오랜 시간 잠들어 있었지만, 누군가의 부름을 통해 다시금 눈을 떴다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "dark charcoal-scaled dragon head with layered jagged horns, glowing blue eyes and blue-tinted scale edges, fanged jaw, fiery orange-red sky with drifting embers"
+  },
+  {
+    "id": "en-c3200811",
+    "name": "칼테이야",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "바르칸을 따르는 혼돈의 가디언. 피어나는 꽃봉오리에서 탄생과 죽음을 반복한다.",
+    "traits": [
+      {
+        "type": "regen",
+        "pctPerSec": 0.5
+      }
+    ],
+    "artRef": "slender flower-woman guardian with a blooming pink petal head, pale pink petal-textured skin, layered pink and lilac petal skirt, glowing red fingertips, trailing purple vine tendrils, dark misty forest"
+  },
+  {
+    "id": "en-c3200812",
+    "name": "파이어혼",
+    "hp": 850,
+    "defense": 35,
+    "magicDefense": 35,
+    "moveSpeed": 0.95,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#f59e0b",
+      "shape": "triangle",
+      "icon": "🐺"
+    },
+    "description": "바르칸을 따르는 혼돈의 가디언. 자신의 단단한 뿔로 가로막는 모든 것을 분쇄한다.",
+    "traits": [
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "hulking black-furred bull beast with enormous curved dark horns, small spiked gold crown, glowing red eyes and fanged snarl, heavy dark armor plates trimmed in gold, shaggy grey mane, crimson mist"
+  },
+  {
+    "id": "en-c3200813",
+    "name": "베스칼",
+    "hp": 850,
+    "defense": 20,
+    "magicDefense": 60,
+    "moveSpeed": 0.75,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#a5b4fc",
+      "shape": "star",
+      "icon": "👻"
+    },
+    "description": "음파를 이용하는 혼돈의 가디언. 짙은 어둠 속에서 몸을 숨긴 채 적을 급습한다.",
+    "traits": [
+      {
+        "type": "stealth",
+        "revealRange": 2.5
+      }
+    ],
+    "artRef": "shaggy black-furred bat-like guardian with a wild mane, glowing violet eyes and violet-edged fur, long curved violet-black claw blades, bone and gold ornaments, pitch-dark background"
+  },
+  {
+    "id": "en-c3200904",
+    "name": "에키드나",
+    "hp": 1100,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "죽었다고 알려진 이후 오랫동안 자취를 감췄다가, 돌연 다시 모습을 드러냈다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "pale woman with long black hair, curved black horns and dark feather ornaments, red eyes and lips, black lace and thorn-patterned gown with a red jewel at the throat, dark crimson skirt, black feathered mantle, stormy red-grey sky"
+  },
+  {
+    "id": "en-c3200906",
+    "name": "폭풍의 베히모스",
+    "hp": 1100,
+    "defense": 60,
+    "magicDefense": 30,
+    "moveSpeed": 0.55,
+    "isBoss": true,
+    "goldReward": 70,
+    "appearance": {
+      "color": "#b91c1c",
+      "shape": "square",
+      "icon": "👹"
+    },
+    "description": "폭풍우를 다루는 혼돈의 가디언. 사슬전쟁 때보다 더 잔인하고 흉포해진 모습으로 쿠르잔에 나타났다.",
+    "traits": [
+      {
+        "type": "stun_immune"
+      },
+      {
+        "type": "slow_immune"
+      }
+    ],
+    "artRef": "furious steel-blue dragon bristling with jagged spikes and horns, roaring open maw full of sharp fangs, glowing blue eyes, coiling wire-like tendrils, crackling blue lightning storm"
+  },
+  {
+    "id": "en-c3200905",
+    "name": "다르키엘",
+    "hp": 850,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "바다를 지배하는 네 명의 해적 중 한 명. 잔인하고 음산한 성격으로 온갖 사술과 저주에 능하다.",
+    "traits": [],
+    "artRef": "gaunt grey-skinned man with wild flowing crimson hair, spiked black iron crown, glowing red eyes and cruel smirk, ornate dark plate armor with glowing red seams, swirling blood-red aura"
+  },
+  {
+    "id": "en-c3200807",
+    "name": "라자람",
+    "hp": 850,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "라자람 81구역에서 봉인하고 있는 의문의 가디언. 신비한 힘을 감추고 있는 듯하다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "towering armored guardian in jagged spiked bronze-gold plate armor with tall blade-like crest spikes, glowing crimson red body showing through the armor gaps, glowing magenta crystal core in the chest, clawed red gauntlet hand, smoky red-orange haze"
   }
 ]

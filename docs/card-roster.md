@@ -296,29 +296,36 @@
 | 혼돈의 사이카 | 영웅 | 기동 | - |
 | 히바이크 | 희귀 | 괴력 | - |
 
-## 보스 (73)
+## 보스 (85)
 
 | 이름 | 카드 등급 | 역할 | 특성 |
 |---|---|---|---|
 | 가디언 루 | 전설 | 술사 | stun_immune, slow_immune |
 | 가룸 | 희귀 | 괴력 | stun_immune |
+| 가르가디스 | 영웅 | 괴력 | stun_immune |
 | 거신 카스피엘 | 희귀 | 괴력 | stun_immune |
 | 고르카그로스 | 희귀 | 괴력 | stun_immune |
 | 나크라세나 | 영웅 | 괴력 | stun_immune |
+| 다르키엘 | 영웅 | 술사 | - |
 | 데런 아만 | 전설 | 술사 | stun_immune, slow_immune |
 | 데스칼루다 | 영웅 | 기동 | slow_immune |
 | 도철 | 희귀 | 괴력 | stun_immune |
 | 두키킹 | 희귀 | 괴력 | stun_immune |
+| 라자람 | 영웅 | 중갑 | aura_defense |
+| 라카이서스 | 영웅 | 기동 | slow_immune |
 | 레바노스 | 영웅 | 술사 | - |
 | 로블롬 | 희귀 | 괴력 | stun_immune |
 | 루드릭 | 희귀 | 망령 | stealth |
 | 루메루스 | 영웅 | 술사 | - |
 | 마네스 | 희귀 | 망령 | stealth |
 | 미스틱 | 영웅 | 망령 | stealth |
+| 바르칸 | 전설 | 술사 | stun_immune, slow_immune |
 | 바에단 | 희귀 | 괴력 | stun_immune |
 | 반다 | 영웅 | 술사 | - |
 | 발탄 | 전설 | 괴력 | stun_immune, slow_immune |
 | 베르투스 | 영웅 | 괴력 | stun_immune |
+| 베스칼 | 영웅 | 망령 | stealth |
+| 베히모스 | 영웅 | 괴력 | stun_immune |
 | 벨가누스 | 영웅 | 술사 | - |
 | 벨크루제 | 영웅 | 술사 | - |
 | 불칸 | 희귀 | 괴력 | stun_immune |
@@ -327,6 +334,7 @@
 | 비아키스 | 전설 | 기동 | slow_immune, stun_immune |
 | 빙결의 레기오로스 | 영웅 | 괴력 | stun_immune |
 | 소금거인 | 희귀 | 괴력 | stun_immune |
+| 소나벨 | 영웅 | 술사 | - |
 | 솔 그랑데 | 희귀 | 중갑 | aura_defense |
 | 수신 아포라스 | 희귀 | 술사 | - |
 | 수호자 티르 | 희귀 | 중갑 | aura_defense |
@@ -341,6 +349,7 @@
 | 아카테스 | 영웅 | 괴력 | stun_immune |
 | 어둠의 레기오로스 | 영웅 | 괴력 | stun_immune |
 | 에라스모 | 희귀 | 술사 | - |
+| 에키드나 | 전설 | 술사 | stun_immune, slow_immune |
 | 에페르니아 | 영웅 | 술사 | - |
 | 엘버하스틱 | 영웅 | 기동 | slow_immune |
 | 용암 크로마니움 | 영웅 | 괴력 | stun_immune |
@@ -359,6 +368,7 @@
 | 카이슈테르 | 영웅 | 술사 | - |
 | 칼벤투스 | 영웅 | 술사 | - |
 | 칼엘리고스 | 영웅 | 기동 | slow_immune |
+| 칼테이야 | 영웅 | 술사 | regen |
 | 쿠크세이튼 | 전설 | 술사 | stun_immune, slow_immune |
 | 쿤겔라니움 | 영웅 | 괴력 | stun_immune |
 | 크누트 | 희귀 | 괴력 | stun_immune |
@@ -366,6 +376,8 @@
 | 타나토스 | 영웅 | 술사 | - |
 | 타르실라 | 희귀 | 기동 | slow_immune |
 | 타이탈로스 | 영웅 | 괴력 | stun_immune |
+| 파이어혼 | 영웅 | 기동 | slow_immune |
+| 폭풍의 베히모스 | 전설 | 괴력 | stun_immune, slow_immune |
 | 프록시마 | 희귀 | 괴력 | stun_immune |
 | 하누마탄 | 영웅 | 기동 | slow_immune |
 | 헬가이아 | 영웅 | 술사 | regen |

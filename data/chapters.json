@@ -1,66 +1,148 @@
 [
   {
+    "id": "ch-artemis",
+    "name": "챕터 1: 아르테미스",
+    "region": "아르테미스",
+    "mapId": "map-artemis",
+    "stages": [
+      {
+        "id": "st-artemis-1",
+        "name": "1-1 레온하트",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200097",
+          "en-c3200099"
+        ],
+        "bossId": "en-c3200096",
+        "hpMult": 1.6,
+        "goldMult": 1.0,
+        "description": "예언의 석판을 노리는 도굴단장 우고와 숨어든 질병군단의 역병 인도자. 악마의 힘으로 변이한 사제 루드릭이 산 자를 원망하며 떠돈다."
+      },
+      {
+        "id": "st-artemis-2",
+        "name": "1-2 로그힐",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200099",
+          "en-c3200100",
+          "en-c3200097"
+        ],
+        "bossId": "en-c3200098",
+        "hpMult": 2.1,
+        "goldMult": 1.08,
+        "description": "접합된 생체 병기 하르잘이 날뛴다. 봉인이 깨지며 신이 가둬 둔 고대의 영수 불칸이 풀려났다."
+      }
+    ],
+    "description": "모험의 시작. 레온하트 주변에 숨어든 악마와 깨어난 고대 영수를 막아라."
+  },
+  {
+    "id": "ch-yudia",
+    "name": "챕터 2: 유디아",
+    "region": "유디아",
+    "mapId": "map-yudia",
+    "stages": [
+      {
+        "id": "st-yudia-1",
+        "name": "2-1 살란드 구릉지",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200184",
+          "en-c3200185"
+        ],
+        "bossId": "en-c3200101",
+        "hpMult": 1.7,
+        "goldMult": 1.04,
+        "description": "소금을 매매하며 버티는 다단의 도적단과 땅속의 자이언트 웜. 소금을 노리는 자를 도둑으로 여기는 소금거인이 주먹을 휘두른다."
+      },
+      {
+        "id": "st-yudia-2",
+        "name": "2-2 모라이 유적",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200185",
+          "en-c3200184"
+        ],
+        "bossId": "en-c3200023",
+        "hpMult": 1.7,
+        "goldMult": 1.12,
+        "description": "유적 깊숙한 곳, 고대 왕의 육신에 깃든 암흑의 존재 타나토스가 깨어난다."
+      }
+    ],
+    "description": "소금이 반짝이는 땅. 소금 생산지를 차지한 도적단과 유적에 잠든 어둠을 물리쳐라."
+  },
+  {
     "id": "ch-luterra",
-    "name": "챕터 1: 루테란",
+    "name": "챕터 3: 루테란",
     "region": "루테란",
     "mapId": "map-luterra",
     "stages": [
       {
         "id": "st-luterra-1",
-        "name": "1-1 유디아 소금길",
+        "name": "3-1 빌브린 숲",
         "waves": 10,
         "enemyIds": [
-          "en-c3200184",
-          "en-c3200185",
-          "en-c3200097"
+          "en-c3200188",
+          "en-c3200191"
         ],
-        "bossId": "en-c3200101",
-        "hpMult": 1.55,
-        "goldMult": 1,
-        "description": "소금 도적단과 자이언트 웜이 몰려온다. 소금거인이 길을 막는다."
+        "bossId": "en-c3200107",
+        "hpMult": 3.2,
+        "goldMult": 1.08,
+        "description": "슈헤리트군의 부대장 카도건과 복수를 노리는 베르하트. 악마의 기운으로 변이한 식물 로블롬이 모든 생물을 집어삼킨다."
       },
       {
         "id": "st-luterra-2",
-        "name": "1-2 루테란 성",
+        "name": "3-2 루테란 성",
         "waves": 15,
         "enemyIds": [
           "en-c3200188",
-          "en-c3200191",
-          "en-c3200099"
+          "en-c3200191"
         ],
         "bossId": "en-c3200025",
-        "hpMult": 2.4,
-        "goldMult": 1.1,
-        "description": "섭정 슈헤리트의 군대가 성을 차지했다."
+        "hpMult": 3.35,
+        "goldMult": 1.17,
+        "description": "선왕을 독살하고 악마와 손잡은 섭정 슈헤리트가 왕좌를 노린다."
       },
       {
         "id": "st-luterra-3",
-        "name": "1-3 보레아 영지",
-        "waves": 20,
+        "name": "3-3 해무리 언덕",
+        "waves": 15,
         "enemyIds": [
           "en-c3200112",
           "en-c3200195",
+          "en-c3200237"
+        ],
+        "bossId": "en-c3200110",
+        "hpMult": 2.8,
+        "goldMult": 1.25,
+        "description": "광기의 사교가 동부에 퍼진다. 희생당한 영혼들의 원한이 호박에 깃든 윌리윌리."
+      },
+      {
+        "id": "st-luterra-4",
+        "name": "3-4 루테란 왕의 무덤",
+        "waves": 20,
+        "enemyIds": [
           "en-c3200236",
           "en-c3200237",
-          "en-c3200192"
+          "en-c3200192",
+          "en-c3200112"
         ],
         "bossId": "en-c3200028",
-        "hpMult": 2.95,
-        "goldMult": 1.2,
-        "description": "광기의 사교도와 악마가 영지를 뒤덮는다. 왕의 무덤에서 자간이 깨어난다."
+        "hpMult": 3.65,
+        "goldMult": 1.34,
+        "description": "광기군단이 보레아 영지를 덮쳤다. 왕의 무덤에 숨어든 악마 자간이 지옥의 불길을 내뿜는다."
       }
     ],
-    "description": "아르테미스와 유디아를 지나 루테란 왕국으로. 반역자 슈헤리트와 광기의 사교를 막아라."
+    "description": "루테란 왕국의 서부와 동부. 왕위를 노린 섭정과 광기의 사교를 막아라."
   },
   {
     "id": "ch-tortoyk",
-    "name": "챕터 2: 토토이크",
+    "name": "챕터 4: 토토이크",
     "region": "토토이크",
     "mapId": "map-leon",
     "stages": [
       {
         "id": "st-1-1",
-        "name": "2-1 해안 길",
+        "name": "4-1 해안 길",
         "waves": 10,
         "enemyIds": [
           "en-c3200119",
@@ -73,7 +155,7 @@
       },
       {
         "id": "st-1-2",
-        "name": "2-2 거인의 숲",
+        "name": "4-2 거인의 숲",
         "waves": 15,
         "enemyIds": [
           "en-c3200119",
@@ -87,7 +169,7 @@
       },
       {
         "id": "st-1-3",
-        "name": "2-3 정상 결전",
+        "name": "4-3 정상 결전",
         "waves": 20,
         "enemyIds": [
           "en-c3200117",
@@ -104,26 +186,26 @@
   },
   {
     "id": "ch-anikka",
-    "name": "챕터 3: 애니츠",
+    "name": "챕터 5: 애니츠",
     "region": "애니츠",
     "mapId": "map-anikka",
     "stages": [
       {
         "id": "st-anikka-1",
-        "name": "3-1 델파이 현",
+        "name": "5-1 소리의 숲",
         "waves": 10,
         "enemyIds": [
           "en-c3200204",
           "en-c3200129"
         ],
         "bossId": "en-c3200135",
-        "hpMult": 1.65,
-        "goldMult": 1.08,
-        "description": "구미호 미령과 수하 삭월이 영혼을 모으고 있다."
+        "hpMult": 2.45,
+        "goldMult": 1.16,
+        "description": "구미호 미령과 수하 삭월이 영혼을 모은다. 애니츠를 지키던 영물 추오가 마기에 물들어 날뛴다."
       },
       {
         "id": "st-anikka-2",
-        "name": "3-2 적의 결계",
+        "name": "5-2 적의 결계",
         "waves": 15,
         "enemyIds": [
           "en-c3200133",
@@ -131,13 +213,27 @@
           "en-c3200204"
         ],
         "bossId": "en-c3200134",
-        "hpMult": 2.7,
-        "goldMult": 1.19,
+        "hpMult": 3.8,
+        "goldMult": 1.25,
         "description": "역병군단과 욕망군단의 악마가 결계를 넘는다. 불사의 요괴 도철이 풀려났다."
       },
       {
         "id": "st-anikka-3",
-        "name": "3-3 삶과 죽음의 경계",
+        "name": "5-3 빛의 가디언",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200129",
+          "en-c3200204",
+          "en-c3200132"
+        ],
+        "bossId": "en-c3200416",
+        "hpMult": 3.15,
+        "goldMult": 1.35,
+        "description": "애니츠에서 신성시되는 빛의 가디언 하누마탄. 무투가들은 그 움직임을 본떠 무술을 발전시켰다."
+      },
+      {
+        "id": "st-anikka-4",
+        "name": "5-4 삶과 죽음의 경계",
         "waves": 20,
         "enemyIds": [
           "en-c3200129",
@@ -146,36 +242,49 @@
           "en-c3200204"
         ],
         "bossId": "en-c3200032",
-        "hpMult": 2.55,
-        "goldMult": 1.3,
-        "description": "지옥귀 반다의 봉인이 흔들린다."
+        "hpMult": 2.9,
+        "goldMult": 1.44,
+        "description": "삶과 죽음의 경계를 지배하는 지옥귀 반다의 봉인이 흔들린다."
       }
     ],
     "description": "요괴와 악마가 들끓는 무인의 땅. 에스더 시엔이 봉인한 재앙을 다시 잠재워라."
   },
   {
     "id": "ch-arthetine",
-    "name": "챕터 4: 아르데타인",
+    "name": "챕터 6: 아르데타인",
     "region": "아르데타인",
     "mapId": "map-arthetine",
     "stages": [
       {
         "id": "st-arthetine-1",
-        "name": "4-1 알트아이젠",
+        "name": "6-1 갈라진 땅",
         "waves": 10,
+        "enemyIds": [
+          "en-c3200138",
+          "en-c3200139"
+        ],
+        "bossId": "en-c3200137",
+        "hpMult": 1.85,
+        "goldMult": 1.2,
+        "description": "아르데타인의 기술이 집약된 기계병기 시그나투스가 눈에 띄는 적을 모조리 노린다."
+      },
+      {
+        "id": "st-arthetine-2",
+        "name": "6-2 알트아이젠",
+        "waves": 15,
         "enemyIds": [
           "en-c3200138",
           "en-c3200139",
           "en-c3200207"
         ],
         "bossId": "en-c3200157",
-        "hpMult": 1.7,
-        "goldMult": 1.12,
+        "hpMult": 2.2,
+        "goldMult": 1.3,
         "description": "카인의 친위대가 거대 기계병기 솔 그랑데를 앞세운다."
       },
       {
-        "id": "st-arthetine-2",
-        "name": "4-2 아이히만의 연구기지",
+        "id": "st-arthetine-3",
+        "name": "6-3 아이히만의 연구기지",
         "waves": 15,
         "enemyIds": [
           "en-c3200138",
@@ -183,13 +292,13 @@
           "en-c3200140"
         ],
         "bossId": "en-c3200174",
-        "hpMult": 2.1,
-        "goldMult": 1.23,
-        "description": "미쳐버린 아이히만 박사의 실험체들이 쏟아진다."
+        "hpMult": 2.3,
+        "goldMult": 1.39,
+        "description": "미쳐버린 아이히만 박사의 연구기지. 몸을 기계로 바꾼 친위대가 지킨다."
       },
       {
-        "id": "st-arthetine-3",
-        "name": "4-3 에어가이츠",
+        "id": "st-arthetine-4",
+        "name": "6-4 에어가이츠",
         "waves": 20,
         "enemyIds": [
           "en-c3200035",
@@ -198,85 +307,83 @@
           "en-c3200138"
         ],
         "bossId": "en-c3200037",
-        "hpMult": 1.65,
-        "goldMult": 1.34,
-        "description": "창조의 태양으로 진화한 카인과의 결전."
+        "hpMult": 1.95,
+        "goldMult": 1.49,
+        "description": "창조의 태양으로 기계 날개를 단 신의 형상이 된 카인과의 결전."
       }
     ],
     "description": "기계와 사막의 공화국. 기술관 카인의 친위대와 기계병기를 멈춰라."
   },
   {
     "id": "ch-vern",
-    "name": "챕터 5: 베른",
-    "region": "베른",
+    "name": "챕터 7: 베른 북부",
+    "region": "베른 북부",
     "mapId": "map-vern",
     "stages": [
       {
         "id": "st-vern-1",
-        "name": "5-1 페스나르 고원",
+        "name": "7-1 베르닐 삼림",
         "waves": 10,
         "enemyIds": [
           "en-c3200214",
           "en-c3200149"
         ],
-        "bossId": "en-c3200147",
-        "hpMult": 2.3,
-        "goldMult": 1.16,
-        "description": "사령술에 되살아난 망령 기사와 마수가 고원을 넘는다."
+        "bossId": "en-c3200150",
+        "hpMult": 2.8,
+        "goldMult": 1.24,
+        "description": "어둠의 기운으로 자라난 식인식물 프록시마가 숲을 뒤덮었다."
       },
       {
         "id": "st-vern-2",
-        "name": "5-2 고르곤의 둥지",
+        "name": "7-2 고르곤의 둥지",
         "waves": 15,
         "enemyIds": [
           "en-c3200149",
-          "en-c3200214",
-          "en-c3200100"
+          "en-c3200214"
         ],
-        "bossId": "en-c3200041",
-        "hpMult": 3.45,
-        "goldMult": 1.28,
-        "description": "백 년 만에 부활한 사령술사 지그문트."
+        "bossId": "en-c3200147",
+        "hpMult": 2.65,
+        "goldMult": 1.34,
+        "description": "생명을 갈구하는 사령술의 마수 고르곤. 베른 기사단을 괴멸시켰던 지그문트의 창조물 가룸이 잠에서 깼다."
       },
       {
         "id": "st-vern-3",
-        "name": "5-3 검은 기사단",
+        "name": "7-3 페스나르 고원",
         "waves": 20,
         "enemyIds": [
-          "en-c3200402",
-          "en-c3200408",
-          "en-c3200214"
+          "en-c3200214",
+          "en-c3200149"
         ],
-        "bossId": "en-c3200024",
-        "hpMult": 3.5,
-        "goldMult": 1.39,
-        "description": "베른 남부의 검은 기사단과 천둥날개가 몰려온다."
+        "bossId": "en-c3200041",
+        "hpMult": 2.65,
+        "goldMult": 1.44,
+        "description": "망령이 된 기사단원들이 고원을 떠돈다. 백 년 전 베른을 지배하려 했던 사령술사 지그문트가 다시 나타났다."
       }
     ],
-    "description": "기사의 왕국 베른. 되살아난 사령술사와 검은 기사단에 맞서라."
+    "description": "기사의 왕국 베른. 백 년 만에 되살아난 사령술사에 맞서라."
   },
   {
     "id": "ch-shushire",
-    "name": "챕터 6: 슈샤이어",
+    "name": "챕터 8: 슈샤이어",
     "region": "슈샤이어",
     "mapId": "map-shushire",
     "stages": [
       {
         "id": "st-shushire-1",
-        "name": "6-1 칼날바람 언덕",
+        "name": "8-1 칼날바람 언덕",
         "waves": 10,
         "enemyIds": [
           "en-c3200143",
           "en-c3200213"
         ],
         "bossId": "en-c3200141",
-        "hpMult": 1.6,
-        "goldMult": 1.2,
-        "description": "질병군단의 악마와 노예 상인 바에단."
+        "hpMult": 1.8,
+        "goldMult": 1.28,
+        "description": "슈샤이어의 노예를 일리아칸에게 바치는 질병군단과, 악마와 손잡은 노예 상인 바에단."
       },
       {
         "id": "st-shushire-2",
-        "name": "6-2 서리 거미 둥지",
+        "name": "8-2 머무른 시간의 호수",
         "waves": 15,
         "enemyIds": [
           "en-c3200143",
@@ -284,65 +391,248 @@
           "en-c3200213"
         ],
         "bossId": "en-c3200142",
-        "hpMult": 1.75,
-        "goldMult": 1.32,
-        "description": "빠른 서리 거미 여왕 타르실라. 둔화가 통하지 않는다."
+        "hpMult": 1.85,
+        "goldMult": 1.38,
+        "description": "신을 등진 사제 나크슌. 아름답고 매혹적인 서리 거미 여왕 타르실라가 생명을 탐한다."
       },
       {
         "id": "st-shushire-3",
-        "name": "6-3 얼어붙은 결전",
+        "name": "8-3 전사의 망령",
         "waves": 20,
         "enemyIds": [
           "en-c3200211",
           "en-c3200143",
-          "en-c3200213",
-          "en-c3200100"
+          "en-c3200213"
         ],
-        "bossId": "en-c3200047",
+        "bossId": "en-c3200145",
         "hpMult": 1.8,
-        "goldMult": 1.44,
-        "description": "냉기를 뿜는 빙결의 레기오로스."
+        "goldMult": 1.48,
+        "description": "사슬전쟁에서 악마와 싸우다 혼이 침식된 전사 마네스."
       }
     ],
     "description": "얼어붙은 전사의 땅. 질병군단과 손잡은 노예 상인을 끝장내라."
   },
   {
     "id": "ch-rohendel",
-    "name": "챕터 7: 로헨델",
+    "name": "챕터 9: 로헨델",
     "region": "로헨델",
     "mapId": "map-rohendel",
     "stages": [
       {
         "id": "st-rohendel-1",
-        "name": "7-1 환영 나비 숲",
+        "name": "9-1 정령의 숲",
         "waves": 10,
         "enemyIds": [
+          "en-c3200103",
           "en-c3200245",
-          "en-c3200219",
-          "en-c3200103"
+          "en-c3200219"
         ],
-        "bossId": "en-c3200182",
-        "hpMult": 4,
-        "goldMult": 1.24,
-        "description": "악마로 변한 옛 기사단장 아드린느."
+        "bossId": "en-c3200049",
+        "hpMult": 4.25,
+        "goldMult": 1.32,
+        "description": "카마인의 수하 칼라도세가 위험한 실험을 벌인다. 포악한 불꽃의 고대 정령 에페르니아가 날뛴다."
       },
       {
         "id": "st-rohendel-2",
-        "name": "7-2 사피라 동굴",
+        "name": "9-2 몽환의 궁전",
         "waves": 15,
         "enemyIds": [
-          "en-c3200103",
+          "en-c3200245",
+          "en-c3200219",
           "en-c3200221",
           "en-c3200220"
         ],
-        "bossId": "en-c3200150",
-        "hpMult": 3.7,
+        "bossId": "en-c3200073",
+        "hpMult": 5.2,
+        "goldMult": 1.43,
+        "description": "아브렐슈드가 만든 체스 말 피조물들이 궁전을 지킨다. 별빛 꼬리의 신비한 빛으로 현혹하는 흑야의 요호."
+      }
+    ],
+    "description": "실린의 숲 로헨델. 몽환군단이 남긴 환영을 깨뜨려라."
+  },
+  {
+    "id": "ch-yorn",
+    "name": "챕터 10: 욘",
+    "region": "욘",
+    "mapId": "map-yorn",
+    "stages": [
+      {
+        "id": "st-yorn-1",
+        "name": "10-1 위대한 성",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200246",
+          "en-c3200166",
+          "en-c3200167"
+        ],
+        "bossId": "en-c3200181",
+        "hpMult": 1.45,
         "goldMult": 1.36,
-        "description": "칼라도세의 실험으로 자라난 식인식물 프록시마."
+        "description": "반짝이는 것을 노리는 텔파 무리. 사술사들의 힘으로 깨어나 해적 다르키엘을 따르는 바다의 악몽 크누트."
       },
       {
-        "id": "st-rohendel-3",
-        "name": "7-3 몽환의 궁전",
+        "id": "st-yorn-2",
+        "name": "10-2 오만의 방주",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200055",
+          "en-c3200059",
+          "en-c3200167",
+          "en-c3200166"
+        ],
+        "bossId": "en-c3200054",
+        "hpMult": 1.25,
+        "goldMult": 1.47,
+        "description": "마검에 이끌려 들어온 악마들. 오만의 방주에서 만들어진 마검 벨크루제가 숙주를 찾는다."
+      }
+    ],
+    "description": "우마르의 대장간 욘. 마검 벨크루제에 이끌린 악마들이 몰려든다."
+  },
+  {
+    "id": "ch-feiton",
+    "name": "챕터 11: 페이튼",
+    "region": "페이튼",
+    "mapId": "map-feiton",
+    "stages": [
+      {
+        "id": "st-feiton-1",
+        "name": "11-1 그림자 수도원",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200172",
+          "en-c3200173"
+        ],
+        "bossId": "en-c3200067",
+        "hpMult": 1.95,
+        "goldMult": 1.4,
+        "description": "어둠에 타락한 아베스타 단원 제페토. 암흑의 광풍 칼벤투스가 일대를 뒤덮는다."
+      },
+      {
+        "id": "st-feiton-2",
+        "name": "11-2 칼라자 마을",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200060",
+          "en-c3200172",
+          "en-c3200173",
+          "en-c3200059"
+        ],
+        "bossId": "en-c3200048",
+        "hpMult": 1.85,
+        "goldMult": 1.51,
+        "description": "카멘의 어둠에 타락한 사이카와 어둠군단을 지휘하는 칼트말루스. 어둠으로 눈을 멀게 하는 레기오로스."
+      }
+    ],
+    "description": "데런의 땅 페이튼. 어둠군단의 그림자를 몰아내라."
+  },
+  {
+    "id": "ch-punika",
+    "name": "챕터 12: 파푸니카",
+    "region": "파푸니카",
+    "mapId": "map-punika",
+    "stages": [
+      {
+        "id": "st-punika-1",
+        "name": "12-1 나스카 온천",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200308",
+          "en-c3200310"
+        ],
+        "bossId": "en-c3200070",
+        "hpMult": 3.15,
+        "goldMult": 1.44,
+        "description": "숨겨진 보물을 노리는 세토와 상대를 교란하는 스텔라. 홍염의 요호가 불길을 뿜는다."
+      },
+      {
+        "id": "st-punika-2",
+        "name": "12-2 오레하의 우물",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200309",
+          "en-c3200308",
+          "en-c3200310"
+        ],
+        "bossId": "en-c3200312",
+        "hpMult": 3.05,
+        "goldMult": 1.56,
+        "description": "명령을 받고 파푸니카를 침공한 키케라. 오래전 파푸니카를 파괴하려 했던 혼돈의 가디언 아르고스까지 움직인다."
+      }
+    ],
+    "description": "남쪽 섬의 축제가 광기로 물들었다. 광기군단을 몰아내라."
+  },
+  {
+    "id": "ch-vern-south",
+    "name": "챕터 13: 베른 남부",
+    "region": "베른 남부",
+    "mapId": "map-vern-south",
+    "stages": [
+      {
+        "id": "st-vern-south-1",
+        "name": "13-1 검은 기사단",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200402",
+          "en-c3200408"
+        ],
+        "bossId": "en-c3200024",
+        "hpMult": 1.35,
+        "goldMult": 1.48,
+        "description": "불길한 기운을 풍기는 단장 루기네와 대낫을 쥔 부관 킬리언. 멀리서도 울음소리가 들리는 마수 천둥날개."
+      }
+    ],
+    "description": "베른 남부의 영지들. 불길한 검은 기사단과 천둥의 마수를 막아라."
+  },
+  {
+    "id": "ch-legion",
+    "name": "챕터 14: 군단장 레이드",
+    "region": "군단장 레이드",
+    "mapId": "map-legion",
+    "stages": [
+      {
+        "id": "st-legion-1",
+        "name": "14-1 마수군단장 발탄",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200105",
+          "en-c3200100"
+        ],
+        "bossId": "en-c3200002",
+        "hpMult": 4.75,
+        "goldMult": 1.52,
+        "description": "늑대 형상의 악마 릭투스가 앞장선다. 언제나 최전선에서 돌격하는 마수군단장."
+      },
+      {
+        "id": "st-legion-2",
+        "name": "14-2 욕망군단장 비아키스",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200132",
+          "en-c3200167"
+        ],
+        "bossId": "en-c3200009",
+        "hpMult": 5.45,
+        "goldMult": 1.64,
+        "description": "달콤한 말로 욕망을 조종하는 비아키스와 수하 레키엘."
+      },
+      {
+        "id": "st-legion-3",
+        "name": "14-3 광기군단장 쿠크세이튼",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200308",
+          "en-c3200309",
+          "en-c3200310",
+          "en-c3200236"
+        ],
+        "bossId": "en-c3200007",
+        "hpMult": 5.2,
+        "goldMult": 1.76,
+        "description": "장난스러운 얼굴 뒤에 광기를 숨긴 광기군단장."
+      },
+      {
+        "id": "st-legion-4",
+        "name": "14-4 몽환군단장 아브렐슈드",
         "waves": 20,
         "enemyIds": [
           "en-c3200162",
@@ -351,236 +641,65 @@
           "en-c3200221"
         ],
         "bossId": "en-c3200013",
-        "hpMult": 2.25,
-        "goldMult": 1.49,
-        "description": "체스 말 피조물을 거느린 몽환군단장 아브렐슈드."
-      }
-    ],
-    "description": "실린의 숲 로헨델. 몽환군단장 아브렐슈드의 환영을 깨뜨려라."
-  },
-  {
-    "id": "ch-yorn",
-    "name": "챕터 8: 욘",
-    "region": "욘",
-    "mapId": "map-yorn",
-    "stages": [
-      {
-        "id": "st-yorn-1",
-        "name": "8-1 위대한 성",
-        "waves": 10,
-        "enemyIds": [
-          "en-c3200246",
-          "en-c3200166"
-        ],
-        "bossId": "en-c3200181",
-        "hpMult": 1.95,
-        "goldMult": 1.28,
-        "description": "반짝이는 것을 노리는 텔파 무리와 바다의 악몽 크누트."
+        "hpMult": 3.65,
+        "goldMult": 1.88,
+        "description": "환영으로 적을 현혹하는 냉철한 몽환군단장."
       },
       {
-        "id": "st-yorn-2",
-        "name": "8-2 기막힌 양조장",
-        "waves": 15,
-        "enemyIds": [
-          "en-c3200167",
-          "en-c3200246",
-          "en-c3200166"
-        ],
-        "bossId": "en-c3200068",
-        "hpMult": 1.85,
-        "goldMult": 1.41,
-        "description": "등에 용암이 흐르는 용암 크로마니움."
-      },
-      {
-        "id": "st-yorn-3",
-        "name": "8-3 오만의 방주",
+        "id": "st-legion-5",
+        "name": "14-5 질병군단장 일리아칸",
         "waves": 20,
         "enemyIds": [
-          "en-c3200055",
-          "en-c3200059",
-          "en-c3200167"
+          "en-c3200133",
+          "en-c3200166",
+          "en-c3200213",
+          "en-c3200143"
         ],
-        "bossId": "en-c3200054",
-        "hpMult": 1.4,
-        "goldMult": 1.54,
-        "description": "숙주를 찾는 마검 벨크루제."
-      }
-    ],
-    "description": "우마르의 대장간 욘. 마검 벨크루제에 이끌린 악마들이 몰려든다."
-  },
-  {
-    "id": "ch-feiton",
-    "name": "챕터 9: 페이튼",
-    "region": "페이튼",
-    "mapId": "map-feiton",
-    "stages": [
-      {
-        "id": "st-feiton-1",
-        "name": "9-1 그림자 수도원",
-        "waves": 10,
-        "enemyIds": [
-          "en-c3200172",
-          "en-c3200173"
-        ],
-        "bossId": "en-c3200067",
-        "hpMult": 2,
-        "goldMult": 1.32,
-        "description": "타락한 아베스타 단원과 암흑의 칼벤투스."
+        "bossId": "en-c3200010",
+        "hpMult": 6.3,
+        "goldMult": 2.01,
+        "description": "육신을 갈망하며 살아있는 생물을 부패시키는 질병군단장."
       },
       {
-        "id": "st-feiton-2",
-        "name": "9-2 칼라자 마을",
-        "waves": 15,
+        "id": "st-legion-6",
+        "name": "14-6 어둠군단장 카멘",
+        "waves": 25,
         "enemyIds": [
-          "en-c3200060",
-          "en-c3200172",
-          "en-c3200173"
-        ],
-        "bossId": "en-c3200048",
-        "hpMult": 2,
-        "goldMult": 1.45,
-        "description": "카멘의 어둠에 물든 사이카와 어둠의 레기오로스."
-      },
-      {
-        "id": "st-feiton-3",
-        "name": "9-3 어둠의 성채",
-        "waves": 20,
-        "enemyIds": [
-          "en-c3200060",
           "en-c3200059",
           "en-c3200173",
-          "en-c3200055"
+          "en-c3200055",
+          "en-c3200060"
         ],
         "bossId": "en-c3200012",
-        "hpMult": 2.3,
-        "goldMult": 1.58,
-        "description": "어둠군단장 카멘과의 결전."
+        "hpMult": 5,
+        "goldMult": 2.13,
+        "description": "군단장들 모두를 압도하는, 정체를 알 수 없는 어둠군단장."
       }
     ],
-    "description": "데런의 땅 페이튼. 어둠군단장 카멘의 그림자를 몰아내라."
-  },
-  {
-    "id": "ch-punika",
-    "name": "챕터 10: 파푸니카",
-    "region": "파푸니카",
-    "mapId": "map-punika",
-    "stages": [
-      {
-        "id": "st-punika-1",
-        "name": "10-1 나스카 온천",
-        "waves": 10,
-        "enemyIds": [
-          "en-c3200308",
-          "en-c3200310"
-        ],
-        "bossId": "en-c3200070",
-        "hpMult": 2.1,
-        "goldMult": 1.36,
-        "description": "보물을 노리는 광기군단의 세토와 스텔라."
-      },
-      {
-        "id": "st-punika-2",
-        "name": "10-2 오레하의 우물",
-        "waves": 15,
-        "enemyIds": [
-          "en-c3200309",
-          "en-c3200308",
-          "en-c3200310"
-        ],
-        "bossId": "en-c3200312",
-        "hpMult": 2.95,
-        "goldMult": 1.5,
-        "description": "파푸니카를 파괴하려 했던 혼돈의 가디언 아르고스."
-      },
-      {
-        "id": "st-punika-3",
-        "name": "10-3 광기의 축제",
-        "waves": 20,
-        "enemyIds": [
-          "en-c3200309",
-          "en-c3200310",
-          "en-c3200308"
-        ],
-        "bossId": "en-c3200007",
-        "hpMult": 3.35,
-        "goldMult": 1.63,
-        "description": "광기군단장 쿠크세이튼이 축제를 연다."
-      }
-    ],
-    "description": "남쪽 섬의 축제가 광기로 물들었다. 광기군단을 몰아내라."
-  },
-  {
-    "id": "ch-ocean",
-    "name": "챕터 11: 대양",
-    "region": "섬",
-    "mapId": "map-ocean",
-    "stages": [
-      {
-        "id": "st-ocean-1",
-        "name": "11-1 해적 항로",
-        "waves": 10,
-        "enemyIds": [
-          "en-c3200119",
-          "en-c3200118"
-        ],
-        "bossId": "en-c3200152",
-        "hpMult": 1.25,
-        "goldMult": 1.4,
-        "description": "해적단과 보물을 모으는 두키들의 왕."
-      },
-      {
-        "id": "st-ocean-2",
-        "name": "11-2 에라스모의 섬",
-        "waves": 15,
-        "enemyIds": [
-          "en-c3200117",
-          "en-c3200118",
-          "en-c3200119"
-        ],
-        "bossId": "en-c3200151",
-        "hpMult": 1.5,
-        "goldMult": 1.54,
-        "description": "붉은고래 해적단과 해저의 신비한 생물 에라스모."
-      },
-      {
-        "id": "st-ocean-3",
-        "name": "11-3 아르카디아의 성역",
-        "waves": 20,
-        "enemyIds": [
-          "en-c3200117",
-          "en-c3200118",
-          "en-c3200119"
-        ],
-        "bossId": "en-c3200081",
-        "hpMult": 1.55,
-        "goldMult": 1.68,
-        "description": "바다 위 성역을 지키는 중립 가디언 아르카디아."
-      }
-    ],
-    "description": "기에나와 프로키온의 바다. 해적과 바다 괴물을 뚫고 성역에 닿아라."
+    "description": "카제로스의 여섯 군단장. 마수·욕망·광기·몽환·질병·어둠의 군단을 차례로 쓰러뜨려라."
   },
   {
     "id": "ch-elgacia",
-    "name": "챕터 12: 엘가시아",
+    "name": "챕터 15: 엘가시아",
     "region": "엘가시아",
     "mapId": "map-elgacia",
     "stages": [
       {
         "id": "st-elgacia-1",
-        "name": "12-1 빛의 계단",
+        "name": "15-1 빛의 계단",
         "waves": 10,
         "enemyIds": [
           "en-c3200173",
           "en-c3200172"
         ],
         "bossId": "en-c3200064",
-        "hpMult": 2.6,
-        "goldMult": 1.44,
-        "description": "광휘의 빛으로 시험하는 가디언 루메루스."
+        "hpMult": 2.2,
+        "goldMult": 1.56,
+        "description": "짙은 안개 속의 가디언 루메루스가 광휘의 빛으로 시험한다."
       },
       {
         "id": "st-elgacia-2",
-        "name": "12-2 구름 너머의 땅",
+        "name": "15-2 구름 너머의 땅",
         "waves": 15,
         "enemyIds": [
           "en-c3200055",
@@ -588,13 +707,13 @@
           "en-c3200059"
         ],
         "bossId": "en-c3200076",
-        "hpMult": 2.25,
-        "goldMult": 1.58,
-        "description": "차원의 진동에 깨어난 아카테스."
+        "hpMult": 1.45,
+        "goldMult": 1.68,
+        "description": "구름 너머에 잠들어 있던 아카테스가 차원의 진동에 깨어났다."
       },
       {
         "id": "st-elgacia-3",
-        "name": "12-3 라제니스의 성소",
+        "name": "15-3 심판의 창",
         "waves": 20,
         "enemyIds": [
           "en-c3200059",
@@ -602,63 +721,442 @@
           "en-c3200055"
         ],
         "bossId": "en-c3200080",
-        "hpMult": 1.5,
-        "goldMult": 1.73,
+        "hpMult": 1.25,
+        "goldMult": 1.81,
         "description": "번뇌의 창을 쥔 심판자 엘버하스틱."
       }
     ],
-    "description": "구름 너머 빛의 땅. 어둠군단의 침공에서 라제니스의 성소를 지켜라."
+    "description": "구름 너머 빛의 땅. 하늘의 대륙에 스며든 어둠을 걷어내라."
+  },
+  {
+    "id": "ch-fleche",
+    "name": "챕터 16: 플레체",
+    "region": "플레체",
+    "mapId": "map-fleche",
+    "stages": [
+      {
+        "id": "st-fleche-1",
+        "name": "16-1 빛과 어둠의 회랑",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200167",
+          "en-c3200132"
+        ],
+        "bossId": "en-c3200074",
+        "hpMult": 4.25,
+        "goldMult": 1.6,
+        "description": "빛과 어둠의 힘을 다루는 벨가누스가 끓어오르는 분노로 심판한다."
+      },
+      {
+        "id": "st-fleche-2",
+        "name": "16-2 위대한 미술품",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200132",
+          "en-c3200167",
+          "en-c3200162"
+        ],
+        "bossId": "en-c3200017",
+        "hpMult": 4.15,
+        "goldMult": 1.73,
+        "description": "빛에도 어둠에도 속하지 않은 중립 가디언 루가 선지자의 눈으로 지켜본다."
+      }
+    ],
+    "description": "예술의 도시 플레체. 빛과 어둠, 그리고 중립의 가디언과 맞선다."
+  },
+  {
+    "id": "ch-voldis",
+    "name": "챕터 17: 볼다이크",
+    "region": "볼다이크",
+    "mapId": "map-voldis",
+    "stages": [
+      {
+        "id": "st-voldis-1",
+        "name": "17-1 혼돈의 상아탑",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200055",
+          "en-c3200173"
+        ],
+        "bossId": "en-c3200811",
+        "hpMult": 2.1,
+        "goldMult": 1.64,
+        "description": "피어나는 꽃봉오리에서 탄생과 죽음을 반복하는 혼돈의 가디언 칼테이야."
+      },
+      {
+        "id": "st-voldis-2",
+        "name": "17-2 뿔의 돌진",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200173",
+          "en-c3200055"
+        ],
+        "bossId": "en-c3200812",
+        "hpMult": 2.4,
+        "goldMult": 1.77,
+        "description": "단단한 뿔로 가로막는 모든 것을 분쇄하는 파이어혼."
+      },
+      {
+        "id": "st-voldis-3",
+        "name": "17-3 깨어난 라카이서스",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200055",
+          "en-c3200173",
+          "en-c3200059"
+        ],
+        "bossId": "en-c3200808",
+        "hpMult": 2.4,
+        "goldMult": 1.9,
+        "description": "사슬전쟁 이후 잠들어 있다가 누군가의 부름에 봉인에서 깨어난 라카이서스."
+      },
+      {
+        "id": "st-voldis-4",
+        "name": "17-4 공포의 상징",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200059",
+          "en-c3200055",
+          "en-c3200173"
+        ],
+        "bossId": "en-c3200803",
+        "hpMult": 2.9,
+        "goldMult": 2.03,
+        "description": "사슬전쟁 당시 모두에게 공포의 상징으로 군림했던 혼돈의 가디언 베히모스."
+      },
+      {
+        "id": "st-voldis-5",
+        "name": "17-5 81구역",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200059",
+          "en-c3200173",
+          "en-c3200055"
+        ],
+        "bossId": "en-c3200807",
+        "hpMult": 3.25,
+        "goldMult": 2.16,
+        "description": "81구역에 봉인되어 있던 의문의 가디언 라자람. 신비한 힘을 감추고 있다."
+      },
+      {
+        "id": "st-voldis-6",
+        "name": "17-6 가디언의 수장",
+        "waves": 25,
+        "enemyIds": [
+          "en-c3200059",
+          "en-c3200055",
+          "en-c3200173",
+          "en-c3200060"
+        ],
+        "bossId": "en-c3200800",
+        "hpMult": 3.6,
+        "goldMult": 2.3,
+        "description": "에버그레이스를 저버리고 페트라니아로 떠났던, 혼돈의 가디언을 이끄는 바르칸."
+      }
+    ],
+    "description": "현자들의 도시 볼다이크. 혼돈의 상아탑에서 깨어난 가디언들을 막아라."
+  },
+  {
+    "id": "ch-kurzan-south",
+    "name": "챕터 18: 쿠르잔 남부",
+    "region": "쿠르잔 남부",
+    "mapId": "map-kurzan-south",
+    "stages": [
+      {
+        "id": "st-kurzan-south-1",
+        "name": "18-1 붉은 전선",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200060",
+          "en-c3200173"
+        ],
+        "bossId": "en-c3200072",
+        "hpMult": 1.95,
+        "goldMult": 1.68,
+        "description": "모래와 함께 나타나 전의를 꺾는 사암의 발톱 타이탈로스."
+      },
+      {
+        "id": "st-kurzan-south-2",
+        "name": "18-2 파멸의 포식자",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200060",
+          "en-c3200055",
+          "en-c3200059"
+        ],
+        "bossId": "en-c3200077",
+        "hpMult": 1.45,
+        "goldMult": 1.81,
+        "description": "적으로 인식한 모든 것을 파멸시키려 움직이는 이그렉시온."
+      }
+    ],
+    "description": "데런들이 건너간 붉은 땅 쿠르잔. 전선을 뚫고 나아가라."
+  },
+  {
+    "id": "ch-kazeros",
+    "name": "챕터 19: 카제로스 레이드",
+    "region": "카제로스 레이드",
+    "mapId": "map-kazeros",
+    "stages": [
+      {
+        "id": "st-kazeros-1",
+        "name": "19-1 백야의 해적",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200167",
+          "en-c3200132"
+        ],
+        "bossId": "en-c3200905",
+        "hpMult": 6.5,
+        "goldMult": 1.72,
+        "description": "바다를 지배하는 네 해적 중 하나. 사술과 저주에 능한 다르키엘."
+      },
+      {
+        "id": "st-kazeros-2",
+        "name": "19-2 붉어진 백야의 나선",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200167",
+          "en-c3200132",
+          "en-c3200162"
+        ],
+        "bossId": "en-c3200904",
+        "hpMult": 5.7,
+        "goldMult": 1.86,
+        "description": "죽었다고 알려진 뒤 자취를 감췄던 에키드나가 돌연 다시 모습을 드러냈다."
+      },
+      {
+        "id": "st-kazeros-3",
+        "name": "19-3 폭풍의 지휘관",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200059",
+          "en-c3200055",
+          "en-c3200173",
+          "en-c3200060"
+        ],
+        "bossId": "en-c3200906",
+        "hpMult": 5,
+        "goldMult": 2.0,
+        "description": "사슬전쟁 때보다 더 잔인하고 흉포해진 모습으로 쿠르잔에 나타난 폭풍의 베히모스."
+      }
+    ],
+    "description": "카제로스와의 전쟁이 시작된다. 서막 '붉어진 백야의 나선'과 폭풍의 지휘관."
+  },
+  {
+    "id": "ch-kurzan-north",
+    "name": "챕터 20: 쿠르잔 북부",
+    "region": "쿠르잔 북부",
+    "mapId": "map-kurzan-north",
+    "stages": [
+      {
+        "id": "st-kurzan-north-1",
+        "name": "20-1 폭풍의 협곡",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200060",
+          "en-c3200059"
+        ],
+        "bossId": "en-c3200075",
+        "hpMult": 3.85,
+        "goldMult": 1.76,
+        "description": "푸른 뇌전을 몸에 두른 고대의 존재 칼엘리고스."
+      },
+      {
+        "id": "st-kurzan-north-2",
+        "name": "20-2 천둥의 포식자",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200060",
+          "en-c3200059",
+          "en-c3200055"
+        ],
+        "bossId": "en-c3200621",
+        "hpMult": 3.5,
+        "goldMult": 1.9,
+        "description": "머리 위의 신물로 천둥을 다루며 모든 생명을 집어삼키는 가르가디스."
+      }
+    ],
+    "description": "폭풍이 몰아치는 쿠르잔 북부. 뇌전의 협곡을 건너라."
   },
   {
     "id": "ch-rimelake",
-    "name": "챕터 13: 림레이크",
+    "name": "챕터 21: 림레이크",
     "region": "림레이크",
     "mapId": "map-rimelake",
     "stages": [
       {
         "id": "st-rimelake-1",
-        "name": "13-1 샤의 성벽",
+        "name": "21-1 안개 호수",
         "waves": 10,
         "enemyIds": [
-          "en-c3200105",
-          "en-c3200100",
-          "en-c3200103"
+          "en-c3200162",
+          "en-c3200221",
+          "en-c3200219"
         ],
-        "bossId": "en-c3200002",
-        "hpMult": 2.2,
-        "goldMult": 1.48,
-        "description": "마수군단장 발탄이 성벽으로 돌격한다."
+        "bossId": "en-c3200078",
+        "hpMult": 2.6,
+        "goldMult": 1.8,
+        "description": "에버그레이스의 전령이었던 미스틱이 혼돈에 물들어 증오의 안개를 드리운다."
       },
       {
         "id": "st-rimelake-2",
-        "name": "13-2 환영의 호수",
+        "name": "21-2 어둠 속의 음파",
         "waves": 15,
         "enemyIds": [
+          "en-c3200163",
           "en-c3200162",
-          "en-c3200167",
-          "en-c3200132"
+          "en-c3200221"
         ],
-        "bossId": "en-c3200009",
-        "hpMult": 2.4,
-        "goldMult": 1.63,
-        "description": "욕망군단장 비아키스가 호수에 환영을 드리운다."
+        "bossId": "en-c3200813",
+        "hpMult": 2,
+        "goldMult": 1.94,
+        "description": "짙은 어둠 속에 몸을 숨긴 채 음파로 급습하는 베스칼."
       },
       {
         "id": "st-rimelake-3",
-        "name": "13-3 샤 결전",
+        "name": "21-3 고대의 존재",
         "waves": 20,
         "enemyIds": [
-          "en-c3200055",
-          "en-c3200059",
-          "en-c3200060",
-          "en-c3200035"
+          "en-c3200163",
+          "en-c3200220",
+          "en-c3200162",
+          "en-c3200221"
         ],
-        "bossId": "en-c3200011",
-        "hpMult": 2.25,
-        "goldMult": 1.78,
-        "description": "다른 악마의 힘을 흡수하는 카마인과의 최종 결전."
+        "bossId": "en-c3200620",
+        "hpMult": 1.95,
+        "goldMult": 2.09,
+        "description": "모든 속성을 다루는 신비한 힘을 지닌 고대의 존재 소나벨."
       }
     ],
-    "description": "요즈족의 고향 림레이크. 카제로스 군단장들이 도시 '샤'를 침공했다."
+    "description": "요즈족의 고향 림레이크. 환영이 일렁이는 호수를 지켜라."
+  },
+  {
+    "id": "ch-rowen",
+    "name": "외전: 로웬",
+    "region": "로웬",
+    "mapId": "map-rowen",
+    "stages": [
+      {
+        "id": "st-rowen-1",
+        "name": "외-1 늑대의 초원",
+        "waves": 10,
+        "enemyIds": [
+          "en-c3200105",
+          "en-c3200237"
+        ],
+        "bossId": "en-c3200400",
+        "hpMult": 2.4,
+        "goldMult": 1.36,
+        "description": "늑대 형상의 악마 릭투스가 초원을 내달린다. 거대한 날개를 펼친 데스칼루다가 모든 것을 소멸시킨다."
+      },
+      {
+        "id": "st-rowen-2",
+        "name": "외-2 분노의 앞발",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200105",
+          "en-c3200100",
+          "en-c3200237"
+        ],
+        "bossId": "en-c3200065",
+        "hpMult": 2.55,
+        "goldMult": 1.47,
+        "description": "단단한 갑옷을 두르고 분노에 찬 앞발로 적을 유린하는 우르닐."
+      }
+    ],
+    "description": "늑대들의 초원 로웬. 본편과 따로 즐기는 외전."
+  },
+  {
+    "id": "ch-ocean",
+    "name": "외전: 대양",
+    "region": "섬",
+    "mapId": "map-ocean",
+    "stages": [
+      {
+        "id": "st-ocean-1",
+        "name": "외-1 두키 섬",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200119",
+          "en-c3200118"
+        ],
+        "bossId": "en-c3200152",
+        "hpMult": 0.9,
+        "goldMult": 1.36,
+        "description": "두키들이 모아 온 보물을 바라보며 흐뭇해하는 두키의 왕."
+      },
+      {
+        "id": "st-ocean-2",
+        "name": "외-2 에라스모의 섬",
+        "waves": 15,
+        "enemyIds": [
+          "en-c3200117",
+          "en-c3200118",
+          "en-c3200119"
+        ],
+        "bossId": "en-c3200151",
+        "hpMult": 1,
+        "goldMult": 1.47,
+        "description": "붉은고래 해적단이 노리는 섬. 해저에 숨어 있던 신비한 생물 에라스모가 모습을 드러낸다."
+      },
+      {
+        "id": "st-ocean-3",
+        "name": "외-3 스피다 섬",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200119",
+          "en-c3200117",
+          "en-c3200118"
+        ],
+        "bossId": "en-c3200154",
+        "hpMult": 1,
+        "goldMult": 1.58,
+        "description": "거대한 알을 깨고 나온 괴수 고르카그로스. 몸에 기르는 벌레들로 공격한다."
+      },
+      {
+        "id": "st-ocean-4",
+        "name": "외-4 얼음과 불의 섬",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200117",
+          "en-c3200118",
+          "en-c3200119"
+        ],
+        "bossId": "en-c3200153",
+        "hpMult": 1.15,
+        "goldMult": 1.69,
+        "description": "빙결의 신 시리우스와 화마군단의 싸움이 남긴 힘의 잔영 브리아레오스."
+      },
+      {
+        "id": "st-ocean-5",
+        "name": "외-5 환영 나비 섬",
+        "waves": 20,
+        "enemyIds": [
+          "en-c3200117",
+          "en-c3200119",
+          "en-c3200118"
+        ],
+        "bossId": "en-c3200182",
+        "hpMult": 1.45,
+        "goldMult": 1.8,
+        "description": "아브렐슈드에게 패해 악마가 된 로헨델의 옛 기사단장 아드린느가 기억을 잃은 채 떠돈다."
+      },
+      {
+        "id": "st-ocean-6",
+        "name": "외-6 아르카디아의 성역",
+        "waves": 25,
+        "enemyIds": [
+          "en-c3200117",
+          "en-c3200118",
+          "en-c3200119"
+        ],
+        "bossId": "en-c3200081",
+        "hpMult": 1.25,
+        "goldMult": 1.9,
+        "description": "낙원의 문을 지키는 중립 가디언 아르카디아가 바다 위에 만든 성역."
+      }
+    ],
+    "description": "기에나와 프로키온의 바다에 흩어진 섬들. 본편과 따로 즐기는 외전."
   }
 ]

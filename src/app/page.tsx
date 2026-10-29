@@ -21,20 +21,24 @@ const DIFF_STYLE: Record<Difficulty, { top: string; bottom: string; icon: IconNa
   nightmare: { top: "#ff7a80", bottom: "#e5313f", icon: "skull", tagline: "한 번의 실수도 치명적" },
 };
 
-/** "1-1 해안 길" → { tag: "1-1", title: "해안 길" } */
+/** "1-1 해안 길" → { tag: "1-1", title: "해안 길" } (외전은 "외-1") */
 function splitStageName(name: string, index: number) {
-  const m = name.match(/^(\d+[-‐–]\d+)\s+(.*)$/);
+  const m = name.match(/^((?:\d+|외)[-‐–]\d+)\s+(.*)$/);
   return m ? { tag: m[1], title: m[2] } : { tag: String(index + 1), title: name };
 }
 
-/** "챕터 1: 토토이크" → 1 (번호가 없으면 순서) */
+/** "외전: 대양"처럼 본편 순서 밖의 챕터 */
+const isSideStory = (name: string) => /^외전/.test(name);
+
+/** "챕터 1: 토토이크" → 1, "외전: 대양" → 외 (번호가 없으면 순서) */
 function chapterNumber(name: string, index: number) {
+  if (isSideStory(name)) return "외";
   return name.match(/^챕터\s*(\d+)/)?.[1] ?? String(index + 1);
 }
 
 /** "챕터 1: 토토이크" → "토토이크" */
 function chapterTitle(name: string) {
-  return name.replace(/^챕터\s*\d+\s*[:：]\s*/, "");
+  return name.replace(/^(챕터\s*\d+|외전)\s*[:：]\s*/, "");
 }
 
 const NO_GROUP = "기타";
@@ -142,6 +146,8 @@ export default function LobbyPage() {
   const chapter = data.chapters.find((c) => c.id === chapterId);
   const stageIndex = chapter?.stages.findIndex((s) => s.id === stageId) ?? -1;
   const stage = chapter && stageIndex >= 0 ? chapter.stages[stageIndex] : undefined;
+  // 스테이지가 많으면(군단장 레이드 6개) 동그라미를 줄여 한 줄에 담는다
+  const denseStages = (chapter?.stages.length ?? 0) > 4;
   const job = data.jobs.find((j) => j.id === jobId);
   // 전장 바닥 테마: 챕터 지역, 없으면 맵 지역
   const terrain = chapter
@@ -293,7 +299,9 @@ export default function LobbyPage() {
                       className="inline-flex items-center gap-1.5 rounded-lg border-2 border-line px-2 py-0.5 font-display text-xs text-parchment-50 text-toon-sm shadow-[0_2px_0_#1b1438]"
                       style={{ backgroundColor: terrain?.accent ?? "#5068d0" }}
                     >
-                      CHAPTER {chapterNumber(chapter.name, data.chapters.indexOf(chapter))}
+                      {isSideStory(chapter.name)
+                        ? "SIDE STORY"
+                        : `CHAPTER ${chapterNumber(chapter.name, data.chapters.indexOf(chapter))}`}
                     </span>
                     <h2 className="mt-1.5 truncate font-display text-3xl leading-tight text-parchment-50 text-toon">
                       {chapterTitle(chapter.name)}
@@ -317,8 +325,14 @@ export default function LobbyPage() {
                 {chapter.description && <p className="mt-1.5 text-sm text-parchment-300">{chapter.description}</p>}
 
                 {/* 스테이지 경로: 보드게임 칸처럼 이어진 동그라미 */}
-                <div className="relative mt-6 flex items-start justify-between gap-2 px-1">
-                  <div className="absolute left-10 right-10 top-[26px] border-t-[5px] border-dotted border-line/60" />
+                <div className="relative mt-6 flex items-start justify-between gap-1.5 px-1 sm:gap-2">
+                  {chapter.stages.length > 1 && (
+                    <div
+                      className={`absolute left-10 right-10 border-t-[5px] border-dotted border-line/60 ${
+                        denseStages ? "top-[20px]" : "top-[26px]"
+                      }`}
+                    />
+                  )}
                   {chapter.stages.map((s, i) => {
                     const { tag, title } = splitStageName(s.name, i);
                     const active = s.id === stageId;
@@ -331,7 +345,9 @@ export default function LobbyPage() {
                         style={{ animationDelay: `${200 + i * 70}ms` }}
                       >
                         <span
-                          className={`relative flex h-14 w-14 items-center justify-center rounded-full border-[3px] border-line transition duration-200 ease-spring ${
+                          className={`relative flex items-center justify-center rounded-full border-[3px] border-line transition duration-200 ease-spring ${
+                            denseStages ? "h-11 w-11" : "h-14 w-14"
+                          } ${
                             active ? "scale-110" : "group-hover:-translate-y-1"
                           }`}
                           style={{
@@ -348,10 +364,16 @@ export default function LobbyPage() {
                               <Icon name="crown" />
                             </span>
                           )}
-                          <span className="font-display text-base text-parchment-50 text-toon-sm">{tag}</span>
+                          <span
+                            className={`font-display text-parchment-50 text-toon-sm ${denseStages ? "text-sm" : "text-base"}`}
+                          >
+                            {tag}
+                          </span>
                         </span>
                         <span
-                          className={`mt-3 w-full truncate font-display text-sm text-toon-sm transition ${
+                          className={`mt-3 w-full truncate font-display text-toon-sm transition ${
+                            denseStages ? "text-xs" : "text-sm"
+                          } ${
                             active ? "text-gold-300" : "text-parchment-100"
                           }`}
                         >

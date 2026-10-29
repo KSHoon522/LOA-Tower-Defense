@@ -7,3 +7,4 @@ out/
 
 # 카드 일러스트 (저작권: 스마일게이트) — npm run cards로 로컬에만 받음
 /references/cards/
+__pycache__/

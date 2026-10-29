@@ -997,7 +997,7 @@
         "magicDefense": 0
       }
     ],
-    "artRef": "man with swept brown hair and mustache, silver plate armor with red sash bands and a white fur collar, cathedral spires behind"
+    "artRef": "man with swept brown hair and mustache, silver plate armor with red sash bands and a white fur collar"
   },
   {
     "id": "en-c3200704",
@@ -1015,7 +1015,7 @@
     },
     "description": "플레체에 파견된 세이크리아 관할 사제. 이그니스 대성당을 현재의 규모로 완성 시키는데 큰 공을 세웠다.",
     "traits": [],
-    "artRef": "dark-haired bearded man in a white long coat with an ornate gold and black filigree chest piece, dusky violet sky"
+    "artRef": "dark-haired bearded man in a white long coat with an ornate gold and black filigree chest piece"
   },
   {
     "id": "en-c3200002",
@@ -2560,7 +2560,7 @@
         "type": "stun_immune"
       }
     ],
-    "artRef": "hulking pale grey toad-like predator beast with a bloated belly, ornate bronze-gold armor plates and a spiked gold crown topped by a floating sacred orb, glowing blue eyes, curved glowing blue crystal horns jutting from its head and shoulders, misty swamp water"
+    "artRef": "hulking pale grey toad-like predator beast with a bloated belly, ornate bronze-gold armor plates and a spiked gold crown topped by a floating sacred orb, glowing blue eyes, curved glowing blue crystal horns jutting from its head and shoulders"
   },
   {
     "id": "en-c3200620",
@@ -2625,7 +2625,7 @@
         "type": "stun_immune"
       }
     ],
-    "artRef": "massive black-scaled dragon with jagged armored plates edged in glowing blue lines, fanged red maw, glowing blue eye, long glowing blue tendril whiskers hanging from its jaw, dark storm clouds"
+    "artRef": "massive black-scaled dragon with jagged armored plates edged in glowing blue lines, fanged red maw, glowing blue eye, long glowing blue tendril whiskers hanging from its jaw"
   },
   {
     "id": "en-c3200808",
@@ -2647,7 +2647,7 @@
         "type": "slow_immune"
       }
     ],
-    "artRef": "dark charcoal-scaled dragon head with layered jagged horns, glowing blue eyes and blue-tinted scale edges, fanged jaw, fiery orange-red sky with drifting embers"
+    "artRef": "dark charcoal-scaled dragon head with layered jagged horns, glowing blue eyes and blue-tinted scale edges, fanged jaw"
   },
   {
     "id": "en-c3200811",
@@ -2670,7 +2670,7 @@
         "pctPerSec": 0.5
       }
     ],
-    "artRef": "slender flower-woman guardian with a blooming pink petal head, pale pink petal-textured skin, layered pink and lilac petal skirt, glowing red fingertips, trailing purple vine tendrils, dark misty forest"
+    "artRef": "slender flower-woman guardian with a blooming pink petal head, pale pink petal-textured skin, layered pink and lilac petal skirt, glowing red fingertips, trailing purple vine tendrils"
   },
   {
     "id": "en-c3200812",
@@ -2692,7 +2692,7 @@
         "type": "slow_immune"
       }
     ],
-    "artRef": "hulking black-furred bull beast with enormous curved dark horns, small spiked gold crown, glowing red eyes and fanged snarl, heavy dark armor plates trimmed in gold, shaggy grey mane, crimson mist"
+    "artRef": "hulking black-furred bull beast with enormous curved dark horns, small spiked gold crown, glowing red eyes and fanged snarl, heavy dark armor plates trimmed in gold, shaggy grey mane"
   },
   {
     "id": "en-c3200813",
@@ -2715,7 +2715,7 @@
         "revealRange": 2.5
       }
     ],
-    "artRef": "shaggy black-furred bat-like guardian with a wild mane, glowing violet eyes and violet-edged fur, long curved violet-black claw blades, bone and gold ornaments, pitch-dark background"
+    "artRef": "shaggy black-furred bat-like guardian with a wild mane, glowing violet eyes and violet-edged fur, long curved violet-black claw blades, bone and gold ornaments"
   },
   {
     "id": "en-c3200904",
@@ -2740,7 +2740,7 @@
         "type": "slow_immune"
       }
     ],
-    "artRef": "pale woman with long black hair, curved black horns and dark feather ornaments, red eyes and lips, black lace and thorn-patterned gown with a red jewel at the throat, dark crimson skirt, black feathered mantle, stormy red-grey sky"
+    "artRef": "pale woman with long black hair, curved black horns and dark feather ornaments, red eyes and lips, black lace and thorn-patterned gown with a red jewel at the throat, dark crimson skirt, black feathered mantle"
   },
   {
     "id": "en-c3200906",
@@ -2808,7 +2808,7 @@
         "magicDefense": 10
       }
     ],
-    "artRef": "towering armored guardian in jagged spiked bronze-gold plate armor with tall blade-like crest spikes, glowing crimson red body showing through the armor gaps, glowing magenta crystal core in the chest, clawed red gauntlet hand, smoky red-orange haze"
+    "artRef": "towering armored guardian in jagged spiked bronze-gold plate armor with tall blade-like crest spikes, glowing crimson red body showing through the armor gaps, glowing magenta crystal core in the chest, clawed red gauntlet hand"
   },
   {
     "id": "en-c3200501",
@@ -2833,7 +2833,7 @@
         "magicDefense": 10
       }
     ],
-    "artRef": "young man with short dark brown hair, polished silver plate armor engraved with gold filigree, rounded pauldrons, deep red cape, gothic arches and cloudy sky"
+    "artRef": "young man with short dark brown hair, polished silver plate armor engraved with gold filigree, rounded pauldrons, deep red cape"
   },
   {
     "id": "en-c3200509",

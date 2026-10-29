@@ -12,8 +12,19 @@ export const STYLE_BASE =
   "simple geometric shapes, vibrant saturated colors, white background, game asset, " +
   "centered, full body";
 
-export const STYLE_NEGATIVE =
-  "--no realistic, photorealistic, 3d render, gradient shading, text, watermark, extra limbs";
+/** 빼고 싶은 요소 (도구마다 쓰는 형식이 다름) */
+export const NEGATIVE_TERMS = "realistic, photorealistic, 3d render, gradient shading, text, watermark, extra limbs";
+
+/** Midjourney 형식 */
+export const STYLE_NEGATIVE = `--no ${NEGATIVE_TERMS}`;
+
+/** Gemini·ChatGPT처럼 문장으로 받는 도구 형식 (--no 문법을 모름) */
+export const STYLE_AVOID = `Avoid: ${NEGATIVE_TERMS}.`;
+
+/** 카드 일러스트를 참조 이미지로 첨부할 때 붙이는 문장 — 외형만 따르고 배경·화풍은 따르지 않게 */
+export const REFERENCE_LINE =
+  "use the attached card illustration only as a reference for the character's face, hair, outfit and colors; " +
+  "ignore its background and painting style";
 
 export const GRADE_KEYWORDS: Record<Grade, string> = {
   common: "simple humble outfit, plain colors",
@@ -25,6 +36,9 @@ export const GRADE_KEYWORDS: Record<Grade, string> = {
 
 export type PromptKind = "portrait" | "sheet" | "enemy" | "boss";
 
+/** 이미지 생성 도구: midjourney는 --no, chat(Gemini·ChatGPT 등)은 Avoid: 문장 */
+export type PromptTool = "midjourney" | "chat";
+
 export interface PromptInput {
   name: string;
   /** 캐릭터 고유 외형 디스크립터 (영문 권장) */
@@ -33,6 +47,10 @@ export interface PromptInput {
   kind: PromptKind;
   /** 스프라이트 시트일 때 프레임 크기 */
   frameSize?: number;
+  /** 빼고 싶은 요소를 쓰는 형식 (기본 midjourney) */
+  tool?: PromptTool;
+  /** 카드 일러스트를 참조 이미지로 함께 첨부하는지 */
+  withReference?: boolean;
 }
 
 export function buildPrompt(input: PromptInput): string {
@@ -69,5 +87,25 @@ export function buildPrompt(input: PromptInput): string {
     }
   }
 
-  return `${parts.join(",\n")}\n${STYLE_NEGATIVE}`;
+  if (input.withReference) {
+    parts.push(input.kind === "sheet" ? `${REFERENCE_LINE}, keep the same character design in every frame` : REFERENCE_LINE);
+  }
+
+  return `${parts.join(",\n")}\n${input.tool === "chat" ? STYLE_AVOID : STYLE_NEGATIVE}`;
+}
+
+export type CardGroup = "allies" | "enemies" | "bosses";
+
+/** 카드 코드가 id에 없는 캐릭터 */
+const SPECIAL_CARD_CODES: Record<string, string> = { "tw-esther-luteran": "3200018" };
+
+/**
+ * `npm run cards`(scripts/fetch-card-images.mjs)가 저장하는 카드 일러스트 경로 — 같은 규칙을 유지할 것
+ * 예) tw-c3200500 뮨 히다카 → references/cards/allies/뮨 히다카_3200500.png
+ */
+export function cardImagePath(id: string, name: string, group: CardGroup): string | null {
+  const code = SPECIAL_CARD_CODES[id] ?? /^(?:tw|en)-c(\d+)$/.exec(id)?.[1];
+  if (!code || !name.trim()) return null;
+  const safe = name.replace(/[<>:"/\\|?*]/g, "_").trim();
+  return `references/cards/${group}/${safe}_${code}.png`;
 }

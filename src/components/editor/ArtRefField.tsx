@@ -1,8 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Grade } from "@/game/types";
-import { buildPrompt, type PromptKind } from "@/lib/prompt";
+import { buildPrompt, type PromptKind, type PromptTool } from "@/lib/prompt";
+
+/** 도구·첨부 선택은 브라우저에 기억 (캐릭터를 바꿔도 유지) */
+const OPTS_KEY = "rotadi:prompt-opts";
+interface PromptOpts {
+  tool: PromptTool;
+  withReference: boolean;
+}
+function loadOpts(): PromptOpts {
+  try {
+    const raw = localStorage.getItem(OPTS_KEY);
+    if (raw) return { tool: "chat", withReference: true, ...JSON.parse(raw) };
+  } catch {
+    /* 저장소를 못 쓰면 기본값 */
+  }
+  return { tool: "chat", withReference: true };
+}
 
 /**
  * 이미지 생성 참고 설명(artRef) 입력 + 완성 프롬프트 생성/복사
@@ -14,20 +30,37 @@ export default function ArtRefField({
   onChange,
   grade,
   defaultKind,
+  cardImage,
 }: {
   name: string;
   value: string;
   onChange: (v: string) => void;
   grade?: Grade;
   defaultKind: PromptKind;
+  /** npm run cards로 받은 카드 일러스트 경로 (카드 인물이 아니면 null) */
+  cardImage?: string | null;
 }) {
   const [kind, setKind] = useState<PromptKind>(defaultKind);
   const [frameSize, setFrameSize] = useState(64);
+  const [opts, setOpts] = useState<PromptOpts>({ tool: "chat", withReference: true });
   const [output, setOutput] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
 
+  useEffect(() => setOpts(loadOpts()), []);
+  const updateOpts = (patch: Partial<PromptOpts>) => {
+    const next = { ...opts, ...patch };
+    setOpts(next);
+    setOutput(null);
+    try {
+      localStorage.setItem(OPTS_KEY, JSON.stringify(next));
+    } catch {
+      /* 기억 못 해도 동작에는 지장 없음 */
+    }
+  };
+
+  const withReference = opts.withReference && !!cardImage;
   const generate = () => {
-    const p = buildPrompt({ name, artRef: value, grade, kind, frameSize });
+    const p = buildPrompt({ name, artRef: value, grade, kind, frameSize, tool: opts.tool, withReference });
     setOutput(p);
     setCopied(false);
   };
@@ -61,6 +94,15 @@ export default function ArtRefField({
       <div className="flex flex-wrap items-center gap-2">
         <select
           className="input w-auto text-xs"
+          value={opts.tool}
+          onChange={(e) => updateOpts({ tool: e.target.value as PromptTool })}
+          title="빼고 싶은 요소를 쓰는 형식"
+        >
+          <option value="chat">Gemini·ChatGPT (Avoid:)</option>
+          <option value="midjourney">Midjourney (--no)</option>
+        </select>
+        <select
+          className="input w-auto text-xs"
           value={kind}
           onChange={(e) => setKind(e.target.value as PromptKind)}
         >
@@ -88,6 +130,22 @@ export default function ArtRefField({
           </button>
         )}
       </div>
+      {cardImage && (
+        <label className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
+          <input
+            type="checkbox"
+            checked={opts.withReference}
+            onChange={(e) => updateOpts({ withReference: e.target.checked })}
+          />
+          카드 이미지 첨부
+          {opts.withReference && (
+            <span className="text-slate-500">
+              → <code className="select-all text-slate-300">{cardImage}</code> 를 함께 올리세요 (없으면{" "}
+              <code>npm run cards</code>)
+            </span>
+          )}
+        </label>
+      )}
       {output && (
         <textarea
           className="input font-mono text-[11px] text-slate-300"

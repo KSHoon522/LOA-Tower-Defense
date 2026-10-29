@@ -18,7 +18,7 @@ const OUT = path.join(ROOT, "references", "cards");
 const FORCE = process.argv.includes("--force");
 const CONCURRENCY = 4;
 
-/** 카드 코드가 id에 없는 캐릭터 */
+/** 카드 코드가 id에 없는 캐릭터 (src/lib/prompt.ts에도 같은 표) */
 const SPECIAL_CODES = { "tw-esther-luteran": "3200018" };
 const GRADE_LABEL = { common: "일반", uncommon: "고급", rare: "희귀", hero: "영웅", legendary: "전설" };
 const GROUPS = [
@@ -32,7 +32,7 @@ const IMAGE_RE = /\/\/static\.inven\.co\.kr\/image_2011\/site_image\/lostark\/ca
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const readData = async (file) => JSON.parse(await fs.readFile(path.join(ROOT, "data", file), "utf8"));
 const cardCode = (id) => SPECIAL_CODES[id] ?? /^(?:tw|en)-c(\d+)$/.exec(id)?.[1] ?? null;
-/** 파일 이름에 못 쓰는 문자 제거 (윈도우 포함) */
+/** 파일 이름에 못 쓰는 문자 제거 (윈도우 포함) — src/lib/prompt.ts cardImagePath와 같은 규칙 */
 const safeName = (s) => s.replace(/[<>:"/\\|?*]/g, "_").trim();
 const fileExists = (f) => fs.access(f).then(() => true, () => false);
 

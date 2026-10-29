@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import AppearanceFields from "@/components/editor/AppearanceFields";
 import ArtRefField from "@/components/editor/ArtRefField";
+import { cardImagePath } from "@/lib/prompt";
 import SkillFields from "@/components/editor/SkillFields";
 import {
   ChipsField,
@@ -128,6 +129,7 @@ export default function TowersEditor() {
             onChange={(v) => set("artRef", v || undefined)}
             grade={draft.grade}
             defaultKind="portrait"
+            cardImage={cardImagePath(draft.id, draft.name, "allies")}
           />
           <AppearanceFields value={draft.appearance} onChange={(v) => set("appearance", v)} />
           <TextField label="설명" value={draft.description ?? ""} onChange={(v) => set("description", v)} />

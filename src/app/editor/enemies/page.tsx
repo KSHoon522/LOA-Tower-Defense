@@ -3,6 +3,7 @@
 import { useState } from "react";
 import AppearanceFields from "@/components/editor/AppearanceFields";
 import ArtRefField from "@/components/editor/ArtRefField";
+import { cardImagePath } from "@/lib/prompt";
 import TraitFields from "@/components/editor/TraitFields";
 import {
   CheckField,
@@ -93,6 +94,7 @@ export default function EnemiesEditor() {
             value={draft.artRef ?? ""}
             onChange={(v) => set("artRef", v || undefined)}
             defaultKind={draft.isBoss ? "boss" : "enemy"}
+            cardImage={cardImagePath(draft.id, draft.name, draft.isBoss ? "bosses" : "enemies")}
           />
           <AppearanceFields value={draft.appearance} onChange={(v) => set("appearance", v)} />
           <TextField label="설명" value={draft.description ?? ""} onChange={(v) => set("description", v)} />

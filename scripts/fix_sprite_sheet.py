@@ -13,9 +13,17 @@ AI 생성 스프라이트 시트 정리 — 가짜 투명(체커보드 배경) �
 4) 줄마다 지정한 프레임 수로 나누고, 머리 위치를 기준점으로 모든 프레임을 같은 칸 크기에 정렬
 5) 렌더러용 sprite 설정(JSON)을 출력
 
+단일 이미지(--single): 흰색 같은 단색 배경이나 가짜 체커보드 배경을 투명하게 만들고,
+캐릭터를 정사각 캔버스 가운데에 맞춘다 (전장은 이미지를 정사각형 그대로 그리므로).
+  - 단색 배경: 테두리와 이어진 배경색 영역을 지우고, 외곽선 바깥의 옅은 빛·그림자는 배경색 기준으로
+    언블렌딩(color-to-alpha)해 반투명으로, 외곽선의 안티에일리어싱은 외곽선 색 기준으로 정리
+  - 팔과 몸 사이처럼 외곽선에 갇힌 배경 구멍은 흰 옷과 구분이 어려워 --holes를 줄 때만 지움
+    (지우지 않으면 후보 개수를 알려 줌, --debug로 결과 미리보기)
+
 사용:
   python3 scripts/fix_sprite_sheet.py 입력.png 출력.png --rows 5,5,6,6 \\
       --anims idle,attack,skill,walk --fps 6,20,10,8 [--src /characters/출력.png]
+  python3 scripts/fix_sprite_sheet.py 입력.png public/characters/이름.png --single [--holes] [--size 512]
 필요: pip install pillow numpy
 """
 import argparse
@@ -258,6 +266,131 @@ def remove_background(img: np.ndarray, band: int = 14):
 
 
 # ------------------------------------------------------------
+# 단일 이미지 (--single)
+# ------------------------------------------------------------
+
+def border_pixels(img: np.ndarray, band: int) -> np.ndarray:
+    return np.concatenate(
+        [img[:band].reshape(-1, 3), img[-band:].reshape(-1, 3), img[:, :band].reshape(-1, 3), img[:, -band:].reshape(-1, 3)]
+    )
+
+
+def is_checker(img: np.ndarray, band: int = 14) -> bool:
+    """테두리가 뚜렷한 두 색으로 나뉘면 가짜 체커보드, 아니면 단색 배경"""
+    border = border_pixels(img, band)
+    if border.std(axis=0).max() < 6:
+        return False
+    c0, c1 = two_colors(border)
+    return float(np.linalg.norm(c1 - c0)) > 20
+
+
+def color_to_alpha(img: np.ndarray, bgc: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """배경색 bgc 위에 섞인 색을 (색, 알파)로 되돌림 — 같은 모양을 bgc 위에 다시 합성하면 원본이 됨"""
+    below = np.where(img < bgc, (bgc - img) / np.maximum(bgc, 1), 0)
+    above = np.where(img > bgc, (img - bgc) / np.maximum(255 - bgc, 1), 0)
+    a = np.clip(np.maximum(below, above).max(axis=2), 0, 1)
+    c = np.clip(bgc + (img - bgc) / np.maximum(a, 1e-3)[..., None], 0, 255)
+    return c, a
+
+
+def remove_solid_background(img: np.ndarray, tol: float, glow: int, holes: bool, min_hole: int = 0, band: int = 6):
+    H, W, _ = img.shape
+    bgc = np.median(border_pixels(img, band), axis=0)
+    dist = np.linalg.norm(img - bgc, axis=2)
+    near = dist < tol
+
+    # 1) 테두리와 이어진 배경색 영역
+    edge = np.zeros((H, W), bool)
+    edge[0] = edge[-1] = True
+    edge[:, 0] = edge[:, -1] = True
+    background = grow(edge, near)
+
+    # 2) 외곽선에 갇힌 배경 구멍: 배경색과 거의 같고 얼룩이 없는 넓은 영역
+    #    (흰 옷·눈 하이라이트와 헷갈리므로 --holes일 때만 지움, 작은 영역은 하이라이트로 보고 제외)
+    comp, n = components(near & ~background & (dist < 8))
+    min_area = min_hole or max(60, H * W // 1500)
+    hole_sizes = []
+    for i in range(1, n + 1):
+        m = comp == i
+        if m.sum() >= min_area and img[m].std(axis=0).max() < 3:
+            hole_sizes.append(int(m.sum()))
+            if holes:
+                background |= grow(m, near)
+
+    # 3) 외곽선 바깥의 빛·그림자: 배경에서 시작해 어두운 외곽선이나 진한 색을 만나기 전까지
+    #    (glow > 0이면 그 폭까지만) 배경색 기준으로 언블렌딩해 반투명으로 살림
+    L = img.mean(axis=2)
+    dark = L < 80
+    outline = dilate(dark)
+    c_halo, a_halo = color_to_alpha(img, bgc)
+    soft = ~outline & (a_halo < 0.97)
+    if glow > 0:
+        region = background.copy()
+        for _ in range(glow):
+            region = dilate(region) & (soft | background)
+        halo = region & ~background
+    else:
+        halo = grow(dilate(background) & ~background, soft)
+
+    alpha = np.ones((H, W))
+    color = img.copy()
+    alpha[background] = 0
+    alpha[halo] = a_halo[halo]
+    color[halo] = c_halo[halo]
+
+    # 4) 외곽선 안티에일리어싱: 투명 영역과 맞닿은, 외곽선과 배경이 섞인 픽셀을 외곽선 색 기준으로 언블렌딩
+    K = np.median(img[dark], axis=0) if dark.any() else np.array([20.0, 22.0, 30.0])
+    ring = dilate(background | halo) & outline & ~dark & ~(background | halo)
+    a_ring = np.clip(np.linalg.norm(img - bgc, axis=2) / max(float(np.linalg.norm(K - bgc)), 1), 0, 1)
+    ring_color = np.clip(bgc + (img - bgc) / np.maximum(a_ring, 1e-3)[..., None], 0, 255)
+    alpha[ring] = a_ring[ring]
+    color[ring] = ring_color[ring]
+
+    alpha[alpha < 0.06] = 0
+    info = {"background": bgc.round().tolist(), "enclosed_holes": len(hole_sizes),
+            "holes_removed": holes and bool(hole_sizes)}
+    if hole_sizes:
+        info["hole_sizes_px"] = sorted(hole_sizes, reverse=True)[:8]
+    return color, alpha, info
+
+
+def fit_square(rgba: np.ndarray, pad: int, size: int) -> Image.Image:
+    """내용 부분만 잘라 정사각 캔버스 가운데에 두고, size보다 크면 줄임"""
+    ys, xs = np.nonzero(rgba[..., 3] > 5)
+    if len(ys) == 0:
+        raise SystemExit("배경을 지우고 나니 남은 내용이 없습니다 (--tol을 낮춰 보세요)")
+    crop = Image.fromarray(rgba[ys.min():ys.max() + 1, xs.min():xs.max() + 1], "RGBA")
+    side = max(crop.width, crop.height) + pad * 2
+    canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
+    canvas.paste(crop, ((side - crop.width) // 2, (side - crop.height) // 2))
+    if size and side > size:
+        canvas = canvas.resize((size, size), Image.LANCZOS)
+    return canvas
+
+
+def single_main(args):
+    img = np.asarray(Image.open(args.input).convert("RGB"), dtype=float)
+    if is_checker(img):
+        mode = "checker"
+        color, alpha, info = remove_background(img)
+    else:
+        mode = "solid"
+        color, alpha, info = remove_solid_background(img, args.tol, args.glow, args.holes, args.min_hole)
+    rgba = np.dstack([color, alpha * 255]).round().astype(np.uint8)
+    if args.debug:
+        Image.fromarray(rgba, "RGBA").save(args.debug)
+    out = fit_square(rgba, args.pad, args.size)
+    out.save(args.output, optimize=True)
+    src = args.src or f"/characters/{args.output.replace(chr(92), '/').split('/')[-1]}"
+    print(json.dumps({"mode": mode, "background": info, "size": [out.width, out.height], "image": src},
+                     ensure_ascii=False, indent=2))
+    if mode == "solid" and info.get("enclosed_holes") and not args.holes:
+        print(f"참고: 외곽선에 갇힌 배경색 영역이 {info['enclosed_holes']}곳 있습니다 "
+              f"(크기 {info['hole_sizes_px']}px). 팔·다리 사이 빈틈이면 --holes를 붙여 다시 실행하세요 "
+              f"(--min-hole로 이보다 작은 영역은 남길 수 있음).")
+
+
+# ------------------------------------------------------------
 # 프레임 분할 / 재배치
 # ------------------------------------------------------------
 
@@ -322,13 +455,25 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("input")
     ap.add_argument("output")
-    ap.add_argument("--rows", required=True, help="줄별 프레임 수, 예: 5,5,6,6")
+    ap.add_argument("--single", action="store_true", help="단일 이미지: 배경만 투명하게 + 정사각 캔버스")
+    ap.add_argument("--rows", help="줄별 프레임 수, 예: 5,5,6,6 (시트일 때 필수)")
     ap.add_argument("--anims", default="idle,attack,skill,walk,death", help="줄 순서대로 애니메이션 이름")
     ap.add_argument("--fps", default="6,20,10,8,8", help="줄 순서대로 fps")
     ap.add_argument("--src", help="설정에 넣을 경로 (기본: /characters/<출력 파일명>)")
     ap.add_argument("--pad", type=int, default=6, help="칸 여백(px)")
     ap.add_argument("--debug", help="배경 제거 결과(재배치 전) 저장 경로")
+    ap.add_argument("--tol", type=float, default=28, help="--single 단색 배경: 배경색으로 볼 색 차이")
+    ap.add_argument("--glow", type=int, default=0, help="--single 단색 배경: 반투명으로 살릴 외곽선 바깥 빛의 최대 폭(px), 0이면 제한 없음")
+    ap.add_argument("--holes", action="store_true", help="--single 단색 배경: 외곽선에 갇힌 배경색 구멍도 지움")
+    ap.add_argument("--min-hole", type=int, default=0, help="--holes로 지울 구멍의 최소 크기(px), 기본은 이미지 면적의 1/1500")
+    ap.add_argument("--size", type=int, default=512, help="--single: 결과 최대 크기(px), 0이면 원본 유지")
     args = ap.parse_args()
+
+    if args.single:
+        single_main(args)
+        return
+    if not args.rows:
+        ap.error("시트는 --rows가 필요합니다 (단일 이미지는 --single)")
 
     counts = [int(c) for c in args.rows.split(",")]
     names = args.anims.split(",")

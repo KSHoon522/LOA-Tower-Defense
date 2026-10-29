@@ -975,6 +975,121 @@
     "artRef": "dark knight in jagged black full plate armor with spiny bladed edges, pointed helm with glowing violet visor slits, curved horn-like spikes on the shoulders, clawed black gauntlets with blade fins, violet-eyed demon face plate on the waist, violet flame aura"
   },
   {
+    "id": "en-c3200250",
+    "name": "데메타르",
+    "hp": 40,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 3,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "세이크리아의 사제. 근엄하고 책임감 있는 초소장이다.",
+    "traits": [],
+    "artRef": "stern priest commander with an ornate golden helmet topped by a crest spike, long white coat with gold trim and wide lapels, dark teal inner robe with gold vertical panels and emblem, ornate gold belt buckle"
+  },
+  {
+    "id": "en-c3200094",
+    "name": "바루투",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "레온하트 성당의 온화한 사제. 세이크리아 출신으로 교황 구스토를 수호하는 새벽의 사제 중 하나이다.",
+    "traits": [],
+    "artRef": "elderly priest with short white hair and full white beard, tall white mitre with gold cross emblem, long white robes with gold trim, dark embroidered stole with gold ornaments, black holy book in one hand, other hand raised in blessing"
+  },
+  {
+    "id": "en-c3200111",
+    "name": "세리아",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "착하고 맑은 성품을 지닌 세이크리아 교단의 사제. 습격 받은 사람들을 정성스럽게 돌보고 있다.",
+    "traits": [],
+    "artRef": "gentle young priestess with long straight silver-white hair, gold circlet diadem, gold collar necklace, white draped sleeveless gown with wide flowing detached sleeves, gold armbands, brown leather corset belt, sparkling pale blue magic mist"
+  },
+  {
+    "id": "en-c3200510",
+    "name": "레퓌스",
+    "hp": 65,
+    "defense": 40,
+    "magicDefense": 10,
+    "moveSpeed": 1.0,
+    "isBoss": false,
+    "goldReward": 4,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "로웬에 주둔 중인 세이크리아 파견단 단장. 이름 높은 신성기사이자 성실한 교리집행관이다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 1.5,
+        "defense": 12,
+        "magicDefense": 0
+      }
+    ],
+    "artRef": "man with swept brown hair and mustache, silver plate armor with red sash bands and a white fur collar, cathedral spires behind"
+  },
+  {
+    "id": "en-c3200701",
+    "name": "클라우디아",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "자애로운 세이크리아의 사제. 빛을 섬기며, 아프고 지친 사람들을 구하기 위해 사제가 되었다.",
+    "traits": [],
+    "artRef": "young woman with long wavy blonde hair, white hooded robe with gold embroidery over a dark red underdress, open gentle hands, cloudy sky"
+  },
+  {
+    "id": "en-c3200704",
+    "name": "안토니오 주교",
+    "hp": 65,
+    "defense": 8,
+    "magicDefense": 45,
+    "moveSpeed": 1.3,
+    "isBoss": false,
+    "goldReward": 5,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "플레체에 파견된 세이크리아 관할 사제. 이그니스 대성당을 현재의 규모로 완성 시키는데 큰 공을 세웠다.",
+    "traits": [],
+    "artRef": "dark-haired bearded man in a white long coat with an ornate gold and black filigree chest piece, dusky violet sky"
+  },
+  {
     "id": "en-c3200002",
     "name": "발탄",
     "hp": 1100,
@@ -2766,5 +2881,48 @@
       }
     ],
     "artRef": "towering armored guardian in jagged spiked bronze-gold plate armor with tall blade-like crest spikes, glowing crimson red body showing through the armor gaps, glowing magenta crystal core in the chest, clawed red gauntlet hand, smoky red-orange haze"
+  },
+  {
+    "id": "en-c3200501",
+    "name": "오스피어",
+    "hp": 850,
+    "defense": 80,
+    "magicDefense": 30,
+    "moveSpeed": 0.5,
+    "isBoss": true,
+    "goldReward": 50,
+    "appearance": {
+      "color": "#78716c",
+      "shape": "square",
+      "icon": "🛡️"
+    },
+    "description": "세이크리아에서 로웬으로 파견한 신성기사. 어린 시절부터 세이크리아와 루페온의 교리를 철저히 교육 받았다.",
+    "traits": [
+      {
+        "type": "aura_defense",
+        "radius": 2,
+        "defense": 20,
+        "magicDefense": 10
+      }
+    ],
+    "artRef": "young man with short dark brown hair, polished silver plate armor engraved with gold filigree, rounded pauldrons, deep red cape, gothic arches and cloudy sky"
+  },
+  {
+    "id": "en-c3200509",
+    "name": "빌헬름",
+    "hp": 700,
+    "defense": 25,
+    "magicDefense": 70,
+    "moveSpeed": 0.7,
+    "isBoss": true,
+    "goldReward": 40,
+    "appearance": {
+      "color": "#7c3aed",
+      "shape": "star",
+      "icon": "😈"
+    },
+    "description": "세이크리아의 대주교. 교리에 대한 높은 이해도와 신실한 신앙심으로 널리 인정받고 있다.",
+    "traits": [],
+    "artRef": "elderly archbishop with long white hair and beard, tall white mitre with a red jewel, white and gold embroidered vestments, golden winged staff"
   }
 ]

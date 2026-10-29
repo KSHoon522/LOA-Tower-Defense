@@ -156,7 +156,7 @@
       { "count": 4, "effects": [{ "type": "atk_speed_pct", "value": 20 }, { "type": "atk_pct", "value": 14 }] },
       { "count": 6, "effects": [{ "type": "atk_speed_pct", "value": 35 }, { "type": "atk_pct", "value": 25 }] }
     ],
-    "description": "로웬의 늑대들과 용병·신성기사. 공격속도와 물리 공격력이 함께 오릅니다."
+    "description": "로웬의 늑대들과 용병·해적. 공격속도와 물리 공격력이 함께 오릅니다."
   },
   {
     "id": "syn-fleche",
@@ -164,10 +164,10 @@
     "name": "예술의 도시",
     "color": "#ec4899",
     "tiers": [
-      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 20 }, { "type": "magic_atk_pct", "value": 8 }] },
-      { "count": 4, "effects": [{ "type": "mana_regen_pct", "value": 45 }, { "type": "magic_atk_pct", "value": 22 }] }
+      { "count": 2, "effects": [{ "type": "mana_regen_pct", "value": 30 }, { "type": "magic_atk_pct", "value": 15 }] },
+      { "count": 3, "effects": [{ "type": "mana_regen_pct", "value": 60 }, { "type": "magic_atk_pct", "value": 30 }] }
     ],
-    "description": "예술가와 사제의 도시. 마나 회복이 크게 올라 스킬을 자주 쓰고, 마법 공격력도 오릅니다."
+    "description": "어린 아만과 예술가를 후원하는 베디체 가문. 셋뿐이라 2명부터 마나 회복과 마법 공격력이 크게 올라 스킬을 자주 씁니다."
   },
   {
     "id": "syn-voldis",

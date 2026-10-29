@@ -11,6 +11,7 @@ npm install
 npm run dev        # http://localhost:3001
 npm run typecheck  # tsc --noEmit
 npm test           # vitest
+npm run cards      # 등록된 캐릭터의 카드 일러스트를 references/cards/에 받기 (저장소에는 안 올라감)
 ```
 
 ## 화면 구성
@@ -70,6 +71,8 @@ src/
     sound.ts                 # 효과음 (Web Audio 합성, 엔진 이벤트 → 재생)
 scripts/
   fix_sprite_sheet.py        # AI 생성 스프라이트 시트 정리 (체커보드 배경 제거 + 균일 격자 재배치)
+  fetch-card-images.mjs      # 캐릭터 카드 일러스트 받기 (npm run cards)
+references/cards/            # 받은 카드 일러스트 + 목록(README.md·index.json) — .gitignore로 저장소 제외
 docs/
   image-prompts.md           # 카봇풍 × 실제 로아 캐릭터 프롬프트 조립 규칙, 스프라이트 규격
   character-references.md    # 지역별/에스더/군단장 캐릭터 외형 디스크립터 (artRef에 붙여넣기)
@@ -178,7 +181,11 @@ public/characters/           # 업로드된 캐릭터 이미지·스프라이트
   (`pip install pillow numpy` 필요, 사용법은 `docs/image-prompts.md`)
 - 캐릭터마다 **이미지 생성 참고 설명(artRef)** 을 저장하면 에디터의 "📋 프롬프트 생성" 버튼이
   공통 스타일 + 캐릭터 외형 + 등급/역할 키워드를 조합한 완성 프롬프트를 만들어 줌
-- 카드 인물 270명 전원의 artRef가 카드 일러스트를 보고 작성되어 있음 (보이는 외형만, 설정상 무기 등은 제외)
+- 카드 인물 326명 전원의 artRef가 카드 일러스트를 보고 작성되어 있음 (보이는 외형만, 설정상 무기 등은 제외)
+- `npm run cards`: 등록된 아군·적·보스의 카드 일러스트를 `references/cards/{allies,enemies,bosses}/이름_카드코드.png`로 받음
+  - 프롬프트에 참조 이미지로 첨부하기 좋게 `references/cards/README.md`에 이미지와 artRef를 나란히 정리 (`index.json`도 함께)
+  - 이미 받은 파일은 건너뛰고(`-- --force`로 다시 받기), 아군↔적처럼 분류가 바뀐 캐릭터의 옛 파일은 정리
+  - 이미지 저작권은 스마일게이트에 있어 `.gitignore`로 저장소에서 제외. 프록시 환경이면 `NODE_USE_ENV_PROXY=1 npm run cards`
 - 실제 로스트아크 캐릭터 외형 디스크립터는 `docs/character-references.md`, 조립 규칙은 `docs/image-prompts.md`
 
 ## 테스트 / 밸런싱

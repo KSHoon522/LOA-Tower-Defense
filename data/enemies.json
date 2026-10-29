@@ -1000,31 +1000,6 @@
     "artRef": "colossal demon beast warlord with red hide and large curved black horns, glowing red eyes, dark spiked mane, ornate gold armor with roaring beast-head pauldrons, skull and chain ornaments hanging across the chest, long dark-hafted great axe"
   },
   {
-    "id": "en-c3200006",
-    "name": "데런 아만",
-    "hp": 1100,
-    "defense": 25,
-    "magicDefense": 70,
-    "moveSpeed": 0.7,
-    "isBoss": true,
-    "goldReward": 70,
-    "appearance": {
-      "color": "#7c3aed",
-      "shape": "star",
-      "icon": "😈"
-    },
-    "description": "숨기고 있던 데런의 힘을 개방한 아만의 모습. 신성력이 아닌, 내면에 깃든 악마의 힘을 사용한다.",
-    "traits": [
-      {
-        "type": "stun_immune"
-      },
-      {
-        "type": "slow_immune"
-      }
-    ],
-    "artRef": "pale demonic young man with long silver-white hair and dark facial markings, black high-collared coat, spiky black-and-gold armor on shoulders and arms, bare chest with glowing red gem and dark vein marks, clawed gauntlets, long grey cape, red dark energy wisps"
-  },
-  {
     "id": "en-c3200007",
     "name": "쿠크세이튼",
     "hp": 1100,
@@ -1177,31 +1152,6 @@
       }
     ],
     "artRef": "androgynous demon with pale lavender skin and long wavy silver-white hair, large swept horns shaped like grey feathered wings, silver circlet with jewel, black high-collared robes, glowing purple energy orb between clawed hands, floating gold crescent-topped staves"
-  },
-  {
-    "id": "en-c3200017",
-    "name": "가디언 루",
-    "hp": 1100,
-    "defense": 25,
-    "magicDefense": 70,
-    "moveSpeed": 0.7,
-    "isBoss": true,
-    "goldReward": 70,
-    "appearance": {
-      "color": "#7c3aed",
-      "shape": "star",
-      "icon": "😈"
-    },
-    "description": "빛에도 어둠에도 속하지 않은 중립 가디언. 선지자의 눈으로 아크라시아를 지켜보고 있다.",
-    "traits": [
-      {
-        "type": "stun_immune"
-      },
-      {
-        "type": "slow_immune"
-      }
-    ],
-    "artRef": "colossal spectral deer-like guardian with enormous branching dark antlers, elongated pale skull-like face with feathery white crest, ghostly cyan-white body trailing long ribbon-like tendrils, misty glowing aura"
   },
   {
     "id": "en-c3200023",
@@ -2065,28 +2015,6 @@
       }
     ],
     "artRef": "colossal forest stone golem made of cracked gray boulders, tangled brown tree roots and moss wrapping its body, carved stone face with glowing green eyes and mouth, rune-carved stone bracer, luminous yellow-green orb core on chest, green spirit wisps"
-  },
-  {
-    "id": "en-c3200134",
-    "name": "도철",
-    "hp": 700,
-    "defense": 60,
-    "magicDefense": 30,
-    "moveSpeed": 0.55,
-    "isBoss": true,
-    "goldReward": 40,
-    "appearance": {
-      "color": "#b91c1c",
-      "shape": "square",
-      "icon": "👹"
-    },
-    "description": "애니츠를 혼란에 몰아넣었던 불사의 요괴. 일찍이 에스더 시엔은 죽지 않는 도철을 자신의 왼팔에 봉인하여, 그 힘을 이용해 세상을 지켰다.",
-    "traits": [
-      {
-        "type": "stun_immune"
-      }
-    ],
-    "artRef": "giant demonic lion-like beast with blue-green skin, massive flowing white mane, red eyes, roaring fanged jaws with tusks, gold ornamental armor bands with teal trim on head and limbs, curved dark claws, swirling purple and pink smoke"
   },
   {
     "id": "en-c3200135",

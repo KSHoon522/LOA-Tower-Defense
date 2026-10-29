@@ -199,41 +199,28 @@
           "en-c3200129"
         ],
         "bossId": "en-c3200135",
-        "hpMult": 2.45,
+        "hpMult": 2.65,
         "goldMult": 1.16,
         "description": "구미호 미령과 수하 삭월이 영혼을 모은다. 애니츠를 지키던 영물 추오가 마기에 물들어 날뛴다."
       },
       {
         "id": "st-anikka-2",
-        "name": "5-2 적의 결계",
-        "waves": 15,
-        "enemyIds": [
-          "en-c3200133",
-          "en-c3200132",
-          "en-c3200204"
-        ],
-        "bossId": "en-c3200134",
-        "hpMult": 3.8,
-        "goldMult": 1.25,
-        "description": "역병군단과 욕망군단의 악마가 결계를 넘는다. 불사의 요괴 도철이 풀려났다."
-      },
-      {
-        "id": "st-anikka-3",
-        "name": "5-3 빛의 가디언",
+        "name": "5-2 빛의 가디언",
         "waves": 15,
         "enemyIds": [
           "en-c3200129",
           "en-c3200204",
-          "en-c3200132"
+          "en-c3200132",
+          "en-c3200133"
         ],
         "bossId": "en-c3200416",
-        "hpMult": 3.15,
-        "goldMult": 1.35,
+        "hpMult": 3.35,
+        "goldMult": 1.25,
         "description": "애니츠에서 신성시되는 빛의 가디언 하누마탄. 무투가들은 그 움직임을 본떠 무술을 발전시켰다."
       },
       {
-        "id": "st-anikka-4",
-        "name": "5-4 삶과 죽음의 경계",
+        "id": "st-anikka-3",
+        "name": "5-3 삶과 죽음의 경계",
         "waves": 20,
         "enemyIds": [
           "en-c3200129",
@@ -242,8 +229,8 @@
           "en-c3200204"
         ],
         "bossId": "en-c3200032",
-        "hpMult": 2.9,
-        "goldMult": 1.44,
+        "hpMult": 3.1,
+        "goldMult": 1.35,
         "description": "삶과 죽음의 경계를 지배하는 지옥귀 반다의 봉인이 흔들린다."
       }
     ],
@@ -749,20 +736,20 @@
       },
       {
         "id": "st-fleche-2",
-        "name": "16-2 위대한 미술품",
+        "name": "16-2 불사조의 전설",
         "waves": 15,
         "enemyIds": [
           "en-c3200132",
           "en-c3200167",
           "en-c3200162"
         ],
-        "bossId": "en-c3200017",
-        "hpMult": 4.15,
+        "bossId": "en-c3200046",
+        "hpMult": 3.95,
         "goldMult": 1.73,
-        "description": "빛에도 어둠에도 속하지 않은 중립 가디언 루가 선지자의 눈으로 지켜본다."
+        "description": "불꽃의 깃털을 지닌 거대한 가디언 헬가이아. 불 속에서 끝없이 되살아난다는 전설이 전해진다."
       }
     ],
-    "description": "예술의 도시 플레체. 빛과 어둠, 그리고 중립의 가디언과 맞선다."
+    "description": "예술의 도시 플레체. 전설로 전해지는 가디언들과 맞선다."
   },
   {
     "id": "ch-voldis",

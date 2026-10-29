@@ -334,6 +334,36 @@
     "artRef": "fluffy long-haired stray cat with white and brown tabby fur, large tufted pointed ears, grumpy half-lidded yellow-green eyes, thick white chest ruff, bushy brown tail, sitting upright"
   },
   {
+    "id": "tw-c3200250",
+    "name": "데메타르",
+    "grade": "common",
+    "atk": 0,
+    "magicAtk": 14,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 240,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 240% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#f472b6",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "세이크리아의 사제. 근엄하고 책임감 있는 초소장이다.",
+    "regions": [
+      "루테란"
+    ],
+    "artRef": "stern priest commander with an ornate golden helmet topped by a crest spike, long white coat with gold trim and wide lapels, dark teal inner robe with gold vertical panels and emblem, ornate gold belt buckle"
+  },
+  {
     "id": "tw-c3200252",
     "name": "벨리타",
     "grade": "common",
@@ -2257,6 +2287,36 @@
     "artRef": "spiky black armored demon hound with glowing red eyes and red seams, jagged horn spines along its back, red wasteland"
   },
   {
+    "id": "tw-c3200094",
+    "name": "바루투",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#f472b6",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "레온하트 성당의 온화한 사제. 세이크리아 출신으로 교황 구스토를 수호하는 새벽의 사제 중 하나이다.",
+    "regions": [
+      "루테란"
+    ],
+    "artRef": "elderly priest with short white hair and full white beard, tall white mitre with gold cross emblem, long white robes with gold trim, dark embroidered stole with gold ornaments, black holy book in one hand, other hand raised in blessing"
+  },
+  {
     "id": "tw-c3200095",
     "name": "레온하트 네리아",
     "grade": "rare",
@@ -2434,6 +2494,36 @@
       "루테란"
     ],
     "artRef": "cheerful young tavern keeper with long silver-white hair, black flower fascinator hat, short mustard-orange capelet with bows, white ruffled blouse with black ribbon tie, brown skirt, playing a wooden lute"
+  },
+  {
+    "id": "tw-c3200111",
+    "name": "세리아",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#e2e8f0",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "착하고 맑은 성품을 지닌 세이크리아 교단의 사제. 습격 받은 사람들을 정성스럽게 돌보고 있다.",
+    "regions": [
+      "루테란"
+    ],
+    "artRef": "gentle young priestess with long straight silver-white hair, gold circlet diadem, gold collar necklace, white draped sleeveless gown with wide flowing detached sleeves, gold armbands, brown leather corset belt, sparkling pale blue magic mist"
   },
   {
     "id": "tw-c3200113",
@@ -3876,6 +3966,36 @@
     "artRef": "huge ancient dark-blue whale-like creature with layered fin-like wings and ridged skin, gliding above a sea of clouds and tall spires"
   },
   {
+    "id": "tw-c3200701",
+    "name": "클라우디아",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "자애로운 세이크리아의 사제. 빛을 섬기며, 아프고 지친 사람들을 구하기 위해 사제가 되었다.",
+    "regions": [
+      "플레체"
+    ],
+    "artRef": "young woman with long wavy blonde hair, white hooded robe with gold embroidery over a dark red underdress, open gentle hands, cloudy sky"
+  },
+  {
     "id": "tw-c3200702",
     "name": "알폰스 베디체",
     "grade": "rare",
@@ -3934,6 +4054,36 @@
       "림레이크"
     ],
     "artRef": "small girl-like elder with long silver hair, curled golden horns and a purple flower headdress, red feather ear ornaments, green and white crop top, beaded belt and green skirt, bead necklaces"
+  },
+  {
+    "id": "tw-c3200704",
+    "name": "안토니오 주교",
+    "grade": "rare",
+    "atk": 0,
+    "magicAtk": 42,
+    "attackSpeed": 0.9,
+    "range": 2.8,
+    "maxMana": 70,
+    "manaRegen": 8,
+    "manaOnHit": 10,
+    "skill": {
+      "name": "신성한 빛",
+      "type": "stun",
+      "damageType": "magical",
+      "power": 260,
+      "duration": 1.2,
+      "description": "대상에게 마법 공격력 260% 피해 + 1.2초 기절"
+    },
+    "appearance": {
+      "color": "#ec4899",
+      "shape": "circle",
+      "icon": "✨"
+    },
+    "description": "플레체에 파견된 세이크리아 관할 사제. 이그니스 대성당을 현재의 규모로 완성 시키는데 큰 공을 세웠다.",
+    "regions": [
+      "플레체"
+    ],
+    "artRef": "dark-haired bearded man in a white long coat with an ornate gold and black filigree chest piece, dusky violet sky"
   },
   {
     "id": "tw-c3200705",

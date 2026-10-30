@@ -22,7 +22,8 @@
    `/editor/enemies`에서 캐릭터를 고른다. 목록은 `card-roster.md`.
 2. 카드에 없는 캐릭터를 새로 만들 때는 `character-references.md`의 PROMPT를 참고하거나,
    인벤 카드 DB(https://lostark.inven.co.kr/dataninfo/card/)·인게임 스크린샷을 보고 아래 작성 규칙대로 쓴다.
-3. 필요하면 artRef를 다듬는다 (카드 일러스트에 안 보이는 설정상 무기·이펙트를 추가하는 등).
+3. 필요하면 artRef를 다듬는다. 카드에 무기가 안 보이는 아군은 카드 설명·설정 또는 게임 역할에 맞춘 무기가 이미 덧붙어 있으니,
+   실제 설정과 다르면 고친다 (예: 니나브는 건틀릿 대신 활).
 4. 도구(Gemini·ChatGPT / Midjourney)와 출력 형식(단일 이미지 / 스프라이트 시트 아군 4줄 / 적 2줄 / 적 / 보스)을 고르고
    **📋 프롬프트 생성 → 복사**. 도구에 따라 빼고 싶은 요소가 `Avoid: …` 문장 또는 `--no …`로 붙는다.
    - 궁수(강습 화살)·총포(관통 사격) 캐릭터는 artRef에 무기가 없으면 `main weapon: a bow with arrows` / `a firearm`을

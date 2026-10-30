@@ -26,7 +26,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "female knight with long wavy crimson red hair, dark steel plate armor with large spiked pauldrons, ornate breastplate etched with gold heraldic emblem, dark red tabard with gold filigree patterns, armored gauntlets"
+    "artRef": "female knight with long wavy crimson red hair, dark steel plate armor with large spiked pauldrons, ornate breastplate etched with gold heraldic emblem, dark red tabard with gold filigree patterns, armored gauntlets, wielding a knight's longsword"
   },
   {
     "id": "tw-c3200235",
@@ -56,7 +56,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "tavern maid with blond hair tucked into an olive green headscarf, off-shoulder cream ruffled blouse, dark gray laced corset bodice, rust red puffed sleeves with slashed cuffs, long rust red skirt with green apron, hand on hip"
+    "artRef": "tavern maid with blond hair tucked into an olive green headscarf, off-shoulder cream ruffled blouse, dark gray laced corset bodice, rust red puffed sleeves with slashed cuffs, long rust red skirt with green apron, hand on hip, a tambourine"
   },
   {
     "id": "tw-c3200238",
@@ -117,7 +117,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "elderly goblin elder with green skin, long pointed ears, long orange beak-like nose, bushy white beard, tall orange-red and brown hat with white swirl patterns and cream veil, pale cream robe with dark green embroidered trim, white ruffled cravat, clawed green hands"
+    "artRef": "elderly goblin elder with green skin, long pointed ears, long orange beak-like nose, bushy white beard, tall orange-red and brown hat with white swirl patterns and cream veil, pale cream robe with dark green embroidered trim, white ruffled cravat, clawed green hands, a gnarled wooden staff"
   },
   {
     "id": "tw-c3200241",
@@ -147,7 +147,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "young revenant knight with short tousled blond hair, black plate armor with silver gothic filigree and star studs, large swept silver pauldrons and silver vambraces, high black collar, black tabard with pointed silver trim, long black polearm held upright"
+    "artRef": "young revenant knight with short tousled blond hair, black plate armor with silver gothic filigree and star studs, large swept silver pauldrons and silver vambraces, high black collar, black tabard with pointed silver trim, long black polearm held upright, wielding a heavy mace"
   },
   {
     "id": "tw-c3200242",
@@ -177,7 +177,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "elderly traveler with bald head and short white beard, tan scarf wrapped around his neck, long brown leather coat over green quilted vest, buckled crossbody leather strap, large backpack with rolled maps, brass compass hanging at the belt"
+    "artRef": "elderly traveler with bald head and short white beard, tan scarf wrapped around his neck, long brown leather coat over green quilted vest, buckled crossbody leather strap, large backpack with rolled maps, brass compass hanging at the belt, an old-fashioned box camera in his hands"
   },
   {
     "id": "tw-c3200243",
@@ -208,7 +208,7 @@
     "regions": [
       "로헨델"
     ],
-    "artRef": "tribal elf girl with long red-orange hair in twin tails, pointed ears, white feather and leaf headdress, green leaf collar with teal gem pendant, white leaf-fringed top, green skirt, rope belt with orange pouch and blue bottle"
+    "artRef": "tribal elf girl with long red-orange hair in twin tails, pointed ears, white feather and leaf headdress, green leaf collar with teal gem pendant, white leaf-fringed top, green skirt, rope belt with orange pouch and blue bottle, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200244",
@@ -270,7 +270,7 @@
     "regions": [
       "욘"
     ],
-    "artRef": "burly dwarf-like brewer with swept-up spiky brown hair, bushy eyebrows, long braided gray-brown beard with gold beard ring, sleeveless olive green tunic, ornate dark metal belt, dark spiked iron gauntlets, muscular bare arms"
+    "artRef": "burly dwarf-like brewer with swept-up spiky brown hair, bushy eyebrows, long braided gray-brown beard with gold beard ring, sleeveless olive green tunic, ornate dark metal belt, dark spiked iron gauntlets, muscular bare arms, swinging a huge foaming wooden beer mug"
   },
   {
     "id": "tw-c3200248",
@@ -300,7 +300,7 @@
     "regions": [
       "페이튼"
     ],
-    "artRef": "small pointed-eared girl with short dark brown bob hair, black cord choker, cropped dark brown blouse with red scarf at the collar and red cuffs, bare midriff, layered ragged cream skirt with dark red wrap, metal bracelets"
+    "artRef": "small pointed-eared girl with short dark brown bob hair, black cord choker, cropped dark brown blouse with red scarf at the collar and red cuffs, bare midriff, layered ragged cream skirt with dark red wrap, metal bracelets, a small magic wand"
   },
   {
     "id": "tw-c3200249",
@@ -361,7 +361,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "stern priest commander with an ornate golden helmet topped by a crest spike, long white coat with gold trim and wide lapels, dark teal inner robe with gold vertical panels and emblem, ornate gold belt buckle"
+    "artRef": "stern priest commander with an ornate golden helmet topped by a crest spike, long white coat with gold trim and wide lapels, dark teal inner robe with gold vertical panels and emblem, ornate gold belt buckle, a holy mace"
   },
   {
     "id": "tw-c3200252",
@@ -391,7 +391,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "elderly whale-keeper woman with short swept-back silver-white hair, kindly weathered face, lime-green short-sleeved wrap jacket with black and crimson collar trim, billowing white undersleeves, gray cloth sash belt, teal beaded collar necklace"
+    "artRef": "elderly whale-keeper woman with short swept-back silver-white hair, kindly weathered face, lime-green short-sleeved wrap jacket with black and crimson collar trim, billowing white undersleeves, gray cloth sash belt, teal beaded collar necklace, a large conch shell horn"
   },
   {
     "id": "tw-c3200253",
@@ -422,7 +422,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "cheerful female goblin with green skin, long pointed ears, big orange nose and toothy grin, pale blond hair in a braided bun with side braids, maroon laced bodice dress over white puffed blouse, dark sleeves, black corset belt, hunched stance"
+    "artRef": "cheerful female goblin with green skin, long pointed ears, big orange nose and toothy grin, pale blond hair in a braided bun with side braids, maroon laced bodice dress over white puffed blouse, dark sleeves, black corset belt, hunched stance, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200254",
@@ -452,7 +452,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "young refugee teacher woman with long brown hair under a green bandana headscarf, cream puffed short-sleeve blouse over brown long sleeves, green quilted laced bodice, bronze disc-pendant necklace, tan high scarf collar, brown leather belt with hanging strap, cream skirt"
+    "artRef": "young refugee teacher woman with long brown hair under a green bandana headscarf, cream puffed short-sleeve blouse over brown long sleeves, green quilted laced bodice, bronze disc-pendant necklace, tan high scarf collar, brown leather belt with hanging strap, cream skirt, a small prayer book"
   },
   {
     "id": "tw-c3200255",
@@ -573,7 +573,7 @@
     "regions": [
       "파푸니카"
     ],
-    "artRef": "large heavyset wandering bard with messy dark hair and broad grin, bare chest and arms covered in tribal tattoos, green diagonal sash with colorful pins, white fang necklace, red-and-white zigzag waist sash with rope trim, small brown ukulele, little white bird perched on his head, floating music notes"
+    "artRef": "large heavyset wandering bard with messy dark hair and broad grin, bare chest and arms covered in tribal tattoos, green diagonal sash with colorful pins, white fang necklace, red-and-white zigzag waist sash with rope trim, small brown ukulele, little white bird perched on his head, floating music notes, strumming a battered lute"
   },
   {
     "id": "tw-c3200411",
@@ -603,7 +603,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "elderly senate chairman with bald head, bushy white eyebrows and long full white beard, mustard-gold high-collared robe over ivory undercoat, deep purple velvet shawl draped over shoulders, large ornate gold winged crest brooch on chest"
+    "artRef": "elderly senate chairman with bald head, bushy white eyebrows and long full white beard, mustard-gold high-collared robe over ivory undercoat, deep purple velvet shawl draped over shoulders, large ornate gold winged crest brooch on chest, a conductor's baton"
   },
   {
     "id": "tw-c3200412",
@@ -632,7 +632,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "pointy-eared elven knight archer woman with long straight platinum-blond hair, ornate silver-white plate armor with black-edged spiked pauldrons and gauntlets, segmented armored skirt, long white cape"
+    "artRef": "pointy-eared elven knight archer woman with long straight platinum-blond hair, ornate silver-white plate armor with black-edged spiked pauldrons and gauntlets, segmented armored skirt, long white cape, wielding an elven longbow"
   },
   {
     "id": "tw-c3200413",
@@ -661,7 +661,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "burly pointy-eared elven knight swordsman with short slicked-back light brown hair and stubble, heavy ornate silver-white plate armor with large layered spiked pauldrons, black chest accents, armored gauntlets, long white cape"
+    "artRef": "burly pointy-eared elven knight swordsman with short slicked-back light brown hair and stubble, heavy ornate silver-white plate armor with large layered spiked pauldrons, black chest accents, armored gauntlets, long white cape, wielding a longsword"
   },
   {
     "id": "tw-c3200611",
@@ -781,7 +781,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "middle-aged nobleman with shoulder-length ash-blond hair and full brown beard, long gray-brown embroidered sleeveless overcoat, white high-collared shirt with dark buttons, dark red vest, amber gemstone pendant, red-patterned leather bracers, leather belt"
+    "artRef": "middle-aged nobleman with shoulder-length ash-blond hair and full brown beard, long gray-brown embroidered sleeveless overcoat, white high-collared shirt with dark buttons, dark red vest, amber gemstone pendant, red-patterned leather bracers, leather belt, wielding a noble longsword"
   },
   {
     "id": "tw-c3200189",
@@ -991,7 +991,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "young female event attendant with shoulder-length mauve-brown hair in a double bun, gold hairpins with red tassel charms, sky-blue floral qipao-style dress with white high collar, white red-trimmed frilled sleeves, white obi sash with red knot ornament"
+    "artRef": "young female event attendant with shoulder-length mauve-brown hair in a double bun, gold hairpins with red tassel charms, sky-blue floral qipao-style dress with white high collar, white red-trimmed frilled sleeves, white obi sash with red knot ornament, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200200",
@@ -1021,7 +1021,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "graceful martial artist courtesan with long wavy brown hair in a high topknot pierced by a tall red hairpin, sleeveless deep-red qipao with keyhole cutout and high side slit, one sheer white flowing sleeve with brown armband, low crouched fighting stance"
+    "artRef": "graceful martial artist courtesan with long wavy brown hair in a high topknot pierced by a tall red hairpin, sleeveless deep-red qipao with keyhole cutout and high side slit, one sheer white flowing sleeve with brown armband, low crouched fighting stance, playing a pipa lute"
   },
   {
     "id": "tw-c3200201",
@@ -1082,7 +1082,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "young martial artist with long dark hair in a high ponytail with silver ring clasp, white wrap tunic with purple meander-pattern collar, teal-trimmed scaled shoulder guards with spiral motif and silver rings, wide dark leather belt with round cloud-pattern buckle, studded gray bracers"
+    "artRef": "young martial artist with long dark hair in a high ponytail with silver ring clasp, white wrap tunic with purple meander-pattern collar, teal-trimmed scaled shoulder guards with spiral motif and silver rings, wide dark leather belt with round cloud-pattern buckle, studded gray bracers, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200203",
@@ -1113,7 +1113,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "elderly martial arts grandmaster with huge muscular bare torso, bald head with gold flame topknot ornament, thick curly white beard and brows, white rope cords over the shoulders, ornate gold demon-face belt, gold gauntlets with red bead bracelets, black trousers with white sash, golden halo ring arching behind"
+    "artRef": "elderly martial arts grandmaster with huge muscular bare torso, bald head with gold flame topknot ornament, thick curly white beard and brows, white rope cords over the shoulders, ornate gold demon-face belt, gold gauntlets with red bead bracelets, black trousers with white sash, golden halo ring arching behind, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200205",
@@ -1202,7 +1202,7 @@
     "regions": [
       "슈샤이어"
     ],
-    "artRef": "rebel lieutenant with long straight light-brown hair, olive-gray quilted leather tunic with orange zigzag stitching and diamond-quilted skirt, blue cloth sash and blue scarf tied on one arm, black leather gloves with copper-banded cuffs, hand on chin"
+    "artRef": "rebel lieutenant with long straight light-brown hair, olive-gray quilted leather tunic with orange zigzag stitching and diamond-quilted skirt, blue cloth sash and blue scarf tied on one arm, black leather gloves with copper-banded cuffs, hand on chin, wielding a sword"
   },
   {
     "id": "tw-c3200210",
@@ -1233,7 +1233,7 @@
     "regions": [
       "슈샤이어"
     ],
-    "artRef": "small boy with a short black bowl-cut hairstyle, pale gray scarf wrapped around the neck, worn gray buttoned vest over a tattered gray long-sleeve shirt with frayed cuffs, brown leather belt with metal buckle, plain gray trousers"
+    "artRef": "small boy with a short black bowl-cut hairstyle, pale gray scarf wrapped around the neck, worn gray buttoned vest over a tattered gray long-sleeve shirt with frayed cuffs, brown leather belt with metal buckle, plain gray trousers, tiny fists raised in a fighting pose"
   },
   {
     "id": "tw-c3200212",
@@ -1294,7 +1294,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "young village girl with long straight brown hair, white long-sleeved blouse with laced collar, dark blue denim pinafore dress with buttoned shoulder straps, brown rope belt tied at the waist, gentle wistful face"
+    "artRef": "young village girl with long straight brown hair, white long-sleeved blouse with laced collar, dark blue denim pinafore dress with buttoned shoulder straps, brown rope belt tied at the waist, gentle wistful face, a small lute"
   },
   {
     "id": "tw-c3200216",
@@ -1324,7 +1324,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "burly lighthouse keeper with short dark brown hair, sleeveless gray-green padded vest with rope-trimmed edges and toggle fastenings, quilted white short sleeves, white undershirt, dark blue cloth sash, brown leather wristbands, muscular bare forearms"
+    "artRef": "burly lighthouse keeper with short dark brown hair, sleeveless gray-green padded vest with rope-trimmed edges and toggle fastenings, quilted white short sleeves, white undershirt, dark blue cloth sash, brown leather wristbands, muscular bare forearms, glowing piano-note music symbols floating around him"
   },
   {
     "id": "tw-c3200217",
@@ -1353,7 +1353,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "muscular young man with tousled blond hair, open sleeveless brown leather vest, low-cut light blue tunic baring his chest, rope belt at the waist, gold bracelet on one wrist and brown leather band on the other, confident smirk"
+    "artRef": "muscular young man with tousled blond hair, open sleeveless brown leather vest, low-cut light blue tunic baring his chest, rope belt at the waist, gold bracelet on one wrist and brown leather band on the other, confident smirk, wielding a sword"
   },
   {
     "id": "tw-c3200218",
@@ -1443,7 +1443,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "elderly pianist with balding head, short white hair and trimmed white beard, long black coat with brown edging, gray hood draped at the neck, gray-green high-collared waistcoat with silver buttons, white shirt, brown leather belt, calm stern expression"
+    "artRef": "elderly pianist with balding head, short white hair and trimmed white beard, long black coat with brown edging, gray hood draped at the neck, gray-green high-collared waistcoat with silver buttons, white shirt, brown leather belt, calm stern expression, glowing music notes floating around him"
   },
   {
     "id": "tw-c3200224",
@@ -1473,7 +1473,7 @@
     "regions": [
       "욘"
     ],
-    "artRef": "stocky dwarf-like dancer with an enormous braided blond beard covering his chest, red fedora hat, black sunglasses, red jacket with gold fringed epaulettes on spiked black shoulder plates, black leather gauntlets, ornate silver belt set with teal gems"
+    "artRef": "stocky dwarf-like dancer with an enormous braided blond beard covering his chest, red fedora hat, black sunglasses, red jacket with gold fringed epaulettes on spiked black shoulder plates, black leather gauntlets, ornate silver belt set with teal gems, twirling silk dance ribbons"
   },
   {
     "id": "tw-c3200225",
@@ -1533,7 +1533,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "wiry old village woman with gray-blond hair in two short tied braids, maroon scarf, teal tunic with gold trim over a dusty rose dress, brown belt hung with red and blue potion flasks and pouches, long iron ladle in hand"
+    "artRef": "wiry old village woman with gray-blond hair in two short tied braids, maroon scarf, teal tunic with gold trim over a dusty rose dress, brown belt hung with red and blue potion flasks and pouches, long iron ladle in hand, a gnarled wooden walking staff"
   },
   {
     "id": "tw-c3200227",
@@ -1563,7 +1563,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "young apprentice shaman woman with long wavy golden hair, dark headband with white diamond pattern and red trim, pale gray-green tunic with white diamond-patterned trim and double row of white buttons, blue tassel pendant at the collar, red sash with brown belt"
+    "artRef": "young apprentice shaman woman with long wavy golden hair, dark headband with white diamond pattern and red trim, pale gray-green tunic with white diamond-patterned trim and double row of white buttons, blue tassel pendant at the collar, red sash with brown belt, a feathered shaman staff"
   },
   {
     "id": "tw-c3200228",
@@ -1593,7 +1593,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "elegant sage woman with long black hair in a tall looped updo with red hairpins and red-white tassel ornaments, white beaded choker, sleeveless silver satin high-slit dress with red piping and keyhole neckline, dark feathered mantle with teal-green and red feathers"
+    "artRef": "elegant sage woman with long black hair in a tall looped updo with red hairpins and red-white tassel ornaments, white beaded choker, sleeveless silver satin high-slit dress with red piping and keyhole neckline, dark feathered mantle with teal-green and red feathers, a sage's staff hung with talismans"
   },
   {
     "id": "tw-c3200229",
@@ -1624,7 +1624,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "small sprout-folk boy with pointed ears, swept-up ash brown hair, large violet eyes, sleeveless white leaf-shaped top with green vine trim and knotted fastenings, skirt-belt of green leaves at the waist, vine bracelets, hand on hip"
+    "artRef": "small sprout-folk boy with pointed ears, swept-up ash brown hair, large violet eyes, sleeveless white leaf-shaped top with green vine trim and knotted fastenings, skirt-belt of green leaves at the waist, vine bracelets, hand on hip, tiny fists raised in a fighting pose"
   },
   {
     "id": "tw-c3200230",
@@ -1654,7 +1654,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "young castaway treasure hunter girl with short black bob hair, wide conical red hat with black band, white diamond pattern and teal trim, long red scarf wrapped around neck and shoulders, gray jacket with white diamond-patterned sleeves, brown belt, dark skirt"
+    "artRef": "young castaway treasure hunter girl with short black bob hair, wide conical red hat with black band, white diamond pattern and teal trim, long red scarf wrapped around neck and shoulders, gray jacket with white diamond-patterned sleeves, brown belt, dark skirt, a flintlock pistol"
   },
   {
     "id": "tw-c3200231",
@@ -1714,7 +1714,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "old goblin king with wrinkled green skin, long pointed ears, large hooked nose, long flowing white beard, small purple and gold jeweled crown, lavender-blue royal robe with gold embroidered trim and dangling gold tassels, brown leather belt"
+    "artRef": "old goblin king with wrinkled green skin, long pointed ears, large hooked nose, long flowing white beard, small purple and gold jeweled crown, lavender-blue royal robe with gold embroidered trim and dangling gold tassels, brown leather belt, wielding a jeweled royal mace"
   },
   {
     "id": "tw-c3200233",
@@ -1744,7 +1744,7 @@
     "regions": [
       "아르데타인"
     ],
-    "artRef": "female mercenary with short wavy auburn-brown hair, white feather tucked behind one ear, bright yellow high-collared jacket with white lapels, brown leather corset vest with teal gem brooches, silver cravat pendant, silver gauntlets"
+    "artRef": "female mercenary with short wavy auburn-brown hair, white feather tucked behind one ear, bright yellow high-collared jacket with white lapels, brown leather corset vest with teal gem brooches, silver cravat pendant, silver gauntlets, a pistol"
   },
   {
     "id": "tw-c3200307",
@@ -1834,7 +1834,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "hulking orc elder with dark gray-brown muscular body, black stripe war paint across chest, dark iron horned helmet with face guard, massive spiked shoulder pauldrons sprouting curved horns, belt hung with skulls and bone fangs"
+    "artRef": "hulking orc elder with dark gray-brown muscular body, black stripe war paint across chest, dark iron horned helmet with face guard, massive spiked shoulder pauldrons sprouting curved horns, belt hung with skulls and bone fangs, wielding a huge stone club"
   },
   {
     "id": "tw-c3200410",
@@ -1864,7 +1864,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "pointy-eared elven head mage with spiky swept-up ash-blond hair, ornate silver-white full plate armor with sweeping angular pauldrons and black accents, long paneled armor skirt, dark cape"
+    "artRef": "pointy-eared elven head mage with spiky swept-up ash-blond hair, ornate silver-white full plate armor with sweeping angular pauldrons and black accents, long paneled armor skirt, dark cape, an elven mage staff"
   },
   {
     "id": "tw-c3200415",
@@ -1953,7 +1953,7 @@
     "regions": [
       "엘가시아"
     ],
-    "artRef": "woman with long silver-blue hair, ornate silver mask helm with antler-like crest and a halo ring, white and teal armor with silver plates, white wings"
+    "artRef": "woman with long silver-blue hair, ornate silver mask helm with antler-like crest and a halo ring, white and teal armor with silver plates, white wings, wielding a slender silver sword"
   },
   {
     "id": "tw-c3200606",
@@ -1983,7 +1983,7 @@
     "regions": [
       "엘가시아"
     ],
-    "artRef": "young man with short blond hair and a golden halo ring, heavy ornate gold plate armor with white trim"
+    "artRef": "young man with short blond hair and a golden halo ring, heavy ornate gold plate armor with white trim, wielding a huge greatsword"
   },
   {
     "id": "tw-c3200607",
@@ -2043,7 +2043,7 @@
     "regions": [
       "엘가시아"
     ],
-    "artRef": "woman with long green braided hair under a white veil, spiked silver halo, white gown with silver jewelry and a green gem, white wings, gentle smile"
+    "artRef": "woman with long green braided hair under a white veil, spiked silver halo, white gown with silver jewelry and a green gem, white wings, gentle smile, glowing threads of prophecy spun between her fingers"
   },
   {
     "id": "tw-c3200609",
@@ -2134,7 +2134,7 @@
     "regions": [
       "볼다이크"
     ],
-    "artRef": "bald dark-skinned elder with a grey goatee, dark sleeveless robe with gold striped panels, gold armband"
+    "artRef": "bald dark-skinned elder with a grey goatee, dark sleeveless robe with gold striped panels, gold armband, a sage's staff"
   },
   {
     "id": "tw-c3200810",
@@ -2164,7 +2164,7 @@
     "regions": [
       "볼다이크"
     ],
-    "artRef": "dark-skinned man with long brown hair, open dark robe with gold trim over a muscular chest, gold amulet necklace, ornate gold belt buckle, gold bracers"
+    "artRef": "dark-skinned man with long brown hair, open dark robe with gold trim over a muscular chest, gold amulet necklace, ornate gold belt buckle, gold bracers, conjuring swirling elemental energy in his hands"
   },
   {
     "id": "tw-c3200900",
@@ -2193,7 +2193,7 @@
     "regions": [
       "쿠르잔"
     ],
-    "artRef": "pale man with swept blue-black hair, high-collared black coat, black spiked armor with a glowing red core on the chest"
+    "artRef": "pale man with swept blue-black hair, high-collared black coat, black spiked armor with a glowing red core on the chest, twin daggers"
   },
   {
     "id": "tw-c3200901",
@@ -2222,7 +2222,7 @@
     "regions": [
       "쿠르잔"
     ],
-    "artRef": "man with short crimson hair, high-collared black cape, black spiked armor with glowing red seams across the chest and gauntlet"
+    "artRef": "man with short crimson hair, high-collared black cape, black spiked armor with glowing red seams across the chest and gauntlet, wielding a dark curved sword"
   },
   {
     "id": "tw-c3200902",
@@ -2374,7 +2374,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "elderly nomad priestess with long white braided pigtails ending in white fur tassels, red and white knit cap with dark round ear discs, red neckerchief, white shawl over dark teal robe, gold arm cuffs"
+    "artRef": "elderly nomad priestess with long white braided pigtails ending in white fur tassels, red and white knit cap with dark round ear discs, red neckerchief, white shawl over dark teal robe, gold arm cuffs, a ritual staff hung with fur tassels"
   },
   {
     "id": "tw-c3200104",
@@ -2523,7 +2523,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "gentle young priestess with long straight silver-white hair, gold circlet diadem, gold collar necklace, white draped sleeveless gown with wide flowing detached sleeves, gold armbands, brown leather corset belt, sparkling pale blue magic mist"
+    "artRef": "gentle young priestess with long straight silver-white hair, gold circlet diadem, gold collar necklace, white draped sleeveless gown with wide flowing detached sleeves, gold armbands, brown leather corset belt, sparkling pale blue magic mist, a holy staff"
   },
   {
     "id": "tw-c3200113",
@@ -2672,7 +2672,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "elderly plant-folk village chief with long white beard and drooping white mustache, crown of green leaves with red flower and green sprout cap, green robe draped with red and orange autumn leaves, glowing floating paper page, golden swirling wisps"
+    "artRef": "elderly plant-folk village chief with long white beard and drooping white mustache, crown of green leaves with red flower and green sprout cap, green robe draped with red and orange autumn leaves, glowing floating paper page, golden swirling wisps, a leafy wooden staff"
   },
   {
     "id": "tw-c3200122",
@@ -2762,7 +2762,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "dignified middle-aged clan patriarch with long black beard and mustache, tall pointed white hood with black lining, white wide-sleeved robe with black and teal fret-pattern trim, round dark ornamental belt plate, jade pendant tassel"
+    "artRef": "dignified middle-aged clan patriarch with long black beard and mustache, tall pointed white hood with black lining, white wide-sleeved robe with black and teal fret-pattern trim, round dark ornamental belt plate, jade pendant tassel, a dignified wooden staff"
   },
   {
     "id": "tw-c3200128",
@@ -2793,7 +2793,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "burly bare-chested martial artist with stocky round belly, black head wrap, short beard and wide grin, silver scale collar, white bandaged forearms, dark sash with large round silver belt buckle"
+    "artRef": "burly bare-chested martial artist with stocky round belly, black head wrap, short beard and wide grin, silver scale collar, white bandaged forearms, dark sash with large round silver belt buckle, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200130",
@@ -2822,7 +2822,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "rugged swordsman with dark hair tied in a topknot and stubble, worn maroon open robe over blue-grey inner robe, bead necklace, bandaged forearms, brown leather belt with pouches, large round wicker hat slung on his back"
+    "artRef": "rugged swordsman with dark hair tied in a topknot and stubble, worn maroon open robe over blue-grey inner robe, bead necklace, bandaged forearms, brown leather belt with pouches, large round wicker hat slung on his back, wielding a straight jian sword"
   },
   {
     "id": "tw-c3200131",
@@ -2882,7 +2882,7 @@
     "regions": [
       "아르데타인"
     ],
-    "artRef": "glamorous diva singer with long wavy black hair swept to one side, teal earrings and gem pendant, rust-red corset gown with dark feather trim, dark steel mechanical arm with glowing teal lights, black opera glove, vintage stage microphone stand"
+    "artRef": "glamorous diva singer with long wavy black hair swept to one side, teal earrings and gem pendant, rust-red corset gown with dark feather trim, dark steel mechanical arm with glowing teal lights, black opera glove, vintage stage microphone stand, singing with glowing music notes around her"
   },
   {
     "id": "tw-c3200144",
@@ -2914,7 +2914,7 @@
     "regions": [
       "슈샤이어"
     ],
-    "artRef": "elderly hooded priest with long white beard and mustache, white hood, layered white robes with copper-trimmed edges, white mantle with grey fur collar, dark inner robe, falling snow around him"
+    "artRef": "elderly hooded priest with long white beard and mustache, white hood, layered white robes with copper-trimmed edges, white mantle with grey fur collar, dark inner robe, falling snow around him, a frost staff"
   },
   {
     "id": "tw-c3200146",
@@ -3063,7 +3063,7 @@
     "regions": [
       "로헨델"
     ],
-    "artRef": "tall elven flame keeper with long straight white hair and glowing amber eyes, dark crimson and black armor with huge curved horn-like flared pauldrons, glowing ember gem on chest, long red robe, black braided belt, red cape, clawed black gauntlets with fiery glowing hands"
+    "artRef": "tall elven flame keeper with long straight white hair and glowing amber eyes, dark crimson and black armor with huge curved horn-like flared pauldrons, glowing ember gem on chest, long red robe, black braided belt, red cape, clawed black gauntlets with fiery glowing hands, a flame-topped staff"
   },
   {
     "id": "tw-c3200161",
@@ -3093,7 +3093,7 @@
     "regions": [
       "로헨델"
     ],
-    "artRef": "young elf mage woman with short ash-blond bob and pointed ears, teal and silver crystal tiara, white corset bodice under teal crystal breastplate, short blue cape, silver bracers, sheer white skirt, sweeping teal leaf-shaped wing flares rising from the shoulders"
+    "artRef": "young elf mage woman with short ash-blond bob and pointed ears, teal and silver crystal tiara, white corset bodice under teal crystal breastplate, short blue cape, silver bracers, sheer white skirt, sweeping teal leaf-shaped wing flares rising from the shoulders, a slender elven wand"
   },
   {
     "id": "tw-c3200164",
@@ -3153,7 +3153,7 @@
     "regions": [
       "욘"
     ],
-    "artRef": "stocky dwarf-like bomber with a dark topknot mohawk and shaved sides, pointed ears, bushy brows, long braided mustache and beard with gold rings, sleeveless slate-blue padded tunic with gold trim, bronze geometric pauldrons, wide gold-buckled leather belt, fingerless leather gloves, bare muscular arms"
+    "artRef": "stocky dwarf-like bomber with a dark topknot mohawk and shaved sides, pointed ears, bushy brows, long braided mustache and beard with gold rings, sleeveless slate-blue padded tunic with gold trim, bronze geometric pauldrons, wide gold-buckled leather belt, fingerless leather gloves, bare muscular arms, holding a lit round cartoon bomb in each hand"
   },
   {
     "id": "tw-c3200168",
@@ -3242,7 +3242,7 @@
     "regions": [
       "페이튼"
     ],
-    "artRef": "young male assassin with tousled silver-gray medium hair, crimson high-neck scarf, dark charcoal wrap coat, jagged black spiked feather-like shoulder armor, red armband with emblem on one arm, double brown leather belts, cloth-wrapped dark forearms"
+    "artRef": "young male assassin with tousled silver-gray medium hair, crimson high-neck scarf, dark charcoal wrap coat, jagged black spiked feather-like shoulder armor, red armband with emblem on one arm, double brown leather belts, cloth-wrapped dark forearms, twin daggers"
   },
   {
     "id": "tw-c3200171",
@@ -3331,7 +3331,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "mournful queen with her face hidden under a sheer white lace mesh veil draped to the shoulders, black halter gown with deep plunging neckline, brown leather buckled underbust corset with silver filigree, long flared black sleeves with patterned silver cuffs, flowing black skirt"
+    "artRef": "mournful queen with her face hidden under a sheer white lace mesh veil draped to the shoulders, black halter gown with deep plunging neckline, brown leather buckled underbust corset with silver filigree, long flared black sleeves with patterned silver cuffs, flowing black skirt, a slender royal scepter"
   },
   {
     "id": "tw-c3200179",
@@ -3482,7 +3482,7 @@
     "regions": [
       "파푸니카"
     ],
-    "artRef": "gentle tribal healer woman with long wavy blond hair, gold circlet with red forehead gem, red hibiscus behind one ear, turquoise beaded collar necklaces, flowing white low-cut gown, brown sash belt with turquoise stones, gold armband, white flower at hip, glowing healing wisps from open palm"
+    "artRef": "gentle tribal healer woman with long wavy blond hair, gold circlet with red forehead gem, red hibiscus behind one ear, turquoise beaded collar necklaces, flowing white low-cut gown, brown sash belt with turquoise stones, gold armband, white flower at hip, glowing healing wisps from open palm, a flowering healer's staff"
   },
   {
     "id": "tw-c3200401",
@@ -3512,7 +3512,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "elderly senate scribe with long swept-back silver hair and long gray beard, dark navy double-breasted coat with gold embroidery and buttons, ornate gold mask-shaped shoulder pauldron with purple tassels, gold filigree brooch, flowing purple silk sash draped across shoulder and waist"
+    "artRef": "elderly senate scribe with long swept-back silver hair and long gray beard, dark navy double-breasted coat with gold embroidery and buttons, ornate gold mask-shaped shoulder pauldron with purple tassels, gold filigree brooch, flowing purple silk sash draped across shoulder and waist, a glowing spell tome"
   },
   {
     "id": "tw-c3200403",
@@ -3542,7 +3542,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "young knightly mage with short auburn hair, dark bronze leather armor with angular layered shoulder plates and silver filigree, high collar with amber gem, spiked black gauntlets set with amber stones, dark blue orbs hanging at his belt"
+    "artRef": "young knightly mage with short auburn hair, dark bronze leather armor with angular layered shoulder plates and silver filigree, high collar with amber gem, spiked black gauntlets set with amber stones, dark blue orbs hanging at his belt, a knightly mage staff"
   },
   {
     "id": "tw-c3200404",
@@ -3602,7 +3602,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "elegant woman with wavy shoulder-length charcoal hair, small black feathered hat with mesh veil, black-and-silver gothic dress with ruffled high collar, sheer black chest panel, silver filigree-patterned corset bodice, layered black ruffled skirt"
+    "artRef": "elegant woman with wavy shoulder-length charcoal hair, small black feathered hat with mesh veil, black-and-silver gothic dress with ruffled high collar, sheer black chest panel, silver filigree-patterned corset bodice, layered black ruffled skirt, holding a small antique music box"
   },
   {
     "id": "tw-c3200406",
@@ -3633,7 +3633,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "cheerful little girl with long straight dark brown hair, colorful flower crown of white, pink and purple blossoms, cream long-sleeved blouse, dark blue pinafore dress with brown lace-up ties at chest and waist cord, drifting pink petals"
+    "artRef": "cheerful little girl with long straight dark brown hair, colorful flower crown of white, pink and purple blossoms, cream long-sleeved blouse, dark blue pinafore dress with brown lace-up ties at chest and waist cord, drifting pink petals, tiny fists raised in a fighting pose"
   },
   {
     "id": "tw-c3200503",
@@ -3662,7 +3662,7 @@
     "regions": [
       "로웬"
     ],
-    "artRef": "stern man with shoulder-length brown hair, dark engraved plate armor with a round chest emblem, thick black fur mantle, deep blue lining"
+    "artRef": "stern man with shoulder-length brown hair, dark engraved plate armor with a round chest emblem, thick black fur mantle, deep blue lining, wielding a heavy mercenary longsword"
   },
   {
     "id": "tw-c3200504",
@@ -3692,7 +3692,7 @@
     "regions": [
       "로웬"
     ],
-    "artRef": "bearded pirate captain in a black tricorn hat with red plumes, white open shirt, red and navy coat with gold trim, crossed leather bandoliers, leather gloves"
+    "artRef": "bearded pirate captain in a black tricorn hat with red plumes, white open shirt, red and navy coat with gold trim, crossed leather bandoliers, leather gloves, a purple-bladed cutlass and a flintlock pistol"
   },
   {
     "id": "tw-c3200505",
@@ -3782,7 +3782,7 @@
     "regions": [
       "로웬"
     ],
-    "artRef": "pointed-eared woman with a short black bob, white and crimson dress with gold trim and a flared skirt, high red collar, open palm raised"
+    "artRef": "pointed-eared woman with a short black bob, white and crimson dress with gold trim and a flared skirt, high red collar, open palm raised, a dark mage staff"
   },
   {
     "id": "tw-c3200511",
@@ -3813,7 +3813,7 @@
     "regions": [
       "로웬"
     ],
-    "artRef": "muscular man with shaved sides and a topknot, scarred face with tattoos, bare tattooed torso, single black steel pauldron over a fur mantle, leather belts"
+    "artRef": "muscular man with shaved sides and a topknot, scarred face with tattoos, bare tattooed torso, single black steel pauldron over a fur mantle, leather belts, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200512",
@@ -3842,7 +3842,7 @@
     "regions": [
       "로웬"
     ],
-    "artRef": "cool-eyed woman with long straight black hair and small forehead markings, black leather sleeveless outfit, grey feathered fur mantle, leather arm wraps"
+    "artRef": "cool-eyed woman with long straight black hair and small forehead markings, black leather sleeveless outfit, grey feathered fur mantle, leather arm wraps, twin daggers"
   },
   {
     "id": "tw-c3200601",
@@ -3872,7 +3872,7 @@
     "regions": [
       "엘가시아"
     ],
-    "artRef": "man with swept silver-white hair and a small gold wing ornament at the temple, white long coat with silver ornaments, white wings, hand raised palm up"
+    "artRef": "man with swept silver-white hair and a small gold wing ornament at the temple, white long coat with silver ornaments, white wings, hand raised palm up, holding a glowing open tome"
   },
   {
     "id": "tw-c3200602",
@@ -3902,7 +3902,7 @@
     "regions": [
       "엘가시아"
     ],
-    "artRef": "woman with long blue hair under a sheer white veil, spiked silver halo crown, white gown with silver jewelry and a blue gem, white wings, eyes lowered"
+    "artRef": "woman with long blue hair under a sheer white veil, spiked silver halo crown, white gown with silver jewelry and a blue gem, white wings, eyes lowered, glowing threads of prophecy spun between her fingers"
   },
   {
     "id": "tw-c3200603",
@@ -3993,7 +3993,7 @@
     "regions": [
       "플레체"
     ],
-    "artRef": "young woman with long wavy blonde hair, white hooded robe with gold embroidery over a dark red underdress, open gentle hands"
+    "artRef": "young woman with long wavy blonde hair, white hooded robe with gold embroidery over a dark red underdress, open gentle hands, a holy staff"
   },
   {
     "id": "tw-c3200702",
@@ -4053,7 +4053,7 @@
     "regions": [
       "림레이크"
     ],
-    "artRef": "small girl-like elder with long silver hair, curled golden horns and a purple flower headdress, red feather ear ornaments, green and white crop top, beaded belt and green skirt, bead necklaces"
+    "artRef": "small girl-like elder with long silver hair, curled golden horns and a purple flower headdress, red feather ear ornaments, green and white crop top, beaded belt and green skirt, bead necklaces, a staff hung with prayer beads"
   },
   {
     "id": "tw-c3200705",
@@ -4083,7 +4083,7 @@
     "regions": [
       "플레체"
     ],
-    "artRef": "young woman with wavy light-brown hair and a flower hairpin, green velvet gown with puffed sleeves and gold trim, white front panel, pendant necklace"
+    "artRef": "young woman with wavy light-brown hair and a flower hairpin, green velvet gown with puffed sleeves and gold trim, white front panel, pendant necklace, a small golden harp"
   },
   {
     "id": "tw-c3200802",
@@ -4113,7 +4113,7 @@
     "regions": [
       "볼다이크"
     ],
-    "artRef": "young man with curly black hair, sleeveless white tunic with gold geometric trim, blue and gold sash belt, gold necklace and bracer"
+    "artRef": "young man with curly black hair, sleeveless white tunic with gold geometric trim, blue and gold sash belt, gold necklace and bracer, a small glowing homunculus construct hovering beside him"
   },
   {
     "id": "tw-c3200804",
@@ -4143,7 +4143,7 @@
     "regions": [
       "볼다이크"
     ],
-    "artRef": "man with long dark hair braided back, dark sleeveless robe with a gold geometric chest panel, gold armband"
+    "artRef": "man with long dark hair braided back, dark sleeveless robe with a gold geometric chest panel, gold armband, a sage's staff"
   },
   {
     "id": "tw-c3200805",
@@ -4173,7 +4173,7 @@
     "regions": [
       "볼다이크"
     ],
-    "artRef": "man with swept silver-grey hair and a short beard, dark sleeveless robe with gold vertical stripes and a patterned gold chest, gold armbands"
+    "artRef": "man with swept silver-grey hair and a short beard, dark sleeveless robe with gold vertical stripes and a patterned gold chest, gold armbands, conjuring swirling elemental energy in his hands"
   },
   {
     "id": "tw-c3200806",
@@ -4203,7 +4203,7 @@
     "regions": [
       "볼다이크"
     ],
-    "artRef": "woman with long platinum hair in a high ponytail, gold earrings and choker, white draped gown with gold armlets and a gold floral shoulder piece set with a green gem, hand at her chin"
+    "artRef": "woman with long platinum hair in a high ponytail, gold earrings and choker, white draped gown with gold armlets and a gold floral shoulder piece set with a green gem, hand at her chin, a golden lute"
   },
   {
     "id": "tw-c3200134",
@@ -4294,7 +4294,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "ancient ghostly archmage with a long white beard and stern eyes, deep white hood, flowing white robes with braided trim, gold spiral emblems on both shoulders, woven white rope belt with gold buckle, pale wispy spectral mist"
+    "artRef": "ancient ghostly archmage with a long white beard and stern eyes, deep white hood, flowing white robes with braided trim, gold spiral emblems on both shoulders, woven white rope belt with gold buckle, pale wispy spectral mist, an ancient archmage staff"
   },
   {
     "id": "tw-c3200029",
@@ -4355,7 +4355,7 @@
     "regions": [
       "애니츠"
     ],
-    "artRef": "small curious sprout-folk boy with short black hair and pointed ears, tall green pointed leaf hat topped with a curling vine sprout and leaves, layered green leaf cape with brown seed-pod tassels, white tunic, big yellow leaf satchel tied with rope"
+    "artRef": "small curious sprout-folk boy with short black hair and pointed ears, tall green pointed leaf hat topped with a curling vine sprout and leaves, layered green leaf cape with brown seed-pod tassels, white tunic, big yellow leaf satchel tied with rope, tiny fists raised in a fighting pose"
   },
   {
     "id": "tw-c3200031",
@@ -4414,7 +4414,7 @@
     "regions": [
       "아르데타인"
     ],
-    "artRef": "boyish young commander with short swept silver-grey hair, black high-collared military coat with silver frog clasps and a red gem at the throat, layered silver wing-shaped pauldrons, black cape with red lining and tall upturned collar, silver-plated belt, black gloves"
+    "artRef": "boyish young commander with short swept silver-grey hair, black high-collared military coat with silver frog clasps and a red gem at the throat, layered silver wing-shaped pauldrons, black cape with red lining and tall upturned collar, silver-plated belt, black gloves, a compact high-tech laser device"
   },
   {
     "id": "tw-c3200034",
@@ -4444,7 +4444,7 @@
     "regions": [
       "아르데타인"
     ],
-    "artRef": "sultry woman with a chin-length platinum blonde bob swept over one eye, red lips, black studded choker, black leather corset dress with plunging neckline and high slit, layered silver shoulder plates and gauntlets, black cape with red lining and tall collar"
+    "artRef": "sultry woman with a chin-length platinum blonde bob swept over one eye, red lips, black studded choker, black leather corset dress with plunging neckline and high slit, layered silver shoulder plates and gauntlets, black cape with red lining and tall collar, a sleek high-tech pistol"
   },
   {
     "id": "tw-c3200036",
@@ -4474,7 +4474,7 @@
     "regions": [
       "아르데타인"
     ],
-    "artRef": "young engineer girl with long straight pale-blonde hair, white collared blouse with small blue brooch, dark navy puff-sleeved dress with light blue bodice and red underskirt, black spade-shaped motifs, silver four-pointed star clasps on the skirt, swirling white light ribbons"
+    "artRef": "young engineer girl with long straight pale-blonde hair, white collared blouse with small blue brooch, dark navy puff-sleeved dress with light blue bodice and red underskirt, black spade-shaped motifs, silver four-pointed star clasps on the skirt, swirling white light ribbons, a large mechanic's wrench"
   },
   {
     "id": "tw-c3200038",
@@ -4682,7 +4682,7 @@
     "regions": [
       "욘"
     ],
-    "artRef": "stout dwarf king with a long thick brown beard, golden crown set with a red gem, heavy dark fur mantle, ornate gold-and-steel plate armor with winged pauldrons, golden bracers, crimson tabard under a studded silver belt"
+    "artRef": "stout dwarf king with a long thick brown beard, golden crown set with a red gem, heavy dark fur mantle, ornate gold-and-steel plate armor with winged pauldrons, golden bracers, crimson tabard under a studded silver belt, wielding a broad royal sword"
   },
   {
     "id": "tw-c3200056",
@@ -4740,7 +4740,7 @@
     "regions": [
       "페이튼"
     ],
-    "artRef": "silent masked assassin with swept-back black hair, black metal mask over the lower face, dark slate-purple high-collared sleeveless coat, jagged olive-black thorn armor on shoulders, arms and chest, leather arm strap, torn coat tails"
+    "artRef": "silent masked assassin with swept-back black hair, black metal mask over the lower face, dark slate-purple high-collared sleeveless coat, jagged olive-black thorn armor on shoulders, arms and chest, leather arm strap, torn coat tails, twin daggers"
   },
   {
     "id": "tw-c3200058",
@@ -4770,7 +4770,7 @@
     "regions": [
       "페이튼"
     ],
-    "artRef": "stern young priest with short pale pink undercut hair, cream long coat with tall flared collar and gold filigree trim, ornate golden shoulder panels, gold cross emblem on a navy vestment, red sash belt with gold clasp"
+    "artRef": "stern young priest with short pale pink undercut hair, cream long coat with tall flared collar and gold filigree trim, ornate golden shoulder panels, gold cross emblem on a navy vestment, red sash belt with gold clasp, a holy staff"
   },
   {
     "id": "tw-c3200061",
@@ -4829,7 +4829,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "elegant queen with shoulder-length light brown hair, towering silver antler-like crown with crystal spikes and glowing blue gem, long white high-collared gown, ornate silver filigree shoulder armor, sweeping white wing-like panels behind her shoulders, dark navy cape"
+    "artRef": "elegant queen with shoulder-length light brown hair, towering silver antler-like crown with crystal spikes and glowing blue gem, long white high-collared gown, ornate silver filigree shoulder armor, sweeping white wing-like panels behind her shoulders, dark navy cape, a royal scepter"
   },
   {
     "id": "tw-c3200063",
@@ -4859,7 +4859,7 @@
     "regions": [
       "로헨델"
     ],
-    "artRef": "elf sorceress with pale lavender-white hair and pointed ears, tall ornate silver crested headdress, dark violet and silver armored gown, layered curved spiky pauldrons, long flowing pale lavender veil rising high behind her head and trailing to the ground"
+    "artRef": "elf sorceress with pale lavender-white hair and pointed ears, tall ornate silver crested headdress, dark violet and silver armored gown, layered curved spiky pauldrons, long flowing pale lavender veil rising high behind her head and trailing to the ground, an elven staff"
   },
   {
     "id": "tw-c3200091",
@@ -4889,7 +4889,7 @@
     "regions": [
       "섬"
     ],
-    "artRef": "aristocratic castle mistress with short black bob hair and pointed ears, red drop earrings, silver necklace with ruby pendant, crimson velvet gown with silver ornamental bodice panel, lace cuffs, large white feathered high collar flaring around her shoulders"
+    "artRef": "aristocratic castle mistress with short black bob hair and pointed ears, red drop earrings, silver necklace with ruby pendant, crimson velvet gown with silver ornamental bodice panel, lace cuffs, large white feathered high collar flaring around her shoulders, a crimson spell tome"
   },
   {
     "id": "tw-c3200092",
@@ -4919,7 +4919,7 @@
     "regions": [
       "아르데타인"
     ],
-    "artRef": "confident female mercenary with long wavy blonde hair and a side braid, red leather jacket with high collar and puffed shoulders, plunging neckline with cyan gem pendant, dark grey leather corset with silver buckles, black leather gloves"
+    "artRef": "confident female mercenary with long wavy blonde hair and a side braid, red leather jacket with high collar and puffed shoulders, plunging neckline with cyan gem pendant, dark grey leather corset with silver buckles, black leather gloves, a high-tech rifle"
   },
   {
     "id": "tw-c3200093",
@@ -4979,7 +4979,7 @@
     "regions": [
       "파푸니카"
     ],
-    "artRef": "cheerful tribal girl with very long blond twin tails crowned with white flowers and twig sprigs, white embroidered crop top and fringed patterned skirt, rust-orange shoulder cape, tribal arm tattoos, beaded bracelets and white wristband, feather-tassel pendant necklace"
+    "artRef": "cheerful tribal girl with very long blond twin tails crowned with white flowers and twig sprigs, white embroidered crop top and fringed patterned skirt, rust-orange shoulder cape, tribal arm tattoos, beaded bracelets and white wristband, feather-tassel pendant necklace, a tribal hand drum"
   },
   {
     "id": "tw-c3200301",
@@ -5008,7 +5008,7 @@
     "regions": [
       "파푸니카"
     ],
-    "artRef": "mysterious young woman with short teal-blue hair and one long beaded braid lock, long flowing crimson scarf, black studded leather crop top, bare midriff, bandaged arm with circular tribal tattoo, black fingerless gloves, strapped belts with gold sun ornament, arms crossed"
+    "artRef": "mysterious young woman with short teal-blue hair and one long beaded braid lock, long flowing crimson scarf, black studded leather crop top, bare midriff, bandaged arm with circular tribal tattoo, black fingerless gloves, strapped belts with gold sun ornament, arms crossed, twin curved daggers"
   },
   {
     "id": "tw-c3200305",
@@ -5068,7 +5068,7 @@
     "regions": [
       "로웬"
     ],
-    "artRef": "rugged man with swept-back dark blond hair and a full beard, bare tattooed chest under a huge black fur mantle, dark leather kilt studded with brass discs, wide ornate belt"
+    "artRef": "rugged man with swept-back dark blond hair and a full beard, bare tattooed chest under a huge black fur mantle, dark leather kilt studded with brass discs, wide ornate belt, wielding a huge battle axe"
   },
   {
     "id": "tw-c3200502",
@@ -5097,7 +5097,7 @@
     "regions": [
       "로웬"
     ],
-    "artRef": "fierce woman with long red hair, braids and teal tribal face paint, white fur mantle, silver chest plate over a bare midriff, bone and feather necklace, leather arm wraps"
+    "artRef": "fierce woman with long red hair, braids and teal tribal face paint, white fur mantle, silver chest plate over a bare midriff, bone and feather necklace, leather arm wraps, wielding a giant bow as tall as herself"
   },
   {
     "id": "tw-c3200600",
@@ -5127,7 +5127,7 @@
     "regions": [
       "엘가시아"
     ],
-    "artRef": "serene man with long platinum blond hair and a golden winged circlet, white robes with ornate gold winged shoulder armor set with turquoise gems, large white feathered wings, drifting feathers"
+    "artRef": "serene man with long platinum blond hair and a golden winged circlet, white robes with ornate gold winged shoulder armor set with turquoise gems, large white feathered wings, drifting feathers, wielding a radiant holy sword"
   },
   {
     "id": "tw-c3200700",
@@ -5157,7 +5157,7 @@
     "regions": [
       "플레체"
     ],
-    "artRef": "young boy with a neat ash-brown bob and blue eyes, white scarf, navy quilted vest over a white shirt and dark sleeves, brown belt with a pouch"
+    "artRef": "young boy with a neat ash-brown bob and blue eyes, white scarf, navy quilted vest over a white shirt and dark sleeves, brown belt with a pouch, a small orb of holy light cupped in his hands"
   },
   {
     "id": "tw-c3200801",
@@ -5187,7 +5187,7 @@
     "regions": [
       "볼다이크"
     ],
-    "artRef": "woman with long straight black hair and golden eyes, dark sleeveless high-collared robe with angular gold and silver shoulder plates, gold bracers"
+    "artRef": "woman with long straight black hair and golden eyes, dark sleeveless high-collared robe with angular gold and silver shoulder plates, gold bracers, a floating golden rune disc"
   },
   {
     "id": "tw-c3200000",
@@ -5217,7 +5217,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "young priest with short tousled silver-white hair, deep blue hooded cloak with high upturned collar and gold-trimmed shoulder patches, ornate silver winged filigree breastplate set with glowing blue gems, dark brown leather tunic, drifting teal light motes"
+    "artRef": "young priest with short tousled silver-white hair, deep blue hooded cloak with high upturned collar and gold-trimmed shoulder patches, ornate silver winged filigree breastplate set with glowing blue gems, dark brown leather tunic, drifting teal light motes, a holy staff"
   },
   {
     "id": "tw-c3200001",
@@ -5276,7 +5276,7 @@
     "regions": [
       "림레이크"
     ],
-    "artRef": "ageless sage with a youthful face and spiky silver-white hair, curved golden crescent crown sweeping out like horns, white ruffled collar, black buttoned tunic with yellow waist sash, long grey travel coat with orange-red lining and round emblem on the sleeve"
+    "artRef": "ageless sage with a youthful face and spiky silver-white hair, curved golden crescent crown sweeping out like horns, white ruffled collar, black buttoned tunic with yellow waist sash, long grey travel coat with orange-red lining and round emblem on the sleeve, a sage's staff"
   },
   {
     "id": "tw-c3200005",
@@ -5307,7 +5307,7 @@
     "regions": [
       "림레이크"
     ],
-    "artRef": "mischievous young martial artist with spiky brown hair, red headband with white cloth tails, wide grin, cream scarf wrapped around his neck, pale yellow shirt with leaf-shaped pendant, open grey coat with orange lining, red striped waist sash, bandaged wrists, swirling green leaves"
+    "artRef": "mischievous young martial artist with spiky brown hair, red headband with white cloth tails, wide grin, cream scarf wrapped around his neck, pale yellow shirt with leaf-shaped pendant, open grey coat with orange lining, red striped waist sash, bandaged wrists, swirling green leaves, bare-fisted martial arts stance with wrapped hands"
   },
   {
     "id": "tw-c3200008",
@@ -5368,7 +5368,7 @@
     "regions": [
       "엘가시아"
     ],
-    "artRef": "serene observer woman with long wavy honey-blonde hair and bangs, golden feather-wing hair ornament with a green gem, long white silk gown with plunging neckline, dark brown high-collared mantle with gold embroidered shoulder panel, black ribbon at the chest, drifting golden mist"
+    "artRef": "serene observer woman with long wavy honey-blonde hair and bangs, golden feather-wing hair ornament with a green gem, long white silk gown with plunging neckline, dark brown high-collared mantle with gold embroidered shoulder panel, black ribbon at the chest, drifting golden mist, a holy scepter"
   },
   {
     "id": "tw-c3200015",
@@ -5398,7 +5398,7 @@
     "regions": [
       "로헨델"
     ],
-    "artRef": "twin-souled elf queen split into two mirrored halves, ornate golden spired crowns with jewels, dark half with pale lavender skin and navy-and-black armored gown with blue gems, light half with closed eyes and white-and-gold gown with green accents, starry violet glow"
+    "artRef": "twin-souled elf queen split into two mirrored halves, ornate golden spired crowns with jewels, dark half with pale lavender skin and navy-and-black armored gown with blue gems, light half with closed eyes and white-and-gold gown with green accents, starry violet glow, a royal elven staff"
   },
   {
     "id": "tw-c3200016",
@@ -5428,7 +5428,7 @@
     "regions": [
       "욘"
     ],
-    "artRef": "brawny swaggering warrior with wild spiky red hair and thick red beard, golden horned circlet over a red headband, ornate gold-trimmed shoulder pauldron, massive ornate golden gauntlet, brown leather harness with many buckles and straps, cream cloth tunic"
+    "artRef": "brawny swaggering warrior with wild spiky red hair and thick red beard, golden horned circlet over a red headband, ornate gold-trimmed shoulder pauldron, massive ornate golden gauntlet, brown leather harness with many buckles and straps, cream cloth tunic, wielding a massive warhammer"
   },
   {
     "id": "tw-c3200019",
@@ -5547,7 +5547,7 @@
     "regions": [
       "베른"
     ],
-    "artRef": "mysterious swordsman with long straight silver-grey hair, long black leather greatcoat with jagged ornate panels and red ember glints, shadowy spiked horned dark-armored phantom at his side traced with glowing blue lines, cold blue aura"
+    "artRef": "mysterious swordsman with long straight silver-grey hair, long black leather greatcoat with jagged ornate panels and red ember glints, shadowy spiked horned dark-armored phantom at his side traced with glowing blue lines, cold blue aura, wielding a long sword"
   },
   {
     "id": "tw-esther-luteran",
@@ -5666,7 +5666,7 @@
     "regions": [
       "루테란"
     ],
-    "artRef": "pale demonic young man with long silver-white hair and dark facial markings, black high-collared coat, spiky black-and-gold armor on shoulders and arms, bare chest with glowing red gem and dark vein marks, clawed gauntlets, long grey cape, red dark energy wisps"
+    "artRef": "pale demonic young man with long silver-white hair and dark facial markings, black high-collared coat, spiky black-and-gold armor on shoulders and arms, bare chest with glowing red gem and dark vein marks, clawed gauntlets, long grey cape, red dark energy wisps, crackling dark red demonic energy in his clawed hands"
   },
   {
     "id": "tw-c3200017",

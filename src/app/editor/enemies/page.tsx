@@ -95,6 +95,7 @@ export default function EnemiesEditor() {
             onChange={(v) => set("artRef", v || undefined)}
             defaultKind={draft.isBoss ? "boss" : "enemy"}
             cardImage={cardImagePath(draft.id, draft.name, draft.isBoss ? "bosses" : "enemies")}
+            fileBase={draft.id}
           />
           <AppearanceFields value={draft.appearance} onChange={(v) => set("appearance", v)} />
           <TextField label="설명" value={draft.description ?? ""} onChange={(v) => set("description", v)} />

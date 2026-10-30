@@ -130,6 +130,8 @@ export default function TowersEditor() {
             grade={draft.grade}
             defaultKind="portrait"
             cardImage={cardImagePath(draft.id, draft.name, "allies")}
+            skillName={draft.skill?.name}
+            fileBase={draft.id}
           />
           <AppearanceFields value={draft.appearance} onChange={(v) => set("appearance", v)} />
           <TextField label="설명" value={draft.description ?? ""} onChange={(v) => set("description", v)} />

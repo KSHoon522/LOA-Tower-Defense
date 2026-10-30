@@ -23,8 +23,11 @@
 2. 카드에 없는 캐릭터를 새로 만들 때는 `character-references.md`의 PROMPT를 참고하거나,
    인벤 카드 DB(https://lostark.inven.co.kr/dataninfo/card/)·인게임 스크린샷을 보고 아래 작성 규칙대로 쓴다.
 3. 필요하면 artRef를 다듬는다 (카드 일러스트에 안 보이는 설정상 무기·이펙트를 추가하는 등).
-4. 도구(Gemini·ChatGPT / Midjourney)와 출력 형식(단일 이미지 / 스프라이트 시트 / 적 / 보스)을 고르고
+4. 도구(Gemini·ChatGPT / Midjourney)와 출력 형식(단일 이미지 / 스프라이트 시트 아군 4줄 / 적 2줄 / 적 / 보스)을 고르고
    **📋 프롬프트 생성 → 복사**. 도구에 따라 빼고 싶은 요소가 `Avoid: …` 문장 또는 `--no …`로 붙는다.
+   - 궁수(강습 화살)·총포(관통 사격) 캐릭터는 artRef에 무기가 없으면 `main weapon: a bow with arrows` / `a firearm`을
+     자동으로 붙인다. 카드에 무기가 안 보이면 "legendary weapon" 같은 키워드가 엉뚱한 장비(건틀릿 등)에 붙기 때문.
+     그래도 다른 무기로 나오면 artRef에 무기를 직접 적는다 (예: 니나브는 활로 바꿔 둠)
 5. **카드 이미지 첨부**를 켜 두면(기본) 버튼 옆에 첨부할 파일 경로가 보이고, 프롬프트 끝에
    "카드 일러스트는 얼굴·머리·옷·색 참고용, 배경과 화풍은 무시" 문장이 붙는다 (시트는 "모든 프레임 같은 디자인" 추가).
    카드 일러스트는 `npm run cards`로 `references/cards/`에 받아 둔다
@@ -32,6 +35,8 @@
 6. 이미지 생성 AI에 카드 이미지를 첨부하고 프롬프트를 붙여 생성. 단일 이미지로 디자인을 확정한 뒤
    그 결과와 카드를 함께 참조로 넣어 스프라이트 시트를 만들면 일관성이 좋다.
 7. 정리 후 외형 섹션의 **📤 업로드**로 올리고(→ `public/characters/`), 단일 이미지 또는 스프라이트 시트로 지정한다.
+   프롬프트 아래에 그 캐릭터용 정리 명령이 표시되고, 정리 스크립트가 출력한 JSON을 외형 섹션의
+   **🧩 정리 스크립트 결과 붙여넣기**에 넣으면 시트 칸(프레임 크기·배율·줄별 프레임/fps)이나 단일 이미지 경로가 한 번에 채워진다.
    - 단일 이미지: 흰 배경을 투명하게 (`--single`, 아래 "단일 이미지 정리")
    - 스프라이트 시트: 체커보드 제거 + 격자 재배치 (아래 "생성된 시트 정리")
 
@@ -116,10 +121,12 @@ huge imposing boss monster, screen-filling presence, dramatic lighting accents, 
 
 | 줄(row) | 애니메이션 | 권장 프레임 | 용도 |
 |---------|-----------|------------|------|
-| 0 | idle (대기) | 4 | 필수. 아군/적 공통 |
-| 1 | attack (공격) | 4 | 아군 타워 |
-| 2 | skill (스킬) | 6 | 아군 타워 |
-| 3 | walk (이동) | 6 | 적 캐릭터 |
+| 0 | idle (대기) | 4 | 필수. 아군은 평소 모습, 적은 walk가 없을 때 대신 사용 |
+| 1 | attack (공격) | 4 | 아군 — 공격할 때 0.25초 |
+| 2 | skill (스킬) | 6 | 아군 — 스킬 쓸 때 0.6초 |
+| 3 | walk (이동) | 6 | 적 — 이동 중 계속 (아군은 안 씀) |
+
+적은 걷기만 쓰므로 **스프라이트 시트 (적: 대기·걷기 2줄)** 를 고르면 2줄(대기 4 · 걷기 6)만 요청합니다.
 
 자동 삽입 문구:
 ```
@@ -140,15 +147,18 @@ consistent size and position across all frames, no labels, no grid lines
 
 ```bash
 pip install pillow numpy   # 최초 1회
-python3 scripts/fix_sprite_sheet.py 원본.png public/characters/캐릭터-sheet.png \
-  --rows 5,5,6,6 --anims idle,attack,skill,walk --fps 6,20,10,8
+python3 scripts/fix_sprite_sheet.py 원본.png public/characters/캐릭터-sheet.png --rows 5,5,6,6   # 아군 4줄
+python3 scripts/fix_sprite_sheet.py 원본.png public/characters/캐릭터-sheet.png --rows 4,6       # 적 2줄
 ```
 
 - `--rows`: 위에서부터 줄마다 실제로 그려진 프레임 수 (이미지를 보고 세어서 입력)
+- 애니메이션 이름은 줄 수로 정함 (2줄 idle·walk / 3줄 idle·attack·skill / 4줄 idle·attack·skill·walk / 5줄 +death),
+  fps는 프레임 수로 계산 (아래 권장값). 직접 정하려면 `--anims idle,attack,skill,walk --fps 6,20,10,8`
 - 체커보드 제거: 테두리와 이어진 회색 영역을 지우고, 발광 이펙트는 반투명으로 복원 (외곽선 안쪽 그림은 보존)
 - 재배치: 머리 위치를 기준으로 모든 프레임을 같은 크기 칸에 정렬
-- 출력 JSON의 `sprite`를 캐릭터 외형의 스프라이트 시트 설정에 그대로 입력 (`scale`은 몸 폭이 타일의 약 75%가 되는 값)
-- fps 권장: 공격은 모션이 0.25초라 `프레임 수 ÷ 0.25`, 스킬은 0.6초라 `프레임 수 ÷ 0.6`
+- 출력 JSON을 에디터 외형 섹션의 **🧩 정리 스크립트 결과 붙여넣기**에 통째로 넣고 적용 → 저장
+  (`scale`은 몸 폭이 타일의 약 75%가 되는 값)
+- fps 기본값: 대기 6, 공격은 모션이 0.25초라 `프레임 수 ÷ 0.25`, 스킬은 0.6초라 `프레임 수 ÷ 0.6`, 걷기 8
 
 적용 예: 에스더 루테란 (`public/characters/luteran-sheet.png`)
 

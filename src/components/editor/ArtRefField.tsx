@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Grade } from "@/game/types";
-import { buildPrompt, type PromptKind, type PromptTool } from "@/lib/prompt";
+import { buildPrompt, fixerCommand, isSheet, weaponHint, type PromptKind, type PromptTool } from "@/lib/prompt";
 
 /** 도구·첨부 선택은 브라우저에 기억 (캐릭터를 바꿔도 유지) */
 const OPTS_KEY = "rotadi:prompt-opts";
@@ -31,6 +31,8 @@ export default function ArtRefField({
   grade,
   defaultKind,
   cardImage,
+  skillName,
+  fileBase,
 }: {
   name: string;
   value: string;
@@ -39,6 +41,10 @@ export default function ArtRefField({
   defaultKind: PromptKind;
   /** npm run cards로 받은 카드 일러스트 경로 (카드 인물이 아니면 null) */
   cardImage?: string | null;
+  /** 아군 스킬 이름 — 궁수·총포는 주무기 문구를 자동으로 붙임 */
+  skillName?: string;
+  /** 정리 명령에 쓸 결과 파일 이름 (보통 캐릭터 id) */
+  fileBase?: string;
 }) {
   const [kind, setKind] = useState<PromptKind>(defaultKind);
   const [frameSize, setFrameSize] = useState(64);
@@ -60,7 +66,7 @@ export default function ArtRefField({
 
   const withReference = opts.withReference && !!cardImage;
   const generate = () => {
-    const p = buildPrompt({ name, artRef: value, grade, kind, frameSize, tool: opts.tool, withReference });
+    const p = buildPrompt({ name, artRef: value, grade, kind, frameSize, tool: opts.tool, withReference, skillName });
     setOutput(p);
     setCopied(false);
   };
@@ -107,11 +113,12 @@ export default function ArtRefField({
           onChange={(e) => setKind(e.target.value as PromptKind)}
         >
           <option value="portrait">단일 이미지 (아군)</option>
-          <option value="sheet">스프라이트 시트</option>
+          <option value="sheet">스프라이트 시트 (아군 4줄)</option>
+          <option value="sheet-walk">스프라이트 시트 (적: 대기·걷기 2줄)</option>
           <option value="enemy">적 (일반)</option>
           <option value="boss">적 (보스)</option>
         </select>
-        {kind === "sheet" && (
+        {isSheet(kind) && (
           <select
             className="input w-auto text-xs"
             value={frameSize}
@@ -154,6 +161,21 @@ export default function ArtRefField({
           value={output}
           onFocus={(e) => e.target.select()}
         />
+      )}
+      {output && (
+        <div className="space-y-1 text-[11px] text-slate-500">
+          {weaponHint(skillName, value) && (
+            <p>
+              artRef에 무기가 없어 역할에 맞는 주무기(<code>{weaponHint(skillName, value)}</code>)를 붙였습니다. 다른 무기로
+              나오면 artRef에 무기를 직접 적어 주세요.
+            </p>
+          )}
+          <p>
+            생성 후 정리: <code className="select-all text-slate-300">{fixerCommand(kind, fileBase ?? "")}</code>
+            {isSheet(kind) && " (--rows는 생성된 이미지에서 줄별 프레임 수를 세어 입력)"} → 출력된 JSON을 아래 외형의
+            &quot;정리 스크립트 결과 붙여넣기&quot;에 넣으면 설정이 채워집니다.
+          </p>
+        </div>
       )}
     </fieldset>
   );

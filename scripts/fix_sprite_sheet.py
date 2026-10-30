@@ -21,8 +21,9 @@ AI 생성 스프라이트 시트 정리 — 가짜 투명(체커보드 배경) �
     (지우지 않으면 후보 개수를 알려 줌, --debug로 결과 미리보기)
 
 사용:
-  python3 scripts/fix_sprite_sheet.py 입력.png 출력.png --rows 5,5,6,6 \\
-      --anims idle,attack,skill,walk --fps 6,20,10,8 [--src /characters/출력.png]
+  python3 scripts/fix_sprite_sheet.py 입력.png 출력.png --rows 5,5,6,6 [--src /characters/출력.png]
+      (줄 수로 애니메이션 이름을, 프레임 수로 fps를 정함. 직접 정하려면 --anims idle,attack,skill,walk --fps 6,20,10,8)
+  python3 scripts/fix_sprite_sheet.py 입력.png 출력.png --rows 4,6     # 적: 대기·걷기 2줄
   python3 scripts/fix_sprite_sheet.py 입력.png public/characters/이름.png --single [--holes] [--size 512]
 필요: pip install pillow numpy
 """
@@ -451,14 +452,32 @@ def frame_anchor(a: np.ndarray) -> tuple[float, float]:
     return float(hx), float((top + bottom) / 2)
 
 
+DEFAULT_ANIMS = {
+    1: ["idle"],
+    2: ["idle", "walk"],
+    3: ["idle", "attack", "skill"],
+    4: ["idle", "attack", "skill", "walk"],
+    5: ["idle", "attack", "skill", "walk", "death"],
+}
+
+
+def default_fps(name: str, frames: int) -> float:
+    if name == "attack":
+        return round(frames / 0.25)
+    if name == "skill":
+        return round(frames / 0.6)
+    return 6 if name == "idle" else 8
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("input")
     ap.add_argument("output")
     ap.add_argument("--single", action="store_true", help="단일 이미지: 배경만 투명하게 + 정사각 캔버스")
     ap.add_argument("--rows", help="줄별 프레임 수, 예: 5,5,6,6 (시트일 때 필수)")
-    ap.add_argument("--anims", default="idle,attack,skill,walk,death", help="줄 순서대로 애니메이션 이름")
-    ap.add_argument("--fps", default="6,20,10,8,8", help="줄 순서대로 fps")
+    ap.add_argument("--anims", help="줄 순서대로 애니메이션 이름 (기본: 줄 수에 따라 2줄 idle,walk / 3줄 idle,attack,skill / "
+                                    "4줄 idle,attack,skill,walk / 5줄 +death)")
+    ap.add_argument("--fps", help="줄 순서대로 fps (기본: idle 6, attack 프레임÷0.25초, skill 프레임÷0.6초, walk·death 8)")
     ap.add_argument("--src", help="설정에 넣을 경로 (기본: /characters/<출력 파일명>)")
     ap.add_argument("--pad", type=int, default=6, help="칸 여백(px)")
     ap.add_argument("--debug", help="배경 제거 결과(재배치 전) 저장 경로")
@@ -476,8 +495,11 @@ def main():
         ap.error("시트는 --rows가 필요합니다 (단일 이미지는 --single)")
 
     counts = [int(c) for c in args.rows.split(",")]
-    names = args.anims.split(",")
-    fps = [float(f) for f in args.fps.split(",")]
+    names = args.anims.split(",") if args.anims else DEFAULT_ANIMS.get(len(counts), DEFAULT_ANIMS[5])[:len(counts)]
+    if len(names) < len(counts):
+        ap.error(f"--anims 이름이 {len(names)}개인데 줄은 {len(counts)}개입니다")
+    # 게임의 모션 시간: 공격 0.25초, 스킬 0.6초 (src/game/render.ts)
+    fps = [float(f) for f in args.fps.split(",")] if args.fps else [default_fps(n, c) for n, c in zip(names, counts)]
 
     img = np.asarray(Image.open(args.input).convert("RGB"), dtype=float)
     color, alpha, info = remove_background(img)

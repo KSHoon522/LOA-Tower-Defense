@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Appearance, SpriteAnim, SpriteSheet } from "@/game/types";
+import { parseFixerOutput } from "@/lib/spriteImport";
 import { CheckField, NumberField, SelectField, TextField } from "./crud";
 
 const SHAPES = [
@@ -101,6 +102,59 @@ function AnimRow({
   );
 }
 
+/** scripts/fix_sprite_sheet.py가 출력한 JSON을 붙여넣으면 시트/이미지 설정을 한 번에 채움 */
+function FixerPaste({ value, onChange }: { value: Appearance; onChange: (v: Appearance) => void }) {
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
+  const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
+
+  const apply = () => {
+    const r = parseFixerOutput(text);
+    if ("error" in r) {
+      setMsg({ ok: false, text: r.error });
+      return;
+    }
+    if ("sprite" in r) {
+      onChange({ ...value, sprite: r.sprite });
+      const names = Object.keys(r.sprite.animations).join(", ");
+      setMsg({ ok: true, text: `스프라이트 시트 적용: ${r.sprite.src} (${names}) — 저장해야 반영됩니다` });
+    } else {
+      onChange({ ...value, image: r.image });
+      setMsg({ ok: true, text: `단일 이미지 적용: ${r.image} — 저장해야 반영됩니다` });
+    }
+    setText("");
+  };
+
+  return (
+    <div className="rounded border border-slate-800 p-2">
+      <button type="button" className="text-xs font-bold text-slate-300" onClick={() => setOpen(!open)}>
+        {open ? "▾" : "▸"} 🧩 정리 스크립트 결과 붙여넣기 (fix_sprite_sheet.py 출력)
+      </button>
+      {open && (
+        <div className="mt-2 space-y-2">
+          <textarea
+            className="input font-mono text-[11px]"
+            rows={5}
+            value={text}
+            placeholder={'{\n  "sheet": [...],\n  "sprite": { "src": "/characters/xxx-sheet.png", ... }\n}'}
+            onChange={(e) => setText(e.target.value)}
+          />
+          <div className="flex flex-wrap items-center gap-2">
+            <button type="button" className="btn btn-primary text-xs" disabled={!text.trim()} onClick={apply}>
+              적용
+            </button>
+            <span className="text-[11px] text-slate-500">
+              시트 출력은 스프라이트 시트 칸을, <code>--single</code> 출력은 단일 이미지 경로를 채웁니다. 이미지 파일은 먼저{" "}
+              <code>public/characters/</code>에 있어야 합니다.
+            </span>
+          </div>
+          {msg && <p className={`text-xs ${msg.ok ? "text-emerald-400" : "text-red-400"}`}>{msg.text}</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AppearanceFields({
   value,
   onChange,
@@ -146,6 +200,8 @@ export default function AppearanceFields({
           onChange={(v) => onChange({ ...value, flipToFace: v })}
         />
       </div>
+
+      <FixerPaste value={value} onChange={onChange} />
 
       {/* 단일 이미지 */}
       <div className="flex items-end gap-2">

@@ -275,6 +275,12 @@ body {
       0 2px 0 var(--tc);
   }
 
+  /* 버튼 밖에 홀로 놓인 아이콘도 외곽선 + 아래 두께 (아래로만 그림자를 주면 아이콘이 겹쳐 찍힌 것처럼 보임) */
+  .icon-toon {
+    filter: drop-shadow(1px 0 0 var(--line)) drop-shadow(-1px 0 0 var(--line)) drop-shadow(0 -1px 0 var(--line))
+      drop-shadow(0 2px 0 var(--line));
+  }
+
   /* 그라데이션 제목 글자 + 굵은 외곽선 (background-clip 글자는 text-shadow 대신 filter로 외곽선) */
   .text-gold-grad,
   .text-blood-grad,

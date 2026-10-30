@@ -61,7 +61,7 @@ export default function ShopPanel({
             <div className="flex items-start gap-3">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
-                  <Icon name="gem" className="shrink-0 text-lg text-gold-300 drop-shadow-[0_2px_0_#1b1438]" />
+                  <Icon name="gem" className="icon-toon shrink-0 text-lg text-gold-300" />
                   <span className="truncate font-display text-lg text-parchment-50 text-toon-sm">{g.name}</span>
                   {g.regionMode === "fixed" && g.fixedRegion && <span className="chip">{g.fixedRegion}</span>}
                 </div>

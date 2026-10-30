@@ -1048,14 +1048,14 @@ export default function GameClient() {
         >
           <Icon
             name="heart"
-            className="absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-blood-400 drop-shadow-[0_2px_0_#1b1438] sm:text-[30px]"
+            className="icon-toon absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-blood-400 sm:text-[30px]"
           />
           <span className="font-display text-base text-parchment-50 text-toon-sm sm:text-lg">{engine.lives}</span>
         </div>
         <div className="plate relative ml-1.5 h-8 pl-6 pr-2.5 sm:h-9 sm:pl-7 sm:pr-3" title="골드">
           <Icon
             name="coin"
-            className="absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-gold-400 drop-shadow-[0_2px_0_#1b1438] sm:text-[30px]"
+            className="icon-toon absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-gold-400 sm:text-[30px]"
           />
           <span className="min-w-[2.5ch] font-display text-base text-gold-300 text-toon-sm sm:text-lg">{gold}</span>
         </div>

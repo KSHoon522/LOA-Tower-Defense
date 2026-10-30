@@ -75,7 +75,6 @@ export function ResultOverlay({
               >
                 <Icon
                   name="star"
-                  className="drop-shadow-[0_3px_0_#1b1438]"
                   style={{
                     filter:
                       "drop-shadow(2px 0 0 #1b1438) drop-shadow(-2px 0 0 #1b1438) drop-shadow(0 -2px 0 #1b1438) drop-shadow(0 3px 0 #1b1438)",
@@ -342,9 +341,9 @@ export function FusionPopover({
       <div className="frame animate-pop-in rounded-2xl p-3 text-xs" style={{ transformOrigin: "bottom center" }}>
         <div className="flex items-center justify-center gap-2">
           <GradeSlot grade={a.grade} appearance={a.appearance} size={42} />
-          <Icon name="plus" className="text-lg text-parchment-50 drop-shadow-[0_2px_0_#1b1438]" />
+          <Icon name="plus" className="icon-toon text-lg text-parchment-50" />
           <GradeSlot grade={b.grade} appearance={b.appearance} size={42} />
-          <Icon name="chevronRight" className="text-lg text-gold-300 drop-shadow-[0_2px_0_#1b1438]" />
+          <Icon name="chevronRight" className="icon-toon text-lg text-gold-300" />
           <div
             className="flex h-[42px] w-[42px] animate-[wiggle_1.4s_ease-in-out_infinite] items-center justify-center rounded-xl border-[3px] border-line font-display text-2xl text-parchment-50 text-toon-sm"
             style={{ backgroundColor: GRADE_COLOR[next], boxShadow: "inset 0 3px 0 rgba(255,255,255,0.4), 0 3px 0 #1b1438" }}

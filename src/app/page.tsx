@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import GradeSlot, { BOSS_PALETTE } from "@/components/ui/GradeSlot";
 import Icon, { JOB_GROUP_ICON, type IconName } from "@/components/ui/Icon";
 import JobEmblem from "@/components/ui/JobEmblem";
@@ -354,13 +354,14 @@ export default function LobbyPage() {
                             background: active
                               ? "linear-gradient(180deg,#ffe55e 0%,#ffd83a 50%,#ffb81c 50%,#ffa90f 100%)"
                               : "linear-gradient(180deg,#5878e6 0%,#4d6bdc 50%,#3b56c6 50%,#344dba 100%)",
+                            // 선택 테두리는 아래 두께(립)까지 감싸야 동그라미와 어긋나 보이지 않음
                             boxShadow: `inset 0 3px 0 rgba(255,255,255,0.45), 0 ${active ? 6 : 4}px 0 #1b1438${
-                              active ? ", 0 0 0 4px rgba(255,255,255,0.35)" : ""
+                              active ? ", 0 6px 0 4px #8b9fe8, 0 0 0 4px #8b9fe8" : ""
                             }`,
                           }}
                         >
                           {isBoss && (
-                            <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-xl text-gold-300 drop-shadow-[0_2px_0_#1b1438]">
+                            <span className="icon-toon absolute -top-3 left-1/2 -translate-x-1/2 text-xl text-gold-300">
                               <Icon name="crown" />
                             </span>
                           )}
@@ -505,7 +506,7 @@ export default function LobbyPage() {
                   <button
                     key={j.id}
                     onClick={() => setJobId(j.id)}
-                    className={`group flex animate-pop-in flex-col items-center gap-1 rounded-xl px-1 py-2 transition duration-200 ease-spring ${
+                    className={`group flex animate-pop-in flex-col items-center gap-2.5 rounded-xl px-1 py-2 transition duration-200 ease-spring ${
                       active ? "-translate-y-0.5 bg-white/15" : "hover:-translate-y-0.5 hover:bg-white/5"
                     }`}
                     style={{ animationDelay: `${i * 45}ms` }}
@@ -517,7 +518,7 @@ export default function LobbyPage() {
                       style={{
                         background: `linear-gradient(180deg, ${color} 0%, ${color} 50%, color-mix(in srgb, ${color} 70%, #1b1438) 50%)`,
                         boxShadow: `inset 0 3px 0 rgba(255,255,255,0.4), 0 3px 0 #1b1438${
-                          active ? ", 0 0 0 3px #ffe266" : ""
+                          active ? ", 0 3px 0 3px #ffe266, 0 0 0 3px #ffe266" : ""
                         }`,
                       }}
                     >
@@ -665,16 +666,22 @@ function LobbyShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** 둥근 덩이 다섯 개 + 평평한 밑면 (viewBox 안에서 닫힘) */
+const CLOUD_PATH =
+  "M44 82A20 20 0 0 1 30 50A32 32 0 0 1 84 22A34 34 0 0 1 146 28A24 24 0 0 1 182 52A16 16 0 0 1 176 82Z";
+
 /** 외곽선 없는 납작한 카툰 구름 */
 function Cloud({ className, style }: { className?: string; style?: React.CSSProperties }) {
+  const mask = `cloud-rim${useId().replace(/:/g, "")}`;
   return (
     <svg viewBox="0 0 220 90" className={className} style={style}>
-      <path
-        d="M30 78c-16 0-26-10-26-22s10-22 24-22c2-15 16-26 33-26 12 0 23 6 29 15 5-3 11-5 18-5 18 0 32 13 33 29 4-1 7-2 11-2 17 0 30 11 30 26s-12 25-28 25H30z"
-        fill="#ffffff"
-        fillOpacity="0.16"
-      />
-      <path d="M30 78h152c-6 4-14 6-22 6H52c-9 0-16-2-22-6z" fill="#0b1040" fillOpacity="0.12" />
+      {/* 밑그늘: 구름 모양에서 위로 올린 구름 모양을 뺀 부분만 → 덩이 윤곽을 따라가는 밑테 */}
+      <mask id={mask}>
+        <path d={CLOUD_PATH} fill="#fff" />
+        <path d={CLOUD_PATH} fill="#000" transform="translate(0 -7)" />
+      </mask>
+      <path d={CLOUD_PATH} fill="#ffffff" fillOpacity="0.16" />
+      <rect width="220" height="90" fill="#0b1040" fillOpacity="0.12" mask={`url(#${mask})`} />
     </svg>
   );
 }

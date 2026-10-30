@@ -33,9 +33,13 @@ const ICONS = {
   ),
   crown: (
     <>
-      <path fill="currentColor" d="M3 7.5l4.6 4.1L12 4.8l4.4 6.8L21 7.5l-1.8 10.4H4.8z" />
-      <rect x="4.8" y="19" width="14.4" height="2" rx=".6" fill="currentColor" />
-      <circle cx="12" cy="13.6" r="1.5" {...SHADE} />
+      {/* 받침까지 한 덩어리 (따로 떨어진 받침은 그림자·외곽선이 두 줄로 겹쳐 보임) */}
+      <path
+        fill="currentColor"
+        d="M3 7.5l4.6 4.1L12 4.8l4.4 6.8L21 7.5l-1.6 9.4v3.3a.8.8 0 0 1-.8.8H5.4a.8.8 0 0 1-.8-.8v-3.3z"
+      />
+      <rect x="4.6" y="16.9" width="14.8" height="1.2" {...SHADE} />
+      <circle cx="12" cy="12.8" r="1.5" {...SHADE} />
     </>
   ),
   skull: (

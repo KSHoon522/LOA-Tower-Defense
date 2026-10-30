@@ -52,7 +52,12 @@ export default function SkillButton({
           "inset 0 3px 0 rgba(255,255,255,0.4)",
           "inset 0 -4px 0 rgba(0,0,0,0.18)",
           "0 4px 0 #1b1438",
-          aiming ? "0 0 0 4px #ff9d4d" : ready ? "0 0 0 3px rgba(255,226,102,0.85)" : "",
+          // 테두리는 아래 두께까지 감싸야 버튼 밑에서 끊기지 않음 (불투명 색이라야 두 겹이 겹쳐도 얼룩이 안 짐)
+          aiming
+            ? "0 4px 0 4px #ff9d4d, 0 0 0 4px #ff9d4d"
+            : ready
+              ? "0 4px 0 3px #ffe266, 0 0 0 3px #ffe266"
+              : "",
         ]
           .filter(Boolean)
           .join(", "),

@@ -201,7 +201,7 @@ export function ChipsField({
   return (
     <div>
       <label className="label">{label}</label>
-      <div className="flex flex-wrap items-center gap-1 rounded-md border border-slate-700 bg-slate-950 p-1.5">
+      <div className="input flex flex-wrap items-center gap-1 py-1.5">
         {value.map((v) => (
           <span
             key={v}
@@ -218,7 +218,7 @@ export function ChipsField({
           </span>
         ))}
         <select
-          className="min-w-24 flex-1 bg-transparent text-xs text-slate-400 outline-none"
+          className="min-w-24 flex-1 bg-transparent text-xs text-parchment-300 outline-none"
           value=""
           onChange={(e) => {
             if (e.target.value) onChange([...value, e.target.value]);

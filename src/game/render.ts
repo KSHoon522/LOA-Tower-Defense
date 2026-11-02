@@ -53,6 +53,8 @@ interface RenderCache {
   facing: Map<string, { x: number; f: number }>;
   /** 투사체 uid → 최근 화면 좌표 [x0, y0, x1, y1, …] */
   trails: Map<string, number[]>;
+  /** 스킬 이름표 uid → 겹침을 피해 옮긴 줄 수 (처음 뜰 때 정하고 끝까지 유지) */
+  labelShift: Map<string, number>;
   lastFrame: number;
   frame: number;
 }
@@ -88,6 +90,7 @@ export function createViewState(tileSize: number): ViewState {
       hpTrail: new Map(),
       facing: new Map(),
       trails: new Map(),
+      labelShift: new Map(),
       lastFrame: 0,
       frame: 0,
     },
@@ -1194,7 +1197,8 @@ function drawTower(
     const fr = R * (1.1 + easeOutCubic(k) * 0.7);
     ctx.globalAlpha = alpha * (1 - k);
     starPath(ctx, 0, 0, fr, fr * 0.78, 12, now / 400);
-    ctx.fillStyle = withAlpha(color, 0.35);
+    // 반투명 원색은 어두운 바닥(악몽·용암 등)에서 검은 얼룩처럼 보여 밝게 섞음
+    ctx.fillStyle = withAlpha(mix(color, "#ffffff", 0.3), 0.85);
     ctx.fill();
     outline(ctx, 2.5);
     ctx.globalAlpha = alpha * Math.min(1, appear * 1.6);
@@ -1688,6 +1692,8 @@ export function drawGame(ctx: CanvasRenderingContext2D, engine: GameEngine, view
   ctx.restore();
 
   // ---- 이펙트 ----
+  // 이번 프레임에 그린 스킬 이름표 자리 (이웃 타워가 같이 스킬을 쓰면 이름표가 겹치지 않게)
+  const labelBoxes: { x: number; y: number; w: number; h: number }[] = [];
   for (const fx of engine.effects) {
     const [cx, cy] = S(fx.pos.x, fx.pos.y);
     const k = Math.min(1, fx.t / fx.duration);
@@ -1832,9 +1838,21 @@ export function drawGame(ctx: CanvasRenderingContext2D, engine: GameEngine, view
         const pop = k < 0.12 ? 0.6 + easeOutBack(k / 0.12) * 0.4 : 1;
         const rise = easeOutCubic(k) * ts * 0.45;
         const alpha = k > 0.7 ? 1 - (k - 0.7) / 0.3 : 1;
-        const y = Math.max(h / 2 + 3, cy - ts * 0.35 - rise);
         // 판 가장자리에서 잘리지 않게
         const x = Math.min(Math.max(cx, w / 2 + 3), W - w / 2 - 3);
+        const baseY = Math.max(h / 2 + 3, cy - ts * 0.35 - rise);
+        const step = h + 3;
+        const yAt = (n: number) => baseY + n * step;
+        const hits = (n: number) =>
+          labelBoxes.some((b) => Math.abs(b.x - x) < (b.w + w) / 2 && Math.abs(b.y - yAt(n)) < (b.h + h) / 2);
+        let shift = cache.labelShift.get(fx.uid);
+        if (shift === undefined) {
+          // 위로 먼저, 판 위쪽 끝이면 아래로
+          shift = [0, -1, -2, 1, -3, 2].find((n) => yAt(n) >= h / 2 + 3 && yAt(n) <= H - h / 2 - 3 && !hits(n)) ?? 0;
+          cache.labelShift.set(fx.uid, shift);
+        }
+        const y = yAt(shift);
+        labelBoxes.push({ x, y, w, h });
         ctx.globalAlpha = alpha;
         ctx.translate(x, y);
         ctx.scale(pop, pop);
@@ -1887,5 +1905,6 @@ export function drawGame(ctx: CanvasRenderingContext2D, engine: GameEngine, view
     prune(cache.hpTrail, alive);
     prune(cache.facing, alive);
     prune(cache.trails, new Set(engine.projectiles.map((p) => p.uid)));
+    prune(cache.labelShift, new Set(engine.effects.map((fx) => fx.uid)));
   }
 }

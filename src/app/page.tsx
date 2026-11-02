@@ -56,6 +56,8 @@ export default function LobbyPage() {
   const [save, setSave] = useState<SaveSlot | null>(null);
   const [launching, setLaunching] = useState(false);
   const chapterTabsRef = useRef<HTMLDivElement | null>(null);
+  // 챕터 탭 줄이 좌우로 더 있으면 그쪽 가장자리를 흐리게 (딱 잘린 탭 대신)
+  const [tabEdge, setTabEdge] = useState({ left: false, right: false });
 
   useEffect(() => {
     setSave(loadSave());
@@ -101,6 +103,20 @@ export default function LobbyPage() {
     if (!box || !el) return;
     box.scrollTo({ left: el.offsetLeft - box.clientWidth / 2 + el.clientWidth / 2, behavior: "smooth" });
   }, [data, chapterId]);
+
+  useEffect(() => {
+    const box = chapterTabsRef.current;
+    if (!box) return;
+    const update = () =>
+      setTabEdge({ left: box.scrollLeft > 2, right: box.scrollLeft + box.clientWidth < box.scrollWidth - 2 });
+    update();
+    box.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      box.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [data]);
 
   const enemyById = useMemo(
     () => new Map<string, EnemyDef>((data?.enemies ?? []).map((e) => [e.id, e])),
@@ -225,7 +241,14 @@ export default function LobbyPage() {
                 <span className="chip">웨이브 {save.snapshot.wave}</span>
                 <span className="chip">{DIFFICULTY[save.difficulty].label}</span>
                 {savedJob && <span className="chip">{savedJob.name}</span>}
-                <span className="self-center text-parchment-300">{new Date(save.savedAt).toLocaleString()}</span>
+                <span className="self-center text-parchment-300">
+                  {new Date(save.savedAt).toLocaleString("ko-KR", {
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}
+                </span>
               </div>
             </div>
             <div className="flex gap-2">
@@ -263,7 +286,15 @@ export default function LobbyPage() {
 
             {/* 챕터 */}
             {data.chapters.length > 1 && (
-              <div ref={chapterTabsRef} className="relative -mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-2 pt-1">
+              <div
+                ref={chapterTabsRef}
+                className="relative -mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-2 pt-1"
+                style={{
+                  maskImage: `linear-gradient(to right, ${tabEdge.left ? "transparent, #000 28px" : "#000"}, ${
+                    tabEdge.right ? "#000 calc(100% - 28px), transparent" : "#000"
+                  })`,
+                }}
+              >
                 {data.chapters.map((c, i) => {
                   const active = chapterId === c.id;
                   const accent = floorTheme(c.region ?? data.maps.find((m) => m.id === c.mapId)?.region).accent;

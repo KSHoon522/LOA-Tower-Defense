@@ -70,7 +70,10 @@ export default function SkillButton({
         </span>
       )}
       {skill.effect.type === "damage_area" && ready && !aiming && (
-        <Icon name="target" className="absolute bottom-1 left-1 text-xs text-[#ffe0c2] drop-shadow-[0_1px_0_#1b1438]" />
+        <Icon
+          name="target"
+          className={`absolute left-1 text-xs text-[#ffe0c2] drop-shadow-[0_1px_0_#1b1438] ${round ? "bottom-1" : "top-1"}`}
+        />
       )}
 
       {/* 쿨다운 그림자 */}

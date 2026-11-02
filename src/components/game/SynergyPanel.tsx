@@ -104,14 +104,17 @@ export function SynergyRows({ synergies }: { synergies: ActiveSynergy[] }) {
             >
               <SynergyEmblem syn={syn} />
               <div className="min-w-0 flex-1">
-                <div className="truncate font-display text-[15px] text-parchment-50 text-toon-sm">{syn.region}</div>
-                <div className="truncate text-[11px] text-parchment-300">
+                <div className="flex items-center justify-between gap-1.5">
+                  <span className="truncate font-display text-[15px] text-parchment-50 text-toon-sm">{syn.region}</span>
+                  <TierPips syn={syn} />
+                </div>
+                {/* 효과 문구가 "…"로 잘리지 않게 두 줄까지 */}
+                <div className="line-clamp-2 text-[11px] leading-snug text-parchment-300">
                   {active
                     ? syn.tiers[syn.activeTierIndex].effects.map(effectText).join(" · ")
                     : syn.name}
                 </div>
               </div>
-              <TierPips syn={syn} />
             </div>
           </Tip>
         );

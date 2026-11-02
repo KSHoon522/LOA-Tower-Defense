@@ -1072,7 +1072,11 @@ export default function GameClient() {
                 <span
                   key={w}
                   className="absolute top-0 h-full w-1 -translate-x-1/2 bg-blood-500"
-                  style={{ left: `${(w / engine.totalWaves) * 100}%`, opacity: w <= engine.wave ? 0.45 : 1 }}
+                  // 둥근 끝에 걸리면 반쯤 잘려 깨진 것처럼 보여서 양 끝 안쪽으로
+                  style={{
+                    left: `clamp(8px, ${(w / engine.totalWaves) * 100}%, calc(100% - 8px))`,
+                    opacity: w <= engine.wave ? 0.45 : 1,
+                  }}
                 />
               ))}
           </div>
@@ -1270,8 +1274,8 @@ export default function GameClient() {
             </div>
           )}
 
-          {/* 모바일: 선택 유닛 정보 카드 (빠른 메뉴가 열려 있으면 숨김) */}
-          {selectedUnit && selectedDef && !unitMenu && (
+          {/* 모바일: 선택 유닛 정보 카드 (빠른 메뉴·합성 확인이 열려 있으면 숨김 — 두 판이 겹쳐 쌓이지 않게) */}
+          {selectedUnit && selectedDef && !unitMenu && !fusionTargetUid && (
             <div className="frame absolute bottom-2 left-2 right-[4.5rem] z-20 max-w-md animate-fade-rise p-2.5 lg:hidden">
               <button
                 className="btn-red absolute right-1.5 top-1.5 z-10 h-7 w-7 rounded-full"

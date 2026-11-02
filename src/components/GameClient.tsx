@@ -1036,27 +1036,21 @@ export default function GameClient() {
       className="fixed inset-0 z-50 flex select-none flex-col overflow-hidden bg-arkesia"
       onPointerDownCapture={() => getSound()?.unlock()}
     >
-      {/* ===== 상단 HUD ===== */}
-      <div className="relative z-30 flex h-14 shrink-0 items-center gap-1.5 px-2 sm:h-16 sm:gap-2 sm:px-3">
+      {/* ===== 상단 HUD ===== (360px 폰에서도 일시정지 버튼이 밀려나지 않게 좁은 화면은 간격·WAVE 글자를 줄임) */}
+      <div className="relative z-30 flex h-14 shrink-0 items-center gap-1.5 px-2 max-[379px]:gap-1 sm:h-16 sm:gap-2 sm:px-3">
         <button className="btn-ghost h-9 w-9 shrink-0 rounded-full sm:h-10 sm:w-10" onClick={exitToLobby} aria-label="로비로">
           <Icon name="chevronLeft" className="text-lg" />
         </button>
         <div
           key={`lives-${livesPulse.key}`}
-          className={`plate relative h-8 pl-6 pr-2.5 sm:h-9 sm:pl-7 sm:pr-3 ${livesPulse.dir < 0 ? "animate-hit-flash" : ""}`}
+          className={`plate h-8 gap-1 pl-1 pr-2 sm:h-9 sm:pl-2 sm:pr-3 ${livesPulse.dir < 0 ? "animate-hit-flash" : ""}`}
           title="목숨"
         >
-          <Icon
-            name="heart"
-            className="icon-toon absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-blood-400 sm:text-[30px]"
-          />
+          <Icon name="heart" className="shrink-0 text-[20px] text-blood-400 sm:text-[22px]" />
           <span className="font-display text-base text-parchment-50 text-toon-sm sm:text-lg">{engine.lives}</span>
         </div>
-        <div className="plate relative ml-1.5 h-8 pl-6 pr-2.5 sm:h-9 sm:pl-7 sm:pr-3" title="골드">
-          <Icon
-            name="coin"
-            className="icon-toon absolute -left-2 top-1/2 -translate-y-1/2 text-[26px] text-gold-400 sm:text-[30px]"
-          />
+        <div className="plate h-8 gap-1 pl-1 pr-2 sm:h-9 sm:pl-2 sm:pr-3" title="골드">
+          <Icon name="coin" className="shrink-0 text-[20px] text-gold-400 sm:text-[22px]" />
           <span className="min-w-[2.5ch] font-display text-base text-gold-300 text-toon-sm sm:text-lg">{gold}</span>
         </div>
 
@@ -1090,7 +1084,7 @@ export default function GameClient() {
         <div className="ml-auto flex items-center gap-1 sm:gap-1.5">
           {/* 모바일 웨이브 표시 */}
           <div className="plate h-8 gap-1 px-2 md:hidden">
-            <span className="font-display text-[10px] text-parchment-300">WAVE</span>
+            <span className="font-display text-[10px] text-parchment-300 max-[379px]:hidden">WAVE</span>
             <span className="font-display text-base text-gold-300 text-toon-sm">
               {engine.wave}
               <span className="text-xs text-parchment-300">/{engine.totalWaves}</span>

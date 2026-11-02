@@ -356,7 +356,7 @@ export default function LobbyPage() {
                               : "linear-gradient(180deg,#5878e6 0%,#4d6bdc 50%,#3b56c6 50%,#344dba 100%)",
                             // 선택 테두리는 아래 두께(립)까지 감싸야 동그라미와 어긋나 보이지 않음
                             boxShadow: `inset 0 3px 0 rgba(255,255,255,0.45), 0 ${active ? 6 : 4}px 0 #1b1438${
-                              active ? ", 0 6px 0 4px #8b9fe8, 0 0 0 4px #8b9fe8" : ""
+                              active ? ", 0 6px 0 4px #ffe266, 0 0 0 4px #ffe266" : ""
                             }`,
                           }}
                         >
